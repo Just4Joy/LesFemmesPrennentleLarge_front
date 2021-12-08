@@ -1,21 +1,15 @@
-# Template for Frontend project
+# Vite + React + Typescript + Eslint + Prettier
 
-## Why this project
-This repo aims to provide a comfortable Developer Experience (DX) to newbie React developpers.
-It comes with a lo of tools with a asic config:
-- Create React App (CRA)
-- ESLint
-- Prettier
-- StyleLint
+A starter for React with Typescript with the fast Vite and all static code testing with Eslint and formatting with Prettier.
 
-## First steps
+![Vite + React + Typescript + Eslint + Prettier](/resources/screenshot.png)
 
-### Install these extensions for VSCode
+I found out about Vite and I wanted to have a boilerplate for the technologies that I use. You can find more about these in the following links: [Vite](https://github.com/vitejs/vite), [React](https://reactjs.org/), [Typescript](https://www.typescriptlang.org/), [Eslint](https://eslint.org/), [Prettier](https://prettier.io/).
 
-- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-- [StyleLint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint)
+## Installation
 
-### Install `husky`, which will check your code everytime you commit files
+Clone the repo and run `yarn install`
 
-- `npm run prepare`
+## Start
+
+After the successfull installation of the packages: `yarn dev`
