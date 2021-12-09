@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import Home from './components/Home/Home';
 import Profile from './components/Profile/Profile';
-import Sessions from './components/Sessions.tsx/Sessions';
+import Sessions from './components/Sessions/Sessions';
 
 function App() {
   return (
