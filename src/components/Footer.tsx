@@ -1,7 +1,10 @@
-import React from 'react';
 import './Footer.scss';
+
+import React from 'react';
+import { AiFillFacebook, AiFillInstagram, AiFillLinkedin } from 'react-icons/ai';
+import { NavLink } from 'react-router-dom';
+
 import Logo from './img/logo.svg';
-import { AiFillLinkedin, AiFillInstagram, AiFillFacebook } from 'react-icons/ai';
 
 const Footer = () => {
   return (
@@ -14,16 +17,16 @@ const Footer = () => {
           <ul className="footer-container-row-1-nav-list">
             <li>Pages</li>
             <li>
-              <a href="">Home</a>
+              <NavLink to="/home">Home</NavLink>
             </li>
             <li>
-              <a href="">Search</a>
+              <NavLink to="/search">Search</NavLink>
             </li>
             <li>
-              <a href="">Profil</a>
+              <NavLink to="/profil">Profil</NavLink>
             </li>
             <li>
-              <a href="">Landing page</a>
+              <NavLink to="/landing_page">Landing page</NavLink>
             </li>
           </ul>
         </div>
@@ -31,20 +34,20 @@ const Footer = () => {
           <ul className="footer-container-row-1-mentions-list">
             <li>Mentions</li>
             <li>
-              <a href="">Mentions légales</a>
+              <NavLink to="/legal_mentions">Mentions légales</NavLink>
             </li>
             <li>
-              <a href="">CGV</a>
+              <NavLink to="/cgv">CGV</NavLink>
             </li>
             <li>
-              <a href="">CGU</a>
+              <NavLink to="/cgu">CGU</NavLink>
             </li>
           </ul>
         </div>
         <div className="footer-container-row-1-newsletter">
-          <label htmlFor="">Newsletter</label>
-          <input type="text" placeholder="E-mail" />
-          <button>S'inscrire</button>
+          <NavLink to="newsletter">Newsletter</NavLink>
+          <input type="text" />
+          <button>S`&apos;`inscrire</button>
         </div>
       </div>
       <div className="footer-container-row-2">
