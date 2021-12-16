@@ -1,7 +1,9 @@
-import React from 'react';
-import Wahine from '../Wahine';
 import './Home.scss';
+
+import React from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
+
+import Wahine from '../Wahine';
 import BecomeWahine from './BecomeWahine';
 
 const Home = () => {

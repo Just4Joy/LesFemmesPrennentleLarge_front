@@ -1,5 +1,7 @@
-import React from 'react';
 import './Wahine.scss';
+
+import React from 'react';
+
 import wahine from './img/wahine.svg';
 
 const Wahine = () => {
