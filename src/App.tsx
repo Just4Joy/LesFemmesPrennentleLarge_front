@@ -1,6 +1,7 @@
 import './App.scss';
 
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -11,11 +12,17 @@ import Sessions from './components/Sessions/Sessions';
 function App() {
   return (
     <div className="App">
-      <Header />
-      <Home />
-      <Profile />
-      <Sessions />
-      <Footer />
+      <Router>
+        <div>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/profil" element={<Profile />} />
+            <Route path="/sessions" element={<Sessions />} />
+          </Routes>
+          <Footer />
+        </div>
+      </Router>
     </div>
   );
 }
