@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="footer-container-row-1">
         <img src={Logo} alt="" />
         <div className="footer-container-row-1-nav">
-          <ul>
+          <ul className="footer-container-row-1-nav-list">
             <li>Pages</li>
             <li>
               <a href="">Home</a>
@@ -28,7 +28,7 @@ const Footer = () => {
           </ul>
         </div>
         <div className="footer-container-row-1-mentions">
-          <ul>
+          <ul className="footer-container-row-1-mentions-list">
             <li>Mentions</li>
             <li>
               <a href="">Mentions légales</a>
@@ -43,15 +43,21 @@ const Footer = () => {
         </div>
         <div className="footer-container-row-1-newsletter">
           <label htmlFor="">Newsletter</label>
-          <input type="text" />
+          <input type="text" placeholder="E-mail" />
           <button>S'inscrire</button>
         </div>
       </div>
       <div className="footer-container-row-2">
         <div className="footer-container-row-2-socialIcon">
-          <AiFillInstagram />
-          <AiFillFacebook />
-          <AiFillLinkedin />
+          <a href="">
+            <AiFillInstagram size="2em" />
+          </a>
+          <a href="">
+            <AiFillFacebook size="2em" />
+          </a>
+          <a href="">
+            <AiFillLinkedin size="2em" />
+          </a>
         </div>
         <p className="footer-container-row-2-email">lesfemmesprennentlelarge.com</p>
       </div>
