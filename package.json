@@ -15,10 +15,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
-<<<<<<< HEAD
     "react-router": "^6.1.1",
-=======
->>>>>>> 95b0321e5a9c66ac8c362677a9a18d5f331f6cfa
     "react-router-dom": "^6.1.1"
   },
   "devDependencies": {

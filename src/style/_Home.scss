@@ -1,74 +1,54 @@
 .home {
+  &__presentation {
+    text-align: center;
+    margin: 13rem 0;
 
-    &__presentation {
-      text-align: center;
-      margin: 13rem 0;
-  
-      &__p1 {
-        font-family: Source Sans Pro;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 36px;
-        line-height: 45px;
-        margin-bottom: 2rem;
-      }
-      &__p2 {
-        font-family: Source Sans Pro;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 18px;
-        line-height: 23px;
-      }
+    &__h1 {
+      margin-bottom: 2rem;
     }
-    &__region {
-      &__p1 {
-        font-family: $Second-font;
-        font-weight: 600;
-        font-size: 1.5rem;
-        margin-bottom: 3rem;
-      }
-      &__component {
-        display: flex;
-        justify-content: space-between;
-      }
-      &__p2 {
-        font-family: $Second-font;
-        font-weight: 600;
-        font-size: 1rem;
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 5rem;
-      }
+    &__h4 {
+      font-weight: 400;
     }
-    &__sessions {
-      &__p1 {
-        font-family: $Second-font;
-        font-weight: 600;
-        font-size: 1.5rem;
-        margin-bottom: 5rem;
-      }
-      &__component {
-        display: flex;
-        justify-content: space-between;
-      }
-      &__p2 {
-        font-family: $Second-font;
-        font-weight: 600;
-        font-size: 1rem;
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 5rem;
-      }
-    }
-  &__component {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1.5rem;
   }
-  &__link {
-    font-size: 1rem;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 4rem;
+  &__region {
+    &__h3 {
+      margin-bottom: 3rem;
+    }
+    &__component {
+      display: flex;
+      justify-content: space-between;
+    }
+    &__h5 {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 5rem;
+    }
+  }
+  &__sessions {
+    &__h3 {
+      margin-bottom: 5rem;
+    }
+    &__component {
+      display: flex;
+      justify-content: space-between;
+    }
+    &__h5 {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 5rem;
+    }
+  }
+  &__wahines {
+    &__component {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+    }
+    &__link {
+      font-size: 1rem;
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 4rem;
+    }
   }
 }
