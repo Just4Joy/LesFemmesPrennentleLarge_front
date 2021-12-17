@@ -17,7 +17,7 @@ const Footer = () => {
           <ul className="footer-container-row-1-nav-list">
             <li>Pages</li>
             <li>
-              <NavLink to="/home">Home</NavLink>
+              <NavLink to="/">Home</NavLink>
             </li>
             <li>
               <NavLink to="/search">Search</NavLink>
@@ -47,7 +47,7 @@ const Footer = () => {
         <div className="footer-container-row-1-newsletter">
           <NavLink to="newsletter">Newsletter</NavLink>
           <input type="text" />
-          <button>S`&apos;`inscrire</button>
+          <button>S&apos;inscrire</button>
         </div>
       </div>
       <div className="footer-container-row-2">

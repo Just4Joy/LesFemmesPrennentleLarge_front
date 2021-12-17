@@ -8,7 +8,7 @@ const BecomeWahine = () => {
   return (
     <div className="become-wahine-container">
       <h2 className="become-wahine-container-h2">
-        Envie d`&apos;`accompagner des surfeuses ?
+        Envie d&apos;accompagner des surfeuses ?
       </h2>
       <h3 className="become-wahine-container-h3">
         Créer des sessions dans tes spots préférés

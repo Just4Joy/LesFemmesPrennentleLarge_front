@@ -1,0 +1,15 @@
+@import '../Base.scss';
+
+.session-container {
+  > .session-button {
+    display: flex;
+  }
+  > .session-info {
+  }
+  > .session-details-p {
+    font-family: $Second-font;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: 5rem;
+  }
+}
