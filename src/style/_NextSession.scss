@@ -1,0 +1,54 @@
+.session {
+    font-family: $Second-font;
+    width: 28%;
+    padding: 0 1rem;
+    &__button {
+      display: flex;
+      justify-content: space-around;
+      padding-bottom: 2rem;
+      &__region {
+        background-color: #fbdcc5;
+        border-radius: 10px;
+        padding: 0.5rem 2rem;
+      }
+      &__surfstyle {
+        background-color: #c2e5e0;
+        border-radius: 10px;
+        padding: 0.5rem 2rem;
+      }
+    }
+  
+    &__infos {
+      &__spot {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 2rem;
+        &__h4 {
+          font-weight: bold;
+          padding-bottom: 1rem;
+        }
+        &__p1 {
+          padding-bottom: 1rem;
+        }
+      }
+      &__rdv {
+        display: flex;
+        justify-content: space-between;
+        &__date {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+    &__hr {
+      border: 1px solid #ebebeb;
+      margin: 2rem 2rem;
+    }
+  
+    &__details {
+      font-weight: 600;
+      font-size: 1rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }

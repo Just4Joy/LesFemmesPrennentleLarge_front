@@ -1,12 +1,13 @@
-import React from "react";
+import React from 'react';
 
 const Region = () => {
-
-    return (
-        <div>
-
-        </div>
-    )
-}
+  return (
+    <div>
+      <button className="region-button" type="button">
+        Nouvelle Aquitaine
+      </button>
+    </div>
+  );
+};
 
 export default Region;

@@ -7,14 +7,18 @@
     "serve": "vite preview",
     "lint:fix": "eslint ./src --ext .jsx,.js,.ts,.tsx --quiet --fix --ignore-path ./.gitignore",
     "lint:format": "prettier  --loglevel warn --write \"./**/*.{js,jsx,ts,tsx,css,md,json}\" ",
-    "lint": "yarn lint:format && yarn lint:fix ",
-    "type-check": "tsc"
+    "lint": "npm run lint:format && npm run lint:fix ",
+    "type-check": "tsc",
+    "sass": "node-sass "
   },
   "dependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
+<<<<<<< HEAD
     "react-router": "^6.1.1",
+=======
+>>>>>>> 95b0321e5a9c66ac8c362677a9a18d5f331f6cfa
     "react-router-dom": "^6.1.1"
   },
   "devDependencies": {
@@ -30,6 +34,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "node-sass": "^7.0.0",
     "pre-commit": "^1.2.2",
     "prettier": "^2.3.2",
     "sass": "^1.44.0",

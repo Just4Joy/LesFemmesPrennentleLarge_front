@@ -1,0 +1,19 @@
+.header {
+    font-family: $Main-font;
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0;
+  
+    &__list {
+      font-family: $Main-font;
+      display: flex;
+      justify-content: space-around;
+      width: 30vw;
+    }
+  
+    &__link {
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+  }
+  

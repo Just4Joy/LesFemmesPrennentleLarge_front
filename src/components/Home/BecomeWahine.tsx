@@ -1,4 +1,7 @@
+
 import React from 'react';
+
+
 import becomeWahine from '../img/become-wahine.svg';
 
 const BecomeWahine = () => {

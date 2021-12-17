@@ -1898,7 +1898,11 @@
     "history" "^5.1.0"
     "react-router" "6.1.1"
 
+<<<<<<< HEAD
 "react-router@^6.1.1", "react-router@6.1.1":
+=======
+"react-router@6.1.1":
+>>>>>>> 95b0321e5a9c66ac8c362677a9a18d5f331f6cfa
   "integrity" "sha512-55o96RiDZmC0uD17DPqVmzzfdNd2Dc+EjkYvMAmHl43du/GItaTdFr5WwjTryNWPXZ+OOVQxQhwAX25UwxpHtw=="
   "resolved" "https://registry.npmjs.org/react-router/-/react-router-6.1.1.tgz"
   "version" "6.1.1"
