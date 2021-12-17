@@ -1,15 +1,15 @@
 @import './Base.scss';
 
-.wahine-container {
+.wahine {
   align-items: center;
   font-family: $Second-font;
   font-weight: 600;
-  > .wahine-container-img {
+  &__img {
     display: flex;
     justify-content: center;
     margin: 2rem 0;
   }
-  > h3 {
+  h3 {
     color: #333333;
     font-size: 1.2rem;
     margin-bottom: 1rem;

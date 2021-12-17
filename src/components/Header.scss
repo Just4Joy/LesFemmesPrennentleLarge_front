@@ -1,31 +1,20 @@
 @import './Base.scss';
 
-.header-container {
+.header {
   font-family: $Main-font;
   display: flex;
+  justify-content: space-between;
+  margin: 2rem 0;
 
-  > .header-logo {
-    width: 85px;
-    height: 36px;
-    left: 35px;
-    top: 17px;
-
-    font-style: normal;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 36px;
-    /* identical to box height */
+  &__list {
+    font-family: $Main-font;
+    display: flex;
+    justify-content: space-around;
+    width: 30vw;
   }
 
-  .header-link {
+  &__link {
     width: 100%;
     margin-bottom: 2rem;
-    display: flex;
-    > .first-one {
-    }
-    > .second-one {
-    }
-    > .third-one {
-    }
   }
 }
