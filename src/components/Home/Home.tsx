@@ -1,6 +1,7 @@
 import React from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 
+import headerImg from '../img/header-img.jpg';
 import NextSession from '../NextSession';
 import Wahine from '../Wahine';
 import BecomeWahine from './BecomeWahine';
@@ -10,6 +11,7 @@ const Home = () => {
   return (
     <div className="home">
       {/*Section : Présentation*/}
+
       <div className="home__presentation">
         <h1 className="home__presentation__h1">
           {' '}
