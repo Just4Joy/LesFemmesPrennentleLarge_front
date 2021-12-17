@@ -1,0 +1,13 @@
+.home {
+  &__component {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+  }
+  &__link {
+    font-size: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4rem;
+  }
+}

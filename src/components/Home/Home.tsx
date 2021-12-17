@@ -1,25 +1,25 @@
 import React from 'react';
 import Wahine from '../Wahine';
-import './Home.scss';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 import BecomeWahine from './BecomeWahine';
+import NavLink from 'react-router';
 
 const Home = () => {
   return (
-    <div className="home-container">
+    <div className="home">
       {/* Section : Nos wahines */}
-      <div className="home-container-wahine">
-        <h1 className="home-container-wahine-h1">Nos Wahines</h1>
-        <div className="home-container-wahine-component">
+      <div className="home__wahines">
+        <h3 className="">Nos Wahines</h3>
+        <div className="home__component">
           <Wahine />
           <Wahine />
           <Wahine />
           <Wahine />
           <Wahine />
         </div>
-        <p className="home-container-wahine-p">
+        <h5 className="home__link">
           Toutes les wahines <BsBoxArrowInUpRight />
-        </p>
+        </h5>
       </div>
       {/* Section : Devenir wahine */}
       <BecomeWahine />
