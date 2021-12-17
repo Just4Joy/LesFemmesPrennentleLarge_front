@@ -1,36 +1,37 @@
 import React from 'react';
-
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
-import './NextSession.scss';
+import { BsFillPatchCheckFill } from 'react-icons/bs';
 
 const Session = () => {
   return (
     <div className="session">
       <div className="session__button">
-        <div className="session__button__region">Occitanie</div>
-        <div className="session__button__surfstyle">Surf au large</div>
+        <h6 className="session__button__region">Occitanie</h6>
+        <h6 className="session__button__surfstyle">Surf au large</h6>
       </div>
       <div className=" session__infos">
         <div className="session__infos__spot">
           <h4 className="session__infos__spot__h4">Nom de la session</h4>
-          <p className="session__infos__spot__p1"> Nom du spot </p>
-          <p className="session__infos__spot__p2"> Adresse </p>
+          <h6 className="session__infos__spot__h6"> Nom du spot </h6>
+          <h6 className="session__infos__spot__adress"> Adresse </h6>
         </div>
 
         <div className="session__infos__rdv">
           <div className="session__infos__rdv__date">
-            <p>Date </p>
-            <p> Heure</p>
+            <p className="session__infos__rdv__date__p">15/01/2022</p>
+            <p>17h15</p>
           </div>
           <div className="session__infos__rdv__covoit">
-            <p>Covoiturage</p>
+            <p>
+              Covoiturage <BsFillPatchCheckFill color="#1f8387" />
+            </p>
           </div>
         </div>
       </div>
       <hr className="session__hr" />
-      <p className="session__details">
+      <h5 className="session__details">
         Details <BsBoxArrowInUpRight />
-      </p>
+      </h5>
     </div>
   );
 };

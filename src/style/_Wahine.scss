@@ -1,0 +1,14 @@
+.wahine {
+  width: 20vw;
+  &__img {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+  &__h5 {
+    margin-bottom: 1rem;
+  }
+  &__h6 {
+    color: black;
+  }
+}

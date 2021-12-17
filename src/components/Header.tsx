@@ -1,7 +1,7 @@
 import React from 'react';
-import './Header.scss';
-import LFPLL from './img/LFPLL.svg';
 import { NavLink } from 'react-router-dom';
+
+import LFPLL from './img/LFPLL.svg';
 
 const Header = () => {
   return (

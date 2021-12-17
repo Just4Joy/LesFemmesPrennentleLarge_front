@@ -1,6 +1,4 @@
-@import './Base.scss';
 .session {
-  font-family: $Second-font;
   width: 28%;
   padding: 0 1rem;
   &__button {
@@ -11,11 +9,15 @@
       background-color: #fbdcc5;
       border-radius: 10px;
       padding: 0.5rem 2rem;
+      color: black;
+      font-weight: 400;
     }
     &__surfstyle {
       background-color: #c2e5e0;
       border-radius: 10px;
       padding: 0.5rem 2rem;
+      color: black;
+      font-weight: 400;
     }
   }
 
@@ -28,16 +30,34 @@
         font-weight: bold;
         padding-bottom: 1rem;
       }
-      &__p1 {
+      &__h6 {
+        font-weight: 500;
+        font-size: 15px;
+        color: black;
+        padding-bottom: 1rem;
+      }
+      &__adress {
+        font-weight: 500;
+        font-size: 15px;
+        color: black;
         padding-bottom: 1rem;
       }
     }
     &__rdv {
       display: flex;
       justify-content: space-between;
+      align-items: flex-end;
+      font-family: $Main-font;
+      font-weight: 500;
+      font-size: 15px;
+      color: black;
+      padding-bottom: 1rem;
       &__date {
         display: flex;
         flex-direction: column;
+        &__p {
+          margin-bottom: 0.5rem;
+        }
       }
     }
   }
@@ -47,8 +67,7 @@
   }
 
   &__details {
-    font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.8rem;
     display: flex;
     justify-content: flex-end;
   }

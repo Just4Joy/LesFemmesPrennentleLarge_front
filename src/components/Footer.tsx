@@ -1,68 +1,46 @@
-import './Footer.scss';
-
 import React from 'react';
-import { AiFillFacebook, AiFillInstagram, AiFillLinkedin } from 'react-icons/ai';
-import { NavLink } from 'react-router-dom';
-
 import Logo from './img/logo.svg';
+// import Link from 'react-router-dom';
+import { AiFillLinkedin, AiFillInstagram, AiFillFacebook } from 'react-icons/ai';
 
 const Footer = () => {
   return (
-    <div className="footer-container">
-      <p className="footer-container-p">Des questions, contactez nous,</p>
-      <p className="footer-container-email">lesfemmesprennentlelarge33@gmail.com</p>
-      <div className="footer-container-row-1">
+    <div className="footer">
+      <h4 className="footer__h4">Des questions, contactez nous,</h4>
+      <h4 className="footer__h4">lesfemmesprennentlelarge33@gmail.com</h4>
+      <div className="footer__row1">
         <img src={Logo} alt="" />
-        <div className="footer-container-row-1-nav">
-          <ul className="footer-container-row-1-nav-list">
-            <li>Pages</li>
-            <li>
-              <NavLink to="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink to="/search">Search</NavLink>
-            </li>
-            <li>
-              <NavLink to="/profil">Profil</NavLink>
-            </li>
-            <li>
-              <NavLink to="/landing_page">Landing page</NavLink>
-            </li>
-          </ul>
-        </div>
-        <div className="footer-container-row-1-mentions">
-          <ul className="footer-container-row-1-mentions-list">
-            <li>Mentions</li>
-            <li>
-              <NavLink to="/legal_mentions">Mentions légales</NavLink>
-            </li>
-            <li>
-              <NavLink to="/cgv">CGV</NavLink>
-            </li>
-            <li>
-              <NavLink to="/cgu">CGU</NavLink>
-            </li>
-          </ul>
-        </div>
-        <div className="footer-container-row-1-newsletter">
-          <NavLink to="newsletter">Newsletter</NavLink>
-          <input type="text" />
-          <button>S&apos;inscrire</button>
+
+        <ul className="footer__row1__nav">
+          <li>Pages</li>
+          <li>Home</li>
+          <li>Search</li>
+          <li>Profil</li>
+          <li>Landing page</li>
+        </ul>
+
+        <ul className="footer__row1__mentions">
+          <li>Mentions</li>
+          <li>Mentions légales</li>
+          <li>CGV</li>
+          <li>CGU</li>
+        </ul>
+
+        <div className="footer__row1__newsletter">
+          <label htmlFor="">Newsletter</label>
+          <input type="text" placeholder="E-mail" />
+          <button>S'inscrire</button>
         </div>
       </div>
-      <div className="footer-container-row-2">
-        <div className="footer-container-row-2-socialIcon">
-          <a href="">
-            <AiFillInstagram size="2em" />
-          </a>
-          <a href="">
-            <AiFillFacebook size="2em" />
-          </a>
-          <a href="">
-            <AiFillLinkedin size="2em" />
-          </a>
+      <div className="footer__row2">
+        <div className="footer__row2__socialIcon">
+          <AiFillInstagram size="2em" />
+
+          <AiFillFacebook size="2em" />
+
+          <AiFillLinkedin size="2em" />
         </div>
-        <p className="footer-container-row-2-email">lesfemmesprennentlelarge.com</p>
+        <h4 className="footer__row2__email">lesfemmesprennentlelarge.com</h4>
       </div>
     </div>
   );

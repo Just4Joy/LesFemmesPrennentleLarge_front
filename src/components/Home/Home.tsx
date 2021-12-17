@@ -1,32 +1,32 @@
-import './Home.scss';
-
 import React from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 
+import headerImg from '../img/header-img.jpg';
+import NextSession from '../NextSession';
 import Wahine from '../Wahine';
 import BecomeWahine from './BecomeWahine';
-import NextSession from '../NextSession';
 import Region from './Region';
 
 const Home = () => {
   return (
     <div className="home">
       {/*Section : Présentation*/}
+
       <div className="home__presentation">
-        <p className="home__presentation__p1">
+        <h1 className="home__presentation__h1">
           {' '}
           Trouve des filles avec qui surfer <br />
           Des sessions entre surfeuses partout en France
-        </p>
+        </h1>
 
-        <p className="home__presentation__p2">
+        <h4 className="home__presentation__h4">
           Pour tous les niveaux et organisés par des filles de coin qui maitrisent leur
           spot
-        </p>
+        </h4>
       </div>
       {/*Section : Les sessions de ta région*/}
       <div className="home__region">
-        <p className="home__region__p1">Toutes les sessions de ta région</p>
+        <h3 className="home__region__h3">Les sessions de ta région</h3>
         <div className="home__region__component">
           <Region />
           <Region />
@@ -36,35 +36,36 @@ const Home = () => {
           <Region />
           <Region />
         </div>
-        <p className="home__region__p2">
+        <h5 className="home__region__h5">
           Toutes les régions <BsBoxArrowInUpRight />
-        </p>
+        </h5>
       </div>
+
       {/*Section : Les prochaines sessions*/}
       <div className="home__sessions">
-        <p className="home__sessions__p1">Toutes les prochaines sessions</p>
+        <h3 className="home__sessions__h3">Les prochaines sessions</h3>
         <div className="home__sessions__component">
           <NextSession />
           <NextSession />
           <NextSession />
         </div>
-        <p className="home__sessions__p2">
+        <h5 className="home__sessions__h5">
           Toutes les sessions <BsBoxArrowInUpRight />
-        </p>
+        </h5>
       </div>
       {/* Section : Nos wahines */}
-      <div className="home__wahine">
-        <h1 className="home__wahine__p1">Nos Wahines</h1>
-        <div className="home__wahine__component">
+      <div className="home__wahines">
+        <h3 className="home__wahines__h3">Nos Wahines</h3>
+        <div className="home__wahines__component">
           <Wahine />
           <Wahine />
           <Wahine />
           <Wahine />
           <Wahine />
         </div>
-        <p className="home__wahine-p">
+        <h5 className="home__wahines__link">
           Toutes les wahines <BsBoxArrowInUpRight />
-        </p>
+        </h5>
       </div>
       {/* Section : Devenir wahine */}
       <BecomeWahine />
