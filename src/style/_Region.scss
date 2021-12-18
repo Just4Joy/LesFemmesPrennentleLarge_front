@@ -2,11 +2,12 @@
   &__button {
     width: 140px;
     height: 60px;
-    background: #c2e5e0;
+    // background: #f2c7c7;
     border-radius: 6px;
     border: 0px;
     font-family: $Second-font;
     font-size: 14px;
     line-height: 21px;
+    cursor: pointer;
   }
 }

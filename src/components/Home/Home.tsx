@@ -1,13 +1,28 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 
-import headerImg from '../img/header-img.jpg';
 import NextSession from '../NextSession';
 import Wahine from '../Wahine';
 import BecomeWahine from './BecomeWahine';
 import Region from './Region';
 
 const Home = () => {
+  interface regionTypes {
+    id_region: number;
+    name: string;
+    color: string;
+  }
+
+  const [regions, setRegions] = useState<regionTypes[]>([]);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3000/api/regions')
+      .then((result: any) => result.data)
+      .then((data: any) => setRegions(data));
+  }, []);
+
   return (
     <div className="home">
       {/*Section : Présentation*/}
@@ -28,17 +43,13 @@ const Home = () => {
       <div className="home__region">
         <h3 className="home__region__h3">Les sessions de ta région</h3>
         <div className="home__region__component">
-          <Region />
-          <Region />
-          <Region />
-          <Region />
-          <Region />
-          <Region />
-          <Region />
+          {regions &&
+            regions.map((region) => {
+              return (
+                <Region name={region.name} color={region.color} key={region.id_region} />
+              );
+            })}
         </div>
-        <h5 className="home__region__h5">
-          Toutes les régions <BsBoxArrowInUpRight />
-        </h5>
       </div>
 
       {/*Section : Les prochaines sessions*/}
