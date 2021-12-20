@@ -81,7 +81,6 @@ const Home = () => {
       </div>
       {/* Section : Devenir wahine */}
       <BecomeWahine />
-      <Profile />
     </div>
   );
 };
