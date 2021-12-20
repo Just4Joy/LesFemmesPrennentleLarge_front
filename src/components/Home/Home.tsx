@@ -1,7 +1,6 @@
 import React from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 
-import headerImg from '../img/header-img.jpg';
 import NextSession from '../NextSession';
 import Wahine from '../Wahine';
 import BecomeWahine from './BecomeWahine';
