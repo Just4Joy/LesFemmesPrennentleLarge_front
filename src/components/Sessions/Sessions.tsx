@@ -1,8 +1,23 @@
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
 import NextSession from '../NextSession';
+import axios from 'axios';
 
 const Sessions = () => {
+  interface regionTypes {
+    id_region: number;
+    name: string;
+    color: string;
+  }
+
+  const [regions, setRegions] = useState<regionTypes[]>([]);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3000/api/regions')
+      .then((result: any) => result.data)
+      .then((data: any) => setRegions(data));
+  }, []);
+
   return (
     <div className="sessions">
       <h1 className="sessions__h1">Trouver une session</h1>
@@ -10,13 +25,13 @@ const Sessions = () => {
       <div className="sessions__selectors">
         <select className="sessions__selectors__region" name="région" id="région">
           <option value="">région</option>
-          <option value="occitanie">Occitanie</option>
-          <option value="nouvelle-acquitaine">Nouvelle Acquitaine</option>
-          <option value="pays-de-la-loire">Pays de la Loire</option>
-          <option value="bretagne">Bretagne</option>
-          <option value="normandie">Normandie</option>
-          <option value="paca">PACA</option>
-          <option value="outre-mer">Outre Mer</option>
+          {regions.map((region) => {
+            return (
+              <option value={region.name} key={region.id_region}>
+                {region.name}
+              </option>
+            );
+          })}
         </select>
         {/* Select date */}
         <select className="sessions__selectors__date" name="date" id="date">
