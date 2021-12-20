@@ -1,0 +1,96 @@
+.myProfile {
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 5rem auto 8rem auto;
+  width: 60vw;
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.4rem;
+    > p {
+      @include hiki;
+    }
+  }
+  &__column {
+    display: flex;
+    gap: 2rem;
+    &__column1 {
+      display: flex;
+      flex-direction: column;
+      width: 20%;
+      gap: 1rem;
+      > img {
+        border: 1px rgb(167, 167, 167) solid;
+        border-radius: 15px;
+        padding: 2rem;
+      }
+      &__info {
+        border: 1px rgb(167, 167, 167) solid;
+        border-radius: 15px;
+        padding: 1rem;
+        > h2 {
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+    &__column2 {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 60%;
+      gap: 1rem;
+      &__row1 {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px rgb(209, 209, 209) solid;
+        padding-bottom: 0.5rem;
+        > div {
+          display: flex;
+          width: 100%;
+          // a remplacer par les vrais composants "Régions" et "Skills"
+          > p {
+            background-color: cadetblue;
+            padding: 0.4rem;
+            border-radius: 5px;
+            font-size: 11px;
+            margin-right: 1rem;
+          } ///
+        }
+      }
+      &__row2 {
+        display: flex;
+        flex-direction: column;
+        > h2 {
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+        }
+        &__wrap {
+          display: flex;
+          flex-wrap: wrap;
+          // a remplacer par les vrais composants "Régions" et "Skills"
+          > p {
+            background-color: cadetblue;
+            padding: 0.4rem;
+            border-radius: 5px;
+            font-size: 11px;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+          } ///
+        }
+      }
+      &__row3 {
+        &__describe {
+          border: 1px rgb(167, 167, 167) solid;
+          border-radius: 15px;
+          padding: 1rem;
+          min-height: 6.5rem;
+          > h2 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+}
