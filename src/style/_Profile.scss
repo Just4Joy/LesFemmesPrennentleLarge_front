@@ -1,7 +1,10 @@
 .profile {
+  margin-top: 5rem;
   &__goBack {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+    > a {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
   }
 }

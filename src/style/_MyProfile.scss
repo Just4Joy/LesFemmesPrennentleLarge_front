@@ -1,6 +1,8 @@
 .myProfile {
   border-radius: 15px;
   padding: 2rem;
+  margin: 5rem auto 8rem auto;
+  width: 60vw;
   &__row {
     display: flex;
     justify-content: space-between;
@@ -15,7 +17,7 @@
     &__column1 {
       display: flex;
       flex-direction: column;
-      width: 14vw;
+      width: 20%;
       gap: 1rem;
       > img {
         border: 1px rgb(167, 167, 167) solid;
@@ -36,7 +38,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      width: 60vw;
+      width: 60%;
       gap: 1rem;
       &__row1 {
         display: flex;
@@ -82,7 +84,7 @@
           border: 1px rgb(167, 167, 167) solid;
           border-radius: 15px;
           padding: 1rem;
-          min-height: 7rem;
+          min-height: 6.5rem;
           > h2 {
             font-weight: 600;
             margin-bottom: 0.5rem;
