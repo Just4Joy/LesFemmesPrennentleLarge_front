@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 
 import NextSession from '../NextSession';
+import Profile from '../Profile/Profile';
 import Wahine from '../Wahine';
 import BecomeWahine from './BecomeWahine';
 import Region from './Region';
@@ -80,6 +81,7 @@ const Home = () => {
       </div>
       {/* Section : Devenir wahine */}
       <BecomeWahine />
+      <Profile />
     </div>
   );
 };
