@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-const Region = () => {
+type RegionProps = {
+  name: string;
+  color: string;
+};
+
+const Region: FC<RegionProps> = ({ name, color }) => {
   return (
     <div className="region">
-      <button className="region__button" type="button">
-        Nouvelle Aquitaine
+      <button className="region__button" type="button" style={{ background: color }}>
+        {name}
       </button>
     </div>
   );
