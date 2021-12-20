@@ -1,7 +1,8 @@
 import React from 'react';
-import Logo from './img/logo.svg';
 // import Link from 'react-router-dom';
-import { AiFillLinkedin, AiFillInstagram, AiFillFacebook } from 'react-icons/ai';
+import { AiFillFacebook, AiFillInstagram, AiFillLinkedin } from 'react-icons/ai';
+
+import Logo from './img/logo.svg';
 
 const Footer = () => {
   return (
@@ -27,9 +28,9 @@ const Footer = () => {
         </ul>
 
         <div className="footer__row1__newsletter">
-          <label htmlFor="">Newsletter</label>
+          <label htmlFor="#">Newsletter</label>
           <input type="text" placeholder="E-mail" />
-          <button>S'inscrire</button>
+          <button>S&apos;inscrire</button>
         </div>
       </div>
       <div className="footer__row2">
