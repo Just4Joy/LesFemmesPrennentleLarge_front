@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 
 import NextSession from '../NextSession';
-import Profile from '../Profile/Profile';
 import Wahine from '../Wahine';
 import BecomeWahine from './BecomeWahine';
 import Region from './Region';
@@ -36,7 +35,7 @@ const Home = () => {
         </h1>
 
         <h4 className="home__presentation__h4">
-          Pour tous les niveaux et organisés par des filles de coin qui maitrisent leur
+          Pour tous les niveaux et organisés par des filles du coin qui maitrisent leur
           spot
         </h4>
       </div>
@@ -65,6 +64,7 @@ const Home = () => {
           Toutes les sessions <BsBoxArrowInUpRight />
         </h5>
       </div>
+
       {/* Section : Nos wahines */}
       <div className="home__wahines">
         <h3 className="home__wahines__h3">Nos Wahines</h3>
@@ -79,6 +79,7 @@ const Home = () => {
           Toutes les wahines <BsBoxArrowInUpRight />
         </h5>
       </div>
+
       {/* Section : Devenir wahine */}
       <BecomeWahine />
     </div>

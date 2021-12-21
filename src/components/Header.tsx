@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { NavLink } from 'react-router-dom';
 
 import LFPLL from './img/LFPLL.svg';
 
-const Header = () => {
+type HeaderProps = {
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+};
+
+const Header: FC<HeaderProps> = ({ setIsOpen }) => {
   return (
     <div className="header">
       <div className="header__logo">
@@ -24,7 +29,9 @@ const Header = () => {
           <NavLink to="/sessions">Sessions</NavLink>
         </li>
         <li className="header__list__connection">
-          <NavLink to="/login">Se connecter</NavLink>
+          <NavLink to="/login" onClick={() => setIsOpen(true)}>
+            Se connecter
+          </NavLink>
         </li>
       </ul>
     </div>
