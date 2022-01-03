@@ -6,10 +6,10 @@ import { NavLink } from 'react-router-dom';
 import LFPLL from './img/LFPLL.svg';
 
 type HeaderProps = {
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const Header: FC<HeaderProps> = ({ setIsOpen }) => {
+const Header: FC<HeaderProps> = ({ setActiveModal }) => {
   return (
     <div className="header">
       <div className="header__logo">
@@ -29,7 +29,7 @@ const Header: FC<HeaderProps> = ({ setIsOpen }) => {
           <NavLink to="/sessions">Sessions</NavLink>
         </li>
         <li className="header__list__connection">
-          <NavLink to="/login" onClick={() => setIsOpen(true)}>
+          <NavLink to="/login" onClick={() => setActiveModal('connect')}>
             Se connecter
           </NavLink>
         </li>
