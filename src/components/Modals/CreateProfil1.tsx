@@ -2,12 +2,12 @@ import React from 'react';
 
 const CreateProfil1 = () => {
   return (
-    <div>
-      <div>
-        <h2>Compléter son profil (1/2)</h2>
-        <h2>Skip</h2>
+    <div className="CreateProfil1">
+      <div className="CreateProfil1_title">
+        <h2 className="CreateProfil1_title_h2_1">Compléter son profil (1/2)</h2>
+        <h2 className="CreateProfil1_title_h2_2">Skip</h2>
       </div>
-      <div>
+      <div className="CreateProfil1_">
         <img />
         <div>
           <div>

@@ -9,9 +9,9 @@ import Home from './components/Home/Home';
 import Profile from './components/Profile/Profile';
 import Sessions from './components/Sessions/Sessions';
 import Session from './components/Session/Session';
-import Modal from './components/Modal';
-import Connect from './components/Connect';
-import CreateAccount from './components/CreateAccount';
+import Modal from './components/Modals/Modal';
+import Connect from './components/Modals/Connect';
+import CreateAccount from './components/Modals/CreateAccount';
 
 function App() {
   const [activeModal, setActiveModal] = useState<string>('');
