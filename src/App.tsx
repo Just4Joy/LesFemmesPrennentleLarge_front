@@ -9,7 +9,7 @@ import Home from './components/Home/Home';
 import Connect from './components/Modals/Connect';
 import CreateAccount from './components/Modals/CreateAccount';
 import Modal from './components/Modals/Modal';
-import ModalWahine from './components/Modals/ModalWahine';
+import ModalProfile from './components/Modals/ModalProfile';
 import Profile from './components/Profile/Profile';
 import Session from './components/Session/Session';
 import Sessions from './components/Sessions/Sessions';
@@ -46,7 +46,7 @@ function App() {
         )}
         {activeModal === 'modalwahine' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
-            <ModalWahine />
+            <ModalProfile />
           </Modal>
         )}
       </Router>
