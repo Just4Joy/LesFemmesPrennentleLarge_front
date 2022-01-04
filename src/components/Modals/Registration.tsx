@@ -22,7 +22,9 @@ const Registration: FC<RegistrationProps> = ({ setActiveModal }) => {
         </select>
       </div>
       <div className="registration__buttons">
-        <button className="registration__buttons__retour">
+        <button
+          onClick={() => setActiveModal('')}
+          className="registration__buttons__retour">
           <h4>retour</h4>
         </button>
         <button
