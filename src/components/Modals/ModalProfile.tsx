@@ -4,7 +4,7 @@ import '../../style/_modalWahine.scss';
 
 import wahine from '../img/wahine.svg';
 
-const ModalWahine = () => {
+const ModalProfile = () => {
   return (
     <div className="modalwahine">
       <div className="myProfile">
@@ -53,4 +53,4 @@ const ModalWahine = () => {
   );
 };
 
-export default ModalWahine;
+export default ModalProfile;
