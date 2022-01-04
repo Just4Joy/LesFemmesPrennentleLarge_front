@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 
 import NextSession from '../NextSession';
@@ -7,7 +8,11 @@ import Wahine from '../Wahine';
 import BecomeWahine from './BecomeWahine';
 import Region from './Region';
 
-const Home = () => {
+type HomeProps = {
+  setActiveModal: Dispatch<SetStateAction<string>>;
+};
+
+const Home: FC<HomeProps> = ({ setActiveModal }) => {
   interface regionTypes {
     id_region: number;
     name: string;
@@ -69,11 +74,11 @@ const Home = () => {
       <div className="home__wahines">
         <h3 className="home__wahines__h3">Nos Wahines</h3>
         <div className="home__wahines__component">
-          <Wahine />
-          <Wahine />
-          <Wahine />
-          <Wahine />
-          <Wahine />
+          <Wahine setActiveModal={setActiveModal} />
+          <Wahine setActiveModal={setActiveModal} />
+          <Wahine setActiveModal={setActiveModal} />
+          <Wahine setActiveModal={setActiveModal} />
+          <Wahine setActiveModal={setActiveModal} />
         </div>
         <h5 className="home__wahines__link">
           Toutes les wahines <BsBoxArrowInUpRight />

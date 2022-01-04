@@ -26,3 +26,5 @@ const CreateSession2 = () => {
     </div>
   );
 };
+
+export default CreateSession2;

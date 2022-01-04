@@ -1,5 +1,6 @@
 import React from 'react';
-import SurfSkill from './SurfSkill';
+
+import SurfSkill from '../SurfSkill';
 
 const CreateProfil2 = () => {
   return (
@@ -24,3 +25,4 @@ const CreateProfil2 = () => {
     </div>
   );
 };
+export default CreateProfil2;

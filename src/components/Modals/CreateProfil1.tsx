@@ -8,7 +8,7 @@ const CreateProfil1 = () => {
         <h2 className="CreateProfil1_title_h2_2">Skip</h2>
       </div>
       <div className="CreateProfil1_">
-        <img />
+        <img alt="" />
         <div>
           <div>
             <p>Upload ta photo de profil</p>

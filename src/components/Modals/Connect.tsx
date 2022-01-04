@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 type ConnectProps = {
-  setActiveModal: (modalOpened: string) => void;
+  setActiveModal: Dispatch<SetStateAction<string>>;
 };
 const Connect: FC<ConnectProps> = ({ setActiveModal }) => {
   return (
