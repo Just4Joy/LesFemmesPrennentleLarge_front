@@ -1,5 +1,3 @@
-import '../../style/_modalWahine.scss';
-
 import React from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
 
