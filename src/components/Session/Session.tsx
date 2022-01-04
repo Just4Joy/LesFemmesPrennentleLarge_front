@@ -1,7 +1,8 @@
 import React from 'react';
 import { BsFillPatchCheckFill } from 'react-icons/bs';
-import Wahine from '../Wahine';
+
 import Hiki from '../Hiki';
+import Wahine from '../Wahine';
 
 const Session = () => {
   return (

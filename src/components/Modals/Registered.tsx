@@ -7,7 +7,7 @@ const Registered = () => {
         <h3>Tu es inscrite</h3>
       </div>
       <div>
-        <img />
+        <img alt="" />
       </div>
     </div>
   );
