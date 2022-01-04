@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
-const CreateProfil1 = () => {
+type CreateProfil1Props = {
+  setActiveModal: Dispatch<SetStateAction<string>>;
+};
+
+const CreateProfil1: FC<CreateProfil1Props> = ({ setActiveModal }) => {
   return (
     <div className="CreateProfil1">
       <div className="CreateProfil1_title">
@@ -21,7 +26,7 @@ const CreateProfil1 = () => {
           <input placeholder="ton spot préféré"></input>
         </div>
         <div>
-          <button>suivant</button>
+          <button onClick={() => setActiveModal('completeprofil2')}>suivant</button>
         </div>
       </div>
     </div>

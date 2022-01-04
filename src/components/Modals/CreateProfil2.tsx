@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { Dispatch, SetStateAction } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import SurfSkill from '../SurfSkill';
 
-const CreateProfil2 = () => {
+type CreateProfil2Props = {
+  setActiveModal: Dispatch<SetStateAction<string>>;
+};
+
+const CreateProfil2: FC<CreateProfil2Props> = ({ setActiveModal }) => {
   return (
     <div className="CreateProfil2">
       <div className="CreateProfil2__titles">
@@ -18,11 +24,14 @@ const CreateProfil2 = () => {
         </div>
         <div className="CreateProfil__button">
           <div>
-            <button>Valider mon profil</button>
+            <button onClick={() => setActiveModal('')}>
+              <NavLink to="/profile"> Valider mon profil </NavLink>
+            </button>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
 export default CreateProfil2;

@@ -9,7 +9,7 @@ const Connect: FC<ConnectProps> = ({ setActiveModal }) => {
     <div className="connect">
       <div>
         <div className="connect__form">
-          <h2 className="connect__form__h">Se connecter</h2>
+          <h2 className="connect__form__h2">Se connecter</h2>
           <form>
             <input placeholder="email" />
             <input placeholder="password" />
