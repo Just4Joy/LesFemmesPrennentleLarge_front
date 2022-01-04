@@ -11,6 +11,7 @@ import CreateAccount from './components/Modals/CreateAccount';
 import CreateProfil1 from './components/Modals/CreateProfil1';
 import CreateProfil2 from './components/Modals/CreateProfil2';
 import Modal from './components/Modals/Modal';
+import ModalProfile from './components/Modals/ModalProfile';
 import Profile from './components/Profile/Profile';
 import Session from './components/Session/Session';
 import Sessions from './components/Sessions/Sessions';
@@ -24,11 +25,14 @@ function App() {
         <div className="App__page">
           <Header setActiveModal={setActiveModal} />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home setActiveModal={setActiveModal} />} />
             <Route path="/sessions" element={<Sessions />} />
-            <Route path="/session" element={<Session />} />
+            <Route
+              path="/session"
+              element={<Session setActiveModal={setActiveModal} />}
+            />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/login" element={<Home />} />
+            <Route path="/login" element={<Home setActiveModal={setActiveModal} />} />
           </Routes>
           <Footer />
         </div>
@@ -50,6 +54,11 @@ function App() {
         {activeModal === 'completeprofil2' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <CreateProfil2 setActiveModal={setActiveModal} />
+          </Modal>
+        )}
+        {activeModal === 'modalwahine' && (
+          <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+            <ModalProfile />
           </Modal>
         )}
       </Router>
