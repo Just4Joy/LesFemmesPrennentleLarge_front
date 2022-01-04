@@ -15,6 +15,8 @@ import ModalProfile from './components/Modals/ModalProfile';
 import Profile from './components/Profile/Profile';
 import Session from './components/Session/Session';
 import Sessions from './components/Sessions/Sessions';
+import Registration from './components/Modals/Registration';
+import Registered from './components/Modals/Registered';
 
 function App() {
   const [activeModal, setActiveModal] = useState<string>('');
@@ -59,6 +61,16 @@ function App() {
         {activeModal === 'modalwahine' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <ModalProfile />
+          </Modal>
+        )}
+        {activeModal === 'registration' && (
+          <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+            <Registration setActiveModal={setActiveModal} />
+          </Modal>
+        )}
+        {activeModal === 'registered' && (
+          <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+            <Registered />
           </Modal>
         )}
       </Router>

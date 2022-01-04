@@ -57,7 +57,9 @@ const Session: FC<SessionProps> = ({ setActiveModal }) => {
           <Wahine setActiveModal={setActiveModal} />
         </div>
       </div>
-      <button className="onesession__join">Rejoindre la session</button>
+      <button className="onesession__join" onClick={() => setActiveModal('registration')}>
+        Rejoindre la session
+      </button>
       <div className="onesession__group">
         <h3>Hikis de la session</h3>
         <div className="onesession__group__hikis">
