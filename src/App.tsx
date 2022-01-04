@@ -11,9 +11,14 @@ import CreateAccount from './components/Modals/CreateAccount';
 import CreateProfil1 from './components/Modals/CreateProfil1';
 import CreateProfil2 from './components/Modals/CreateProfil2';
 import Modal from './components/Modals/Modal';
+import ModalProfile from './components/Modals/ModalProfile';
+import Registered from './components/Modals/Registered';
+import Registration from './components/Modals/Registration';
 import Profile from './components/Profile/Profile';
 import Session from './components/Session/Session';
 import Sessions from './components/Sessions/Sessions';
+import CreateSession1 from './components/Modals/CreateSession1';
+import CreateSession2 from './components/Modals/CreateSession2';
 
 function App() {
   const [activeModal, setActiveModal] = useState<string>('');
@@ -24,11 +29,18 @@ function App() {
         <div className="App__page">
           <Header setActiveModal={setActiveModal} />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home setActiveModal={setActiveModal} />} />
             <Route path="/sessions" element={<Sessions />} />
-            <Route path="/session" element={<Session />} />
+            <Route
+              path="/session"
+              element={<Session setActiveModal={setActiveModal} />}
+            />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/login" element={<Home />} />
+            <Route path="/login" element={<Home setActiveModal={setActiveModal} />} />
+            <Route
+              path="/create_session"
+              element={<Home setActiveModal={setActiveModal} />}
+            />
           </Routes>
           <Footer />
         </div>
@@ -50,6 +62,31 @@ function App() {
         {activeModal === 'completeprofil2' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <CreateProfil2 setActiveModal={setActiveModal} />
+          </Modal>
+        )}
+        {activeModal === 'modalwahine' && (
+          <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+            <ModalProfile />
+          </Modal>
+        )}
+        {activeModal === 'registration' && (
+          <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+            <Registration setActiveModal={setActiveModal} />
+          </Modal>
+        )}
+        {activeModal === 'registered' && (
+          <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+            <Registered />
+          </Modal>
+        )}
+        {activeModal === 'create_session1' && (
+          <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+            <CreateSession1 setActiveModal={setActiveModal} />
+          </Modal>
+        )}
+        {activeModal === 'create_session2' && (
+          <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+            <CreateSession2 setActiveModal={setActiveModal} />
           </Modal>
         )}
       </Router>

@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { BsFillPatchCheckFill } from 'react-icons/bs';
 
 import Hiki from '../Hiki';
 import Wahine from '../Wahine';
 
-const Session = () => {
+type SessionProps = {
+  setActiveModal: Dispatch<SetStateAction<string>>;
+};
+
+const Session: FC<SessionProps> = ({ setActiveModal }) => {
   return (
     <div className="onesession">
       <div className="session">
@@ -49,18 +54,20 @@ const Session = () => {
         </div>
         <div className="session__organiser">
           <h4>Organisé par:</h4>
-          <Wahine />
+          <Wahine setActiveModal={setActiveModal} />
         </div>
       </div>
-      <button className="onesession__join">Rejoindre la session</button>
+      <button className="onesession__join" onClick={() => setActiveModal('registration')}>
+        Rejoindre la session
+      </button>
       <div className="onesession__group">
         <h3>Hikis de la session</h3>
         <div className="onesession__group__hikis">
-          <Hiki />
-          <Hiki />
-          <Hiki />
-          <Hiki />
-          <Hiki />
+          <Hiki setActiveModal={setActiveModal} />
+          <Hiki setActiveModal={setActiveModal} />
+          <Hiki setActiveModal={setActiveModal} />
+          <Hiki setActiveModal={setActiveModal} />
+          <Hiki setActiveModal={setActiveModal} />
         </div>
       </div>
     </div>
