@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Published = () => {
+const SessionPublished = () => {
   return (
     <div>
       <div>
@@ -13,4 +13,4 @@ const Published = () => {
   );
 };
 
-export default Published;
+export default SessionPublished;

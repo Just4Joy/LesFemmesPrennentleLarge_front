@@ -9,19 +9,18 @@ const CreateAccount: FC<CreateAccountProps> = ({ setActiveModal }) => {
   return (
     <div className="CreateAccount">
       <div className="CreateAccount__title">
-        <h2 className="CreateAccount__title__h2">Créer mon compte</h2>
+        <p className="CreateAccount__title__p">Créer mon compte</p>
       </div>
       <div className="CreateAccount__form">
-        <form>
-          <div className="CreateAccount__form__div1"></div>
-          <input placeholder="nom*"></input>
-          <input placeholder="e-mail*"></input>
-          <input placeholder="mot de passe*"></input>
-          <div className="CreateAccount__form__div2"></div>
-          <input placeholder="prénom*"></input>
-          <input placeholder="n° de tel"></input>
-          <input placeholder="confirmer le mot de passe*"></input>
-        </form>
+        <input className="CreateAccount__form__input" placeholder="nom*"></input>
+        <input className="CreateAccount__form__input" placeholder="prénom*"></input>
+        <input className="CreateAccount__form__input" placeholder="e-mail*"></input>
+
+        <input className="CreateAccount__form__input" placeholder="n° de tel"></input>
+        <input className="CreateAccount__form__input" placeholder="mot de passe*"></input>
+        <input
+          className="CreateAccount__form__input"
+          placeholder="confirmer le mot de passe*"></input>
       </div>
       <div className="CreateAccount__button">
         <button
