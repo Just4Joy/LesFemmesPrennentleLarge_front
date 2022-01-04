@@ -12,8 +12,8 @@ const CreateProfil2: FC<CreateProfil2Props> = ({ setActiveModal }) => {
   return (
     <div className="CreateProfil2">
       <div className="CreateProfil2__titles">
-        <h2>Compléter son profil (2/2)</h2>
-        <h2>Skip</h2>
+        <h3>Compléter son profil 2/2</h3>
+        <h3>Skip</h3>
       </div>
       <div className="CreateProfil__skills">
         <div className="CreateProfil__skills__titre">

@@ -8,11 +8,11 @@ type CreateProfil1Props = {
 const CreateProfil1: FC<CreateProfil1Props> = ({ setActiveModal }) => {
   return (
     <div className="CreateProfil1">
-      <div className="CreateProfil1_title">
-        <h2 className="CreateProfil1_title_h2_1">Compléter son profil (1/2)</h2>
-        <h2 className="CreateProfil1_title_h2_2">Skip</h2>
+      <div className="CreateProfil1__title">
+        <h2>Compléter son profil 1/2</h2>
+        <h2>Skip</h2>
       </div>
-      <div className="CreateProfil1_">
+      <div className="CreateProfil1_img">
         <img alt="" />
         <div>
           <div>
