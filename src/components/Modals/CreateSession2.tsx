@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
-const CreateSession2 = () => {
+type CreateSession2Props = {
+  setActiveModal: Dispatch<SetStateAction<string>>;
+};
+
+const CreateSession2: FC<CreateSession2Props> = ({ setActiveModal }) => {
   return (
     <div>
       <div>
@@ -20,8 +25,8 @@ const CreateSession2 = () => {
         <input></input>
       </div>
       <div>
-        <button>valider</button>
-        <button>skip</button>
+        <button onClick={() => setActiveModal('recap')}>valider</button>
+        <button onClick={() => setActiveModal('recap')}>skip</button>
       </div>
     </div>
   );

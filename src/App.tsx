@@ -17,6 +17,8 @@ import Registration from './components/Modals/Registration';
 import Profile from './components/Profile/Profile';
 import Session from './components/Session/Session';
 import Sessions from './components/Sessions/Sessions';
+import CreateSession1 from './components/Modals/CreateSession1';
+import CreateSession2 from './components/Modals/CreateSession2';
 
 function App() {
   const [activeModal, setActiveModal] = useState<string>('');
@@ -35,6 +37,10 @@ function App() {
             />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Home setActiveModal={setActiveModal} />} />
+            <Route
+              path="/create_session"
+              element={<Home setActiveModal={setActiveModal} />}
+            />
           </Routes>
           <Footer />
         </div>
@@ -71,6 +77,16 @@ function App() {
         {activeModal === 'registered' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <Registered />
+          </Modal>
+        )}
+        {activeModal === 'create_session1' && (
+          <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+            <CreateSession1 setActiveModal={setActiveModal} />
+          </Modal>
+        )}
+        {activeModal === 'create_session2' && (
+          <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+            <CreateSession2 setActiveModal={setActiveModal} />
           </Modal>
         )}
       </Router>

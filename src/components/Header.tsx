@@ -33,6 +33,11 @@ const Header: FC<HeaderProps> = ({ setActiveModal }) => {
             Se connecter
           </NavLink>
         </li>
+        <li className="header__list__create" style={{ textDecoration: 'underline' }}>
+          <NavLink to="/create_session" onClick={() => setActiveModal('create_session1')}>
+            Créer une session
+          </NavLink>
+        </li>
       </ul>
     </div>
   );
