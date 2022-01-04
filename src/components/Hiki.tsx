@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 import wahine from './img/wahine.svg';
 
-const Hiki = () => {
+type HikiProps = {
+  setActiveModal: Dispatch<SetStateAction<string>>;
+};
+
+const Hiki: FC<HikiProps> = ({ setActiveModal }) => {
   return (
-    <div className="hiki">
+    <div
+      role="presentation"
+      className="hiki"
+      onClick={() => setActiveModal('modalwahine')}>
       <div className="hiki__img">
         <img className="" src={wahine} alt="wahine" />
       </div>

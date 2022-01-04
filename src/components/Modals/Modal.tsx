@@ -1,9 +1,11 @@
-import React, { useEffect, useState, FC } from 'react';
-import arrowLeft from './img/arrowLeft.svg';
+import React, { FC, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
+
+import arrowLeft from '../img/arrowLeft.svg';
 
 type ModalProps = {
   activeModal: string;
-  setActiveModal: (modalOpened: string) => void;
+  setActiveModal: Dispatch<SetStateAction<string>>;
   children: React.ReactElement;
 };
 
@@ -26,6 +28,7 @@ const Modal: FC<ModalProps> = ({ activeModal, setActiveModal, children }: ModalP
       <div className={`App${modalClass}`}>
         <div className="connect__divlogo">
           <img
+            role="presentation"
             className="connect__divlogo__logo"
             src={arrowLeft}
             alt=""
