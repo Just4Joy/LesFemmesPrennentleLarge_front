@@ -33,6 +33,7 @@ const Modal: FC<ModalProps> = ({ activeModal, setActiveModal, children }: ModalP
             src={arrowLeft}
             alt=""
             onClick={() => setActiveModal('')}
+            style={{ cursor: 'pointer' }}
           />
           {children}
         </div>
