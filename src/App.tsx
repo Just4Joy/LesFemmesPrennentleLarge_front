@@ -12,11 +12,11 @@ import CreateProfil1 from './components/Modals/CreateProfil1';
 import CreateProfil2 from './components/Modals/CreateProfil2';
 import Modal from './components/Modals/Modal';
 import ModalProfile from './components/Modals/ModalProfile';
+import Registered from './components/Modals/Registered';
+import Registration from './components/Modals/Registration';
 import Profile from './components/Profile/Profile';
 import Session from './components/Session/Session';
 import Sessions from './components/Sessions/Sessions';
-import Registration from './components/Modals/Registration';
-import Registered from './components/Modals/Registered';
 
 function App() {
   const [activeModal, setActiveModal] = useState<string>('');
