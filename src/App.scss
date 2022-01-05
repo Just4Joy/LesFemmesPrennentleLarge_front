@@ -12,14 +12,12 @@
     visibility: hidden;
   }
   &__showModal {
-    position: fixed;
-    top: 20%;
+    position: absolute;
+    top: 10%;
     left: 20%;
     right: 20%;
-    bottom: 20%;
+
     background-color: white;
-    width: 60vw;
-    height: 60vh;
     border-radius: 30px;
     padding: 4rem;
   }
