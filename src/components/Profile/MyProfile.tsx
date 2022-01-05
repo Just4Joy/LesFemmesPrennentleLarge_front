@@ -1,15 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
+import { IconType } from 'react-icons/lib';
 
 import wahine from '../img/wahine.svg';
 
 const MyProfile = () => {
+  const [editProfil, setEditProfil] = useState<boolean>(false);
+  const [editSkills, setEditSkills] = useState<boolean>(false);
+  // interface BsPencilSquareTypes {
+  //   name: string;
+  //   size: string;
+  //   icon: IconType;
+  //   active: boolean;
+  // }
+
   return (
     <div className="myProfile">
       <div className="myProfile__row">
         <p>hiki</p>
-        <BsPencilSquare size="2rem" />
+        <BsPencilSquare
+          size="2rem"
+          color="black"
+          onClick={() => setEditProfil(!editProfil)}
+        />
       </div>
+
       <div className="myProfile__column">
         <div className="myProfile__column__column1">
           <img src={wahine} alt="hiki" />
@@ -26,7 +41,7 @@ const MyProfile = () => {
               <p>PACA</p>
               <p>skills</p>
             </div>
-            <BsPencilSquare />
+            <BsPencilSquare color="grey" onClick={() => setEditSkills(!editSkills)} />
           </div>
           <div className="myProfile__column__column2__row2">
             <h2>Skills</h2>
