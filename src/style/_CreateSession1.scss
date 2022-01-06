@@ -18,6 +18,7 @@
         padding: 0.5rem 1rem;
         border-radius: 10px;
         border: 1px solid #263238;
+        background-color: white;
       }
     }
     &__type {
@@ -28,10 +29,12 @@
         color: #808080;
         margin-right: 2rem;
       }
-      > input {
+      > input,
+      select {
         border: 1px solid #263238;
         border-radius: 10px;
         padding: 0.5rem 1rem;
+        background-color: white;
       }
     }
     &__weather {
@@ -51,10 +54,11 @@
       > h4 {
         margin-right: 2rem;
       }
-      > input {
+      > select {
         border: 1px solid #263238;
         border-radius: 10px;
         padding: 0.5rem 1rem;
+        background-color: white;
       }
     }
   }

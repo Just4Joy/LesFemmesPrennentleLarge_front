@@ -12,6 +12,7 @@ const Wahine: FC<WahineProps> = ({ setActiveModal }) => {
     <div
       role="presentation"
       className="wahine"
+      style={{ cursor: 'pointer' }}
       onClick={() => setActiveModal('modalwahine')}>
       <div className="wahine__img">
         <img className="" src={wahine} alt="wahine" />

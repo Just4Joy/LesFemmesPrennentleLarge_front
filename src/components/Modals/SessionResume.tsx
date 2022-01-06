@@ -1,6 +1,7 @@
 import React from 'react';
-import SurfSkill from '../SurfSkill';
+
 import Region from '../Home/Region';
+import SurfSkill from '../SurfSkill';
 import Weather from '../Weather';
 
 const SessionResume = () => {
