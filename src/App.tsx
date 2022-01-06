@@ -10,8 +10,6 @@ import Connect from './components/Modals/Connect';
 import CreateAccount from './components/Modals/CreateAccount';
 import CreateProfil1 from './components/Modals/CreateProfil1';
 import CreateProfil2 from './components/Modals/CreateProfil2';
-import CreateSession1 from './components/Modals/CreateSession1';
-import CreateSession2 from './components/Modals/CreateSession2';
 import Modal from './components/Modals/Modal';
 import ModalProfile from './components/Modals/ModalProfile';
 import Registered from './components/Modals/Registered';
@@ -19,6 +17,8 @@ import Registration from './components/Modals/Registration';
 import Profile from './components/Profile/Profile';
 import Session from './components/Session/Session';
 import Sessions from './components/Sessions/Sessions';
+import CreateSession1 from './components/Modals/CreateSession1';
+import CreateSession2 from './components/Modals/CreateSession2';
 
 function App() {
   const [activeModal, setActiveModal] = useState<string>('');
