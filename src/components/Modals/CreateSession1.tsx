@@ -1,6 +1,7 @@
+import '../../style/_CreateSession1.scss';
+
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
-import '../../style/_CreateSession1.scss';
 
 type CreateSession1Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
