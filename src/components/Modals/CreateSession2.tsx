@@ -19,11 +19,19 @@ const CreateSession2: FC<CreateSession2Props> = ({ setActiveModal }) => {
         </p>
         <p>Donne des indications aux participantes de la session</p>
       </div>
-      <div className="create-session2__inputs">
-        <input placeholder="type de vagues"></input>
-        <input placeholder="courants"></input>
-        <input placeholder="puissance des vagues"></input>
-        <input placeholder="temps"></input>
+      <div className="create-session2__selects">
+        <select>
+          <option value="">type de vagues</option>
+        </select>
+        <select>
+          <option value="">courants</option>
+        </select>
+        <select>
+          <option value="">puissance des vagues</option>
+        </select>
+        <select>
+          <option value="">temps</option>
+        </select>
       </div>
       <div className="create-session2__buttons">
         <button

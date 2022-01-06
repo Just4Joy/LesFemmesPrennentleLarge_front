@@ -12,6 +12,7 @@ const Hiki: FC<HikiProps> = ({ setActiveModal }) => {
     <div
       role="presentation"
       className="hiki"
+      style={{ cursor: 'pointer' }}
       onClick={() => setActiveModal('modalwahine')}>
       <div className="hiki__img">
         <img className="" src={wahine} alt="wahine" />
