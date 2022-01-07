@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
+import '../../style/_CreateProfil1.scss';
+import womansurfing from '../img/womansurfing.png';
 
 type CreateProfil1Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
@@ -7,28 +9,38 @@ type CreateProfil1Props = {
 
 const CreateProfil1: FC<CreateProfil1Props> = ({ setActiveModal }) => {
   return (
-    <div className="CreateProfil1">
-      <div className="CreateProfil1__title">
+    <div className="createProfil1">
+      <div className="createProfil1__title">
         <h2>Compléter son profil 1/2</h2>
         <h2>Skip</h2>
       </div>
-      <div className="CreateProfil1_img">
-        <img alt="" />
-        <div>
-          <div>
-            <p>Upload ta photo de profil</p>
-          </div>
-          <input placeholder="3 mots pour te décrire"></input>
-          <div>
-            <input placeholder="ville"></input>
-            <input placeholder="région où tu surfes"></input>
-          </div>
-          <input placeholder="ton spot préféré"></input>
-        </div>
-        <div>
-          <button onClick={() => setActiveModal('completeprofil2')}>suivant</button>
-        </div>
-      </div>
+      <form className="createProfil1__container">
+        <img className="createProfil1__container__img" src={womansurfing} alt="" />
+
+        <p className="createProfil1__container__upload">Upload ta photo de profil</p>
+
+        <textarea
+          id="w3review"
+          name="w3review"
+          rows={4}
+          placeholder="3 mots pour te décrire"
+        />
+
+        <input className="createProfil1__container__ville" placeholder="ville"></input>
+        <input
+          className="createProfil1__container__region"
+          placeholder="région où tu surfes"></input>
+
+        <input
+          className="createProfil1__container__spot"
+          placeholder="ton spot préféré"></input>
+
+        <button
+          className="createProfil1__container__next"
+          onClick={() => setActiveModal('completeprofil2')}>
+          suivant
+        </button>
+      </form>
     </div>
   );
 };
