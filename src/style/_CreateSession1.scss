@@ -7,14 +7,14 @@
     width: 45vw;
   }
   &__form {
-    margin-top: 2rem;
+    margin-top: 1rem;
     &__inputs {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-around;
       &__input {
         width: 17vw;
-        margin: 1rem 2rem;
+        margin: 0.5rem 2rem;
         padding: 0.5rem 1rem;
         border-radius: 10px;
         border: 1px solid #263238;
@@ -63,7 +63,7 @@
     }
   }
   &__button {
-    margin-top: 2rem;
+    margin-top: 1rem;
     display: flex;
     flex-direction: row-reverse;
     &__next {

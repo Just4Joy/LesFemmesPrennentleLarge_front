@@ -13,7 +13,9 @@ const Header: FC<HeaderProps> = ({ setActiveModal }) => {
   return (
     <div className="header">
       <div className="header__logo">
-        <img className="Logo" src={LFPLL} alt="Logo" />
+        <NavLink to="/">
+          <img className="Logo" src={LFPLL} alt="Logo" />
+        </NavLink>
       </div>
       <ul className="header__list">
         <li className="header__list__profile">
