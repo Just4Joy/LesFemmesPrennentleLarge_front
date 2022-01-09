@@ -1,31 +1,53 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 import { BsFillPatchCheckFill } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
 
-const Session = () => {
+type SessionsProps = {
+  adress: string;
+  date: string;
+  name: string;
+  spot_name: string;
+  region_name: string;
+  name_session: string;
+  carpool: number;
+};
+
+const Session: FC<SessionsProps> = ({
+  adress,
+  date,
+  name,
+  spot_name,
+  region_name,
+  name_session,
+  carpool,
+}) => {
   return (
     <div className="nextsession">
       <div className="nextsession__button">
-        <h6 className="nextsession__button__region">Occitanie</h6>
-        <h6 className="nextsession__button__surfstyle">Surf au large</h6>
+        <h6 className="nextsession__button__region">{region_name}</h6>
+        <h6 className="nextsession__button__surfstyle">{name_session}</h6>
       </div>
       <div className="nextsession__infos">
         <div className="nextsession__infos__spot">
-          <h4 className="nextsession__infos__spot__h4">Nom de la session</h4>
-          <h6 className="nextsession__infos__spot__h6"> Nom du spot </h6>
-          <h6 className="nextsession__infos__spot__adress"> Adresse </h6>
+          <h4 className="nextsession__infos__spot__h4">{name}</h4>
+          <h6 className="nextsession__infos__spot__h6"> {spot_name} </h6>
+          <h6 className="nextsession__infos__spot__adress"> {adress} </h6>
         </div>
 
         <div className="nextsession__infos__rdv">
           <div className="nextsession__infos__rdv__date">
-            <p className="nextsession__infos__rdv__date__p">15/01/2022</p>
+            <p className="nextsession__infos__rdv__date__p">{date}</p>
             <p>17h15</p>
           </div>
           <div className="nextsession__infos__rdv__covoit">
-            <p>
-              Covoiturage <BsFillPatchCheckFill color="#1f8387" />
-            </p>
+            {carpool === 1 ? (
+              <p>
+                Covoiturage <BsFillPatchCheckFill color="#1f8387" />
+              </p>
+            ) : (
+              ''
+            )}
           </div>
         </div>
       </div>

@@ -15,18 +15,42 @@ type HomeProps = {
 const Home: FC<HomeProps> = ({ setActiveModal }) => {
   interface regionTypes {
     id_region: number;
-    name: string;
+    region_name: string;
     color: string;
   }
 
+  interface sessionsTypes {
+    id_session: number;
+    name: string;
+    date: string;
+    spot_name: string;
+    adress: string;
+    nb_hiki_max: number;
+    id_departement: number;
+    id_surf_style: number;
+    carpool: number;
+    region_name: string;
+    name_session: string;
+  }
+
   const [regions, setRegions] = useState<regionTypes[]>([]);
+  const [threeSessions, setThreeSessions] = useState<sessionsTypes[]>([]);
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/api/regions')
+      .get('http://lfpll-back.herokuapp.com/api/regions')
       .then((result: any) => result.data)
       .then((data: any) => setRegions(data));
   }, []);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3000/api/sessions/?limit=3')
+      .then((result: any) => result.data)
+      .then((data: any) => setThreeSessions(data));
+  }, []);
+
+  console.log(threeSessions);
 
   return (
     <div className="home">
@@ -51,7 +75,11 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
           {regions &&
             regions.map((region) => {
               return (
-                <Region name={region.name} color={region.color} key={region.id_region} />
+                <Region
+                  region_name={region.region_name}
+                  color={region.color}
+                  key={region.id_region}
+                />
               );
             })}
         </div>
@@ -61,9 +89,21 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
       <div className="home__sessions">
         <h3 className="home__sessions__h3">Les prochaines sessions</h3>
         <div className="home__sessions__component">
-          <NextSession />
-          <NextSession />
-          <NextSession />
+          {threeSessions &&
+            threeSessions.map((session) => {
+              return (
+                <NextSession
+                  date={session.date}
+                  adress={session.adress}
+                  name={session.name}
+                  spot_name={session.spot_name}
+                  region_name={session.region_name}
+                  name_session={session.name_session}
+                  carpool={session.carpool}
+                  key={session.id_session}
+                />
+              );
+            })}
         </div>
         <h5 className="home__sessions__h5">
           Toutes les sessions <BsBoxArrowInUpRight />
