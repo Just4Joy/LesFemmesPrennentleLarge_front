@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { BsFillPatchCheckFill } from 'react-icons/bs';
+import { useLayoutEffect } from 'react';
 
 import Hiki from '../Hiki';
 import Wahine from '../Wahine';
@@ -10,6 +11,9 @@ type SessionProps = {
 };
 
 const Session: FC<SessionProps> = ({ setActiveModal }) => {
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  });
   return (
     <div className="onesession">
       <div className="session">
