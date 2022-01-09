@@ -19,6 +19,8 @@ import Registration from './components/Modals/Registration';
 import Profile from './components/Profile/Profile';
 import Session from './components/Session/Session';
 import Sessions from './components/Sessions/Sessions';
+import SessionResume from './components/Modals/SessionResume';
+import SessionPublished from './components/Modals/SessionPublished';
 
 function App() {
   const [activeModal, setActiveModal] = useState<string>('');
@@ -87,6 +89,16 @@ function App() {
         {activeModal === 'create_session2' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <CreateSession2 setActiveModal={setActiveModal} />
+          </Modal>
+        )}
+        {activeModal === 'recap' && (
+          <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+            <SessionResume setActiveModal={setActiveModal} />
+          </Modal>
+        )}
+        {activeModal === 'session-publiée' && (
+          <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+            <SessionPublished setActiveModal={setActiveModal} />
           </Modal>
         )}
       </Router>
