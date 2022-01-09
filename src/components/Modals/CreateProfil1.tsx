@@ -21,7 +21,7 @@ const CreateProfil1: FC<CreateProfil1Props> = ({ setActiveModal }) => {
           alt=""
         />
 
-        <p className="createProfil1__container__upload ">Upload ta photo de profil</p>
+        <p className="createProfil1__container__upload  ">Upload ta photo de profil</p>
 
         <textarea
           className="createProfil1__container__textarea"
