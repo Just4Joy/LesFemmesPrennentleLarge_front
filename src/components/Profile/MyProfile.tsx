@@ -7,6 +7,23 @@ import wahine from '../img/wahine.svg';
 const MyProfile = () => {
   const [editProfil, setEditProfil] = useState<boolean>(false);
   const [editSkills, setEditSkills] = useState<boolean>(false);
+  const [previewImage, setPreviewImage] = useState<FileList | null | undefined>();
+  const [revokeUrl, setRevokeUrl] = useState<boolean>(false);
+
+  const previewProfilImage = () => {
+    let imageUrl: string = '';
+
+    if (revokeUrl) {
+      URL.revokeObjectURL(imageUrl);
+      imageUrl = '';
+      setRevokeUrl(false);
+    }
+    if (previewImage) {
+      imageUrl = URL.createObjectURL(previewImage[0]);
+      return imageUrl;
+    }
+    return imageUrl;
+  };
 
   return (
     <div className="myProfile">
@@ -34,14 +51,31 @@ const MyProfile = () => {
         ) : (
           <div className="myProfile__column__column1">
             <form className="myProfile__column__column1__form" action="/" method="POST">
-              <FiUpload size="10rem" color="#fedb9b" />
+              {!previewImage ? (
+                <FiUpload size="10rem" color="#fedb9b" />
+              ) : (
+                <img
+                  className="myProfile__column__column1__form__previewImage"
+                  src={previewProfilImage()}
+                  alt=""
+                />
+              )}
+              <label
+                htmlFor="file-upload"
+                className="myProfile__column__column1__form__label">
+                Téléverser
+              </label>
               <input
                 className="myProfile__column__column1__form__input"
+                id="file-upload"
                 type="file"
                 name="sampleFile"
                 accept="image/*"
+                onChange={(e) => {
+                  setPreviewImage(e.target.files);
+                  setRevokeUrl(true);
+                }}
               />
-              {/* <input className="myProfile__column__column1__form__input" type="submit" /> */}
             </form>
             <form className="myProfile__column__column1__info">
               <input
