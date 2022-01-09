@@ -10,7 +10,22 @@ const Sessions = () => {
     color: string;
   }
 
+  interface allSessionsTypes {
+    id_session: number;
+    name: string;
+    date: string;
+    spot_name: string;
+    adress: string;
+    nb_hiki_max: number;
+    id_departement: number;
+    id_surf_style: number;
+    carpool: number;
+    region_name: string;
+    name_session: string;
+  }
+
   const [regions, setRegions] = useState<regionTypes[]>([]);
+  const [allSessions, setAllSessions] = useState<allSessionsTypes[]>([]);
 
   useEffect(() => {
     axios
@@ -18,6 +33,14 @@ const Sessions = () => {
       .then((result: any) => result.data)
       .then((data: any) => setRegions(data));
   }, []);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3000/api/sessions')
+      .then((result: any) => result.data)
+      .then((data: any) => setAllSessions(data));
+  }, []);
+  console.log(allSessions);
 
   return (
     <div className="sessions">
@@ -43,14 +66,21 @@ const Sessions = () => {
 
       {/* Composants NextSession */}
       <div className="sessions__nextsession">
-        <NextSession />
-        <NextSession />
-        <NextSession />
-        <NextSession />
-        <NextSession />
-        <NextSession />
-        <NextSession />
-        <NextSession />
+        {allSessions &&
+          allSessions.map((session) => {
+            return (
+              <NextSession
+                date={session.date}
+                adress={session.adress}
+                name={session.name}
+                spot_name={session.spot_name}
+                region_name={session.region_name}
+                name_session={session.name_session}
+                carpool={session.carpool}
+                key={session.id_session}
+              />
+            );
+          })}
       </div>
       <div className="sessions__button">
         <button className="sessions__button__more">voir plus</button>
