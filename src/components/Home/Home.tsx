@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { FC, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
+import { NavLink } from 'react-router-dom';
 
 import NextSession from '../NextSession';
 import Wahine from '../Wahine';
@@ -103,9 +104,9 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
               );
             })}
         </div>
-        <h5 className="home__sessions__h5">
+        <NavLink to="/sessions" className="home__sessions__h5">
           Toutes les sessions <BsBoxArrowInUpRight />
-        </h5>
+        </NavLink>
       </div>
 
       {/* Section : Nos wahines */}
