@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 
 type RegionProps = {
-  name: string;
+  region_name: string;
   color: string;
 };
 
-const Region: FC<RegionProps> = ({ name, color }) => {
+const Region: FC<RegionProps> = ({ region_name, color }) => {
   return (
     <div className="region">
       <button className="region__button" type="button" style={{ background: color }}>
-        {name}
+        {region_name}
       </button>
     </div>
   );
