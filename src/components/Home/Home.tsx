@@ -50,8 +50,6 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
       .then((data: any) => setThreeSessions(data));
   }, []);
 
-  console.log(threeSessions);
-
   return (
     <div className="home">
       {/*Section : Présentation*/}
