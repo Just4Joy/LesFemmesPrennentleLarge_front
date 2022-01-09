@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import Region from '../Home/Region';
 import SurfSkill from '../SurfSkill';
 import Weather from '../Weather';
+import { Dispatch, SetStateAction } from 'react';
 
-const SessionResume = () => {
+type ResumeSessionProps = {
+  setActiveModal: Dispatch<SetStateAction<string>>;
+};
+
+const SessionResume: FC<ResumeSessionProps> = ({ setActiveModal }) => {
+  interface regionTypes {
+    id_region: number;
+    region_name: string;
+    color: string;
+  }
+
   return (
     <div>
       <div>
@@ -12,7 +23,7 @@ const SessionResume = () => {
       </div>
       <div>
         <SurfSkill />
-        <Region name={'PACA'} color={'green'} />
+        <Region />
       </div>
       <div>
         <h3>Session du (date) au (nom du spot) </h3>
@@ -30,7 +41,7 @@ const SessionResume = () => {
       </div>
       <div>
         <button>Retour</button>
-        <button>Publier</button>
+        <button onClick={() => setActiveModal('session-publiée')}>Publier</button>
       </div>
     </div>
   );
