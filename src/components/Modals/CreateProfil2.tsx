@@ -4,11 +4,11 @@ import { NavLink } from 'react-router-dom';
 
 import SurfSkill from '../SurfSkill';
 
-type CreateProfil2Props = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const CreateProfil2: FC<CreateProfil2Props> = ({ setActiveModal }) => {
+const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
   return (
     <div className="createProfil2">
       <div className="createProfil2__titles">

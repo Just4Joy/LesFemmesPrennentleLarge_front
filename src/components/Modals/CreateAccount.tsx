@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
-type CreateAccountProps = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const CreateAccount: FC<CreateAccountProps> = ({ setActiveModal }) => {
+const CreateAccount: FC<Props> = ({ setActiveModal }) => {
   return (
     <div className="CreateAccount">
       <div className="CreateAccount__title">

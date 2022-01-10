@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
-type RegistrationProps = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const Registration: FC<RegistrationProps> = ({ setActiveModal }) => {
+const Registration: FC<Props> = ({ setActiveModal }) => {
   return (
     <div className="registration">
       <div className="registration__title">

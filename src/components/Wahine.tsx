@@ -1,21 +1,12 @@
 import React, { FC } from 'react';
-import { Dispatch, SetStateAction } from 'react';
 
-import wahine from '../../img/wahine.svg';
+import wahineImg from '../../img/wahine.svg';
+import IUser from '../interfaces/IUser';
 
-type WahineProps = {
-  setActiveModal: Dispatch<SetStateAction<string>>;
-  profile_pic?: string; // ? parce que c'est optionnel
-  firstname: string;
-  lastname: string;
-  city: string;
-  favorite_spot: string;
-  id_user: number;
-};
+type Props = IUser;
 
-const Wahine: FC<WahineProps> = ({
-  setActiveModal,
-  // profile_pic,
+const Wahine: FC<Props> = ({
+  setActiveModal, // profile_pic,
   firstname,
   lastname,
   city,
@@ -30,7 +21,7 @@ const Wahine: FC<WahineProps> = ({
       onClick={() => setActiveModal('modalwahine')}
       key={id_user}>
       <div className="wahine__img">
-        <img className="" /*src={profile_pic}*/ src={wahine} alt="wahine" />
+        <img className="" /*src={profile_pic}*/ src={wahineImg} alt="wahine" />
       </div>
 
       <h5 className="wahine__h5">

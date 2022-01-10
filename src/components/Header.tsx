@@ -5,11 +5,11 @@ import { NavLink } from 'react-router-dom';
 
 import LFPLL from '../../img/LFPLL.svg';
 
-type HeaderProps = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const Header: FC<HeaderProps> = ({ setActiveModal }) => {
+const Header: FC<Props> = ({ setActiveModal }) => {
   return (
     <div className="header">
       <div className="header__logo">

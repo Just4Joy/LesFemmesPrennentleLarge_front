@@ -3,17 +3,11 @@ import { BsBoxArrowInUpRight } from 'react-icons/bs';
 import { BsFillPatchCheckFill } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
 
-type SessionsProps = {
-  adress: string;
-  date: string;
-  name: string;
-  spot_name: string;
-  region_name: string;
-  name_session: string;
-  carpool: number;
-};
+import ISession from '../interfaces/ISession';
 
-const Session: FC<SessionsProps> = ({
+type Props = ISession;
+
+const Session: FC<Props> = ({
   adress,
   date,
   name,

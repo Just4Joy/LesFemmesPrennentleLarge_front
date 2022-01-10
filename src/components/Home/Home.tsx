@@ -12,11 +12,11 @@ import Wahine from '../Wahine';
 import BecomeWahine from './BecomeWahine';
 import Region from './Region';
 
-type HomeProps = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const Home: FC<HomeProps> = ({ setActiveModal }) => {
+const Home: FC<Props> = ({ setActiveModal }) => {
   const [regions, setRegions] = useState<IRegion[]>([]);
   const [threeSessions, setThreeSessions] = useState<ISession[]>([]);
 
@@ -98,8 +98,8 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
               .map((oneWahine) => {
                 return (
                   <Wahine
-                    setActiveModal={setActiveModal}
                     {...oneWahine}
+                    setActiveModal={setActiveModal}
                     key={oneWahine.id_user}
                   />
                 );

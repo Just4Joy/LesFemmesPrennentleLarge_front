@@ -8,11 +8,11 @@ import IUser from '../../interfaces/IUser';
 import Hiki from '../Hiki';
 import Wahine from '../Wahine';
 
-type SessionProps = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const Session: FC<SessionProps> = ({ setActiveModal }) => {
+const Session: FC<Props> = ({ setActiveModal }) => {
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   });
@@ -77,8 +77,8 @@ const Session: FC<SessionProps> = ({ setActiveModal }) => {
               .map((oneWahine) => {
                 return (
                   <Wahine
-                    setActiveModal={setActiveModal}
                     {...oneWahine}
+                    setActiveModal={setActiveModal}
                     key={oneWahine.id_user}
                   />
                 );
@@ -98,8 +98,8 @@ const Session: FC<SessionProps> = ({ setActiveModal }) => {
               .map((oneWahine) => {
                 return (
                   <Hiki
-                    setActiveModal={setActiveModal}
                     {...oneWahine}
+                    setActiveModal={setActiveModal}
                     key={oneWahine.id_user}
                   />
                 );

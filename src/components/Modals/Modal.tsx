@@ -3,13 +3,13 @@ import { Dispatch, SetStateAction } from 'react';
 
 import arrowLeft from '../../../img/arrowLeft.svg';
 
-type ModalProps = {
+type Props = {
   activeModal: string;
   setActiveModal: Dispatch<SetStateAction<string>>;
   children: React.ReactElement;
 };
 
-const Modal: FC<ModalProps> = ({ activeModal, setActiveModal, children }: ModalProps) => {
+const Modal: FC<Props> = ({ activeModal, setActiveModal, children }: Props) => {
   const [modalClass, setModalClass] = useState<string>('__hiddenModal');
   const [overlayClass, setOverlayClass] = useState<string | ''>('');
 

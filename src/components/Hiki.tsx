@@ -1,22 +1,12 @@
 import React, { FC } from 'react';
-import { Dispatch, SetStateAction } from 'react';
 
 import wahine from '../../img/wahine.svg';
+import IUser from '../interfaces/IUser';
 
-type HikiProps = {
-  setActiveModal: Dispatch<SetStateAction<string>>;
-  profile_pic: string;
-  firstname: string;
-  lastname: string;
-  city: string;
-  favorite_spot: string;
-  id_user: number;
-  surf_style: string;
-};
+type Props = IUser;
 
-const Hiki: FC<HikiProps> = ({
-  setActiveModal,
-  // profile_pic,
+const Hiki: FC<Props> = ({
+  setActiveModal, // profile_pic,
   firstname,
   lastname,
   city,

@@ -3,11 +3,11 @@ import { Dispatch, SetStateAction } from 'react';
 
 import womansurfing from '../../../img/womansurfing.png';
 
-type CreateProfil1Props = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const CreateProfil1: FC<CreateProfil1Props> = ({ setActiveModal }) => {
+const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
   return (
     <div className="createProfil1">
       <div className="createProfil1__title">

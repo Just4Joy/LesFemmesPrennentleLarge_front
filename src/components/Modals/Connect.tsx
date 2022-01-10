@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
-type ConnectProps = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
-const Connect: FC<ConnectProps> = ({ setActiveModal }) => {
+const Connect: FC<Props> = ({ setActiveModal }) => {
   return (
     <div className="connect">
       <div>

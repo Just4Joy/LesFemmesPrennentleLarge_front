@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export default interface IUser {
   id_user: number;
   firstname: string;
@@ -13,4 +15,5 @@ export default interface IUser {
   department: string;
   surf_style: string;
   wahine: boolean;
+  setActiveModal: Dispatch<SetStateAction<string>>;
 }

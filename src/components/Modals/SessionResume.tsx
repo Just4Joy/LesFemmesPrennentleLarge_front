@@ -4,11 +4,11 @@ import { Dispatch, SetStateAction } from 'react';
 import SurfStyle from '../SurfStyle';
 import Weather from '../Weather';
 
-type ResumeSessionProps = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const SessionResume: FC<ResumeSessionProps> = ({ setActiveModal }) => {
+const SessionResume: FC<Props> = ({ setActiveModal }) => {
   return (
     <div className="sessionResume">
       <div className="sessionResume__title">
