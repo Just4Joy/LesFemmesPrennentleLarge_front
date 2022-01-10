@@ -6,10 +6,12 @@ import { NavigateFunction, useNavigate } from 'react-router-dom';
 import CurrentUserContext from '../contexts/CurrentUser';
 import IUser from '../../../interfaces/IUser';
 
-type ConnectProps = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
-const Connect: FC<ConnectProps> = ({ setActiveModal }) => {
+
+const Connect: FC<Props> = ({ setActiveModal }) => {
+
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -54,6 +56,7 @@ const Connect: FC<ConnectProps> = ({ setActiveModal }) => {
       });
   };
 
+
   return (
     <div className="connect">
       <div>
@@ -91,7 +94,7 @@ const Connect: FC<ConnectProps> = ({ setActiveModal }) => {
         <div className="connect__button">
           <button
             className="connect__button__create"
-            onClick={() => setActiveModal('creationcompte')}>
+            onClick={() => setActiveModal('create_account')}>
             Créer un compte
           </button>
           <button

@@ -3,16 +3,20 @@ import { Dispatch, SetStateAction } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { NavLink } from 'react-router-dom';
 
-import LFPLL from './img/LFPLL.svg';
+
+import LFPLL from '../../img/LFPLL.svg';
+
 import CurrentUserContext from './contexts/CurrentUser';
 
-type HeaderProps = {
+
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const Header: FC<HeaderProps> = ({ setActiveModal }) => {
-  const { id, logout, wahine } = useContext(CurrentUserContext);
 
+const Header: FC<Props> = ({ setActiveModal }) => {
+
+  const { id, logout, wahine } = useContext(CurrentUserContext);
   return (
     <div className="header">
       <div className="header__logo">

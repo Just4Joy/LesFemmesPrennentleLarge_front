@@ -4,20 +4,19 @@ import { Dispatch, SetStateAction } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
 
-import IRegion from '../../../interfaces/IRegion';
-import ISession from '../../../interfaces/ISession';
-import IUser from '../../../interfaces/IUser';
-
+import IRegion from '../../interfaces/IRegion';
+import ISession from '../../interfaces/ISession';
+import IUser from '../../interfaces/IUser';
 import NextSession from '../NextSession';
 import Wahine from '../Wahine';
 import BecomeWahine from './BecomeWahine';
 import Region from './Region';
 
-type HomeProps = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const Home: FC<HomeProps> = ({ setActiveModal }) => {
+const Home: FC<Props> = ({ setActiveModal }) => {
   const [regions, setRegions] = useState<IRegion[]>([]);
   const [threeSessions, setThreeSessions] = useState<ISession[]>([]);
 
@@ -28,23 +27,23 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
 
   useEffect(() => {
     axios
-      .get('http://lfpll-back.herokuapp.com/api/regions')
-      .then((result: any) => result.data)
-      .then((data: any) => setRegions(data));
+      .get<IRegion[]>('http://lfpll-back.herokuapp.com/api/regions')
+      .then((result) => result.data)
+      .then((data) => setRegions(data));
   }, []);
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/api/sessions/?limit=3')
-      .then((result: any) => result.data)
-      .then((data: any) => setThreeSessions(data));
+      .get<ISession[]>('http://localhost:3000/api/sessions/?limit=3')
+      .then((result) => result.data)
+      .then((data) => setThreeSessions(data));
   }, []);
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/api/users')
-      .then((result: any) => result.data)
-      .then((data: any) => setAllWahine(data));
+      .get<IUser[]>('http://localhost:3000/api/users')
+      .then((result) => result.data)
+      .then((data) => setAllWahine(data));
   }, []);
   return (
     <div className="home">
@@ -68,13 +67,7 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
         <div className="home__region__component">
           {regions &&
             regions.map((region) => {
-              return (
-                <Region
-                  region_name={region.region_name}
-                  color={region.color}
-                  key={region.id_region}
-                />
-              );
+              return <Region {...region} key={region.id_region} />;
             })}
         </div>
       </div>
@@ -85,18 +78,7 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
         <div className="home__sessions__component">
           {threeSessions &&
             threeSessions.map((session) => {
-              return (
-                <NextSession
-                  date={session.date}
-                  adress={session.adress}
-                  name={session.name}
-                  spot_name={session.spot_name}
-                  region_name={session.region_name}
-                  name_session={session.name_session}
-                  carpool={session.carpool}
-                  key={session.id_session}
-                />
-              );
+              return <NextSession {...session} key={session.id_session} />;
             })}
         </div>
         <NavLink to="/sessions" className="home__sessions__h5">
@@ -115,13 +97,8 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
               .map((oneWahine) => {
                 return (
                   <Wahine
+                    {...oneWahine}
                     setActiveModal={setActiveModal}
-                    profilePic={oneWahine.profile_pic}
-                    firstname={oneWahine.firstname}
-                    lastname={oneWahine.lastname}
-                    city={oneWahine.city}
-                    favoriteSpot={oneWahine.favorite_spot}
-                    id_user={oneWahine.id_user}
                     key={oneWahine.id_user}
                   />
                 );

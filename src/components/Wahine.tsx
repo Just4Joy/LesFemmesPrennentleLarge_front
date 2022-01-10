@@ -1,29 +1,23 @@
 import React, { FC } from 'react';
-import { Dispatch, SetStateAction } from 'react';
+
 import { Link } from 'react-router-dom';
 
-import wahine from './img/wahine.svg';
 
-type WahineProps = {
-  setActiveModal: Dispatch<SetStateAction<string>>;
-  profilePic: string;
-  firstname: string;
-  lastname: string;
-  city: string;
-  favoriteSpot: string;
-  id_user: number;
-};
+import wahineImg from '../../img/wahine.svg';
+import IUser from '../interfaces/IUser';
 
-const Wahine: FC<WahineProps> = ({
-  setActiveModal,
-  // profilePic,
+type Props = IUser;
+
+const Wahine: FC<Props> = ({
+  setActiveModal, // profile_pic,
   firstname,
   lastname,
   city,
-  favoriteSpot,
+  favorite_spot,
   id_user,
 }) => {
   return (
+
     <Link to={`/${id_user}`}>
       <div
         role="presentation"
@@ -32,16 +26,17 @@ const Wahine: FC<WahineProps> = ({
         onClick={() => setActiveModal('modalwahine')}
         key={id_user}>
         <div className="wahine__img">
-          <img className="" /*src={profilePic}*/ src={wahine} alt="wahine" />
+          <img className="" /*src={profile_pic}*/ src={wahine} alt="wahine" />
         </div>
 
         <h5 className="wahine__h5">
           {firstname} {lastname}
         </h5>
         <h6 className="">{city}</h6>
-        <h6 className="wahine__h6">{favoriteSpot}</h6>
+        <h6 className="wahine__h6">{favorite_spot}</h6>
       </div>
     </Link>
+
   );
 };
 

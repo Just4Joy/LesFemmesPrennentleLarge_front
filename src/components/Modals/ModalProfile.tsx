@@ -1,12 +1,16 @@
-import '../../style/_ModalProfile.scss';
+
 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+
 import { BsPencilSquare } from 'react-icons/bs';
 import { useParams } from 'react-router';
 
+
+import wahine from '../../../img/wahine.svg';
+
 import IUser from '../../../interfaces/IUser';
-import wahine from '../img/wahine.svg';
+
 
 const ModalProfile = () => {
   let { id } = useParams();

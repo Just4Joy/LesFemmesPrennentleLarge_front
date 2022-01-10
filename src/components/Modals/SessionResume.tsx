@@ -1,16 +1,14 @@
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
-import Region from '../Home/Region';
 import SurfStyle from '../SurfStyle';
 import Weather from '../Weather';
 
-type ResumeSessionProps = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const SessionResume: FC<ResumeSessionProps> = ({ setActiveModal }) => {
-
+const SessionResume: FC<Props> = ({ setActiveModal }) => {
   return (
     <div className="sessionResume">
       <div className="sessionResume__title">
@@ -19,7 +17,6 @@ const SessionResume: FC<ResumeSessionProps> = ({ setActiveModal }) => {
       <div className="sessionResume__tags">
         <SurfStyle />
         <SurfStyle />
-        <Region />
       </div>
       <div className="sessionResume__session">
         <h3 className="sessionResume__session__title">
@@ -40,7 +37,7 @@ const SessionResume: FC<ResumeSessionProps> = ({ setActiveModal }) => {
       <div className="sessionResume__button">
         <button
           className="sessionResume__button__validate"
-          onClick={() => setActiveModal('session-publiée')}>
+          onClick={() => setActiveModal('session_published')}>
           <h4>Publier</h4>
         </button>
         <h4 className="sessionResume__button__cancel">Annuler</h4>

@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
-type CreateAccountProps = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const CreateAccount: FC<CreateAccountProps> = ({ setActiveModal }) => {
+const CreateAccount: FC<Props> = ({ setActiveModal }) => {
   return (
     <div className="CreateAccount">
       <div className="CreateAccount__title">
@@ -24,13 +24,13 @@ const CreateAccount: FC<CreateAccountProps> = ({ setActiveModal }) => {
       </div>
       <div className="CreateAccount__button">
         <button
-          className="CreateAccount__button__retour"
+          className="CreateAccount__button__return"
           onClick={() => setActiveModal('connect')}>
           retour
         </button>
         <button
-          className="CreateAccount__button__seconnecter"
-          onClick={() => setActiveModal('completeprofil1')}>
+          className="CreateAccount__button__connect"
+          onClick={() => setActiveModal('complete_profil1')}>
           se connecter
         </button>
       </div>

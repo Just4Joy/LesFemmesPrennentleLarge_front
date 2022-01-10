@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
 
-type RegionProps = {
-  region_name: string;
-  color: string;
-};
+import IRegion from '../../interfaces/IRegion';
 
-const Region: FC<RegionProps> = ({ region_name, color }) => {
+type Props = IRegion;
+
+const Region: FC<Props> = ({ region_name, color }) => {
   return (
     <div className="region">
       <button className="region__button" type="button" style={{ background: color }}>

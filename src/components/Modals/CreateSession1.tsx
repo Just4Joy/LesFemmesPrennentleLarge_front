@@ -1,13 +1,11 @@
-import '../../style/_CreateSession1.scss';
-
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
-type CreateSession1Props = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const CreateSession1: FC<CreateSession1Props> = ({ setActiveModal }) => {
+const CreateSession1: FC<Props> = ({ setActiveModal }) => {
   return (
     <div className="create_session">
       <div className="create_session__title">
@@ -52,12 +50,12 @@ const CreateSession1: FC<CreateSession1Props> = ({ setActiveModal }) => {
           </div>
         </form>
         <hr />
-        <div className="create_session__form__covoit">
+        <div className="create_session__form__carpool">
           <h4>Co-voiturage ?</h4>
           <select>
             <option value="">choisir une option</option>
-            <option value="oui">Oui</option>
-            <option value="non">Non</option>
+            <option value="yes">Oui</option>
+            <option value="no">Non</option>
           </select>
         </div>
       </div>

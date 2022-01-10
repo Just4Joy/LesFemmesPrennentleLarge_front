@@ -1,26 +1,16 @@
 import React, { FC } from 'react';
-import { Dispatch, SetStateAction } from 'react';
 
-import wahine from './img/wahine.svg';
+import wahine from '../../img/wahine.svg';
+import IUser from '../interfaces/IUser';
 
-type HikiProps = {
-  setActiveModal: Dispatch<SetStateAction<string>>;
-  profilePic: string;
-  firstname: string;
-  lastname: string;
-  city: string;
-  favoriteSpot: string;
-  id_user: number;
-  surf_style: string;
-};
+type Props = IUser;
 
-const Hiki: FC<HikiProps> = ({
-  setActiveModal,
-  // profilePic,
+const Hiki: FC<Props> = ({
+  setActiveModal, // profile_pic,
   firstname,
   lastname,
   city,
-  favoriteSpot,
+  favorite_spot,
   surf_style,
 }) => {
   return (
@@ -28,16 +18,16 @@ const Hiki: FC<HikiProps> = ({
       role="presentation"
       className="hiki"
       style={{ cursor: 'pointer' }}
-      onClick={() => setActiveModal('modalwahine')}>
+      onClick={() => setActiveModal('wahine')}>
       <div className="hiki__img">
-        <img className="" /*src={profilePic}*/ src={wahine} alt="wahine" />
+        <img className="" /*src={profile_pic}*/ src={wahine} alt="wahine" />
       </div>
 
       <h5 className="hiki__h5">
         {firstname} {lastname}
       </h5>
       <h6 className="">{city}</h6>
-      <h6 className="hiki__h6">{favoriteSpot}s</h6>
+      <h6 className="hiki__h6">{favorite_spot}s</h6>
       <h6 className="hiki__tag">{surf_style}</h6>
     </div>
   );

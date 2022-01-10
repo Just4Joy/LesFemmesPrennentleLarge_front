@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
 import { FiUpload } from 'react-icons/fi';
 
-import wahine from '../img/wahine.svg';
+import wahine from '../../../img/wahine.svg';
 
 const MyProfile = () => {
   const [editProfil, setEditProfil] = useState<boolean>(false);

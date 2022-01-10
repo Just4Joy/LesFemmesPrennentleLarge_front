@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
-type RegistrationProps = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const Registration: FC<RegistrationProps> = ({ setActiveModal }) => {
+const Registration: FC<Props> = ({ setActiveModal }) => {
   return (
     <div className="registration">
       <div className="registration__title">
@@ -24,11 +24,11 @@ const Registration: FC<RegistrationProps> = ({ setActiveModal }) => {
       <div className="registration__buttons">
         <button
           onClick={() => setActiveModal('')}
-          className="registration__buttons__retour">
+          className="registration__buttons__return">
           <h4>retour</h4>
         </button>
         <button
-          className="registration__buttons__inscription"
+          className="registration__buttons__signup"
           onClick={() => setActiveModal('registered')}>
           <h4>Oui, je m&apos;inscris</h4>
         </button>

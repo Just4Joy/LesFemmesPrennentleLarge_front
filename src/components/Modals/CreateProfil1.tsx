@@ -1,15 +1,13 @@
-import '../../style/_CreateProfil1.scss';
-
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
-import womansurfing from '../img/womansurfing.png';
+import womansurfing from '../../../img/womansurfing.png';
 
-type CreateProfil1Props = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const CreateProfil1: FC<CreateProfil1Props> = ({ setActiveModal }) => {
+const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
   return (
     <div className="createProfil1">
       <div className="createProfil1__title">
@@ -46,7 +44,7 @@ const CreateProfil1: FC<CreateProfil1Props> = ({ setActiveModal }) => {
 
         <button
           className="createProfil1__next createProfil1__container__fullRow"
-          onClick={() => setActiveModal('completeprofil2')}>
+          onClick={() => setActiveModal('complete_profil2')}>
           suivant
         </button>
       </form>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import becomeWahine from '../img/become-wahine.svg';
+import becomeWahine from '../../../img/become-wahine.svg';
 
 const BecomeWahine = () => {
   return (

@@ -4,15 +4,15 @@ import { Dispatch, SetStateAction } from 'react';
 import { useLayoutEffect } from 'react';
 import { BsFillPatchCheckFill } from 'react-icons/bs';
 
-import IUser from '../../../interfaces/IUser';
+import IUser from '../../interfaces/IUser';
 import Hiki from '../Hiki';
 import Wahine from '../Wahine';
 
-type SessionProps = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const Session: FC<SessionProps> = ({ setActiveModal }) => {
+const Session: FC<Props> = ({ setActiveModal }) => {
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   });
@@ -23,9 +23,9 @@ const Session: FC<SessionProps> = ({ setActiveModal }) => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/api/users')
-      .then((result: any) => result.data)
-      .then((data: any) => setAllWahine(data));
+      .get<IUser[]>('http://localhost:3000/api/users')
+      .then((result) => result.data)
+      .then((data) => setAllWahine(data));
   }, []);
   return (
     <div className="onesession">
@@ -77,13 +77,8 @@ const Session: FC<SessionProps> = ({ setActiveModal }) => {
               .map((oneWahine) => {
                 return (
                   <Wahine
+                    {...oneWahine}
                     setActiveModal={setActiveModal}
-                    profilePic={oneWahine.profile_pic}
-                    firstname={oneWahine.firstname}
-                    lastname={oneWahine.lastname}
-                    city={oneWahine.city}
-                    favoriteSpot={oneWahine.favorite_spot}
-                    id_user={oneWahine.id_user}
                     key={oneWahine.id_user}
                   />
                 );
@@ -103,14 +98,8 @@ const Session: FC<SessionProps> = ({ setActiveModal }) => {
               .map((oneWahine) => {
                 return (
                   <Hiki
+                    {...oneWahine}
                     setActiveModal={setActiveModal}
-                    profilePic={oneWahine.profile_pic}
-                    firstname={oneWahine.firstname}
-                    lastname={oneWahine.lastname}
-                    city={oneWahine.city}
-                    favoriteSpot={oneWahine.favorite_spot}
-                    id_user={oneWahine.id_user}
-                    surf_style={oneWahine.surf_style}
                     key={oneWahine.id_user}
                   />
                 );

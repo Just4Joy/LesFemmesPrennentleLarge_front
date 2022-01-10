@@ -53,22 +53,22 @@ function App() {
             <Connect setActiveModal={setActiveModal} />
           </Modal>
         )}
-        {activeModal === 'creationcompte' && (
+        {activeModal === 'create_account' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <CreateAccount setActiveModal={setActiveModal} />
           </Modal>
         )}
-        {activeModal === 'completeprofil1' && (
+        {activeModal === 'complete_profil1' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <CreateProfil1 setActiveModal={setActiveModal} />
           </Modal>
         )}
-        {activeModal === 'completeprofil2' && (
+        {activeModal === 'complete_profil2' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <CreateProfil2 setActiveModal={setActiveModal} />
           </Modal>
         )}
-        {activeModal === 'modalwahine' && (
+        {activeModal === 'wahine' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <Routes>
               <Route path="/:id" element={<ModalProfile />} />
@@ -100,7 +100,7 @@ function App() {
             <SessionResume setActiveModal={setActiveModal} />
           </Modal>
         )}
-        {activeModal === 'session-publiée' && (
+        {activeModal === 'session_published' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <SessionPublished setActiveModal={setActiveModal} />
           </Modal>

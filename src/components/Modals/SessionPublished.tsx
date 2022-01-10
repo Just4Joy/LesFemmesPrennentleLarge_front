@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { BsCheckCircle } from 'react-icons/bs';
 
-type SessionPublishedProps = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const SessionPublished: FC<SessionPublishedProps> = () => {
+const SessionPublished: FC<Props> = () => {
   return (
     <div className="published">
       <div>

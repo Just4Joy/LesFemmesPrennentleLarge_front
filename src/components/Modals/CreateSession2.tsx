@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
-type CreateSession2Props = {
+type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const CreateSession2: FC<CreateSession2Props> = ({ setActiveModal }) => {
+const CreateSession2: FC<Props> = ({ setActiveModal }) => {
   return (
     <div className="create-session2">
       <div className="create-session2__title">
