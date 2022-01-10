@@ -1,8 +1,10 @@
 import '../../style/_ModalProfile.scss';
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
+import { useParams } from 'react-router';
+
 import IUser from '../../../interfaces/IUser';
 import wahine from '../img/wahine.svg';
 

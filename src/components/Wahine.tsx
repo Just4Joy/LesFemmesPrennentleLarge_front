@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
 import { Dispatch, SetStateAction } from 'react';
+import { Link } from 'react-router-dom';
 
 import wahine from './img/wahine.svg';
 
@@ -24,7 +24,7 @@ const Wahine: FC<WahineProps> = ({
   id_user,
 }) => {
   return (
-    <Link to={`/profile/${id_user}`}>
+    <Link to={`/${id_user}`}>
       <div
         role="presentation"
         className="wahine"

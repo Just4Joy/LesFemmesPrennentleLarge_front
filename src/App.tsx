@@ -43,6 +43,7 @@ function App() {
               path="/create_session"
               element={<Home setActiveModal={setActiveModal} />}
             />
+            <Route path="/:id" element={<Home setActiveModal={setActiveModal} />} />
           </Routes>
           <Footer />
         </div>
@@ -69,7 +70,7 @@ function App() {
         {activeModal === 'modalwahine' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <Routes>
-              <Route path="/profile/:id" element={<ModalProfile />} />
+              <Route path="/:id" element={<ModalProfile />} />
             </Routes>
           </Modal>
         )}
