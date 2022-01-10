@@ -56,17 +56,17 @@ function App() {
             <CreateAccount setActiveModal={setActiveModal} />
           </Modal>
         )}
-        {activeModal === 'completeprofil1' && (
+        {activeModal === 'complete_profil1' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <CreateProfil1 setActiveModal={setActiveModal} />
           </Modal>
         )}
-        {activeModal === 'completeprofil2' && (
+        {activeModal === 'complete_profil2' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <CreateProfil2 setActiveModal={setActiveModal} />
           </Modal>
         )}
-        {activeModal === 'modalwahine' && (
+        {activeModal === 'wahine' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <ModalProfile />
           </Modal>
@@ -96,7 +96,7 @@ function App() {
             <SessionResume setActiveModal={setActiveModal} />
           </Modal>
         )}
-        {activeModal === 'session-published' && (
+        {activeModal === 'session_published' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <SessionPublished setActiveModal={setActiveModal} />
           </Modal>

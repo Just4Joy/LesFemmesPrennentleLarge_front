@@ -18,7 +18,7 @@ const Wahine: FC<Props> = ({
       role="presentation"
       className="wahine"
       style={{ cursor: 'pointer' }}
-      onClick={() => setActiveModal('modalwahine')}
+      onClick={() => setActiveModal('wahine')}
       key={id_user}>
       <div className="wahine__img">
         <img className="" /*src={profile_pic}*/ src={wahineImg} alt="wahine" />

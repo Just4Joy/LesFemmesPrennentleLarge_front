@@ -30,7 +30,7 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
         </button>
         <button
           className="CreateAccount__button__connect"
-          onClick={() => setActiveModal('completeprofil1')}>
+          onClick={() => setActiveModal('complete_profil1')}>
           se connecter
         </button>
       </div>

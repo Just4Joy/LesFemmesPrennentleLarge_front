@@ -44,7 +44,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
 
         <button
           className="createProfil1__next createProfil1__container__fullRow"
-          onClick={() => setActiveModal('completeprofil2')}>
+          onClick={() => setActiveModal('complete_profil2')}>
           suivant
         </button>
       </form>

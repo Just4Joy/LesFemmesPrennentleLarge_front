@@ -37,7 +37,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
       <div className="sessionResume__button">
         <button
           className="sessionResume__button__validate"
-          onClick={() => setActiveModal('session-published')}>
+          onClick={() => setActiveModal('session_published')}>
           <h4>Publier</h4>
         </button>
         <h4 className="sessionResume__button__cancel">Annuler</h4>
