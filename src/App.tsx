@@ -44,6 +44,7 @@ function App() {
           </Routes>
           <Footer />
         </div>
+        {/* Série de modals */}
         {activeModal === 'connect' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <Connect setActiveModal={setActiveModal} />
