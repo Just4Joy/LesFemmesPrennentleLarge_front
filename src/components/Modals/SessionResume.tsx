@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 import Region from '../Home/Region';
 import SurfStyle from '../SurfStyle';
 import Weather from '../Weather';
-import { Dispatch, SetStateAction } from 'react';
 
 type ResumeSessionProps = {
   setActiveModal: Dispatch<SetStateAction<string>>;

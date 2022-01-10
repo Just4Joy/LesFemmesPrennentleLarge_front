@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
-import { BsFillPatchCheckFill } from 'react-icons/bs';
 import { useLayoutEffect } from 'react';
+import { BsFillPatchCheckFill } from 'react-icons/bs';
 
 import Hiki from '../Hiki';
 import Wahine from '../Wahine';

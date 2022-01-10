@@ -4,12 +4,12 @@ import { Dispatch, SetStateAction } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
 
+import IRegion from '../../../interfaces/IRegion';
+import ISession from '../../../interfaces/ISession';
 import NextSession from '../NextSession';
 import Wahine from '../Wahine';
 import BecomeWahine from './BecomeWahine';
 import Region from './Region';
-import IRegion from '../../../interfaces/IRegion';
-import ISession from '../../../interfaces/ISession';
 
 type HomeProps = {
   setActiveModal: Dispatch<SetStateAction<string>>;

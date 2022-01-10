@@ -1,6 +1,7 @@
+import '../../style/_ModalProfile.scss';
+
 import React from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
-import '../../style/_ModalProfile.scss';
 
 import wahine from '../img/wahine.svg';
 
