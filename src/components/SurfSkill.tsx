@@ -1,5 +1,4 @@
 import React from 'react';
-import '../style/_SurfSkill.scss';
 
 const SurfSkill = () => {
   return (
