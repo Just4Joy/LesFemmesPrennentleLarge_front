@@ -121,11 +121,11 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
                 return (
                   <Wahine
                     setActiveModal={setActiveModal}
-                    profilePic={oneWahine.profilePic}
+                    profilePic={oneWahine.profile_pic}
                     firstname={oneWahine.firstname}
                     lastname={oneWahine.lastname}
                     city={oneWahine.city}
-                    favoriteSpot={oneWahine.favoriteSpot}
+                    favoriteSpot={oneWahine.favorite_spot}
                     id_user={oneWahine.id_user}
                     key={oneWahine.id_user}
                   />
