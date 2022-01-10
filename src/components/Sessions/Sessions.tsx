@@ -68,18 +68,7 @@ const Sessions = () => {
       <div className="sessions__nextsession">
         {allSessions &&
           allSessions.map((session) => {
-            return (
-              <NextSession
-                date={session.date}
-                adress={session.adress}
-                name={session.name}
-                spot_name={session.spot_name}
-                region_name={session.region_name}
-                name_session={session.name_session}
-                carpool={session.carpool}
-                key={session.id_session}
-              />
-            );
+            return <NextSession {...session} key={session.id_session} />;
           })}
       </div>
       <div className="sessions__button">

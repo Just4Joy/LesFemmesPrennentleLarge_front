@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { useLayoutEffect } from 'react';
 import { BsFillPatchCheckFill } from 'react-icons/bs';
 
-import IUser from '../../../interfaces/IUser';
+import IUser from '../../interfaces/IUser';
 import Hiki from '../Hiki';
 import Wahine from '../Wahine';
 
@@ -78,12 +78,7 @@ const Session: FC<SessionProps> = ({ setActiveModal }) => {
                 return (
                   <Wahine
                     setActiveModal={setActiveModal}
-                    profilePic={oneWahine.profile_pic}
-                    firstname={oneWahine.firstname}
-                    lastname={oneWahine.lastname}
-                    city={oneWahine.city}
-                    favoriteSpot={oneWahine.favorite_spot}
-                    id_user={oneWahine.id_user}
+                    {...oneWahine}
                     key={oneWahine.id_user}
                   />
                 );
@@ -104,13 +99,7 @@ const Session: FC<SessionProps> = ({ setActiveModal }) => {
                 return (
                   <Hiki
                     setActiveModal={setActiveModal}
-                    profilePic={oneWahine.profile_pic}
-                    firstname={oneWahine.firstname}
-                    lastname={oneWahine.lastname}
-                    city={oneWahine.city}
-                    favoriteSpot={oneWahine.favorite_spot}
-                    id_user={oneWahine.id_user}
-                    surf_style={oneWahine.surf_style}
+                    {...oneWahine}
                     key={oneWahine.id_user}
                   />
                 );

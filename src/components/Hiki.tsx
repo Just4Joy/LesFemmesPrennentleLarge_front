@@ -5,22 +5,22 @@ import wahine from './img/wahine.svg';
 
 type HikiProps = {
   setActiveModal: Dispatch<SetStateAction<string>>;
-  profilePic: string;
+  profile_pic: string;
   firstname: string;
   lastname: string;
   city: string;
-  favoriteSpot: string;
+  favorite_spot: string;
   id_user: number;
   surf_style: string;
 };
 
 const Hiki: FC<HikiProps> = ({
   setActiveModal,
-  // profilePic,
+  // profile_pic,
   firstname,
   lastname,
   city,
-  favoriteSpot,
+  favorite_spot,
   surf_style,
 }) => {
   return (
@@ -30,14 +30,14 @@ const Hiki: FC<HikiProps> = ({
       style={{ cursor: 'pointer' }}
       onClick={() => setActiveModal('modalwahine')}>
       <div className="hiki__img">
-        <img className="" /*src={profilePic}*/ src={wahine} alt="wahine" />
+        <img className="" /*src={profile_pic}*/ src={wahine} alt="wahine" />
       </div>
 
       <h5 className="hiki__h5">
         {firstname} {lastname}
       </h5>
       <h6 className="">{city}</h6>
-      <h6 className="hiki__h6">{favoriteSpot}s</h6>
+      <h6 className="hiki__h6">{favorite_spot}s</h6>
       <h6 className="hiki__tag">{surf_style}</h6>
     </div>
   );

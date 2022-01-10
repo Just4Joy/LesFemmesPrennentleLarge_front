@@ -4,9 +4,9 @@ import { Dispatch, SetStateAction } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
 
-import IRegion from '../../../interfaces/IRegion';
-import ISession from '../../../interfaces/ISession';
-import IUser from '../../../interfaces/IUser';
+import IRegion from '../../interfaces/IRegion';
+import ISession from '../../interfaces/ISession';
+import IUser from '../../interfaces/IUser';
 
 import NextSession from '../NextSession';
 import Wahine from '../Wahine';
@@ -69,13 +69,7 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
         <div className="home__region__component">
           {regions &&
             regions.map((region) => {
-              return (
-                <Region
-                  region_name={region.region_name}
-                  color={region.color}
-                  key={region.id_region}
-                />
-              );
+              return <Region {...region} key={region.id_region} />;
             })}
         </div>
       </div>
@@ -86,18 +80,7 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
         <div className="home__sessions__component">
           {threeSessions &&
             threeSessions.map((session) => {
-              return (
-                <NextSession
-                  date={session.date}
-                  adress={session.adress}
-                  name={session.name}
-                  spot_name={session.spot_name}
-                  region_name={session.region_name}
-                  name_session={session.name_session}
-                  carpool={session.carpool}
-                  key={session.id_session}
-                />
-              );
+              return <NextSession {...session} key={session.id_session} />;
             })}
         </div>
         <NavLink to="/sessions" className="home__sessions__h5">
@@ -117,12 +100,7 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
                 return (
                   <Wahine
                     setActiveModal={setActiveModal}
-                    profilePic={oneWahine.profile_pic}
-                    firstname={oneWahine.firstname}
-                    lastname={oneWahine.lastname}
-                    city={oneWahine.city}
-                    favoriteSpot={oneWahine.favorite_spot}
-                    id_user={oneWahine.id_user}
+                    {...oneWahine}
                     key={oneWahine.id_user}
                   />
                 );
