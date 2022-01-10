@@ -13,4 +13,5 @@ export default interface IUser {
   department: string;
   surf_style: string;
   wahine: boolean;
+  desc: string;
 }
