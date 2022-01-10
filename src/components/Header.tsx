@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { NavLink } from 'react-router-dom';
 
-import LFPLL from './img/LFPLL.svg';
+import LFPLL from '../../img/LFPLL.svg';
 
 type HeaderProps = {
   setActiveModal: Dispatch<SetStateAction<string>>;

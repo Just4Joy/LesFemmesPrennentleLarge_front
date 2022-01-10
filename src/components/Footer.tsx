@@ -2,7 +2,7 @@ import React from 'react';
 // import Link from 'react-router-dom';
 import { AiFillFacebook, AiFillInstagram, AiFillLinkedin } from 'react-icons/ai';
 
-import Logo from './img/logo.svg';
+import Logo from '../../img/logo.svg';
 
 const Footer = () => {
   return (

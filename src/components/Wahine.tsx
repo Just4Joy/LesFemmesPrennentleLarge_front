@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
-import wahine from './img/wahine.svg';
+import wahine from '../../img/wahine.svg';
 
 type WahineProps = {
   setActiveModal: Dispatch<SetStateAction<string>>;

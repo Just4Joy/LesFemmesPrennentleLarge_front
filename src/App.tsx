@@ -51,7 +51,7 @@ function App() {
             <Connect setActiveModal={setActiveModal} />
           </Modal>
         )}
-        {activeModal === 'creationcompte' && (
+        {activeModal === 'create_account' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <CreateAccount setActiveModal={setActiveModal} />
           </Modal>
@@ -96,7 +96,7 @@ function App() {
             <SessionResume setActiveModal={setActiveModal} />
           </Modal>
         )}
-        {activeModal === 'session-publiée' && (
+        {activeModal === 'session-published' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <SessionPublished setActiveModal={setActiveModal} />
           </Modal>

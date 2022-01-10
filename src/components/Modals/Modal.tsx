@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
-import arrowLeft from '../img/arrowLeft.svg';
+import arrowLeft from '../../../img/arrowLeft.svg';
 
 type ModalProps = {
   activeModal: string;

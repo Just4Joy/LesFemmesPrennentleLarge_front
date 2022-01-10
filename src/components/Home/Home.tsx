@@ -7,7 +7,6 @@ import { NavLink } from 'react-router-dom';
 import IRegion from '../../interfaces/IRegion';
 import ISession from '../../interfaces/ISession';
 import IUser from '../../interfaces/IUser';
-
 import NextSession from '../NextSession';
 import Wahine from '../Wahine';
 import BecomeWahine from './BecomeWahine';
@@ -28,23 +27,23 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
 
   useEffect(() => {
     axios
-      .get('http://lfpll-back.herokuapp.com/api/regions')
-      .then((result: any) => result.data)
-      .then((data: any) => setRegions(data));
+      .get<IRegion[]>('http://lfpll-back.herokuapp.com/api/regions')
+      .then((result) => result.data)
+      .then((data) => setRegions(data));
   }, []);
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/api/sessions/?limit=3')
-      .then((result: any) => result.data)
-      .then((data: any) => setThreeSessions(data));
+      .get<ISession[]>('http://localhost:3000/api/sessions/?limit=3')
+      .then((result) => result.data)
+      .then((data) => setThreeSessions(data));
   }, []);
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/api/users')
-      .then((result: any) => result.data)
-      .then((data: any) => setAllWahine(data));
+      .get<IUser[]>('http://localhost:3000/api/users')
+      .then((result) => result.data)
+      .then((data) => setAllWahine(data));
   }, []);
   console.log(allWahine);
   return (

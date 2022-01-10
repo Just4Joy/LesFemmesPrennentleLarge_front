@@ -1,44 +1,26 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
+import IRegion from '../../interfaces/IRegion';
+import ISession from '../../interfaces/ISession';
 import NextSession from '../NextSession';
 
 const Sessions = () => {
-  interface regionTypes {
-    id_region: number;
-    name: string;
-    color: string;
-  }
-
-  interface allSessionsTypes {
-    id_session: number;
-    name: string;
-    date: string;
-    spot_name: string;
-    adress: string;
-    nb_hiki_max: number;
-    id_departement: number;
-    id_surf_style: number;
-    carpool: number;
-    region_name: string;
-    name_session: string;
-  }
-
-  const [regions, setRegions] = useState<regionTypes[]>([]);
-  const [allSessions, setAllSessions] = useState<allSessionsTypes[]>([]);
+  const [regions, setRegions] = useState<IRegion[]>([]);
+  const [allSessions, setAllSessions] = useState<ISession[]>([]);
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/api/regions')
-      .then((result: any) => result.data)
-      .then((data: any) => setRegions(data));
+      .get<IRegion[]>('http://localhost:3000/api/regions')
+      .then((result) => result.data)
+      .then((data) => setRegions(data));
   }, []);
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/api/sessions')
-      .then((result: any) => result.data)
-      .then((data: any) => setAllSessions(data));
+      .get<ISession[]>('http://localhost:3000/api/sessions')
+      .then((result) => result.data)
+      .then((data) => setAllSessions(data));
   }, []);
   console.log(allSessions);
 
@@ -51,8 +33,8 @@ const Sessions = () => {
           <option value="">région</option>
           {regions.map((region) => {
             return (
-              <option value={region.name} key={region.id_region}>
-                {region.name}
+              <option value={region.region_name} key={region.id_region}>
+                {region.region_name}
               </option>
             );
           })}

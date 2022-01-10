@@ -21,7 +21,7 @@ const Connect: FC<ConnectProps> = ({ setActiveModal }) => {
         <div className="connect__button">
           <button
             className="connect__button__create"
-            onClick={() => setActiveModal('creationcompte')}>
+            onClick={() => setActiveModal('create_account')}>
             Créer un compte
           </button>
           <button className="connect__button__connect">Se connecter</button>

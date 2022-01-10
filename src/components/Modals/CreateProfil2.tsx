@@ -1,5 +1,3 @@
-import '../../style/_CreateProfil2.scss';
-
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -18,7 +16,7 @@ const CreateProfil2: FC<CreateProfil2Props> = ({ setActiveModal }) => {
         <h2>Skip</h2>
       </div>
       <div className="createProfil2__skills">
-        <div className="createProfil2__skills__titre">
+        <div className="createProfil2__skills__title">
           <p> Choisis tes skills</p>
         </div>
         <div className="createProfil2__skills__tags">
@@ -36,7 +34,7 @@ const CreateProfil2: FC<CreateProfil2Props> = ({ setActiveModal }) => {
         </div>
         <div className="createProfil2__button">
           <NavLink
-            className="createProfil2__button__valider"
+            className="createProfil2__button__validate"
             to="/profile"
             onClick={() => setActiveModal('')}>
             Valider mon profil

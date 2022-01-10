@@ -23,9 +23,9 @@ const Session: FC<SessionProps> = ({ setActiveModal }) => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/api/users')
-      .then((result: any) => result.data)
-      .then((data: any) => setAllWahine(data));
+      .get<IUser[]>('http://localhost:3000/api/users')
+      .then((result) => result.data)
+      .then((data) => setAllWahine(data));
   }, []);
   return (
     <div className="onesession">

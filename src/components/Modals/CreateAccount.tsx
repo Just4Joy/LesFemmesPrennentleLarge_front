@@ -24,12 +24,12 @@ const CreateAccount: FC<CreateAccountProps> = ({ setActiveModal }) => {
       </div>
       <div className="CreateAccount__button">
         <button
-          className="CreateAccount__button__retour"
+          className="CreateAccount__button__return"
           onClick={() => setActiveModal('connect')}>
           retour
         </button>
         <button
-          className="CreateAccount__button__seconnecter"
+          className="CreateAccount__button__connect"
           onClick={() => setActiveModal('completeprofil1')}>
           se connecter
         </button>

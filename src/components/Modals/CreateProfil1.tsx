@@ -1,9 +1,7 @@
-import '../../style/_CreateProfil1.scss';
-
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
-import womansurfing from '../img/womansurfing.png';
+import womansurfing from '../../../img/womansurfing.png';
 
 type CreateProfil1Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
