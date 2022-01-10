@@ -4,31 +4,27 @@ import { Dispatch, SetStateAction } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
 
+import IRegion from '../../../interfaces/IRegion';
+import ISession from '../../../interfaces/ISession';
 import IUser from '../../../interfaces/IUser';
+
 import NextSession from '../NextSession';
 import Wahine from '../Wahine';
 import BecomeWahine from './BecomeWahine';
 import Region from './Region';
-import IRegion from '../../../interfaces/IRegion';
-import ISession from '../../../interfaces/ISession';
 
 type HomeProps = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
 const Home: FC<HomeProps> = ({ setActiveModal }) => {
-
   const [regions, setRegions] = useState<IRegion[]>([]);
   const [threeSessions, setThreeSessions] = useState<ISession[]>([]);
-
 
   const first: number = 0;
   const second: number = 5;
 
   const [allWahine, setAllWahine] = useState<IUser[]>([]);
-  const [regions, setRegions] = useState<regionTypes[]>([]);
-  const [threeSessions, setThreeSessions] = useState<sessionsTypes[]>([]);
-
 
   useEffect(() => {
     axios
