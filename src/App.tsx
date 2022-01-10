@@ -43,9 +43,11 @@ function App() {
               path="/create_session"
               element={<Home setActiveModal={setActiveModal} />}
             />
+            <Route path="/:id" element={<Home setActiveModal={setActiveModal} />} />
           </Routes>
           <Footer />
         </div>
+        {/* Série de modals */}
         {activeModal === 'connect' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <Connect setActiveModal={setActiveModal} />
@@ -68,7 +70,9 @@ function App() {
         )}
         {activeModal === 'wahine' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
-            <ModalProfile />
+            <Routes>
+              <Route path="/:id" element={<ModalProfile />} />
+            </Routes>
           </Modal>
         )}
         {activeModal === 'registration' && (

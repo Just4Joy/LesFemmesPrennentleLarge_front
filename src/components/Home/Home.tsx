@@ -45,7 +45,6 @@ const Home: FC<Props> = ({ setActiveModal }) => {
       .then((result) => result.data)
       .then((data) => setAllWahine(data));
   }, []);
-  console.log(allWahine);
   return (
     <div className="home">
       {/*Section : Présentation*/}

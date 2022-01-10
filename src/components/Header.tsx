@@ -1,15 +1,22 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { NavLink } from 'react-router-dom';
 
+
 import LFPLL from '../../img/LFPLL.svg';
+
+import CurrentUserContext from './contexts/CurrentUser';
+
 
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
+
 const Header: FC<Props> = ({ setActiveModal }) => {
+
+  const { id, logout, wahine } = useContext(CurrentUserContext);
   return (
     <div className="header">
       <div className="header__logo">
@@ -31,15 +38,31 @@ const Header: FC<Props> = ({ setActiveModal }) => {
           <NavLink to="/sessions">Sessions</NavLink>
         </li>
         <li className="header__list__connection">
-          <NavLink to="/login" onClick={() => setActiveModal('connect')}>
-            Se connecter
-          </NavLink>
+          {id === 0 ? (
+            <NavLink
+              end
+              to="/login"
+              onClick={() => setActiveModal('connect')}
+              className="header__list__connection__login">
+              Se connecter
+            </NavLink>
+          ) : (
+            <span className="header__list__connection__logout" onClick={() => logout()}>
+              Se déconnecter
+            </span>
+          )}
         </li>
-        <li className="header__list__create" style={{ textDecoration: 'underline' }}>
-          <NavLink to="/create_session" onClick={() => setActiveModal('create_session1')}>
-            Créer une session
-          </NavLink>
-        </li>
+        {wahine ? (
+          <li className="header__list__create" style={{ textDecoration: 'underline' }}>
+            <NavLink
+              to="/create_session"
+              onClick={() => setActiveModal('create_session1')}>
+              Créer une session
+            </NavLink>
+          </li>
+        ) : (
+          ''
+        )}
       </ul>
     </div>
   );
