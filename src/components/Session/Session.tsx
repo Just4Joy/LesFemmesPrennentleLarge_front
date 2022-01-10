@@ -78,11 +78,11 @@ const Session: FC<SessionProps> = ({ setActiveModal }) => {
                 return (
                   <Wahine
                     setActiveModal={setActiveModal}
-                    profilePic={oneWahine.profilePic}
+                    profilePic={oneWahine.profile_pic}
                     firstname={oneWahine.firstname}
                     lastname={oneWahine.lastname}
                     city={oneWahine.city}
-                    favoriteSpot={oneWahine.favoriteSpot}
+                    favoriteSpot={oneWahine.favorite_spot}
                     id_user={oneWahine.id_user}
                     key={oneWahine.id_user}
                   />
@@ -104,13 +104,13 @@ const Session: FC<SessionProps> = ({ setActiveModal }) => {
                 return (
                   <Hiki
                     setActiveModal={setActiveModal}
-                    profilePic={oneWahine.profilePic}
+                    profilePic={oneWahine.profile_pic}
                     firstname={oneWahine.firstname}
                     lastname={oneWahine.lastname}
                     city={oneWahine.city}
-                    favoriteSpot={oneWahine.favoriteSpot}
+                    favoriteSpot={oneWahine.favorite_spot}
                     id_user={oneWahine.id_user}
-                    id_surf_style={oneWahine.id_surf_style}
+                    surf_style={oneWahine.surf_style}
                     key={oneWahine.id_user}
                   />
                 );

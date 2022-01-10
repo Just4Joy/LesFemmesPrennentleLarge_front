@@ -11,7 +11,7 @@ type HikiProps = {
   city: string;
   favoriteSpot: string;
   id_user: number;
-  id_surf_style: number;
+  surf_style: string;
 };
 
 const Hiki: FC<HikiProps> = ({
@@ -21,7 +21,7 @@ const Hiki: FC<HikiProps> = ({
   lastname,
   city,
   favoriteSpot,
-  id_surf_style,
+  surf_style,
 }) => {
   return (
     <div
@@ -38,9 +38,7 @@ const Hiki: FC<HikiProps> = ({
       </h5>
       <h6 className="">{city}</h6>
       <h6 className="hiki__h6">{favoriteSpot}s</h6>
-      <h6 className="hiki__tag">
-        {id_surf_style ? `Surf au large` : `surf dans les mousses`}
-      </h6>
+      <h6 className="hiki__tag">{surf_style}</h6>
     </div>
   );
 };
