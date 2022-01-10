@@ -1,4 +1,5 @@
 export default interface ISession {
+  id_session: number;
   name: string;
   date: string;
   spot_name: string;
@@ -7,4 +8,6 @@ export default interface ISession {
   id_departement: number;
   id_surf_style: number;
   carpool: number;
+  region_name: string;
+  name_session: string;
 }

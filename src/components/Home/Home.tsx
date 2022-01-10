@@ -8,34 +8,16 @@ import NextSession from '../NextSession';
 import Wahine from '../Wahine';
 import BecomeWahine from './BecomeWahine';
 import Region from './Region';
+import IRegion from '../../../interfaces/IRegion';
+import ISession from '../../../interfaces/ISession';
 
 type HomeProps = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
 const Home: FC<HomeProps> = ({ setActiveModal }) => {
-  interface regionTypes {
-    id_region: number;
-    region_name: string;
-    color: string;
-  }
-
-  interface sessionsTypes {
-    id_session: number;
-    name: string;
-    date: string;
-    spot_name: string;
-    adress: string;
-    nb_hiki_max: number;
-    id_departement: number;
-    id_surf_style: number;
-    carpool: number;
-    region_name: string;
-    name_session: string;
-  }
-
-  const [regions, setRegions] = useState<regionTypes[]>([]);
-  const [threeSessions, setThreeSessions] = useState<sessionsTypes[]>([]);
+  const [regions, setRegions] = useState<IRegion[]>([]);
+  const [threeSessions, setThreeSessions] = useState<ISession[]>([]);
 
   useEffect(() => {
     axios

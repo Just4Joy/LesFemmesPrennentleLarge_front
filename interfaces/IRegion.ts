@@ -1,5 +1,5 @@
 export default interface IRegion {
   id_region: number;
-  name: string;
+  region_name: string;
   color: string;
 }
