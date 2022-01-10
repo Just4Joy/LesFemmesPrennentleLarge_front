@@ -37,12 +37,12 @@ const SessionResume: FC<ResumeSessionProps> = ({ setActiveModal }) => {
         <Weather />
       </div>
       <div className="sessionResume__button">
-        <h4 className="sessionResume__button__cancel">Annuler</h4>
         <button
           className="sessionResume__button__validate"
           onClick={() => setActiveModal('session-publiée')}>
-          Publier
+          <h4>Publier</h4>
         </button>
+        <h4 className="sessionResume__button__cancel">Annuler</h4>
       </div>
     </div>
   );
