@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
 import { Dispatch, SetStateAction } from 'react';
 
 import wahine from './img/wahine.svg';
@@ -23,22 +24,24 @@ const Wahine: FC<WahineProps> = ({
   id_user,
 }) => {
   return (
-    <div
-      role="presentation"
-      className="wahine"
-      style={{ cursor: 'pointer' }}
-      onClick={() => setActiveModal('modalwahine')}
-      key={id_user}>
-      <div className="wahine__img">
-        <img className="" /*src={profilePic}*/ src={wahine} alt="wahine" />
-      </div>
+    <Link to={`/profile/${id_user}`}>
+      <div
+        role="presentation"
+        className="wahine"
+        style={{ cursor: 'pointer' }}
+        onClick={() => setActiveModal('modalwahine')}
+        key={id_user}>
+        <div className="wahine__img">
+          <img className="" /*src={profilePic}*/ src={wahine} alt="wahine" />
+        </div>
 
-      <h5 className="wahine__h5">
-        {firstname} {lastname}
-      </h5>
-      <h6 className="">{city}</h6>
-      <h6 className="wahine__h6">{favoriteSpot}</h6>
-    </div>
+        <h5 className="wahine__h5">
+          {firstname} {lastname}
+        </h5>
+        <h6 className="">{city}</h6>
+        <h6 className="wahine__h6">{favoriteSpot}</h6>
+      </div>
+    </Link>
   );
 };
 

@@ -68,7 +68,9 @@ function App() {
         )}
         {activeModal === 'modalwahine' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
-            <ModalProfile />
+            <Routes>
+              <Route path="/profile/:id" element={<ModalProfile />} />
+            </Routes>
           </Modal>
         )}
         {activeModal === 'registration' && (
