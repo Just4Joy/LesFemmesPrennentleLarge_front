@@ -10,6 +10,7 @@ type ResumeSessionProps = {
 };
 
 const SessionResume: FC<ResumeSessionProps> = ({ setActiveModal }) => {
+
   return (
     <div className="sessionResume">
       <div className="sessionResume__title">

@@ -5,12 +5,12 @@ export default interface IUser {
   city: string;
   email: string;
   password: string;
-  zipCode: string;
-  profilePic: unknown;
-  idSurfSkill: number;
-  favoriteSpot: string;
-  createdDate: Date;
-  idDepartement: number;
-  idSurfStyle: number;
-  admin: boolean;
+  zip_code: string;
+  profile_pic: string;
+  surf_skill: string;
+  favorite_spot: string;
+  created_date: Date;
+  department: string;
+  surf_style: string;
+  wahine: boolean;
 }

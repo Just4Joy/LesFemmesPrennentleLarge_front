@@ -1,8 +1,10 @@
-import React, { FC } from 'react';
+import axios from 'axios';
+import React, { FC, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { useLayoutEffect } from 'react';
 import { BsFillPatchCheckFill } from 'react-icons/bs';
 
+import IUser from '../../../interfaces/IUser';
 import Hiki from '../Hiki';
 import Wahine from '../Wahine';
 
@@ -14,6 +16,17 @@ const Session: FC<SessionProps> = ({ setActiveModal }) => {
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   });
+
+  const first: number = 0;
+  const second: number = 5;
+  const [allWahine, setAllWahine] = useState<IUser[]>([]);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3000/api/users')
+      .then((result: any) => result.data)
+      .then((data: any) => setAllWahine(data));
+  }, []);
   return (
     <div className="onesession">
       <div className="session">
@@ -58,7 +71,23 @@ const Session: FC<SessionProps> = ({ setActiveModal }) => {
         </div>
         <div className="session__organiser">
           <h4>Organisé par:</h4>
-          <Wahine setActiveModal={setActiveModal} />
+          {allWahine &&
+            allWahine
+              .filter((aWahine) => aWahine.id_user === 27 && aWahine.wahine)
+              .map((oneWahine) => {
+                return (
+                  <Wahine
+                    setActiveModal={setActiveModal}
+                    profilePic={oneWahine.profile_pic}
+                    firstname={oneWahine.firstname}
+                    lastname={oneWahine.lastname}
+                    city={oneWahine.city}
+                    favoriteSpot={oneWahine.favorite_spot}
+                    id_user={oneWahine.id_user}
+                    key={oneWahine.id_user}
+                  />
+                );
+              })}
         </div>
       </div>
       <button className="onesession__join" onClick={() => setActiveModal('registration')}>
@@ -67,11 +96,25 @@ const Session: FC<SessionProps> = ({ setActiveModal }) => {
       <div className="onesession__group">
         <h3>Hikis de la session</h3>
         <div className="onesession__group__hikis">
-          <Hiki setActiveModal={setActiveModal} />
-          <Hiki setActiveModal={setActiveModal} />
-          <Hiki setActiveModal={setActiveModal} />
-          <Hiki setActiveModal={setActiveModal} />
-          <Hiki setActiveModal={setActiveModal} />
+          {allWahine &&
+            allWahine
+              .filter((aWahine) => !aWahine.wahine)
+              .slice(first, second)
+              .map((oneWahine) => {
+                return (
+                  <Hiki
+                    setActiveModal={setActiveModal}
+                    profilePic={oneWahine.profile_pic}
+                    firstname={oneWahine.firstname}
+                    lastname={oneWahine.lastname}
+                    city={oneWahine.city}
+                    favoriteSpot={oneWahine.favorite_spot}
+                    id_user={oneWahine.id_user}
+                    surf_style={oneWahine.surf_style}
+                    key={oneWahine.id_user}
+                  />
+                );
+              })}
         </div>
       </div>
     </div>
