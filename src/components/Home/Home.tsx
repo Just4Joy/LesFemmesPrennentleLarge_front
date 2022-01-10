@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
 
+import IUser from '../../../interfaces/IUser';
 import NextSession from '../NextSession';
 import Wahine from '../Wahine';
 import BecomeWahine from './BecomeWahine';
@@ -34,6 +35,10 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
     name_session: string;
   }
 
+  const first: number = 0;
+  const second: number = 5;
+
+  const [allWahine, setAllWahine] = useState<IUser[]>([]);
   const [regions, setRegions] = useState<regionTypes[]>([]);
   const [threeSessions, setThreeSessions] = useState<sessionsTypes[]>([]);
 
@@ -51,6 +56,13 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
       .then((data: any) => setThreeSessions(data));
   }, []);
 
+  useEffect(() => {
+    axios
+      .get('http://localhost:3000/api/users')
+      .then((result: any) => result.data)
+      .then((data: any) => setAllWahine(data));
+  }, []);
+  console.log(allWahine);
   return (
     <div className="home">
       {/*Section : Présentation*/}
@@ -113,11 +125,24 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
       <div className="home__wahines">
         <h3 className="home__wahines__h3">Nos Wahines</h3>
         <div className="home__wahines__component">
-          <Wahine setActiveModal={setActiveModal} />
-          <Wahine setActiveModal={setActiveModal} />
-          <Wahine setActiveModal={setActiveModal} />
-          <Wahine setActiveModal={setActiveModal} />
-          <Wahine setActiveModal={setActiveModal} />
+          {allWahine &&
+            allWahine
+              .filter((aWahine) => aWahine.wahine)
+              .slice(first, second)
+              .map((oneWahine) => {
+                return (
+                  <Wahine
+                    setActiveModal={setActiveModal}
+                    profilePic={oneWahine.profilePic}
+                    firstname={oneWahine.firstname}
+                    lastname={oneWahine.lastname}
+                    city={oneWahine.city}
+                    favoriteSpot={oneWahine.favoriteSpot}
+                    id_user={oneWahine.id_user}
+                    key={oneWahine.id_user}
+                  />
+                );
+              })}
         </div>
         <h5 className="home__wahines__link">
           Toutes les wahines <BsBoxArrowInUpRight />
