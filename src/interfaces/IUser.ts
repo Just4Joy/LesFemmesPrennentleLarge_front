@@ -1,4 +1,3 @@
-
 import { Dispatch, SetStateAction } from 'react';
 
 export default interface IUser {
@@ -18,5 +17,4 @@ export default interface IUser {
   wahine: boolean | number;
   desc: string;
   setActiveModal: Dispatch<SetStateAction<string>>;
-
 }

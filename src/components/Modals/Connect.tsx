@@ -3,15 +3,14 @@ import React, { FC, useContext, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 
+import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
-import IUser from '../../../interfaces/IUser';
 
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
 const Connect: FC<Props> = ({ setActiveModal }) => {
-
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -55,7 +54,6 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
         }
       });
   };
-
 
   return (
     <div className="connect">
