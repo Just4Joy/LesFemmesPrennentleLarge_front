@@ -3,8 +3,8 @@ import React, { FC, useContext, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 
-import CurrentUserContext from '../contexts/CurrentUser';
 import IUser from '../../interfaces/IUser';
+import CurrentUserContext from '../contexts/CurrentUser';
 
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;

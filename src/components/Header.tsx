@@ -3,19 +3,14 @@ import { Dispatch, SetStateAction } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { NavLink } from 'react-router-dom';
 
-
 import LFPLL from '../../img/LFPLL.svg';
-
 import CurrentUserContext from './contexts/CurrentUser';
-
 
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-
 const Header: FC<Props> = ({ setActiveModal }) => {
-
   const { id, logout, wahine } = useContext(CurrentUserContext);
   return (
     <div className="header">
@@ -47,7 +42,10 @@ const Header: FC<Props> = ({ setActiveModal }) => {
               Se connecter
             </NavLink>
           ) : (
-            <span className="header__list__connection__logout" onClick={() => logout()}>
+            <span
+              className="header__list__connection__logout"
+              role="presentation"
+              onClick={() => logout()}>
               Se déconnecter
             </span>
           )}
