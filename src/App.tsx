@@ -16,11 +16,11 @@ import Modal from './components/Modals/Modal';
 import ModalProfile from './components/Modals/ModalProfile';
 import Registered from './components/Modals/Registered';
 import Registration from './components/Modals/Registration';
+import SessionPublished from './components/Modals/SessionPublished';
+import SessionResume from './components/Modals/SessionResume';
 import Profile from './components/Profile/Profile';
 import Session from './components/Session/Session';
 import Sessions from './components/Sessions/Sessions';
-import SessionResume from './components/Modals/SessionResume';
-import SessionPublished from './components/Modals/SessionPublished';
 
 function App() {
   const [activeModal, setActiveModal] = useState<string>('');

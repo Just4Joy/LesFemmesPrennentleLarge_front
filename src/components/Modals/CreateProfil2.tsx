@@ -1,7 +1,9 @@
+import '../../style/_CreateProfil2.scss';
+
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { NavLink } from 'react-router-dom';
-import '../../style/_CreateProfil2.scss';
+
 import SurfSkill from '../SurfSkill';
 
 type CreateProfil2Props = {

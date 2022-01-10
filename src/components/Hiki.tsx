@@ -5,9 +5,24 @@ import wahine from './img/wahine.svg';
 
 type HikiProps = {
   setActiveModal: Dispatch<SetStateAction<string>>;
+  profilePic: string;
+  firstname: string;
+  lastname: string;
+  city: string;
+  favoriteSpot: string;
+  id_user: number;
+  id_surf_style: number;
 };
 
-const Hiki: FC<HikiProps> = ({ setActiveModal }) => {
+const Hiki: FC<HikiProps> = ({
+  setActiveModal,
+  // profilePic,
+  firstname,
+  lastname,
+  city,
+  favoriteSpot,
+  id_surf_style,
+}) => {
   return (
     <div
       role="presentation"
@@ -15,13 +30,17 @@ const Hiki: FC<HikiProps> = ({ setActiveModal }) => {
       style={{ cursor: 'pointer' }}
       onClick={() => setActiveModal('modalwahine')}>
       <div className="hiki__img">
-        <img className="" src={wahine} alt="wahine" />
+        <img className="" /*src={profilePic}*/ src={wahine} alt="wahine" />
       </div>
 
-      <h5 className="hiki__h5">Sarah Connors</h5>
-      <h6 className="">Bayonne</h6>
-      <h6 className="hiki__h6">Les Cavalliers</h6>
-      <h6 className="hiki__tag">surf au large</h6>
+      <h5 className="hiki__h5">
+        {firstname} {lastname}
+      </h5>
+      <h6 className="">{city}</h6>
+      <h6 className="hiki__h6">{favoriteSpot}s</h6>
+      <h6 className="hiki__tag">
+        {id_surf_style ? `Surf au large` : `surf dans les mousses`}
+      </h6>
     </div>
   );
 };

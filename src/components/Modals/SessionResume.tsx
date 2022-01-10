@@ -1,20 +1,20 @@
 import React, { FC } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 import Region from '../Home/Region';
 import SurfSkill from '../SurfSkill';
 import Weather from '../Weather';
-import { Dispatch, SetStateAction } from 'react';
 
 type ResumeSessionProps = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
 const SessionResume: FC<ResumeSessionProps> = ({ setActiveModal }) => {
-  interface regionTypes {
-    id_region: number;
-    region_name: string;
-    color: string;
-  }
+  // interface regionTypes {
+  //   id_region: number;
+  //   region_name: string;
+  //   color: string;
+  // }
 
   return (
     <div>
