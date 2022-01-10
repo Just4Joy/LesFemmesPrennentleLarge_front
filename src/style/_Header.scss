@@ -9,5 +9,18 @@
     display: flex;
     justify-content: space-around;
     width: 30vw;
+    &__profile {
+    }
+    &__search {
+    }
+    &__session {
+    }
+    &__connection {
+      &__login {
+      }
+      &__logout {
+        cursor: pointer;
+      }
+    }
   }
 }

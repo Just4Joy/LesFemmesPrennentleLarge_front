@@ -11,7 +11,7 @@ type HeaderProps = {
 };
 
 const Header: FC<HeaderProps> = ({ setActiveModal }) => {
-  const { id, logout, admin } = useContext(CurrentUserContext);
+  const { id, logout, wahine } = useContext(CurrentUserContext);
 
   return (
     <div className="header">
@@ -35,23 +35,30 @@ const Header: FC<HeaderProps> = ({ setActiveModal }) => {
         </li>
         <li className="header__list__connection">
           {id === 0 ? (
-            <NavLink end to="/login" onClick={() => setActiveModal('connect')}>
+            <NavLink
+              end
+              to="/login"
+              onClick={() => setActiveModal('connect')}
+              className="header__list__connection__login">
               Se connecter
             </NavLink>
           ) : (
-            <button className="logout" onClick={() => logout()}>
+            <span className="header__list__connection__logout" onClick={() => logout()}>
               Se déconnecter
-            </button>
+            </span>
           )}
-          {/* <NavLink to="/login" onClick={() => setActiveModal('connect')}>
-            Se connecter
-          </NavLink> */}
         </li>
-        <li className="header__list__create" style={{ textDecoration: 'underline' }}>
-          <NavLink to="/create_session" onClick={() => setActiveModal('create_session1')}>
-            Créer une session
-          </NavLink>
-        </li>
+        {wahine ? (
+          <li className="header__list__create" style={{ textDecoration: 'underline' }}>
+            <NavLink
+              to="/create_session"
+              onClick={() => setActiveModal('create_session1')}>
+              Créer une session
+            </NavLink>
+          </li>
+        ) : (
+          ''
+        )}
       </ul>
     </div>
   );

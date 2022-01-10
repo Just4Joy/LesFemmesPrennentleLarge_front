@@ -6,8 +6,8 @@ type UserContent = {
   setId: React.Dispatch<React.SetStateAction<number>>;
   firstname: string;
   setFirstname: React.Dispatch<React.SetStateAction<string>>;
-  admin: boolean;
-  setAdmin: React.Dispatch<React.SetStateAction<boolean>>;
+  wahine: boolean;
+  setWahine: React.Dispatch<React.SetStateAction<boolean>>;
   logout: () => void;
 };
 
@@ -19,20 +19,20 @@ const CurrentUserContext = createContext<UserContent>({
   firstname: '',
   setFirstname: () => {},
   logout: () => {},
-  admin: false,
-  setAdmin: () => {},
+  wahine: false,
+  setWahine: () => {},
 });
 
 export const CurrentUserContextProvider: React.FC<Props> = ({ children }) => {
   const [id, setId] = useState<number>(0);
   const [firstname, setFirstname] = useState<string>('');
-  const [admin, setAdmin] = useState<boolean>(false);
+  const [wahine, setWahine] = useState<boolean>(false);
   const removeCookie = useCookies(['user_token'])[2];
 
   const logout = (): void => {
     setId(0);
     setFirstname('');
-    setAdmin(false);
+    setWahine(false);
     removeCookie('user_token');
   };
 
@@ -44,8 +44,8 @@ export const CurrentUserContextProvider: React.FC<Props> = ({ children }) => {
         firstname,
         setFirstname,
         logout,
-        admin,
-        setAdmin,
+        wahine,
+        setWahine,
       }}>
       {children}
     </CurrentUserContext.Provider>

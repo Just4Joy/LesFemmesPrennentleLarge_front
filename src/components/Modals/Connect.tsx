@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 import CurrentUserContext from '../contexts/CurrentUser';
-import IUser from '../interfaces/IUser';
+import IUser from '../../../interfaces/IUser';
 
 type ConnectProps = {
   setActiveModal: Dispatch<SetStateAction<string>>;
@@ -15,7 +15,7 @@ const Connect: FC<ConnectProps> = ({ setActiveModal }) => {
   const [errorMessage, setErrorMessage] = useState<string>();
   const navigate: NavigateFunction = useNavigate();
 
-  const { setId, setAdmin, setFirstname } = useContext(CurrentUserContext);
+  const { setId, setWahine, setFirstname } = useContext(CurrentUserContext);
 
   function redirectHome() {
     navigate('/');
@@ -38,12 +38,14 @@ const Connect: FC<ConnectProps> = ({ setActiveModal }) => {
       .then((response) => response.data)
       .then((data) => {
         setErrorMessage('');
-        setId(data.id);
+        setId(data.id_user);
         setFirstname(data.firstname);
-        setAdmin(data.admin === 1);
+        setWahine(data.wahine === 1);
         redirectHome();
+        setActiveModal('__hiddenModal');
       })
       .catch((err) => {
+        console.log(err);
         if (err.response.status === 401) {
           setErrorMessage('Email ou mot de passe incorrect');
         } else {
@@ -61,6 +63,7 @@ const Connect: FC<ConnectProps> = ({ setActiveModal }) => {
         <div>
           <form
             className="connect__form"
+            id="connect-form"
             onSubmit={(e: React.FormEvent<HTMLFormElement>) => login(e)}>
             <input
               className="connect__form__input"
@@ -91,11 +94,15 @@ const Connect: FC<ConnectProps> = ({ setActiveModal }) => {
             onClick={() => setActiveModal('creationcompte')}>
             Créer un compte
           </button>
-          <button className="connect__button__connect" type="submit" value="Login">
+          <button
+            className="connect__button__connect"
+            form="connect-form"
+            type="submit"
+            value="Login">
             Se connecter
           </button>
-          {errorMessage && <span>{errorMessage}</span>}
         </div>
+        {errorMessage && <h6 className="connect__errors">{errorMessage}</h6>}
       </div>
     </div>
   );

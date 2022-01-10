@@ -1,6 +1,8 @@
+import '../../style/_CreateProfil1.scss';
+
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
-import '../../style/_CreateProfil1.scss';
+
 import womansurfing from '../img/womansurfing.png';
 
 type CreateProfil1Props = {
@@ -15,11 +17,16 @@ const CreateProfil1: FC<CreateProfil1Props> = ({ setActiveModal }) => {
         <h2>Skip</h2>
       </div>
       <form className="createProfil1__container">
-        <img className="createProfil1__container__img" src={womansurfing} alt="" />
+        <img
+          className="createProfil1__container__img createProfil1__container__fullRow"
+          src={womansurfing}
+          alt=""
+        />
 
-        <p className="createProfil1__container__upload">Upload ta photo de profil</p>
+        <p className="createProfil1__container__upload  ">Upload ta photo de profil</p>
 
         <textarea
+          className="createProfil1__container__textarea"
           id="w3review"
           name="w3review"
           rows={4}
@@ -27,16 +34,18 @@ const CreateProfil1: FC<CreateProfil1Props> = ({ setActiveModal }) => {
         />
 
         <input className="createProfil1__container__ville" placeholder="ville"></input>
-        <input
-          className="createProfil1__container__region"
-          placeholder="région où tu surfes"></input>
+        <select id="region-select" className="createProfil1__container__region">
+          <option value="">régions où tu surfes</option>
+          <option value="Occitanie">Occitanie</option>
+          <option value="Nouvelle Acquitaine">Nouvelle Acquitaine</option>
+        </select>
 
         <input
           className="createProfil1__container__spot"
           placeholder="ton spot préféré"></input>
 
         <button
-          className="createProfil1__container__next"
+          className="createProfil1__next createProfil1__container__fullRow"
           onClick={() => setActiveModal('completeprofil2')}>
           suivant
         </button>

@@ -2,6 +2,11 @@ import axios from 'axios';
 import React, { FC, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
+import { NavLink } from 'react-router-dom';
+
+import IRegion from '../../../interfaces/IRegion';
+import ISession from '../../../interfaces/ISession';
+import IUser from '../../../interfaces/IUser';
 
 import NextSession from '../NextSession';
 import Wahine from '../Wahine';
@@ -13,28 +18,13 @@ type HomeProps = {
 };
 
 const Home: FC<HomeProps> = ({ setActiveModal }) => {
-  interface regionTypes {
-    id_region: number;
-    region_name: string;
-    color: string;
-  }
+  const [regions, setRegions] = useState<IRegion[]>([]);
+  const [threeSessions, setThreeSessions] = useState<ISession[]>([]);
 
-  interface sessionsTypes {
-    id_session: number;
-    name: string;
-    date: string;
-    spot_name: string;
-    adress: string;
-    nb_hiki_max: number;
-    id_departement: number;
-    id_surf_style: number;
-    carpool: number;
-    region_name: string;
-    name_session: string;
-  }
+  const first: number = 0;
+  const second: number = 5;
 
-  const [regions, setRegions] = useState<regionTypes[]>([]);
-  const [threeSessions, setThreeSessions] = useState<sessionsTypes[]>([]);
+  const [allWahine, setAllWahine] = useState<IUser[]>([]);
 
   useEffect(() => {
     axios
@@ -50,6 +40,12 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
       .then((data: any) => setThreeSessions(data));
   }, []);
 
+  useEffect(() => {
+    axios
+      .get('http://localhost:3000/api/users')
+      .then((result: any) => result.data)
+      .then((data: any) => setAllWahine(data));
+  }, []);
   return (
     <div className="home">
       {/*Section : Présentation*/}
@@ -103,20 +99,33 @@ const Home: FC<HomeProps> = ({ setActiveModal }) => {
               );
             })}
         </div>
-        <h5 className="home__sessions__h5">
+        <NavLink to="/sessions" className="home__sessions__h5">
           Toutes les sessions <BsBoxArrowInUpRight />
-        </h5>
+        </NavLink>
       </div>
 
       {/* Section : Nos wahines */}
       <div className="home__wahines">
         <h3 className="home__wahines__h3">Nos Wahines</h3>
         <div className="home__wahines__component">
-          <Wahine setActiveModal={setActiveModal} />
-          <Wahine setActiveModal={setActiveModal} />
-          <Wahine setActiveModal={setActiveModal} />
-          <Wahine setActiveModal={setActiveModal} />
-          <Wahine setActiveModal={setActiveModal} />
+          {allWahine &&
+            allWahine
+              .filter((aWahine) => aWahine.wahine)
+              .slice(first, second)
+              .map((oneWahine) => {
+                return (
+                  <Wahine
+                    setActiveModal={setActiveModal}
+                    profilePic={oneWahine.profile_pic}
+                    firstname={oneWahine.firstname}
+                    lastname={oneWahine.lastname}
+                    city={oneWahine.city}
+                    favoriteSpot={oneWahine.favorite_spot}
+                    id_user={oneWahine.id_user}
+                    key={oneWahine.id_user}
+                  />
+                );
+              })}
         </div>
         <h5 className="home__wahines__link">
           Toutes les wahines <BsBoxArrowInUpRight />
