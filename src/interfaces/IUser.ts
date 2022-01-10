@@ -12,6 +12,6 @@ export default interface IUser {
   created_date: Date;
   department: string;
   surf_style: string;
-  wahine: boolean;
+  wahine: number;
   desc: string;
 }
