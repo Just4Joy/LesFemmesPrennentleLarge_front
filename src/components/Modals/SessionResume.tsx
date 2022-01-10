@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
 import Region from '../Home/Region';
-import SurfSkill from '../SurfSkill';
+import SurfStyle from '../SurfStyle';
 import Weather from '../Weather';
 
 type ResumeSessionProps = {
@@ -10,38 +10,40 @@ type ResumeSessionProps = {
 };
 
 const SessionResume: FC<ResumeSessionProps> = ({ setActiveModal }) => {
-  // interface regionTypes {
-  //   id_region: number;
-  //   region_name: string;
-  //   color: string;
-  // }
 
   return (
-    <div>
-      <div>
+    <div className="sessionResume">
+      <div className="sessionResume__title">
         <h2>Résumé de la session</h2>
       </div>
-      <div>
-        <SurfSkill />
+      <div className="sessionResume__tags">
+        <SurfStyle />
+        <SurfStyle />
         <Region />
       </div>
-      <div>
-        <h3>Session du (date) au (nom du spot) </h3>
-        <p>Adresse de rdv</p>
-        <p>Nombre de hikis</p>
+      <div className="sessionResume__session">
+        <h3 className="sessionResume__session__title">
+          Session du (date) au (nom du spot){' '}
+        </h3>
+        <p className="sessionResume__session__adress">Adresse de rdv</p>
+        <p className="sessionResume__session__number">Nombre de hikis</p>
       </div>
-      <div>
+      <div className="sessionResume__title2">
         <h3>Conditions météo</h3>
       </div>
-      <div>
+      <div className="sessionResume__weather">
         <Weather />
         <Weather />
         <Weather />
         <Weather />
       </div>
-      <div>
-        <button>Retour</button>
-        <button onClick={() => setActiveModal('session-publiée')}>Publier</button>
+      <div className="sessionResume__button">
+        <button
+          className="sessionResume__button__validate"
+          onClick={() => setActiveModal('session-publiée')}>
+          <h4>Publier</h4>
+        </button>
+        <h4 className="sessionResume__button__cancel">Annuler</h4>
       </div>
     </div>
   );
