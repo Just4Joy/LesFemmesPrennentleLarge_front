@@ -21,10 +21,14 @@ const Header: FC<Props> = ({ setActiveModal }) => {
       </div>
       <ul className="header__list">
         <li className="header__list__profile">
-          <NavLink to="/profile">
-            Profil
-            <IoIosArrowDown />
-          </NavLink>
+          {id === 0 ? (
+            ''
+          ) : (
+            <NavLink to="/profile">
+              Profil
+              <IoIosArrowDown />
+            </NavLink>
+          )}
         </li>
         <li className="header__list__search">
           <NavLink to="/search">Search</NavLink>
