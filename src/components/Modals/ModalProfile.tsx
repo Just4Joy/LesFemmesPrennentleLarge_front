@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
 import { useParams } from 'react-router';
 
-import wahine from '../../../img/wahine.svg';
+import wahineImg from '../../../img/wahine.svg';
 import IUser from '../../interfaces/IUser';
 
 const ModalProfile = () => {
@@ -12,9 +12,9 @@ const ModalProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/users/${id}`)
-      .then((result: any) => result.data)
-      .then((data: any) => setUser(data));
+      .get<IUser>(`http://localhost:3000/api/users/${id}`)
+      .then((result) => result.data)
+      .then((data) => setUser(data));
   }, [id]);
   console.log(user);
   return (
@@ -26,7 +26,7 @@ const ModalProfile = () => {
           </div>
           <div className="modalProfile__column">
             <div className="modalProfile__column__column1">
-              <img src={wahine} alt="hiki" />
+              <img src={wahineImg} alt="hiki" />
               <div className="modalProfile__column__column1__info">
                 <h2>
                   {user.firstname} {user.lastname}
