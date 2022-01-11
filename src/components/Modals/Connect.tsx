@@ -12,7 +12,9 @@ type Props = {
 
 const Connect: FC<Props> = ({ setActiveModal }) => {
   const [email, setEmail] = useState<string>('');
+
   const [password, setPassword] = useState<string>('');
+
   const [errorMessage, setErrorMessage] = useState<string>();
   const navigate: NavigateFunction = useNavigate();
 
@@ -24,6 +26,7 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
 
   const login = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     axios
       .post<IUser>(
         'http://localhost:3000/api/login',
@@ -98,10 +101,7 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
             className="connect__button__connect"
             form="connect-form"
             type="submit"
-            value="Login"
-            onClick={() =>
-              !errorMessage ? setActiveModal('') : setActiveModal('connect')
-            }>
+            value="Login">
             Se connecter
           </button>
         </div>

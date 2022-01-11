@@ -1,7 +1,6 @@
 import axios from 'axios';
-import React, { FC, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useEffect } from 'react';
-import { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
 import { BiArrowBack } from 'react-icons/bi';
 import { NavLink } from 'react-router-dom';
@@ -10,13 +9,10 @@ import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
 import MyProfile from './MyProfile';
 
-type Props = {
-  setActiveModal: Dispatch<SetStateAction<string>>;
-};
-
-const Profile: FC<Props> = ({ setActiveModal }) => {
+const Profile = () => {
   const { id } = useContext(CurrentUserContext);
   const [profile, setProfile] = useState<IUser>();
+  console.log(id);
 
   useEffect(() => {
     axios
@@ -24,7 +20,6 @@ const Profile: FC<Props> = ({ setActiveModal }) => {
       .then((result) => result.data)
       .then((data) => setProfile(data));
   }, [id]);
-  console.log(profile);
 
   return (
     <div className="profile">
@@ -34,7 +29,7 @@ const Profile: FC<Props> = ({ setActiveModal }) => {
           <h1>Mon profil</h1>
         </NavLink>
       </div>
-      {profile && <MyProfile {...profile} setActiveModal={setActiveModal} />}
+      {profile && <MyProfile {...profile} />}
     </div>
   );
 };

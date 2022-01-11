@@ -30,6 +30,7 @@ function App() {
       <Router>
         <div className="App__page">
           <Header setActiveModal={setActiveModal} />
+
           <Routes>
             <Route path="/" element={<Home setActiveModal={setActiveModal} />} />
             <Route path="/sessions" element={<Sessions />} />
@@ -37,10 +38,7 @@ function App() {
               path="/session"
               element={<Session setActiveModal={setActiveModal} />}
             />
-            <Route
-              path="/profile"
-              element={<Profile setActiveModal={setActiveModal} />}
-            />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Home setActiveModal={setActiveModal} />} />
             <Route
               path="/create_session"

@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
+import React, { Dispatch, FC, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
 
 import wahine from '../../img/wahine.svg';
 import IUser from '../interfaces/IUser';
 
-type Props = IUser;
+type Props = IUser & { setActiveModal: Dispatch<SetStateAction<string>> };
 
 const Hiki: FC<Props> = ({
   setActiveModal, // profile_pic,
