@@ -1,9 +1,9 @@
-import React, { useState, FC } from 'react';
+import React, { FC, useState } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
 import { FiUpload } from 'react-icons/fi';
-import IUser from '../../interfaces/IUser';
 
 import wahineImg from '../../../img/wahine.svg';
+import IUser from '../../interfaces/IUser';
 
 type Props = IUser;
 

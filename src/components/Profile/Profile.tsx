@@ -1,14 +1,14 @@
-import React, { useContext, FC } from 'react';
+import axios from 'axios';
+import React, { FC, useContext } from 'react';
 import { useEffect } from 'react';
+import { Dispatch, SetStateAction } from 'react';
+import { useState } from 'react';
 import { BiArrowBack } from 'react-icons/bi';
 import { NavLink } from 'react-router-dom';
-import CurrentUserContext from '../contexts/CurrentUser';
-import { Dispatch, SetStateAction } from 'react';
-import axios from 'axios';
-import IUser from '../../interfaces/IUser';
 
+import IUser from '../../interfaces/IUser';
+import CurrentUserContext from '../contexts/CurrentUser';
 import MyProfile from './MyProfile';
-import { useState } from 'react';
 
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
