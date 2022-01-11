@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
+import DatetimePicker from '../DatePicker';
+
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
-
 const CreateSession1: FC<Props> = ({ setActiveModal }) => {
   return (
     <div className="create_session">
@@ -26,9 +27,9 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
               <option value="Occitanie">Occitanie</option>
               <option value="Nouvelle Acquitaine">Nouvelle Acquitaine</option>
             </select>
-            <input
-              className="create_session__form__inputs__input"
-              placeholder="date de la session"></input>
+
+            <DatetimePicker />
+
             <input
               className="create_session__form__inputs__input"
               placeholder="adresse rdv*"></input>

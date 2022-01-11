@@ -47,6 +47,7 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
         setWahine(data.wahine === 1);
         redirectHome();
         setActiveModal('__hiddenModal');
+        console.log(data);
       })
       .catch((err) => {
         console.log(err);
