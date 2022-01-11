@@ -1,6 +1,4 @@
-
 import React, { Dispatch, FC, SetStateAction } from 'react';
-
 import { Link } from 'react-router-dom';
 
 import wahine from '../../img/wahine.svg';

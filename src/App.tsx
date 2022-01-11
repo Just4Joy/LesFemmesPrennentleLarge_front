@@ -30,6 +30,7 @@ function App() {
       <Router>
         <div className="App__page">
           <Header setActiveModal={setActiveModal} />
+
           <Routes>
             <Route path="/" element={<Home setActiveModal={setActiveModal} />} />
             <Route path="/sessions" element={<Sessions />} />

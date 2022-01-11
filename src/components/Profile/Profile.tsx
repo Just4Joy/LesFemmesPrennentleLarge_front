@@ -1,10 +1,26 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useContext } from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { BiArrowBack } from 'react-icons/bi';
 import { NavLink } from 'react-router-dom';
 
+import IUser from '../../interfaces/IUser';
+import CurrentUserContext from '../contexts/CurrentUser';
 import MyProfile from './MyProfile';
 
 const Profile = () => {
+  const { id } = useContext(CurrentUserContext);
+  const [profile, setProfile] = useState<IUser>();
+  console.log(id);
+
+  useEffect(() => {
+    axios
+      .get<IUser>(`http://localhost:3000/api/users/${id}`)
+      .then((result) => result.data)
+      .then((data) => setProfile(data));
+  }, [id]);
+
   return (
     <div className="profile">
       <div className="profile__goBack">
@@ -13,8 +29,7 @@ const Profile = () => {
           <h1>Mon profil</h1>
         </NavLink>
       </div>
-
-      <MyProfile />
+      {profile && <MyProfile {...profile} />}
     </div>
   );
 };

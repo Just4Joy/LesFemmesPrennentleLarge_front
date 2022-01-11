@@ -17,6 +17,7 @@ const ModalProfile = () => {
       .then((data) => setUser(data));
   }, [id]);
   console.log(user);
+
   return (
     <div className="modalwahine">
       {user && (
