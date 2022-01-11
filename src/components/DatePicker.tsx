@@ -1,4 +1,4 @@
-import 'react-datepicker/dist/react-datepicker.css';
+import 'react-datepicker/src/stylesheets/datepicker.scss';
 
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
@@ -9,6 +9,7 @@ function DatetimePicker() {
   return (
     <div className="datepicker">
       <DatePicker
+        placeholderText="Date de la session"
         selected={selectedDate}
         onChange={(date) => setSelectedDate(date)}
         dateFormat="dd/MM/yyyy HH:mm"
