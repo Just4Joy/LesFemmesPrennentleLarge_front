@@ -54,7 +54,6 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
         }
       });
   };
-
   return (
     <div className="connect">
       <div>
@@ -99,7 +98,10 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
             className="connect__button__connect"
             form="connect-form"
             type="submit"
-            value="Login">
+            value="Login"
+            onClick={() =>
+              !errorMessage ? setActiveModal('') : setActiveModal('connect')
+            }>
             Se connecter
           </button>
         </div>
