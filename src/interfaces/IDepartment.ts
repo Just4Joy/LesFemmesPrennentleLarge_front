@@ -1,5 +1,5 @@
 export default interface IDepartment {
-  id_department: number;
+  id_departement: number;
   department_name: string;
   id_region: number;
   departement_number: number;

@@ -7,11 +7,11 @@ export default interface IUser {
   password: string;
   zip_code: string;
   profile_pic: string;
-  surf_skill: string;
+  id_surf_skill: string;
   favorite_spot: string;
   created_date: Date;
-  department: string;
-  surf_style: string;
+  id_departement: string;
+  id_surf_style: string;
   wahine: boolean | number;
   desc: string;
 }

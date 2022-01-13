@@ -23,7 +23,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
   const first: number = 0;
   const second: number = 5;
 
-  const [allWahine, setAllWahine] = useState<IUser[]>([]);
+  const [users, setUsers] = useState<IUser[]>([]);
 
   useEffect(() => {
     axios
@@ -43,8 +43,10 @@ const Home: FC<Props> = ({ setActiveModal }) => {
     axios
       .get<IUser[]>('http://localhost:3000/api/users')
       .then((result) => result.data)
-      .then((data) => setAllWahine(data));
+      .then((data) => setUsers(data));
   }, []);
+  console.log(users);
+
   return (
     <div className="home">
       {/*Section : Présentation*/}
@@ -90,17 +92,13 @@ const Home: FC<Props> = ({ setActiveModal }) => {
       <div className="home__wahines">
         <h3 className="home__wahines__h3">Nos Wahines</h3>
         <div className="home__wahines__component">
-          {allWahine &&
-            allWahine
-              .filter((aWahine) => aWahine.wahine)
+          {users &&
+            users
+              .filter((user) => user.wahine)
               .slice(first, second)
-              .map((oneWahine) => {
+              .map((user) => {
                 return (
-                  <Wahine
-                    {...oneWahine}
-                    setActiveModal={setActiveModal}
-                    key={oneWahine.id_user}
-                  />
+                  <Wahine {...user} setActiveModal={setActiveModal} key={user.id_user} />
                 );
               })}
         </div>
