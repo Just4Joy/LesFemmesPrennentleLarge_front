@@ -25,7 +25,7 @@ const ModalProfile = () => {
         // Get Departement
         axios
           .get<IDepartment>(
-            `http://localhost:3000/api/departements/${data.id_departement}`,
+            `http://localhost:3000/api/departments/${data.id_departement}`,
           )
           .then((result) => result.data)
           .then((data) => setDepartments(data));

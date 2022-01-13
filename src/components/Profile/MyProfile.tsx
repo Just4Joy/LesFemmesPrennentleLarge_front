@@ -34,7 +34,7 @@ const MyProfile: FC<Props> = ({
   useEffect(() => {
     //Get Departments
     axios
-      .get<IDepartment>(`http://localhost:3000/api/departements/${id_departement}`)
+      .get<IDepartment>(`http://localhost:3000/api/departments/${id_departement}`)
       .then((result) => result.data)
       .then((data) => setDepartments(data));
     //Get Surf Styles
