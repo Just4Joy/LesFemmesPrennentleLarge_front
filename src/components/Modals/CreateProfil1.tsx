@@ -13,7 +13,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
   const [departments, setDepartments] = useState<IDepartment[]>([]);
   useEffect(() => {
     axios
-      .get<IDepartment[]>('http://lfpll-back.herokuapp.com/api/departments')
+      .get<IDepartment[]>('http://localhost:3000/api/departments')
       .then((result) => result.data)
       .then((data) => setDepartments(data));
   }, []);
@@ -22,7 +22,9 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
     <div className="createProfil1">
       <div className="createProfil1__title">
         <h2>Compléter son profil 1/2</h2>
-        <h2>Skip</h2>
+        <h2 role="presentation" onClick={() => setActiveModal('complete_profil2')}>
+          Skip
+        </h2>
       </div>
       <form className="createProfil1__container">
         <img
