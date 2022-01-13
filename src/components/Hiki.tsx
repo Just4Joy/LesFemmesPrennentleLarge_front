@@ -1,8 +1,9 @@
-import React, { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import axios from 'axios';
+import React, { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import ISurfStyle from '../interfaces/ISurfStyle';
+
 import wahine from '../../img/wahine.svg';
+import ISurfStyle from '../interfaces/ISurfStyle';
 import IUser from '../interfaces/IUser';
 
 type Props = IUser & { setActiveModal: Dispatch<SetStateAction<string>> };
