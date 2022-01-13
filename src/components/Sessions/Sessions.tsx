@@ -8,6 +8,9 @@ import NextSession from '../NextSession';
 const Sessions = () => {
   const [regions, setRegions] = useState<IRegion[]>([]);
   const [allSessions, setAllSessions] = useState<ISession[]>([]);
+  const [selectedRegion, setSelectedRegion] = useState<number>();
+
+  console.log(selectedRegion);
 
   useEffect(() => {
     axios
@@ -22,7 +25,6 @@ const Sessions = () => {
       .then((result) => result.data)
       .then((data) => setAllSessions(data));
   }, []);
-  console.log(allSessions);
 
   return (
     <div className="sessions">
@@ -30,10 +32,15 @@ const Sessions = () => {
       {/* Select Region */}
       <div className="sessions__selectors">
         <select className="sessions__selectors__region" name="région" id="région">
-          <option value="">région</option>
+          <option value="0" onClick={() => setSelectedRegion(0)}>
+            région
+          </option>
           {regions.map((region) => {
             return (
-              <option value={region.region_name} key={region.id_region}>
+              <option
+                value={region.region_name}
+                key={region.id_region}
+                onClick={() => setSelectedRegion(region.id_region)}>
                 {region.region_name}
               </option>
             );
