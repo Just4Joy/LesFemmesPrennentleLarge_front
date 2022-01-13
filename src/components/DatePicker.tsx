@@ -15,6 +15,7 @@ function DatetimePicker() {
         dateFormat="dd/MM/yyyy HH:mm"
         minDate={new Date()}
         showTimeSelect
+        className="datepicker__input"
       />
     </div>
   );
