@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 
 function DatetimePicker() {
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   console.log(selectedDate);
   return (
     <div className="datepicker">
