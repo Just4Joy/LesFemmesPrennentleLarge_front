@@ -15,6 +15,8 @@ const Session: FC<Props> = ({
   region_name,
   name_session,
   carpool,
+  nice_date,
+  nice_time,
 }) => {
   return (
     <div className="nextsession">
@@ -31,8 +33,8 @@ const Session: FC<Props> = ({
 
         <div className="nextsession__infos__rdv">
           <div className="nextsession__infos__rdv__date">
-            <p className="nextsession__infos__rdv__date__p">{date}</p>
-            <p>17h15</p>
+            <p className="nextsession__infos__rdv__date__p">{nice_date}</p>
+            <p>{nice_time}</p>
           </div>
           <div className="nextsession__infos__rdv__covoit">
             {carpool === 1 ? (
