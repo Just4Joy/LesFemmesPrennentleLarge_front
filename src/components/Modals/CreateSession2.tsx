@@ -47,7 +47,7 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
               .filter((waves) => waves.type === 'wave')
               .map((waves) => {
                 return (
-                  <option key={waves.id_weather} value={waves.name}>
+                  <option key={waves.id_weather} value={waves.id_weather}>
                     {waves.name}
                   </option>
                 );
@@ -60,7 +60,7 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
               .filter((flows) => flows.type === 'flow')
               .map((flows) => {
                 return (
-                  <option key={flows.id_weather} value={flows.name}>
+                  <option key={flows.id_weather} value={flows.id_weather}>
                     {flows.name}
                   </option>
                 );
@@ -73,7 +73,7 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
               .filter((powers) => powers.type === 'power')
               .map((powers) => {
                 return (
-                  <option key={powers.id_weather} value={powers.name}>
+                  <option key={powers.id_weather} value={powers.id_weather}>
                     {powers.name}
                   </option>
                 );
@@ -86,7 +86,7 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
               .filter((temperatures) => temperatures.type === 'temperature')
               .map((temperatures) => {
                 return (
-                  <option key={temperatures.id_weather} value={temperatures.name}>
+                  <option key={temperatures.id_weather} value={temperatures.id_weather}>
                     {temperatures.name}
                   </option>
                 );

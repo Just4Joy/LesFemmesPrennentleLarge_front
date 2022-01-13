@@ -1,12 +1,29 @@
-import React, { FC } from 'react';
+import axios from 'axios';
+import React, { FC, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
+import IRegion from '../../interfaces/IRegion';
+import ISurfStyle from '../../interfaces/ISurfStyle';
 import DatetimePicker from '../DatePicker';
 
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 const CreateSession1: FC<Props> = ({ setActiveModal }) => {
+  const [surfStyles, setSurfStyles] = useState<ISurfStyle[]>([]);
+  const [regions, setRegions] = useState<IRegion[]>([]);
+  useEffect(() => {
+    axios
+      .get<IRegion[]>('http://localhost:3000/api/regions')
+      .then((result) => result.data)
+      .then((data) => setRegions(data));
+
+    axios
+      .get<ISurfStyle[]>('http://localhost:3000/api/surfstyle')
+      .then((result) => result.data)
+      .then((data) => setSurfStyles(data));
+  }, []);
+
   return (
     <div className="create_session">
       <div className="create_session__title">
@@ -24,8 +41,12 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
               id="region-select"
               className="create_session__form__inputs__input">
               <option value="">régions</option>
-              <option value="Occitanie">Occitanie</option>
-              <option value="Nouvelle Acquitaine">Nouvelle Acquitaine</option>
+              {regions &&
+                regions.map((region) => (
+                  <option key={region.id_region} value={region.id_region}>
+                    {region.region_name}
+                  </option>
+                ))}
             </select>
 
             <DatetimePicker />
@@ -44,10 +65,13 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
             <h4>Type de session</h4>
             <select>
               <option value="">type de session</option>
+              {surfStyles &&
+                surfStyles.map((surfStyle) => (
+                  <option key={surfStyle.id_surf_style} value={surfStyle.id_surf_style}>
+                    {surfStyle.name_session}
+                  </option>
+                ))}
             </select>
-          </div>
-          <div className="create_session__form__weather">
-            <h4>Conditions météo</h4>
           </div>
         </form>
         <hr />
