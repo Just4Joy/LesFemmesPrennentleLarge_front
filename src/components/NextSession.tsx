@@ -9,6 +9,7 @@ type Props = ISession;
 
 const Session: FC<Props> = ({
   adress,
+  // date,
   name,
   spot_name,
   region_name,
