@@ -1,4 +1,4 @@
-export default interface IDepartement {
+export default interface IDepartment {
   id_departement: number;
   department_name: string;
   id_region: number;

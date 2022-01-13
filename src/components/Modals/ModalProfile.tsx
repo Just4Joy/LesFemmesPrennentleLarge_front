@@ -4,7 +4,7 @@ import { BsPencilSquare } from 'react-icons/bs';
 import { useParams } from 'react-router';
 
 import wahineImg from '../../../img/wahine.svg';
-import IDepartement from '../../interfaces/IDepartement';
+import IDepartment from '../../interfaces/IDepartment';
 import ISurfSkill from '../../interfaces/ISurfskills';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
@@ -12,7 +12,7 @@ import IUser from '../../interfaces/IUser';
 const ModalProfile = () => {
   const { id } = useParams();
   const [user, setUser] = useState<IUser>();
-  const [departments, setDepartments] = useState<IDepartement>();
+  const [departments, setDepartments] = useState<IDepartment>();
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
   const [surfSkills, setSurfSkills] = useState<ISurfSkill>();
 
@@ -24,7 +24,7 @@ const ModalProfile = () => {
         setUser(data);
         // Get Departement
         axios
-          .get<IDepartement>(
+          .get<IDepartment>(
             `http://localhost:3000/api/departements/${data.id_departement}`,
           )
           .then((result) => result.data)

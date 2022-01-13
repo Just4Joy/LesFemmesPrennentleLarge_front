@@ -5,7 +5,7 @@ import { BsPencilSquare } from 'react-icons/bs';
 import { FiUpload } from 'react-icons/fi';
 
 import wahineImg from '../../../img/wahine.svg';
-import IDepartement from '../../interfaces/IDepartement';
+import IDepartment from '../../interfaces/IDepartment';
 import ISurfSkill from '../../interfaces/ISurfskills';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
@@ -27,14 +27,14 @@ const MyProfile: FC<Props> = ({
   const [editSkills, setEditSkills] = useState<boolean>(false);
   const [previewImage, setPreviewImage] = useState<FileList | null | undefined>();
   const [revokeUrl, setRevokeUrl] = useState<boolean>(false);
-  const [departments, setDepartments] = useState<IDepartement>();
+  const [departments, setDepartments] = useState<IDepartment>();
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
   const [surfSkills, setSurfSkills] = useState<ISurfSkill>();
 
   useEffect(() => {
     //Get Departments
     axios
-      .get<IDepartement>(`http://localhost:3000/api/departements/${id_departement}`)
+      .get<IDepartment>(`http://localhost:3000/api/departements/${id_departement}`)
       .then((result) => result.data)
       .then((data) => setDepartments(data));
     //Get Surf Styles

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-const SurfSkill = () => {
+import ISurfSkill from '../interfaces/ISurfskills';
+
+type Props = ISurfSkill;
+const SurfSkill: FC<Props> = ({ name }) => {
   return (
     <div className="surfskill">
       <button className="surfskill__button" type="button">
-        Quelques cours de surf
+        {name}
       </button>
     </div>
   );
