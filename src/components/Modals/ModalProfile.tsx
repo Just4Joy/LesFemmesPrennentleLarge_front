@@ -4,19 +4,43 @@ import { BsPencilSquare } from 'react-icons/bs';
 import { useParams } from 'react-router';
 
 import wahineImg from '../../../img/wahine.svg';
+import IDepartement from '../../interfaces/IDepartement';
+import ISurfSkill from '../../interfaces/ISurfskills';
+import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
 
 const ModalProfile = () => {
-  let { id } = useParams();
+  const { id } = useParams();
   const [user, setUser] = useState<IUser>();
+  const [departments, setDepartments] = useState<IDepartement>();
+  const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
+  const [surfSkills, setSurfSkills] = useState<ISurfSkill>();
 
   useEffect(() => {
     axios
       .get<IUser>(`http://localhost:3000/api/users/${id}`)
       .then((result) => result.data)
-      .then((data) => setUser(data));
-  }, [id]);
-  console.log(user);
+      .then((data) => {
+        setUser(data);
+        // Get Departement
+        axios
+          .get<IDepartement>(
+            `http://localhost:3000/api/departements/${data.id_departement}`,
+          )
+          .then((result) => result.data)
+          .then((data) => setDepartments(data));
+        // Get Surf Style
+        axios
+          .get<ISurfStyle>(`http://localhost:3000/api/surfstyle/${data.id_surf_style}`)
+          .then((result) => result.data)
+          .then((data) => setSurfStyles(data));
+        //Get Surf Skill
+        axios
+          .get<ISurfSkill>(`http://localhost:3000/api/surfskill/${data.id_surf_skill}`)
+          .then((result) => result.data)
+          .then((data) => setSurfSkills(data));
+      });
+  }, []);
 
   return (
     <div className="modalwahine">
@@ -40,17 +64,15 @@ const ModalProfile = () => {
             <div className="modalProfile__column__column2">
               <div className="modalProfile__column__column2__row1">
                 <div>
-                  <p>
-                    {user.department} {/*Should be the region and not the department*/}
-                  </p>
-                  <p>{user.surf_style}</p>
+                  <p>{departments?.department_name}</p>
+                  <p>{surfStyles?.name_user}</p>
                 </div>
                 <BsPencilSquare />
               </div>
               <div className="modalProfile__column__column2__row2">
                 <h2>Skills</h2>
                 <div className="modalProfile__column__column2__row2__wrap">
-                  <p>{user.surf_skill}</p>
+                  <p>{surfSkills?.name}</p>
                 </div>
               </div>
               <div className="modalProfile__column__column2__row3">

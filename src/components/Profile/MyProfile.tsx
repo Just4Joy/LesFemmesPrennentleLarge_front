@@ -1,8 +1,13 @@
+import axios from 'axios';
 import React, { FC, useState } from 'react';
+import { useEffect } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
 import { FiUpload } from 'react-icons/fi';
 
 import wahineImg from '../../../img/wahine.svg';
+import IDepartement from '../../interfaces/IDepartement';
+import ISurfSkill from '../../interfaces/ISurfskills';
+import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
 
 type Props = IUser;
@@ -13,15 +18,36 @@ const MyProfile: FC<Props> = ({
   city,
   favorite_spot,
   wahine,
-  department,
-  surf_style,
-  surf_skill,
   desc,
+  id_departement,
+  id_surf_skill,
+  id_surf_style,
 }) => {
   const [editProfil, setEditProfil] = useState<boolean>(false);
   const [editSkills, setEditSkills] = useState<boolean>(false);
   const [previewImage, setPreviewImage] = useState<FileList | null | undefined>();
   const [revokeUrl, setRevokeUrl] = useState<boolean>(false);
+  const [departments, setDepartments] = useState<IDepartement>();
+  const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
+  const [surfSkills, setSurfSkills] = useState<ISurfSkill>();
+
+  useEffect(() => {
+    //Get Departments
+    axios
+      .get<IDepartement>(`http://localhost:3000/api/departements/${id_departement}`)
+      .then((result) => result.data)
+      .then((data) => setDepartments(data));
+    //Get Surf Styles
+    axios
+      .get<ISurfStyle>(`http://localhost:3000/api/surfstyle/${id_surf_style}`)
+      .then((result) => result.data)
+      .then((data) => setSurfStyles(data));
+    //Get Surf SKills
+    axios
+      .get<ISurfSkill>(`http://localhost:3000/api/surfskill/${id_surf_skill}`)
+      .then((result) => result.data)
+      .then((data) => setSurfSkills(data));
+  }, []);
 
   const previewProfilImage = () => {
     let imageUrl: string = '';
@@ -125,9 +151,9 @@ const MyProfile: FC<Props> = ({
           <div className="myProfile__column__column2__row1">
             <div>
               <p>
-                {department} {/*Should be regions*/}
+                {departments && departments.department_name} {/*Should be regions*/}
               </p>
-              <p>{surf_style}</p>
+              <p>{surfStyles && surfStyles.name_user}</p>
             </div>
             {editProfil ? (
               <BsPencilSquare color="grey" />
@@ -140,7 +166,7 @@ const MyProfile: FC<Props> = ({
           <div className="myProfile__column__column2__row2">
             <h2>Skills</h2>
             <div className="myProfile__column__column2__row2__wrap">
-              <p>{surf_skill}</p>
+              <p>{surfSkills && surfSkills.name}</p>
             </div>
           </div>
           <div className="myProfile__column__column2__row3">
