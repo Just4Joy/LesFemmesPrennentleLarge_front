@@ -59,7 +59,7 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
         setId(data.id_user);
         setFirstname(data.firstname);
         setWahine(data.wahine === 1);
-        if (id) setActiveModal('complete_profil1')
+        setActiveModal('complete_profil1')
       })
       .catch((err) => {
         console.log(err);
