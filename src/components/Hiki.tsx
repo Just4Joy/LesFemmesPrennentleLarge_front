@@ -1,8 +1,9 @@
-import React, { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import axios from 'axios';
+import React, { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import ISurfStyle from '../interfaces/ISurfStyle';
+
 import wahine from '../../img/wahine.svg';
+import ISurfStyle from '../interfaces/ISurfStyle';
 import IUser from '../interfaces/IUser';
 
 type Props = IUser & { setActiveModal: Dispatch<SetStateAction<string>> };
@@ -38,7 +39,7 @@ const Hiki: FC<Props> = ({
           {firstname} {lastname}
         </h5>
         <h6 className="">{city}</h6>
-        <h6 className="hiki__h6">{favorite_spot}s</h6>
+        <h6 className="hiki__h6">{favorite_spot}</h6>
         <h6 className="hiki__tag">{surfStyles?.name_user}</h6>
       </div>
     </Link>
