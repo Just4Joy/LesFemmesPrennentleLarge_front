@@ -45,6 +45,10 @@ function App() {
               element={<Home setActiveModal={setActiveModal} />}
             />
             <Route path="/:id" element={<Home setActiveModal={setActiveModal} />} />
+            <Route
+              path="/session/:id"
+              element={<Session setActiveModal={setActiveModal} />}
+            />
           </Routes>
           <Footer />
         </div>
@@ -67,6 +71,13 @@ function App() {
         {activeModal === 'complete_profil2' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <CreateProfil2 setActiveModal={setActiveModal} />
+          </Modal>
+        )}
+        {activeModal === 'wahine2' && (
+          <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+            <Routes>
+              <Route path="/session/:id" element={<ModalProfile />} />
+            </Routes>
           </Modal>
         )}
         {activeModal === 'wahine' && (
