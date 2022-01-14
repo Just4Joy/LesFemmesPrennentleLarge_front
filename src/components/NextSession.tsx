@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 import { BsFillPatchCheckFill } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
+import IRegion from '../interfaces/IRegion';
 
 import ISession from '../interfaces/ISession';
 
@@ -9,7 +10,6 @@ type Props = ISession;
 
 const Session: FC<Props> = ({
   adress,
-  date,
   name,
   spot_name,
   region_name,

@@ -12,4 +12,5 @@ export default interface ISession {
   carpool: number;
   region_name: string;
   name_session: string;
+  id_region: number | string;
 }
