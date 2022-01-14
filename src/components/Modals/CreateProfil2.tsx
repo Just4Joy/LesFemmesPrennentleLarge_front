@@ -24,7 +24,9 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
     <div className="createProfil2">
       <div className="createProfil2__titles">
         <h2>Compléter son profil 2/2</h2>
-        <h2>Skip</h2>
+        <NavLink to="/profile" onClick={() => setActiveModal('')}>
+          Skip
+        </NavLink>
       </div>
       <div className="createProfil2__skills">
         <div className="createProfil2__skills__title">

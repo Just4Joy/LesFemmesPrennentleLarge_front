@@ -10,19 +10,21 @@ type Props = {
 };
 
 const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
-  const [departements, setDepartements] = useState<IDepartment[]>([]);
+  const [departments, setDepartments] = useState<IDepartment[]>([]);
   useEffect(() => {
     axios
-      .get<IDepartment[]>('http://lfpll-back.herokuapp.com/api/departements')
+      .get<IDepartment[]>('http://localhost:3000/api/departments')
       .then((result) => result.data)
-      .then((data) => setDepartements(data));
+      .then((data) => setDepartments(data));
   }, []);
 
   return (
     <div className="createProfil1">
       <div className="createProfil1__title">
         <h2>Compléter son profil 1/2</h2>
-        <h2>Skip</h2>
+        <h2 role="presentation" onClick={() => setActiveModal('complete_profil2')}>
+          Skip
+        </h2>
       </div>
       <form className="createProfil1__container">
         <img
@@ -44,8 +46,8 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
         <input className="createProfil1__container__ville" placeholder="ville"></input>
         <select id="region-select" className="createProfil1__container__region">
           <option value="">régions où tu surfes</option>
-          {departements &&
-            departements.map((department) => (
+          {departments &&
+            departments.map((department) => (
               <option key={department.id_department} value={department.id_department}>
                 {department.department_name}
               </option>
