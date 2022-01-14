@@ -25,12 +25,12 @@ const Hiki: FC<Props> = ({
       .then((data) => setSurfStyles(data));
   }, []);
   return (
-    <Link to={`/${id_user}`}>
+    <Link to={`/session/${id_user}`}>
       <div
         role="presentation"
         className="hiki"
         style={{ cursor: 'pointer' }}
-        onClick={() => setActiveModal('wahine')}>
+        onClick={() => setActiveModal('wahine2')}>
         <div className="hiki__img">
           <img className="" /*src={profile_pic}*/ src={wahine} alt="wahine" />
         </div>

@@ -6,7 +6,7 @@ import { BsFillPatchCheckFill } from 'react-icons/bs';
 
 import IUser from '../../interfaces/IUser';
 import Hiki from '../Hiki';
-import Wahine from '../Wahine';
+import Wahine2 from '../Wahine2';
 
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
@@ -76,7 +76,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
               .filter((user) => user.id_user === 27 && user.wahine)
               .map((user) => {
                 return (
-                  <Wahine {...user} setActiveModal={setActiveModal} key={user.id_user} />
+                  <Wahine2 {...user} setActiveModal={setActiveModal} key={user.id_user} />
                 );
               })}
         </div>
