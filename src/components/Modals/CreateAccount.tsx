@@ -10,7 +10,7 @@ type Props = {
 };
 
 const CreateAccount: FC<Props> = ({ setActiveModal }) => {
-  const { setId, setWahine, setFirstname } = useContext(CurrentUserContext);
+  const { setId, setWahine, setFirstname, id } = useContext(CurrentUserContext);
   const [errorMessage, setErrorMessage] = useState<string>();
   console.log(errorMessage);
   const [firstname, setfirstname] = useState<string>('');
@@ -59,6 +59,7 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
         setId(data.id_user);
         setFirstname(data.firstname);
         setWahine(data.wahine === 1);
+        if (id) setActiveModal('complete_profil1')
       })
       .catch((err) => {
         console.log(err);
@@ -69,7 +70,8 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
         }
       });
 
-    setActiveModal('complete_profil1');
+    ;
+    
   };
   return (
     <div className="CreateAccount">
