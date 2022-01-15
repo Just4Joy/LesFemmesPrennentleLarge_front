@@ -12,14 +12,25 @@ type Props = {
 
 const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
   const [surfSkills, setSurfSkills] = useState<ISurfSkill[]>([]);
+  const [activeSurfSkill, setActiveSurfSkill] = useState<ISurfSkill['id_surf_skill'][]>([])
+  
 
   useEffect(() => {
     axios
       .get<ISurfSkill[]>('http://lfpll-back.herokuapp.com/api/surfskill')
       .then((result) => result.data)
       .then((data) => setSurfSkills(data));
-  }, []);
+  }, []); 
 
+  const add = (id: any) => {
+    const arr = activeSurfSkill
+    if (arr.find(el => el === id)) { arr.splice(arr.indexOf(id),1) }
+    else arr.push(id)
+    
+    setActiveSurfSkill(arr)
+    console.log(activeSurfSkill)
+    
+  }
   return (
     <div className="createProfil2">
       <div className="createProfil2__titles">
@@ -35,7 +46,7 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
         <div className="createProfil2__skills__tags">
           {surfSkills &&
             surfSkills.map((surfSkill) => {
-              return <SurfSkill {...surfSkill} key={surfSkill.id_surf_skill} />;
+              return <SurfSkill {...surfSkill} key={surfSkill.id_surf_skill} id_surf_skill={surfSkill.id_surf_skill} add={add} />;
             })}
         </div>
         <div className="createProfil2__button">

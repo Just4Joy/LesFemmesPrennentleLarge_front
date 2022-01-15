@@ -1,12 +1,13 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 import ISurfSkill from '../interfaces/ISurfskills';
 
 type Props = ISurfSkill;
-const SurfSkill: FC<Props> = ({ name }) => {
+const SurfSkill: FC<Props> = ({ name, add, id_surf_skill }) => {
+  const [active, setActive] = useState(false)
   return (
     <div className="surfskill">
-      <button className="surfskill__button" type="button">
+      <button className={active? 'surfskill__button__active' : 'surfskill__button'} type="button" onClick={() => { setActive(!active);add(id_surf_skill)}}>
         {name}
       </button>
     </div>
