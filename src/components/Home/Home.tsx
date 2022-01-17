@@ -4,11 +4,11 @@ import { Dispatch, SetStateAction } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
 
+import IDepartement from '../../interfaces/IDepartment';
 import IRegion from '../../interfaces/IRegion';
 import ISession from '../../interfaces/ISession';
-import IUser from '../../interfaces/IUser';
-import IDepartement from '../../interfaces/IDepartement';
 import ISurfStyle from '../../interfaces/ISurfStyle';
+import IUser from '../../interfaces/IUser';
 import NextSession from '../NextSession';
 import Wahine from '../Wahine';
 import BecomeWahine from './BecomeWahine';
@@ -28,7 +28,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [getAllValues, setGetAllValues] = useState<boolean>(false);
 
-  const [allWahine, setAllWahine] = useState<IUser[]>([]);
+  // const [allWahine, setAllWahine] = useState<IUser[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
 
   const first: number = 0;

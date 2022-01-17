@@ -88,10 +88,11 @@
           // a remplacer par les vrais composants "Régions" et "Skills"
           > p {
             background-color: cadetblue;
-            padding: 0.4rem;
+            padding: 0.5rem 1.5rem;
             border-radius: 5px;
             font-size: 11px;
             margin-right: 1rem;
+            font-family: $Second-font;
           } ///
         }
       }
@@ -103,17 +104,10 @@
           margin-bottom: 0.5rem;
         }
         &__wrap {
+          margin-top: 2rem;
           display: flex;
           flex-wrap: wrap;
-          // a remplacer par les vrais composants "Régions" et "Skills"
-          > p {
-            background-color: cadetblue;
-            padding: 0.4rem;
-            border-radius: 5px;
-            font-size: 11px;
-            margin-right: 1rem;
-            margin-bottom: 0.5rem;
-          } ///
+          justify-content: space-around;
         }
       }
       &__row3 {

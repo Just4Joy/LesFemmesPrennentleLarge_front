@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-import IRegion from '../../interfaces/IRegion';
 import IDepartement from '../../interfaces/IDepartement';
+import IRegion from '../../interfaces/IRegion';
 import ISession from '../../interfaces/ISession';
-import NextSession from '../NextSession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
+import NextSession from '../NextSession';
 
 type MySession = ISession & IDepartement & IRegion;
 
