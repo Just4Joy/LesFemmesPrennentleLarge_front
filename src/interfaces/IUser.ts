@@ -6,12 +6,13 @@ export default interface IUser {
   email: string;
   password: string;
   zip_code: string;
-  profile_pic: string;
-  surf_skill: string;
+  profile_pic: unknown;
+  id_surf_skill: number;
   favorite_spot: string;
   created_date: Date;
-  department: string;
-  surf_style: string;
+  id_departement: number;
+  id_surf_style: number;
   wahine: boolean | number;
   desc: string;
+  phone: number;
 }

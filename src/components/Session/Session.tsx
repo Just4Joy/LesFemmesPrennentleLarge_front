@@ -6,7 +6,7 @@ import { BsFillPatchCheckFill } from 'react-icons/bs';
 
 import IUser from '../../interfaces/IUser';
 import Hiki from '../Hiki';
-import Wahine from '../Wahine';
+import Wahine2 from '../Wahine2';
 
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
@@ -19,13 +19,13 @@ const Session: FC<Props> = ({ setActiveModal }) => {
 
   const first: number = 0;
   const second: number = 5;
-  const [allWahine, setAllWahine] = useState<IUser[]>([]);
+  const [users, setUsers] = useState<IUser[]>([]);
 
   useEffect(() => {
     axios
       .get<IUser[]>('http://localhost:3000/api/users')
       .then((result) => result.data)
-      .then((data) => setAllWahine(data));
+      .then((data) => setUsers(data));
   }, []);
   return (
     <div className="onesession">
@@ -71,16 +71,12 @@ const Session: FC<Props> = ({ setActiveModal }) => {
         </div>
         <div className="session__organiser">
           <h4>Organisé par:</h4>
-          {allWahine &&
-            allWahine
-              .filter((aWahine) => aWahine.id_user === 27 && aWahine.wahine)
-              .map((oneWahine) => {
+          {users &&
+            users
+              .filter((user) => user.id_user === 27 && user.wahine)
+              .map((user) => {
                 return (
-                  <Wahine
-                    {...oneWahine}
-                    setActiveModal={setActiveModal}
-                    key={oneWahine.id_user}
-                  />
+                  <Wahine2 {...user} setActiveModal={setActiveModal} key={user.id_user} />
                 );
               })}
         </div>
@@ -91,17 +87,13 @@ const Session: FC<Props> = ({ setActiveModal }) => {
       <div className="onesession__group">
         <h3>Hikis de la session</h3>
         <div className="onesession__group__hikis">
-          {allWahine &&
-            allWahine
-              .filter((aWahine) => !aWahine.wahine)
+          {users &&
+            users
+              .filter((user) => !user.wahine)
               .slice(first, second)
-              .map((oneWahine) => {
+              .map((user) => {
                 return (
-                  <Hiki
-                    {...oneWahine}
-                    setActiveModal={setActiveModal}
-                    key={oneWahine.id_user}
-                  />
+                  <Hiki {...user} setActiveModal={setActiveModal} key={user.id_user} />
                 );
               })}
         </div>

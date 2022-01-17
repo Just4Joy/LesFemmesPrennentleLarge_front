@@ -11,15 +11,15 @@ import MyProfile from './MyProfile';
 
 const Profile = () => {
   const { id } = useContext(CurrentUserContext);
-  const [profile, setProfile] = useState<IUser>();
-  console.log(id);
+  const [users, setUsers] = useState<IUser>();
 
   useEffect(() => {
     axios
       .get<IUser>(`http://localhost:3000/api/users/${id}`)
       .then((result) => result.data)
-      .then((data) => setProfile(data));
+      .then((data) => setUsers(data));
   }, [id]);
+  console.log(users);
 
   return (
     <div className="profile">
@@ -29,7 +29,7 @@ const Profile = () => {
           <h1>Mon profil</h1>
         </NavLink>
       </div>
-      {profile && <MyProfile {...profile} />}
+      {users && <MyProfile {...users} />}
     </div>
   );
 };
