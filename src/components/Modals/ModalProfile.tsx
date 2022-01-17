@@ -5,9 +5,9 @@ import { useParams } from 'react-router';
 
 import wahineImg from '../../../img/wahine.svg';
 import IDepartment from '../../interfaces/IDepartment';
-import IUserHasSurfSkills from '../../interfaces/IUserHasSurfSkill';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
+import IUserHasSurfSkills from '../../interfaces/IUserHasSurfSkill';
 import SurfSkillProfile from '../Profile/SurfSkillProfile';
 
 const ModalProfile = () => {
