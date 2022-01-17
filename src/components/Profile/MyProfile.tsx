@@ -8,7 +8,7 @@ import wahineImg from '../../../img/wahine.svg';
 import IDepartment from '../../interfaces/IDepartment';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
-import IUserHasSurfSkill from '../../interfaces/IUserHasSurfSkill';
+import IUserHasSurfSkills from '../../interfaces/IUserHasSurfSkill';
 import SurfSkillProfile from '../Profile/SurfSkillProfile';
 
 type Props = IUser;
@@ -30,7 +30,7 @@ const MyProfile: FC<Props> = ({
   const [revokeUrl, setRevokeUrl] = useState<boolean>(false);
   const [departments, setDepartments] = useState<IDepartment>();
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
-  const [surfSkills, setSurfSkills] = useState<IUserHasSurfSkill[]>([]);
+  const [surfSkills, setSurfSkills] = useState<IUserHasSurfSkills[]>([]);
 
   useEffect(() => {
     //Get Departments
@@ -45,7 +45,7 @@ const MyProfile: FC<Props> = ({
       .then((data) => setSurfStyles(data));
     //Get Surf SKills id
     axios
-      .get<IUserHasSurfSkill[]>(`http://localhost:3000/api/userhassurfskills/${id_user}`)
+      .get<IUserHasSurfSkills[]>(`http://localhost:3000/api/userhassurfskills/${id_user}`)
       .then((result) => result.data)
       .then((data) => setSurfSkills(data));
   }, []);
