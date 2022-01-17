@@ -10,7 +10,7 @@ export default interface IUser {
   id_surf_skill: number;
   favorite_spot: string;
   created_date: Date;
-  id_departement: number;
+  id_department: number;
   id_surf_style: number;
   wahine: boolean | number;
   desc: string;

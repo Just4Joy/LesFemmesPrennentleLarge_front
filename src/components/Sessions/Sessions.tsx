@@ -1,17 +1,17 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-import IDepartement from '../../interfaces/IDepartement';
+import IDepartment from '../../interfaces/IDepartment';
 import IRegion from '../../interfaces/IRegion';
 import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import NextSession from '../NextSession';
 
-type MySession = ISession & IDepartement & IRegion;
+type MySession = ISession & IDepartment & IRegion;
 
 const Sessions = () => {
   const [allRegions, setAllRegions] = useState<IRegion[]>([]);
-  const [allDepartments, setAllDepartments] = useState<IDepartement[]>([]);
+  const [allDepartments, setAllDepartments] = useState<IDepartment[]>([]);
   const [allSurfstyle, setAllSurfstyle] = useState<ISurfStyle[]>([]);
   const [allSessions, setAllSessions] = useState<ISession[]>([]);
   const [selectedRegion, setSelectedRegion] = useState<number>(0);
@@ -38,7 +38,7 @@ const Sessions = () => {
       return regions;
     };
     const getAllDepartments = async () => {
-      const department = await axios.get<IDepartement[]>(
+      const department = await axios.get<IDepartment[]>(
         'http://localhost:3000/api/departments',
       );
       return department;
@@ -90,7 +90,7 @@ const Sessions = () => {
       return regions;
     };
     const getAllDepartments = async () => {
-      const department = await axios.get<IDepartement[]>(
+      const department = await axios.get<IDepartment[]>(
         'http://localhost:3000/api/departments',
       );
       return department;

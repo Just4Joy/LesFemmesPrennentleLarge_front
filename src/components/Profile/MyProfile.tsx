@@ -20,7 +20,7 @@ const MyProfile: FC<Props> = ({
   favorite_spot,
   wahine,
   desc,
-  id_departement,
+  id_department,
   id_surf_style,
   id_user,
 }) => {
@@ -35,7 +35,7 @@ const MyProfile: FC<Props> = ({
   useEffect(() => {
     //Get Departments
     axios
-      .get<IDepartment>(`http://localhost:3000/api/departments/${id_departement}`)
+      .get<IDepartment>(`http://localhost:3000/api/departments/${id_department}`)
       .then((result) => result.data)
       .then((data) => setDepartments(data));
     //Get Surf Styles
