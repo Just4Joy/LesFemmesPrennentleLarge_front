@@ -16,9 +16,17 @@ const Sessions = () => {
   const [allSessions, setAllSessions] = useState<ISession[]>([]);
   const [selectedRegion, setSelectedRegion] = useState<number>(0);
   const [selectedDate, setSelectedDate] = useState<string | undefined>();
-  const [allDates, setAllDates] = useState<ISession[]>([]);
+  const [allDates, setAllDates] = useState<Array<string>>([]);
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [getAllValues, setGetAllValues] = useState<boolean>(false);
+
+  const getNiceDates = (sessionsData) => {
+    let niceDate: Array<string> = [];
+    sessionsData.map((session) => {
+      niceDate.includes(session.nice_date) ? '' : niceDate.push(session.nice_date);
+    });
+    setAllDates(niceDate);
+  };
 
   useEffect(() => {
     const getAllSessions = async () => {
@@ -31,7 +39,7 @@ const Sessions = () => {
     };
     const getAllDepartments = async () => {
       const department = await axios.get<IDepartement[]>(
-        'http://localhost:3000/api/departements',
+        'http://localhost:3000/api/departments',
       );
       return department;
     };
@@ -49,6 +57,7 @@ const Sessions = () => {
       getAllSurfstyles(),
     ]).then(([sessions, regions, departments, surfstyles]) => {
       setAllSessions(sessions.data);
+      getNiceDates(sessions.data);
       setAllRegions(regions.data);
       setAllDepartments(departments.data);
       setAllSurfstyle(surfstyles.data);
@@ -61,9 +70,17 @@ const Sessions = () => {
   useEffect(() => {
     const getAllSessions = async () => {
       let basicUrl = `http://localhost:3000/api/sessions`;
+      let basicUrlChanged = false;
       if (selectedRegion && selectedRegion > 0) {
         basicUrl += `/?region=${selectedRegion}`;
+        basicUrlChanged = true;
       }
+      if (selectedDate !== undefined && selectedDate !== '0') {
+        basicUrlChanged
+          ? (basicUrl += `&date=${selectedDate}`)
+          : (basicUrl += `/?date=${selectedDate}`);
+      }
+      console.log(basicUrl);
       axios.get<ISession[]>(basicUrl);
       const sessions = await axios.get<ISession[]>(basicUrl);
       return sessions;
@@ -74,7 +91,7 @@ const Sessions = () => {
     };
     const getAllDepartments = async () => {
       const department = await axios.get<IDepartement[]>(
-        'http://localhost:3000/api/departements',
+        'http://localhost:3000/api/departments',
       );
       return department;
     };
@@ -92,6 +109,7 @@ const Sessions = () => {
       getAllSurfstyles(),
     ]).then(([sessions, regions, departments, surfstyles]) => {
       setAllSessions(sessions.data);
+      getNiceDates(sessions.data);
       setAllRegions(regions.data);
       setAllDepartments(departments.data);
       setAllSurfstyle(surfstyles.data);
@@ -99,9 +117,10 @@ const Sessions = () => {
         setGetAllValues(!getAllValues);
       }
     });
-  }, [selectedRegion]);
+  }, [selectedRegion, selectedDate]);
 
   useEffect(() => {
+    getNiceDates(allSessions);
     // Construit l'objet MySessions
     let mesSessions: MySession[] = [];
 
@@ -131,29 +150,7 @@ const Sessions = () => {
     setMySessions(mesSessions);
   }, [getAllValues]);
 
-  // const getSessionsByIdDepartment = (idDepartment: number) => {
-  //   axios
-  //     .get<ISession[]>('http://localhost:3000/api/sessions')
-  //     .then((result) => result.data)
-  //     .then((data) => setAllSessions(data));
-  // };
-
-  // useEffect(() => {
-  //   getSessionsByIdDepartment(selectedRegion);
-  // }, [selectedRegion]);
-
-  // useEffect(() => {
-  //   let basicUrl = `http://localhost:3000/api/sessions/dates`;
-
-  //   if (selectedRegion && selectedRegion > 0) {
-  //     basicUrl += `/?region=${selectedRegion}`;
-  //   }
-
-  //   axios
-  //     .get<ISession[]>(basicUrl)
-  //     .then((result) => result.data)
-  //     .then((data) => setAllDates(data));
-  // }, [selectedRegion]);
+  console.log(selectedDate);
 
   return (
     <div className="sessions">
@@ -164,7 +161,9 @@ const Sessions = () => {
           className="sessions__selectors__region"
           name="region"
           id="region"
-          onClick={(e) => setSelectedRegion(Number(e.currentTarget.value))}>
+          onClick={(e) => {
+            setSelectedRegion(Number(e.currentTarget.value));
+          }}>
           <option value="0">Régions</option>
           {allRegions.map((region) => {
             return (
@@ -179,13 +178,13 @@ const Sessions = () => {
           className="sessions__selectors__date"
           name="date"
           id="date"
-          onClick={(e) => setSelectedRegion(Number(e.currentTarget.value))}>
+          onClick={(e) => setSelectedDate(String(e.currentTarget.value))}>
           <option value="0">Dates</option>
-          {mySessions &&
-            mySessions.map((session, index) => {
+          {allDates &&
+            allDates.map((date, index) => {
               return (
-                <option value={session.nice_date} key={index}>
-                  {session.nice_date}
+                <option value={date} key={index}>
+                  {date}
                 </option>
               );
             })}
