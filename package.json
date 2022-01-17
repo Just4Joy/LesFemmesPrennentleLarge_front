@@ -17,6 +17,7 @@
     "axios": "^0.24.0",
     "cors": "^2.8.5",
     "dateformat": "^5.0.2",
+    "imagekitio-react": "^1.1.0",
     "react": "^17.0.2",
     "react-cookie": "^4.1.1",
     "react-datepicker": "^4.6.0",
