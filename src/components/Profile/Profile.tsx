@@ -19,7 +19,6 @@ const Profile = () => {
       .then((result) => result.data)
       .then((data) => setUsers(data));
   }, [id]);
-  console.log(users);
 
   return (
     <div className="profile">

@@ -6,9 +6,10 @@ import { FiUpload } from 'react-icons/fi';
 
 import wahineImg from '../../../img/wahine.svg';
 import IDepartment from '../../interfaces/IDepartment';
-import ISurfSkill from '../../interfaces/ISurfskills';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
+import IUserHasSurfSkill from '../../interfaces/IUserHasSurfSkill';
+import SurfSkillProfile from '../Profile/SurfSkillProfile';
 
 type Props = IUser;
 
@@ -20,8 +21,8 @@ const MyProfile: FC<Props> = ({
   wahine,
   desc,
   id_departement,
-  id_surf_skill,
   id_surf_style,
+  id_user,
 }) => {
   const [editProfil, setEditProfil] = useState<boolean>(false);
   const [editSkills, setEditSkills] = useState<boolean>(false);
@@ -29,7 +30,7 @@ const MyProfile: FC<Props> = ({
   const [revokeUrl, setRevokeUrl] = useState<boolean>(false);
   const [departments, setDepartments] = useState<IDepartment>();
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
-  const [surfSkills, setSurfSkills] = useState<ISurfSkill>();
+  const [surfSkills, setSurfSkills] = useState<IUserHasSurfSkill[]>([]);
 
   useEffect(() => {
     //Get Departments
@@ -42,9 +43,9 @@ const MyProfile: FC<Props> = ({
       .get<ISurfStyle>(`http://localhost:3000/api/surfstyle/${id_surf_style}`)
       .then((result) => result.data)
       .then((data) => setSurfStyles(data));
-    //Get Surf SKills
+    //Get Surf SKills id
     axios
-      .get<ISurfSkill>(`http://localhost:3000/api/surfskill/${id_surf_skill}`)
+      .get<IUserHasSurfSkill[]>(`http://localhost:3000/api/userhassurfskills/${id_user}`)
       .then((result) => result.data)
       .then((data) => setSurfSkills(data));
   }, []);
@@ -166,7 +167,10 @@ const MyProfile: FC<Props> = ({
           <div className="myProfile__column__column2__row2">
             <h2>Skills</h2>
             <div className="myProfile__column__column2__row2__wrap">
-              <p>{surfSkills && surfSkills.name}</p>
+              {surfSkills &&
+                surfSkills.map((surfSkill) => {
+                  return <SurfSkillProfile key={surfSkill.id_user} {...surfSkill} />;
+                })}
             </div>
           </div>
           <div className="myProfile__column__column2__row3">
