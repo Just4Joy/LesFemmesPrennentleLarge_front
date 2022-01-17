@@ -20,6 +20,7 @@ const MyProfile: FC<Props> = ({
   favorite_spot,
   wahine,
   desc,
+  profile_pic,
   id_department,
   id_surf_style,
   id_user,
@@ -81,7 +82,7 @@ const MyProfile: FC<Props> = ({
       <div className="myProfile__column">
         {!editProfil ? (
           <div className="myProfile__column__column1">
-            <img src={wahineImg} alt="hiki" />
+            <img src={profile_pic} alt="hiki" />
             <div className="myProfile__column__column1__info">
               <h2>
                 {lastname} {firstname}
