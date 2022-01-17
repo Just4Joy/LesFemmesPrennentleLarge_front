@@ -1,9 +1,9 @@
 import 'react-datepicker/src/stylesheets/datepicker.scss';
 
-import React, { useState } from 'react';
+import React from 'react';
 import DatePicker from 'react-datepicker';
 
-function DatetimePicker({selectedDate, setSelectedDate}: any) {
+function DatetimePicker({ selectedDate, setSelectedDate }: any) {
   //const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   //console.log(selectedDate);
   return (

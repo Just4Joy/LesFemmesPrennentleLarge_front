@@ -5,9 +5,9 @@ import { useParams } from 'react-router';
 
 import wahineImg from '../../../img/wahine.svg';
 import IDepartment from '../../interfaces/IDepartment';
+import ISurfSkill from '../../interfaces/ISurfskills';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
-import IUserHasSurfSkills from '../../interfaces/IUserHasSurfSkill';
 import SurfSkillProfile from '../Profile/SurfSkillProfile';
 
 const ModalProfile = () => {
@@ -15,7 +15,7 @@ const ModalProfile = () => {
   const [user, setUser] = useState<IUser>();
   const [departments, setDepartments] = useState<IDepartment>();
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
-  const [surfSkills, setSurfSkills] = useState<IUserHasSurfSkills[]>([]);
+  const [surfSkills, setSurfSkills] = useState<ISurfSkill[]>([]);
 
   useEffect(() => {
     //Get Users
@@ -36,9 +36,7 @@ const ModalProfile = () => {
           .then((data) => setSurfStyles(data));
         //Get Surf Skill
         axios
-          .get<IUserHasSurfSkills[]>(
-            `http://localhost:3000/api/userhassurfskills/${data.id_user}`,
-          )
+          .get<ISurfSkill[]>(`http://localhost:3000/api/users/${data.id_user}/surfskills`)
           .then((result) => result.data)
           .then((data) => setSurfSkills(data));
       });
@@ -77,7 +75,9 @@ const ModalProfile = () => {
                 <div className="modalProfile__column__column2__row2__wrap">
                   {surfSkills &&
                     surfSkills.map((surfSkill) => {
-                      return <SurfSkillProfile key={surfSkill.id_user} {...surfSkill} />;
+                      return (
+                        <SurfSkillProfile key={surfSkill.id_surf_skill} {...surfSkill} />
+                      );
                     })}
                 </div>
               </div>
