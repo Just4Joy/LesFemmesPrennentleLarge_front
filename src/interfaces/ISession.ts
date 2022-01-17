@@ -5,9 +5,9 @@ export default interface ISession {
   nice_date: string;
   nice_time: string;
   spot_name: string;
-  adress: string;
+  address: string;
   nb_hiki_max: number;
-  id_departement: number;
+  id_department: number;
   id_surf_style: number;
   carpool: number;
   region_name: string;

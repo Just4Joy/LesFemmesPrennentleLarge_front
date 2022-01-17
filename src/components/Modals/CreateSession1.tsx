@@ -1,28 +1,81 @@
 import axios from 'axios';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useContext } from 'react';
 import { Dispatch, SetStateAction } from 'react';
+import dateFormat from 'dateformat'
 
 import IRegion from '../../interfaces/IRegion';
+import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import DatetimePicker from '../DatePicker';
+import CurrentUserContext from '../contexts/CurrentUser';
+import IDepartment from '../../interfaces/IDepartment';
 
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 const CreateSession1: FC<Props> = ({ setActiveModal }) => {
+  const { id } = useContext(CurrentUserContext)
   const [surfStyles, setSurfStyles] = useState<ISurfStyle[]>([]);
-  const [regions, setRegions] = useState<IRegion[]>([]);
+  const [departements, setDepartements] = useState<IDepartment[]>([]);
+
+  const [name, setName] = useState<ISession['name']>();
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [id_department, setId_department] = useState<ISession['id_department']>()
+  const [address, setAddress] = useState<ISession['address']>()
+  const [spot_name, setspot_name] = useState<ISession['spot_name']>()
+  const [nb_hiki_max, setnb_hiki_max] = useState<ISession['nb_hiki_max']>()
+  const [id_surf_style, setId_surf_style] = useState<ISession['id_surf_style']>()
+  const [carpool, setCarpool] = useState<ISession['carpool']>()
   useEffect(() => {
     axios
-      .get<IRegion[]>('http://localhost:3000/api/regions')
+      .get<IDepartment[]>('http://localhost:3000/api/departments')
       .then((result) => result.data)
-      .then((data) => setRegions(data));
+      .then((data) => setDepartements(data));
 
     axios
       .get<ISurfStyle[]>('http://localhost:3000/api/surfstyle')
       .then((result) => result.data)
       .then((data) => setSurfStyles(data));
   }, []);
+
+  const createSession = () => {
+    console.log({
+      name,
+      date: dateFormat(selectedDate, 'yyyy-MM-dd hh:mm:ss'),
+      spot_name,
+      address,
+      nb_hiki_max,
+      id_department,
+      id_surf_style,
+      carpool: carpool,
+      id_user: id
+    })
+    axios
+      .post<ISession>(
+        'http://localhost:3000/api/sessions/',
+        {
+          name,
+          date: dateFormat(selectedDate, 'yyyy-MM-dd hh:mm:ss'),
+          spot_name,
+          address,
+          nb_hiki_max,
+          id_department,
+          id_surf_style,
+          carpool,
+          id_user: id
+        },
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        },
+      )
+
+  }
+
+
 
   return (
     <div className="create_session">
@@ -35,35 +88,52 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
           <div className="create_session__form__inputs">
             <input
               className="create_session__form__inputs__input"
-              placeholder="nom de la session*"></input>
+              placeholder="nom de la session*"
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                setName(e.currentTarget.value)
+              }></input>
+
             <select
               name="region"
               id="region-select"
-              className="create_session__form__inputs__input">
-              <option value="">régions</option>
-              {regions &&
-                regions.map((region) => (
-                  <option key={region.id_region} value={region.id_region}>
-                    {region.region_name}
+              className="create_session__form__inputs__input"
+              onChange={(e: React.FormEvent<HTMLSelectElement>) => { setId_department(parseInt(e.currentTarget.value, 10)) }}>
+              <option value="">Département</option>
+              {departements &&
+                departements.map((departement) => (
+                  <option key={departement.id_department} value={departement.id_department}>
+                    {departement.department_name}
                   </option>
                 ))}
             </select>
 
-            <DatetimePicker />
+            <DatetimePicker selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
 
             <input
               className="create_session__form__inputs__input"
-              placeholder="adresse rdv*"></input>
+              placeholder="adresse rdv*"
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                setAddress(e.currentTarget.value)
+              }
+            ></input>
             <input
               className="create_session__form__inputs__input"
-              placeholder="spot*"></input>
+              placeholder="spot*"
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                setspot_name(e.currentTarget.value)
+              }
+            ></input>
             <input
               className="create_session__form__inputs__input"
-              placeholder="nbr hiki max"></input>
+              placeholder="nbr hiki max"
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                setnb_hiki_max(parseInt(e.currentTarget.value, 10))
+              }></input>
           </div>
           <div className="create_session__form__type">
             <h4>Type de session</h4>
-            <select>
+            <select
+              onChange={(e: React.FormEvent<HTMLSelectElement>) => { setId_surf_style(parseInt(e.currentTarget.value, 10)) }}>
               <option value="">type de session</option>
               {surfStyles &&
                 surfStyles.map((surfStyle) => (
@@ -77,17 +147,18 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
         <hr />
         <div className="create_session__form__carpool">
           <h4>Co-voiturage ?</h4>
-          <select>
+          <select
+            onChange={(e: React.FormEvent<HTMLSelectElement>) => { setCarpool(parseInt(e.currentTarget.value, 10)) }}>
             <option value="">choisir une option</option>
-            <option value="yes">Oui</option>
-            <option value="no">Non</option>
+            <option value="1">Oui</option>
+            <option value="0">Non</option>
           </select>
         </div>
       </div>
       <div className="create_session__button">
         <button
           className="create_session__button__next"
-          onClick={() => setActiveModal('create_session2')}>
+          onClick={() => { createSession(); setActiveModal('create_session2') }}>
           <h4>Suivant</h4>
         </button>
       </div>
