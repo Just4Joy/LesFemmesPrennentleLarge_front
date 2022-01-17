@@ -5,18 +5,20 @@ import { useParams } from 'react-router';
 
 import wahineImg from '../../../img/wahine.svg';
 import IDepartment from '../../interfaces/IDepartment';
-import ISurfSkill from '../../interfaces/ISurfskills';
+import IUserHasSurfSkills from '../../interfaces/IUserHasSurfSkill';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
+import SurfSkillProfile from '../Profile/SurfSkillProfile';
 
 const ModalProfile = () => {
   const { id } = useParams();
   const [user, setUser] = useState<IUser>();
   const [departments, setDepartments] = useState<IDepartment>();
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
-  const [surfSkills, setSurfSkills] = useState<ISurfSkill>();
+  const [surfSkills, setSurfSkills] = useState<IUserHasSurfSkills[]>([]);
 
   useEffect(() => {
+    //Get Users
     axios
       .get<IUser>(`http://localhost:3000/api/users/${id}`)
       .then((result) => result.data)
@@ -24,9 +26,7 @@ const ModalProfile = () => {
         setUser(data);
         // Get Departement
         axios
-          .get<IDepartment>(
-            `http://localhost:3000/api/departments/${data.id_departement}`,
-          )
+          .get<IDepartment>(`http://localhost:3000/api/departments/${data.id_department}`)
           .then((result) => result.data)
           .then((data) => setDepartments(data));
         // Get Surf Style
@@ -36,11 +36,14 @@ const ModalProfile = () => {
           .then((data) => setSurfStyles(data));
         //Get Surf Skill
         axios
-          .get<ISurfSkill>(`http://localhost:3000/api/surfskill/${data.id_surf_skill}`)
+          .get<IUserHasSurfSkills[]>(
+            `http://localhost:3000/api/userhassurfskills/${data.id_user}`,
+          )
           .then((result) => result.data)
           .then((data) => setSurfSkills(data));
       });
   }, []);
+  console.log(surfSkills);
 
   return (
     <div className="modalwahine">
@@ -72,7 +75,10 @@ const ModalProfile = () => {
               <div className="modalProfile__column__column2__row2">
                 <h2>Skills</h2>
                 <div className="modalProfile__column__column2__row2__wrap">
-                  <p>{surfSkills?.name}</p>
+                  {surfSkills &&
+                    surfSkills.map((surfSkill) => {
+                      return <SurfSkillProfile key={surfSkill.id_user} {...surfSkill} />;
+                    })}
                 </div>
               </div>
               <div className="modalProfile__column__column2__row3">
