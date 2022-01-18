@@ -155,6 +155,7 @@ const Sessions = () => {
           (departement) => departement.id_department == session.id_department,
         )?.id_region;
         maSession = {
+          id_session: session.id_session,
           name: session.name,
           nice_date: session.nice_date,
           nice_time: session.nice_time,

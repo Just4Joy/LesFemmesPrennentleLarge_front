@@ -13,4 +13,5 @@ export default interface ISession {
   region_name: string | undefined;
   name_session: string | undefined;
   id_region: number | string;
+  id_user: number;
 }
