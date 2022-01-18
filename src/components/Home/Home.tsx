@@ -22,18 +22,13 @@ type MySession = ISession & IDepartment & IRegion;
 
 const Home: FC<Props> = ({ setActiveModal }) => {
   const [allRegions, setAllRegions] = useState<IRegion[]>([]);
-  const [allDepartments, setAllDepartments] = useState<IDepartment[]>([]);
-  const [allSurfstyle, setAllSurfstyle] = useState<ISurfStyle[]>([]);
-  const [allSessions, setAllSessions] = useState<ISession[]>([]);
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [allWahine, setAllWahine] = useState<IUser[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
-  console.log(allDepartments, allSurfstyle, allSessions, allWahine, setAllWahine);
 
   const first: number = 0;
   const second: number = 5;
 
-  console.log(allSessions);
   useEffect(() => {
     const getAllSessions = async () => {
       const sessions = await axios.get<ISession[]>(
@@ -64,18 +59,16 @@ const Home: FC<Props> = ({ setActiveModal }) => {
       getAllDepartments(),
       getAllSurfstyles(),
     ]).then(([sessions, regions, departments, surfstyles]) => {
-      setAllSessions(sessions);
       setAllRegions(regions);
-      setAllDepartments(departments);
-      setAllSurfstyle(surfstyles);
 
       // Construit le tableau d'objet mesSessions
       let mesSessions: MySession[] = [];
       let maSession: MySession;
       sessions.map((session) => {
-        let id_region = departments.find(
-          (departement) => departement.id_department == session.id_department,
-        )?.id_region;
+        let id_region =
+          departments.find(
+            (departement) => departement.id_department == session.id_department,
+          )?.id_region || 0;
         maSession = {
           id_session: session.id_session,
           name: session.name,
@@ -85,11 +78,16 @@ const Home: FC<Props> = ({ setActiveModal }) => {
           address: session.address,
           nb_hiki_max: session.nb_hiki_max,
           carpool: session.carpool,
+          date: session.date,
+          id_surf_style: session.id_surf_style,
+          id_department: session.id_department,
+          id_user: session.id_user,
+          id_region: id_region,
           name_session: surfstyles.find(
             (surfstyle) => surfstyle.id_surf_style == session.id_surf_style,
           )?.name_session,
-          region_name: regions.find((region) => region.id_region == id_region)
-            ?.region_name,
+          region_name:
+            regions.find((region) => region.id_region == id_region)?.region_name || '',
         };
         mesSessions.push(maSession);
       });

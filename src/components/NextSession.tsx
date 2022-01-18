@@ -18,7 +18,6 @@ const Session: FC<Props> = ({
   nice_time,
   id_session,
 }) => {
-  console.log(id_session);
   return (
     <div className="nextsession">
       <div className="nextsession__button">

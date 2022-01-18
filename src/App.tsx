@@ -1,6 +1,6 @@
 import './App.scss';
 
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Footer from './components/Footer';
@@ -34,6 +34,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home setActiveModal={setActiveModal} />} />
             <Route path="/sessions" element={<Sessions />} />
+            <Route path="/sessions/:id_region" element={<Sessions />} />
+
             <Route
               path="/session/:id_session"
               element={<Session setActiveModal={setActiveModal} />}
