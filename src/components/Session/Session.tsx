@@ -4,8 +4,8 @@ import { Dispatch, SetStateAction } from 'react';
 import { useLayoutEffect } from 'react';
 import { BsFillPatchCheckFill } from 'react-icons/bs';
 import { useParams } from 'react-router';
-import IDepartment from '../../interfaces/IDepartment';
 
+import IDepartment from '../../interfaces/IDepartment';
 import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
