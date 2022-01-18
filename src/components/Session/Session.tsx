@@ -3,7 +3,9 @@ import React, { FC, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { useLayoutEffect } from 'react';
 import { BsFillPatchCheckFill } from 'react-icons/bs';
+import { useParams } from 'react-router';
 
+import ISession from '../../interfaces/ISession';
 import IUser from '../../interfaces/IUser';
 import Hiki from '../Hiki';
 import Wahine2 from '../Wahine2';
@@ -21,12 +23,27 @@ const Session: FC<Props> = ({ setActiveModal }) => {
   const second: number = 5;
   const [users, setUsers] = useState<IUser[]>([]);
 
+  let { id_session } = useParams();
+  console.log(id_session);
+  const [session, setSession] = useState<ISession>();
+  const [subscribers, setSubscribers] = useState<IUser[]>([]);
+
   useEffect(() => {
+    axios
+      .get<ISession>(`http://localhost:3000/api/session/${id_session}`)
+      .then((result) => result.data)
+      .then((data) => setSession(data));
     axios
       .get<IUser[]>('http://localhost:3000/api/users')
       .then((result) => result.data)
       .then((data) => setUsers(data));
+    axios
+      .get<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users`)
+      .then((result) => result.data)
+      .then((data) => setSubscribers(data));
   }, []);
+  console.log(session);
+  console.log(subscribers);
   return (
     <div className="onesession">
       <div className="session">

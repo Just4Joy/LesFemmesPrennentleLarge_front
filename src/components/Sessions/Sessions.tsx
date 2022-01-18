@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-import IRegion from '../../interfaces/IRegion';
 import IDepartment from '../../interfaces/IDepartment';
+import IRegion from '../../interfaces/IRegion';
 import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import NextSession from '../NextSession';
@@ -18,6 +18,7 @@ const Sessions = () => {
   const [selectedDate, setSelectedDate] = useState<string>('0');
   const [allDates, setAllDates] = useState<ISession[]>([]);
   const [mySessions, setMySessions] = useState<MySession[]>([]);
+  console.log(allDepartments, allSurfstyle);
 
   // Construit le tableau d'objet niceDates
   const getNiceDates = (sessionsData: ISession[]) => {
