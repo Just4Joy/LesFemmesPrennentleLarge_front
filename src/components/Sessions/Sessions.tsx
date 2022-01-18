@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useParams } from 'react-router-dom';
 
 import IRegion from '../../interfaces/IRegion';
 import IDepartment from '../../interfaces/IDepartment';
@@ -9,52 +10,57 @@ import NextSession from '../NextSession';
 
 type MySession = ISession & IDepartment & IRegion;
 
+type NiceDate = {
+  date: string;
+  nice_date: string;
+};
+
 const Sessions = () => {
+  let { id_region } = useParams<{ id_region: string | undefined }>();
   const [allRegions, setAllRegions] = useState<IRegion[]>([]);
   const [allDepartments, setAllDepartments] = useState<IDepartment[]>([]);
   const [allSurfstyle, setAllSurfstyle] = useState<ISurfStyle[]>([]);
-  const [allSessions, setAllSessions] = useState<ISession[]>([]);
-  const [selectedRegion, setSelectedRegion] = useState<string>('0');
-  const [selectedDate, setSelectedDate] = useState<string>('0');
-  const [allDates, setAllDates] = useState<ISession[]>([]);
+  const [selectedRegion, setSelectedRegion] = useState<number | undefined | string>();
+  const [selectedDate, setSelectedDate] = useState<string>();
+  const [allDates, setAllDates] = useState<NiceDate[]>([]);
   const [mySessions, setMySessions] = useState<MySession[]>([]);
+
+  console.log('id_region ' + id_region);
+  console.log('selectedRegion ' + selectedRegion);
 
   // Construit le tableau d'objet niceDates
   const getNiceDates = (sessionsData: ISession[]) => {
-    let compareDate: ISession[] = [];
-    let niceDates: ISession[] = [];
-    console.log(sessionsData);
+    let compareDate: string[] = [];
+    let niceDates: NiceDate[] = [];
+
     if (sessionsData.length === 1) {
       niceDates.push({
         nice_date: sessionsData[0].nice_date,
         date: sessionsData[0].date,
       });
-      console.log(niceDates);
     } else if (sessionsData.length > 1) {
       sessionsData.map((session) => {
-        if (compareDate.length === 0) {
+        if (!compareDate.includes(session.nice_date)) {
           compareDate.push(session.nice_date);
           niceDates.push({ nice_date: session.nice_date, date: session.date });
         }
-        compareDate.includes(session.nice_date)
-          ? ''
-          : niceDates.push({ nice_date: session.nice_date, date: session.date });
       });
     }
     setAllDates(niceDates);
   };
 
+  // Les fonctions axios
   const getAllSessions = async () => {
     let basicUrl = `http://localhost:3000/api/sessions`;
     let basicUrlChanged = false;
-    if (selectedRegion !== '0') {
+
+    if (selectedRegion !== undefined && selectedRegion !== 0) {
       basicUrl += `?region=${selectedRegion}`;
       basicUrlChanged = true;
     }
-    if (selectedDate !== '0') {
-      basicUrlChanged
-        ? (basicUrl += `&date=${selectedDate}`)
-        : (basicUrl += `?date=${selectedDate}`);
+
+    if (selectedDate !== undefined && selectedDate !== '0') {
+      basicUrl += basicUrlChanged ? `&date=${selectedDate}` : `?date=${selectedDate}`;
     }
     const sessions = await axios.get<ISession[]>(basicUrl);
     return sessions.data;
@@ -76,86 +82,92 @@ const Sessions = () => {
     return surfstyles.data;
   };
 
+  // Construit le tableau d'objet mySessions
+  const mySessionsObjectConstructor = (
+    sessionsList: ISession[],
+    departmentsList: IDepartment[],
+    surfstyleList: ISurfStyle[],
+    regionsList: IRegion[],
+  ) => {
+    let mesSessions: MySession[] = [];
+    let maSession: MySession;
+    sessionsList.map((session) => {
+      let id_region: number =
+        departmentsList.find(
+          (departement) => departement.id_department == session.id_department,
+        )?.id_region || 0;
+      maSession = {
+        id_session: session.id_session,
+        name: session.name,
+        nice_date: session.nice_date,
+        nice_time: session.nice_time,
+        spot_name: session.spot_name,
+        address: session.address,
+        nb_hiki_max: session.nb_hiki_max,
+        carpool: session.carpool,
+        date: session.date,
+        id_surf_style: session.id_surf_style,
+        id_department: session.id_department,
+        id_region: id_region,
+        name_session: surfstyleList.find(
+          (surfstyle) => surfstyle.id_surf_style == session.id_surf_style,
+        )?.name_session,
+        region_name:
+          regionsList.find((region) => region.id_region == id_region)?.region_name || '',
+      };
+      mesSessions.push(maSession);
+    });
+    setMySessions(mesSessions);
+  };
+
+  // Premier useEffect
   useEffect(() => {
-    console.log('UseEffect regions');
+    console.log('UseEffect');
     Promise.all([
       getAllSessions(),
       getAllRegions(),
       getAllDepartments(),
       getAllSurfstyles(),
     ]).then(([sessions, regions, departments, surfstyles]) => {
-      setAllSessions(sessions);
       setAllRegions(regions);
       setAllDepartments(departments);
       setAllSurfstyle(surfstyles);
 
+      mySessionsObjectConstructor(sessions, departments, surfstyles, regions);
       getNiceDates(sessions);
-
-      // Construit le tableau d'objet mesSessions
-      let mesSessions: MySession[] = [];
-      let maSession: MySession;
-      sessions.map((session) => {
-        let id_region = departments.find(
-          (departement) => departement.id_department == session.id_department,
-        )?.id_region;
-        maSession = {
-          id_session: session.id_session,
-          name: session.name,
-          nice_date: session.nice_date,
-          nice_time: session.nice_time,
-          spot_name: session.spot_name,
-          address: session.address,
-          nb_hiki_max: session.nb_hiki_max,
-          carpool: session.carpool,
-          name_session: surfstyles.find(
-            (surfstyle) => surfstyle.id_surf_style == session.id_surf_style,
-          )?.name_session,
-          region_name: regions.find((region) => region.id_region == id_region)
-            ?.region_name,
-        };
-        mesSessions.push(maSession);
-      });
-      setMySessions(mesSessions);
     });
-  }, [selectedRegion]);
+
+    if (id_region !== undefined) {
+      setTimeout(() => {
+        setSelectedRegion(id_region);
+      }, 1000);
+    }
+  }, []);
 
   useEffect(() => {
-    console.log('UseEffect date');
-    allRegions &&
+    if (selectedRegion !== undefined) {
+      console.log('UseEffect regions' + selectedRegion);
       getAllSessions().then((sessions) => {
-        setAllSessions(sessions);
-
-        // Construit le tableau d'objet mesSessions
-
-        let mesSessions: MySession[] = [];
-        let maSession: MySession;
-        sessions.map((session) => {
-          let id_region = allDepartments.find(
-            (departement) => departement.id_department == session.id_department,
-          )?.id_region;
-          maSession = {
-            id_session: session.id_session,
-            name: session.name,
-            nice_date: session.nice_date,
-            nice_time: session.nice_time,
-            spot_name: session.spot_name,
-            address: session.address,
-            nb_hiki_max: session.nb_hiki_max,
-            carpool: session.carpool,
-            name_session: allSurfstyle.find(
-              (surfstyle) => surfstyle.id_surf_style == session.id_surf_style,
-            )?.name_session,
-            region_name: allRegions.find((region) => region.id_region == id_region)
-              ?.region_name,
-          };
-          mesSessions.push(maSession);
-        });
-        setMySessions(mesSessions);
+        mySessionsObjectConstructor(sessions, allDepartments, allSurfstyle, allRegions);
+        getNiceDates(sessions);
       });
+    }
+  }, [selectedRegion]);
+  console.log(mySessions);
+  // Second useEffect
+  useEffect(() => {
+    if (selectedRegion !== undefined) {
+      console.log('UseEffect date' + selectedDate);
+      allRegions &&
+        getAllSessions().then((sessions) => {
+          mySessionsObjectConstructor(sessions, allDepartments, allSurfstyle, allRegions);
+        });
+    }
   }, [selectedDate]);
 
-  console.log(mySessions);
-  // console.log(selectedDate);
+  //console.log(mySessions);
+  //console.log(selectedDate);
+  // console.log(selectedRegion);
 
   return (
     <div className="sessions">
@@ -167,10 +179,10 @@ const Sessions = () => {
           name="region"
           id="region"
           onClick={(e) => {
-            setSelectedRegion(String(e.currentTarget.value));
+            setSelectedRegion(Number(e.currentTarget.value));
             setSelectedDate(String('0'));
           }}>
-          <option value="0">Régions</option>
+          <option value={parseInt('0')}>Régions</option>
           {allRegions.map((region) => {
             return (
               <option value={region.id_region} key={region.id_region}>
@@ -199,9 +211,9 @@ const Sessions = () => {
 
       {/* Composants NextSession */}
       <div className="sessions__nextsession">
-        {mySessions && allSessions.length === 0 ? (
+        {mySessions && mySessions.length === 0 ? (
           <h1 className="sessions__nextsession__not-sessions">
-            Aucunes sessions disponible.
+            Aucune session disponible.
           </h1>
         ) : (
           mySessions.map((session) => {
@@ -209,9 +221,7 @@ const Sessions = () => {
           })
         )}
       </div>
-      {allSessions.length === 0 ? (
-        ''
-      ) : (
+      {mySessions.length > 0 && (
         <div className="sessions__button">
           <button className="sessions__button__more">voir plus</button>
         </div>
