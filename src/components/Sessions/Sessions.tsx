@@ -154,7 +154,7 @@ const Sessions = () => {
 
   // Second useEffect
   useEffect(() => {
-    if (selectedRegion !== undefined) {
+    if (selectedDate !== undefined) {
       console.log('UseEffect date' + selectedDate);
       allRegions &&
         getAllSessions().then((sessions) => {
@@ -164,7 +164,7 @@ const Sessions = () => {
   }, [selectedDate]);
 
   //console.log(mySessions);
-  //console.log(selectedDate);
+  console.log(selectedDate);
   // console.log(selectedRegion);
 
   return (
