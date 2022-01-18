@@ -81,6 +81,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
           date: session.date,
           id_surf_style: session.id_surf_style,
           id_department: session.id_department,
+          id_user: session.id_user,
           id_region: id_region,
           name_session: surfstyles.find(
             (surfstyle) => surfstyle.id_surf_style == session.id_surf_style,
@@ -98,7 +99,6 @@ const Home: FC<Props> = ({ setActiveModal }) => {
       .then((result) => result.data)
       .then((data) => setUsers(data));
   }, []);
-
   return (
     <div className="home">
       {/*Section : Présentation*/}

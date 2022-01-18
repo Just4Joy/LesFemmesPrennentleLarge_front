@@ -1,4 +1,6 @@
 import axios from 'axios';
+// @ts-ignore: Unreachable code error
+import { IKContext, IKUpload } from 'imagekitio-react';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
@@ -6,8 +8,6 @@ import womansurfing from '../../../img/womansurfing.png';
 import IDepartment from '../../interfaces/IDepartment';
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
-// @ts-ignore: Unreachable code error
-import { IKImage, IKContext, IKUpload } from 'imagekitio-react';
 
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;

@@ -2,8 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
-import IRegion from '../../interfaces/IRegion';
 import IDepartment from '../../interfaces/IDepartment';
+import IRegion from '../../interfaces/IRegion';
 import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import NextSession from '../NextSession';
@@ -24,9 +24,6 @@ const Sessions = () => {
   const [selectedDate, setSelectedDate] = useState<string>();
   const [allDates, setAllDates] = useState<NiceDate[]>([]);
   const [mySessions, setMySessions] = useState<MySession[]>([]);
-
-  console.log('id_region ' + id_region);
-  console.log('selectedRegion ' + selectedRegion);
 
   // Construit le tableau d'objet niceDates
   const getNiceDates = (sessionsData: ISession[]) => {
@@ -108,6 +105,7 @@ const Sessions = () => {
         date: session.date,
         id_surf_style: session.id_surf_style,
         id_department: session.id_department,
+        id_user: session.id_user,
         id_region: id_region,
         name_session: surfstyleList.find(
           (surfstyle) => surfstyle.id_surf_style == session.id_surf_style,
@@ -153,7 +151,7 @@ const Sessions = () => {
       });
     }
   }, [selectedRegion]);
-  console.log(mySessions);
+
   // Second useEffect
   useEffect(() => {
     if (selectedRegion !== undefined) {

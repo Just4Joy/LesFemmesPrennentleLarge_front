@@ -37,7 +37,7 @@ function App() {
             <Route path="/sessions/:id_region" element={<Sessions />} />
 
             <Route
-              path="/session"
+              path="/session/:id_session"
               element={<Session setActiveModal={setActiveModal} />}
             />
             <Route path="/profile" element={<Profile />} />

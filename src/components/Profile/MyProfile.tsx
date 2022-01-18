@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
 import { FiUpload } from 'react-icons/fi';
 
-import wahineImg from '../../../img/wahine.svg';
 import IDepartment from '../../interfaces/IDepartment';
 import ISurfSkill from '../../interfaces/ISurfskills';
 import ISurfStyle from '../../interfaces/ISurfStyle';
