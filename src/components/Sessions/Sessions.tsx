@@ -23,8 +23,13 @@ const Sessions = () => {
   const getNiceDates = (sessionsData: ISession[]) => {
     let compareDate: ISession[] = [];
     let niceDates: ISession[] = [];
+    console.log(sessionsData);
     if (sessionsData.length === 1) {
-      niceDates.push({ nice_date: sessionsData.nice_date, date: sessionsData.date });
+      niceDates.push({
+        nice_date: sessionsData[0].nice_date,
+        date: sessionsData[0].date,
+      });
+      console.log(niceDates);
     } else if (sessionsData.length > 1) {
       sessionsData.map((session) => {
         if (compareDate.length === 0) {
@@ -39,100 +44,40 @@ const Sessions = () => {
     setAllDates(niceDates);
   };
 
-  useEffect(() => {
-    const getAllSessions = async () => {
-      const sessions = await axios.get<ISession[]>('http://localhost:3000/api/sessions');
-      return sessions.data;
-    };
-    const getAllRegions = async () => {
-      const regions = await axios.get<IRegion[]>('http://localhost:3000/api/regions');
-      return regions.data;
-    };
-    const getAllDepartments = async () => {
-      const departments = await axios.get<IDepartment[]>(
-        'http://localhost:3000/api/departments',
-      );
-      return departments.data;
-    };
-    const getAllSurfstyles = async () => {
-      const surfstyles = await axios.get<ISurfStyle[]>(
-        'http://localhost:3000/api/surfstyle',
-      );
-      return surfstyles.data;
-    };
-
-    Promise.all([
-      getAllSessions(),
-      getAllRegions(),
-      getAllDepartments(),
-      getAllSurfstyles(),
-    ]).then(([sessions, regions, departments, surfstyles]) => {
-      setAllSessions(sessions);
-      getNiceDates(sessions);
-      setAllRegions(regions);
-      setAllDepartments(departments);
-      setAllSurfstyle(surfstyles);
-
-      // Construit le tableau d'objet mesSessions
-      let mesSessions: MySession[] = [];
-      let maSession: MySession;
-      sessions.map((session) => {
-        let id_region = departments.find(
-          (departement) => departement.id_department == session.id_department,
-        )?.id_region;
-        maSession = {
-          name: session.name,
-          nice_date: session.nice_date,
-          nice_time: session.nice_time,
-          spot_name: session.spot_name,
-          address: session.address,
-          nb_hiki_max: session.nb_hiki_max,
-          carpool: session.carpool,
-          name_session: surfstyles.find(
-            (surfstyle) => surfstyle.id_surf_style == session.id_surf_style,
-          )?.name_session,
-          region_name: regions.find((region) => region.id_region == id_region)
-            ?.region_name,
-        };
-        mesSessions.push(maSession);
-      });
-      setMySessions(mesSessions);
-    });
-  }, []);
+  const getAllSessions = async () => {
+    let basicUrl = `http://localhost:3000/api/sessions`;
+    let basicUrlChanged = false;
+    if (selectedRegion !== '0') {
+      basicUrl += `?region=${selectedRegion}`;
+      basicUrlChanged = true;
+    }
+    if (selectedDate !== '0') {
+      basicUrlChanged
+        ? (basicUrl += `&date=${selectedDate}`)
+        : (basicUrl += `?date=${selectedDate}`);
+    }
+    const sessions = await axios.get<ISession[]>(basicUrl);
+    return sessions.data;
+  };
+  const getAllRegions = async () => {
+    const regions = await axios.get<IRegion[]>('http://localhost:3000/api/regions');
+    return regions.data;
+  };
+  const getAllDepartments = async () => {
+    const departments = await axios.get<IDepartment[]>(
+      'http://localhost:3000/api/departments',
+    );
+    return departments.data;
+  };
+  const getAllSurfstyles = async () => {
+    const surfstyles = await axios.get<ISurfStyle[]>(
+      'http://localhost:3000/api/surfstyle',
+    );
+    return surfstyles.data;
+  };
 
   useEffect(() => {
-    const getAllSessions = async () => {
-      let basicUrl = `http://localhost:3000/api/sessions`;
-      let basicUrlChanged = false;
-      if (selectedRegion !== '0') {
-        basicUrl += `?region=${selectedRegion}`;
-        basicUrlChanged = true;
-      }
-      if (selectedDate !== '0') {
-        basicUrlChanged
-          ? (basicUrl += `&date=${selectedDate}`)
-          : (basicUrl += `?date=${selectedDate}`);
-      }
-      const sessions = await axios.get<ISession[]>(basicUrl);
-      return sessions.data;
-    };
-    const getAllRegions = async () => {
-      const regions = await axios.get<IRegion[]>('http://localhost:3000/api/regions');
-      return regions.data;
-    };
-    const getAllDepartments = async () => {
-      const departments = await axios.get<IDepartment[]>(
-        'http://localhost:3000/api/departments',
-      );
-      return departments.data;
-    };
-    const getAllSurfstyles = async () => {
-      const surfstyles = await axios.get<ISurfStyle[]>(
-        'http://localhost:3000/api/surfstyle',
-      );
-      return surfstyles.data;
-    };
-
+    console.log('UseEffect regions');
     Promise.all([
       getAllSessions(),
       getAllRegions(),
@@ -154,6 +99,7 @@ const Sessions = () => {
           (departement) => departement.id_department == session.id_department,
         )?.id_region;
         maSession = {
+          id_session: session.id_session,
           name: session.name,
           nice_date: session.nice_date,
           nice_time: session.nice_time,
@@ -171,9 +117,44 @@ const Sessions = () => {
       });
       setMySessions(mesSessions);
     });
-  }, [selectedRegion, selectedDate]);
+  }, [selectedRegion]);
 
-  console.log(selectedDate);
+  useEffect(() => {
+    console.log('UseEffect date');
+    allRegions &&
+      getAllSessions().then((sessions) => {
+        setAllSessions(sessions);
+
+        // Construit le tableau d'objet mesSessions
+
+        let mesSessions: MySession[] = [];
+        let maSession: MySession;
+        sessions.map((session) => {
+          let id_region = allDepartments.find(
+            (departement) => departement.id_department == session.id_department,
+          )?.id_region;
+          maSession = {
+            id_session: session.id_session,
+            name: session.name,
+            nice_date: session.nice_date,
+            nice_time: session.nice_time,
+            spot_name: session.spot_name,
+            address: session.address,
+            nb_hiki_max: session.nb_hiki_max,
+            carpool: session.carpool,
+            name_session: allSurfstyle.find(
+              (surfstyle) => surfstyle.id_surf_style == session.id_surf_style,
+            )?.name_session,
+            region_name: allRegions.find((region) => region.id_region == id_region)
+              ?.region_name,
+          };
+          mesSessions.push(maSession);
+        });
+        setMySessions(mesSessions);
+      });
+  }, [selectedDate]);
+
+  console.log(mySessions);
   // console.log(selectedDate);
 
   return (
@@ -187,6 +168,7 @@ const Sessions = () => {
           id="region"
           onClick={(e) => {
             setSelectedRegion(String(e.currentTarget.value));
+            setSelectedDate(String('0'));
           }}>
           <option value="0">Régions</option>
           {allRegions.map((region) => {

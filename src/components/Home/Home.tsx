@@ -32,6 +32,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
   const first: number = 0;
   const second: number = 5;
 
+  console.log(allSessions);
   useEffect(() => {
     const getAllSessions = async () => {
       const sessions = await axios.get<ISession[]>(
@@ -75,6 +76,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
           (departement) => departement.id_department == session.id_department,
         )?.id_region;
         maSession = {
+          id_session: session.id_session,
           name: session.name,
           nice_date: session.nice_date,
           nice_time: session.nice_time,
