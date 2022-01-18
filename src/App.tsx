@@ -35,7 +35,7 @@ function App() {
             <Route path="/" element={<Home setActiveModal={setActiveModal} />} />
             <Route path="/sessions" element={<Sessions />} />
             <Route
-              path="/session"
+              path="/session/:id_session"
               element={<Session setActiveModal={setActiveModal} />}
             />
             <Route path="/profile" element={<Profile />} />

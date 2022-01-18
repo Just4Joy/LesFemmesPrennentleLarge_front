@@ -16,7 +16,9 @@ const Session: FC<Props> = ({
   carpool,
   nice_date,
   nice_time,
+  id_session,
 }) => {
+  console.log(id_session);
   return (
     <div className="nextsession">
       <div className="nextsession__button">
@@ -47,7 +49,7 @@ const Session: FC<Props> = ({
         </div>
       </div>
       <hr className="nextsession__hr" />
-      <NavLink to="/session">
+      <NavLink to={`/session/${id_session}`}>
         <h5 className="nextsession__details">
           Details <BsBoxArrowInUpRight />
         </h5>

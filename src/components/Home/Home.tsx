@@ -28,6 +28,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [allWahine, setAllWahine] = useState<IUser[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
+  console.log(allDepartments, allSurfstyle, allSessions, allWahine, setAllWahine);
 
   const first: number = 0;
   const second: number = 5;
@@ -100,7 +101,6 @@ const Home: FC<Props> = ({ setActiveModal }) => {
       .then((result) => result.data)
       .then((data) => setUsers(data));
   }, []);
-
   return (
     <div className="home">
       {/*Section : Présentation*/}

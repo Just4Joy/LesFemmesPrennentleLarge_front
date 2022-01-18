@@ -4,7 +4,6 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
 import IDepartment from '../../interfaces/IDepartment';
-
 import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import CurrentUserContext from '../contexts/CurrentUser';
