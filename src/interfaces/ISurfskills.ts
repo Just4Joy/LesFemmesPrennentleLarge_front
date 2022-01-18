@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export default interface ISurfSkill {
   id_surf_skill: number;

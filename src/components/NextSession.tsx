@@ -8,7 +8,7 @@ import ISession from '../interfaces/ISession';
 type Props = ISession;
 
 const Session: FC<Props> = ({
-  adress,
+  address,
   name,
   spot_name,
   region_name,
@@ -27,7 +27,7 @@ const Session: FC<Props> = ({
         <div className="nextsession__infos__spot">
           <h4 className="nextsession__infos__spot__h4">{name}</h4>
           <h6 className="nextsession__infos__spot__h6"> {spot_name} </h6>
-          <h6 className="nextsession__infos__spot__adress"> {adress} </h6>
+          <h6 className="nextsession__infos__spot__adress"> {address} </h6>
         </div>
 
         <div className="nextsession__infos__rdv">
