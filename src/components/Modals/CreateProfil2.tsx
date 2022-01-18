@@ -39,7 +39,7 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
       activeSurfSkill.map(async (el) => {
         axios.post(
           `http://localhost:3000/api/users/${id}/surfskills`,
-          {id_surfskill: el},
+          { id_surfskill: el },
           {
             method: 'POST',
             headers: {
