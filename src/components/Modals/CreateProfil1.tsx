@@ -7,7 +7,7 @@ import IDepartment from '../../interfaces/IDepartment';
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
 // @ts-ignore: Unreachable code error
-import { IKImage, IKContext, IKUpload } from 'imagekitio-react'
+import { IKImage, IKContext, IKUpload } from 'imagekitio-react';
 
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
@@ -17,7 +17,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
   const { id } = useContext(CurrentUserContext);
   const [desc, setDesc] = useState<IUser['desc']>('');
   const [city, setCity] = useState<IUser['city']>('');
-  const [id_departement, setId_departement] = useState<IUser['id_departement']>();
+  const [id_departement, setId_departement] = useState<IUser['id_department']>();
   const [favorite_spot, setFavorite_spot] = useState<IUser['favorite_spot']>('');
   const [departments, setDepartments] = useState<IDepartment[]>([]);
   useEffect(() => {
@@ -47,12 +47,11 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
       .then((response) => console.log(response));
   };
   const onSuccess = (res: any) => {
-    console.log(res.url)
-    axios
-    .put(
+    console.log(res.url);
+    axios.put(
       `http://localhost:3000/api/users/${id}`,
       {
-        profile_pic:res.url
+        profile_pic: res.url,
       },
       {
         method: 'PUT',
@@ -61,8 +60,8 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
         },
         withCredentials: true,
       },
-    )
-  }
+    );
+  };
   return (
     <div className="createProfil1">
       <div className="createProfil1__title">
@@ -80,11 +79,9 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
         <IKContext
           publicKey="public_peA2/wgPW2iDjq6xP9HjZRG2/Ys="
           urlEndpoint="https://ik.imagekit.io/LFPLL/"
-          authenticationEndpoint="http://localhost:3000/api/login"
-        >
+          authenticationEndpoint="http://localhost:3000/api/login">
           <IKUpload
-            
-            folder='/profil'
+            folder="/profil"
             onError={console.log('ERROR')}
             onSuccess={onSuccess}
             responseFields={['url']}

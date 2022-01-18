@@ -29,6 +29,9 @@
     display: flex;
     flex-wrap: wrap;
     margin-top: 10vh;
+    &__not-sessions {
+      margin-bottom: 20vh;
+    }
   }
   &__button {
     display: flex;

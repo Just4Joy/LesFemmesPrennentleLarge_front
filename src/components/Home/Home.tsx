@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
 
-import IDepartement from '../../interfaces/IDepartment';
+import IDepartment from '../../interfaces/IDepartment';
 import IRegion from '../../interfaces/IRegion';
 import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
@@ -18,17 +18,15 @@ type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-type MySession = ISession & IDepartement & IRegion;
+type MySession = ISession & IDepartment & IRegion;
 
 const Home: FC<Props> = ({ setActiveModal }) => {
   const [allRegions, setAllRegions] = useState<IRegion[]>([]);
-  const [allDepartments, setAllDepartments] = useState<IDepartement[]>([]);
+  const [allDepartments, setAllDepartments] = useState<IDepartment[]>([]);
   const [allSurfstyle, setAllSurfstyle] = useState<ISurfStyle[]>([]);
   const [allSessions, setAllSessions] = useState<ISession[]>([]);
   const [mySessions, setMySessions] = useState<MySession[]>([]);
-  const [getAllValues, setGetAllValues] = useState<boolean>(false);
-
-  // const [allWahine, setAllWahine] = useState<IUser[]>([]);
+  const [allWahine, setAllWahine] = useState<IUser[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
 
   const first: number = 0;
@@ -39,23 +37,23 @@ const Home: FC<Props> = ({ setActiveModal }) => {
       const sessions = await axios.get<ISession[]>(
         'http://localhost:3000/api/sessions/?limit=3',
       );
-      return sessions;
+      return sessions.data;
     };
     const getAllRegions = async () => {
       const regions = await axios.get<IRegion[]>('http://localhost:3000/api/regions');
-      return regions;
+      return regions.data;
     };
     const getAllDepartments = async () => {
-      const department = await axios.get<IDepartement[]>(
+      const departments = await axios.get<IDepartment[]>(
         'http://localhost:3000/api/departments',
       );
-      return department;
+      return departments.data;
     };
     const getAllSurfstyles = async () => {
       const surfstyles = await axios.get<ISurfStyle[]>(
         'http://localhost:3000/api/surfstyle',
       );
-      return surfstyles;
+      return surfstyles.data;
     };
 
     Promise.all([
@@ -64,53 +62,42 @@ const Home: FC<Props> = ({ setActiveModal }) => {
       getAllDepartments(),
       getAllSurfstyles(),
     ]).then(([sessions, regions, departments, surfstyles]) => {
-      setAllSessions(sessions.data);
-      setAllRegions(regions.data);
-      setAllDepartments(departments.data);
-      setAllSurfstyle(surfstyles.data);
-      if (allSessions && allRegions && allDepartments && allSurfstyle) {
-        setGetAllValues(!getAllValues);
-      }
-    });
-  }, []);
+      setAllSessions(sessions);
+      setAllRegions(regions);
+      setAllDepartments(departments);
+      setAllSurfstyle(surfstyles);
 
-  useEffect(() => {
-    // Construit l'objet MySessions
-    let mesSessions: MySession[] = [];
-
-    if (allSessions && allRegions && allDepartments && allSurfstyle) {
-      for (let i: number = 0; i < allSessions.length; i++) {
-        let maSession: MySession = {};
-        maSession.name = allSessions[i].name;
-        maSession.nice_date = allSessions[i].nice_date;
-        maSession.nice_time = allSessions[i].nice_time;
-        maSession.spot_name = allSessions[i].spot_name;
-        maSession.adress = allSessions[i].adress;
-        maSession.nb_hiki_max = allSessions[i].nb_hiki_max;
-        maSession.carpool = allSessions[i].carpool;
-        maSession.name_session = allSurfstyle.find(
-          (surfstyle) => surfstyle.id_surf_style == allSessions[i].id_surf_style,
-        )?.name_session;
-        let id_region = allDepartments.find(
-          (departement) => departement.id_department == allSessions[i].id_departement,
+      // Construit le tableau d'objet mesSessions
+      let mesSessions: MySession[] = [];
+      let maSession: MySession;
+      sessions.map((session) => {
+        let id_region = departments.find(
+          (departement) => departement.id_department == session.id_department,
         )?.id_region;
-        maSession.region_name = allRegions.find(
-          (region) => region.id_region == id_region,
-        )?.region_name;
-
+        maSession = {
+          name: session.name,
+          nice_date: session.nice_date,
+          nice_time: session.nice_time,
+          spot_name: session.spot_name,
+          address: session.address,
+          nb_hiki_max: session.nb_hiki_max,
+          carpool: session.carpool,
+          name_session: surfstyles.find(
+            (surfstyle) => surfstyle.id_surf_style == session.id_surf_style,
+          )?.name_session,
+          region_name: regions.find((region) => region.id_region == id_region)
+            ?.region_name,
+        };
         mesSessions.push(maSession);
-      }
-    }
-    setMySessions(mesSessions);
-  }, [getAllValues]);
+      });
+      setMySessions(mesSessions);
+    });
 
-  useEffect(() => {
     axios
       .get<IUser[]>('http://localhost:3000/api/users')
       .then((result) => result.data)
       .then((data) => setUsers(data));
   }, []);
-  console.log(users);
 
   return (
     <div className="home">

@@ -10,7 +10,7 @@ export default interface ISession {
   id_department: number;
   id_surf_style: number;
   carpool: number;
-  region_name: string;
-  name_session: string;
+  region_name: string | undefined;
+  name_session: string | undefined;
   id_region: number | string;
 }
