@@ -6,6 +6,8 @@ import womansurfing from '../../../img/womansurfing.png';
 import IDepartment from '../../interfaces/IDepartment';
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
+// @ts-ignore: Unreachable code error
+import { IKImage, IKContext, IKUpload } from 'imagekitio-react';
 
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
@@ -15,7 +17,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
   const { id } = useContext(CurrentUserContext);
   const [desc, setDesc] = useState<IUser['desc']>('');
   const [city, setCity] = useState<IUser['city']>('');
-  const [id_departement, setId_departement] = useState<IUser['id_departement']>();
+  const [id_departement, setId_departement] = useState<IUser['id_department']>();
   const [favorite_spot, setFavorite_spot] = useState<IUser['favorite_spot']>('');
   const [departments, setDepartments] = useState<IDepartment[]>([]);
   useEffect(() => {
@@ -44,6 +46,22 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
       )
       .then((response) => console.log(response));
   };
+  const onSuccess = (res: any) => {
+    console.log(res.url);
+    axios.put(
+      `http://localhost:3000/api/users/${id}`,
+      {
+        profile_pic: res.url,
+      },
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      },
+    );
+  };
   return (
     <div className="createProfil1">
       <div className="createProfil1__title">
@@ -58,6 +76,17 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
           src={womansurfing}
           alt=""
         />
+        <IKContext
+          publicKey="public_peA2/wgPW2iDjq6xP9HjZRG2/Ys="
+          urlEndpoint="https://ik.imagekit.io/LFPLL/"
+          authenticationEndpoint="http://localhost:3000/api/login">
+          <IKUpload
+            folder="/profil"
+            onError={console.log('ERROR')}
+            onSuccess={onSuccess}
+            responseFields={['url']}
+          />
+        </IKContext>
 
         <p className="createProfil1__container__upload  ">Upload ta photo de profil</p>
 
@@ -81,7 +110,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
         <select
           id="region-select"
           className="createProfil1__container__region"
-          onChange={(e: React.FormEvent<HTMLSelectElement>) => {
+          onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
             setId_departement(parseInt(e.currentTarget.value, 10));
           }}>
           <option value="">régions où tu surfes</option>

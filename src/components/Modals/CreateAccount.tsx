@@ -10,7 +10,7 @@ type Props = {
 };
 
 const CreateAccount: FC<Props> = ({ setActiveModal }) => {
-  const { setId, setWahine, setFirstname, id } = useContext(CurrentUserContext);
+  const { setId, setWahine, setFirstname } = useContext(CurrentUserContext);
   const [errorMessage, setErrorMessage] = useState<string>();
   console.log(errorMessage);
   const [firstname, setfirstname] = useState<string>('');

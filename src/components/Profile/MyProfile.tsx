@@ -9,6 +9,7 @@ import IDepartment from '../../interfaces/IDepartment';
 import ISurfSkill from '../../interfaces/ISurfskills';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
+import SurfSkillProfile from '../Profile/SurfSkillProfile';
 
 type Props = IUser;
 
@@ -19,9 +20,10 @@ const MyProfile: FC<Props> = ({
   favorite_spot,
   wahine,
   desc,
-  id_departement,
-  id_surf_skill,
+  profile_pic,
+  id_department,
   id_surf_style,
+  id_user,
 }) => {
   const [editProfil, setEditProfil] = useState<boolean>(false);
   const [editSkills, setEditSkills] = useState<boolean>(false);
@@ -29,12 +31,12 @@ const MyProfile: FC<Props> = ({
   const [revokeUrl, setRevokeUrl] = useState<boolean>(false);
   const [departments, setDepartments] = useState<IDepartment>();
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
-  const [surfSkills, setSurfSkills] = useState<ISurfSkill>();
+  const [surfSkills, setSurfSkills] = useState<ISurfSkill[]>([]);
 
   useEffect(() => {
     //Get Departments
     axios
-      .get<IDepartment>(`http://localhost:3000/api/departments/${id_departement}`)
+      .get<IDepartment>(`http://localhost:3000/api/departments/${id_department}`)
       .then((result) => result.data)
       .then((data) => setDepartments(data));
     //Get Surf Styles
@@ -42,9 +44,9 @@ const MyProfile: FC<Props> = ({
       .get<ISurfStyle>(`http://localhost:3000/api/surfstyle/${id_surf_style}`)
       .then((result) => result.data)
       .then((data) => setSurfStyles(data));
-    //Get Surf SKills
+    //Get Surf SKills id
     axios
-      .get<ISurfSkill>(`http://localhost:3000/api/surfskill/${id_surf_skill}`)
+      .get<ISurfSkill[]>(`http://localhost:3000/api/users/${id_user}/surfskills`)
       .then((result) => result.data)
       .then((data) => setSurfSkills(data));
   }, []);
@@ -80,7 +82,7 @@ const MyProfile: FC<Props> = ({
       <div className="myProfile__column">
         {!editProfil ? (
           <div className="myProfile__column__column1">
-            <img src={wahineImg} alt="hiki" />
+            <img src={profile_pic} alt="hiki" />
             <div className="myProfile__column__column1__info">
               <h2>
                 {lastname} {firstname}
@@ -166,7 +168,12 @@ const MyProfile: FC<Props> = ({
           <div className="myProfile__column__column2__row2">
             <h2>Skills</h2>
             <div className="myProfile__column__column2__row2__wrap">
-              <p>{surfSkills && surfSkills.name}</p>
+              {surfSkills &&
+                surfSkills.map((surfSkill) => {
+                  return (
+                    <SurfSkillProfile key={surfSkill.id_surf_skill} {...surfSkill} />
+                  );
+                })}
             </div>
           </div>
           <div className="myProfile__column__column2__row3">

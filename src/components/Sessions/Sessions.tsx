@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react';
 import IRegion from '../../interfaces/IRegion';
 import IDepartment from '../../interfaces/IDepartment';
 import ISession from '../../interfaces/ISession';
-import NextSession from '../NextSession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
+import NextSession from '../NextSession';
 
 type MySession = ISession & IDepartment & IRegion;
 
