@@ -136,15 +136,32 @@ const Sessions = () => {
     });
 
     if (id_region !== undefined) {
-      setTimeout(() => {
-        setSelectedRegion(id_region);
-      }, 1000);
+      setSelectedRegion(id_region);
     }
   }, []);
 
   useEffect(() => {
-    if (selectedRegion !== undefined) {
+    if (
+      selectedRegion !== undefined &&
+      allDepartments.length === 0 &&
+      allRegions.length === 0 &&
+      allSurfstyle.length === 0
+    ) {
       console.log('UseEffect regions' + selectedRegion);
+      Promise.all([
+        getAllSessions(),
+        getAllRegions(),
+        getAllDepartments(),
+        getAllSurfstyles(),
+      ]).then(([sessions, regions, departments, surfstyles]) => {
+        setAllRegions(regions);
+        setAllDepartments(departments);
+        setAllSurfstyle(surfstyles);
+
+        mySessionsObjectConstructor(sessions, departments, surfstyles, regions);
+        getNiceDates(sessions);
+      });
+    } else {
       getAllSessions().then((sessions) => {
         mySessionsObjectConstructor(sessions, allDepartments, allSurfstyle, allRegions);
         getNiceDates(sessions);
@@ -164,7 +181,7 @@ const Sessions = () => {
   }, [selectedDate]);
 
   //console.log(mySessions);
-  console.log(selectedDate);
+  // console.log(selectedDate);
   // console.log(selectedRegion);
 
   return (
