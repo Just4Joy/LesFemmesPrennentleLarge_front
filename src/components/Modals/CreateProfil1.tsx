@@ -17,7 +17,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
   const { id } = useContext(CurrentUserContext);
   const [desc, setDesc] = useState<IUser['desc']>('');
   const [city, setCity] = useState<IUser['city']>('');
-  const [id_departement, setId_departement] = useState<IUser['id_department']>();
+  const [id_department, setId_departement] = useState<IUser['id_department']>();
   const [favorite_spot, setFavorite_spot] = useState<IUser['favorite_spot']>('');
   const [departments, setDepartments] = useState<IDepartment[]>([]);
   useEffect(() => {
@@ -33,7 +33,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
         {
           desc,
           city,
-          id_departement,
+          id_department,
           favorite_spot,
         },
         {
