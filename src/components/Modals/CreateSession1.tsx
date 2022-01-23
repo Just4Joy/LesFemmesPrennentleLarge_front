@@ -13,7 +13,7 @@ type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 const CreateSession1: FC<Props> = ({ setActiveModal }) => {
-  const { id } = useContext(CurrentUserContext);
+  const { id, setSessionIdCreated } = useContext(CurrentUserContext);
   const [surfStyles, setSurfStyles] = useState<ISurfStyle[]>([]);
   const [departements, setDepartements] = useState<IDepartment[]>([]);
 
@@ -69,7 +69,10 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
         },
         withCredentials: true,
       },
-    );
+    ).then((res) => res.data)
+    .then((data) => {
+      console.log(data)
+      setSessionIdCreated(data.id_session)});
   };
 
   return (

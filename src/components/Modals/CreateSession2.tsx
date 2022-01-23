@@ -1,14 +1,15 @@
 import axios from 'axios';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useContext } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
 import IWeather from '../../interfaces/IWeather';
-
+import CurrentUserContext from '../contexts/CurrentUser';
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
 const CreateSession2: FC<Props> = ({ setActiveModal }) => {
+  const { sessionIdCreated } = useContext(CurrentUserContext);
   const [weather, setWeather] = useState<IWeather[]>([]);
   const [wave, setWave] = useState<string>('');
   const [flow, setFlow] = useState<string>('');
@@ -21,10 +22,26 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
       .then((result) => result.data)
       .then((data) => setWeather(data));
   }, []);
-  console.log(wave);
-  console.log(flow);
-  console.log(power);
-  console.log(temperature);
+
+  function addWeather() {
+    const dataToSend = [weather, wave, flow, power, temperature]
+    console.log(dataToSend)
+    Promise.all(dataToSend.map(async (el) => {
+      return axios.post(`http://localhost:3000/api/sessions/${sessionIdCreated}/weather`, {
+        id_weather: el
+      },
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        })
+
+    })
+    )
+    setActiveModal('recap')
+  }
 
   return (
     <div className="create-session2">
@@ -96,12 +113,12 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
       <div className="create-session2__buttons">
         <button
           className="create-session2__buttons__next"
-          onClick={() => setActiveModal('recap')}>
+          onClick={() => addWeather()}>
           <h4>valider</h4>
         </button>
         <button
           className="create-session2__buttons__skip"
-          onClick={() => setActiveModal('recap')}>
+          onClick={() => { setActiveModal('recap') }}>
           <h3>skip</h3>
         </button>
       </div>
