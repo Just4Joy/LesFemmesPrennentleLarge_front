@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { FC, useEffect, useState, useContext } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
 import IWeather from '../../interfaces/IWeather';
@@ -24,23 +24,26 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
   }, []);
 
   function addWeather() {
-    const dataToSend = [weather, wave, flow, power, temperature]
-    console.log(dataToSend)
-    Promise.all(dataToSend.map(async (el) => {
-      return axios.post(`http://localhost:3000/api/sessions/${sessionIdCreated}/weather`, {
-        id_weather: el
-      },
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+    const dataToSend = [weather, wave, flow, power, temperature];
+    console.log(dataToSend);
+    Promise.all(
+      dataToSend.map(async (el) => {
+        return axios.post(
+          `http://localhost:3000/api/sessions/${sessionIdCreated}/weather`,
+          {
+            id_weather: el,
           },
-          withCredentials: true,
-        })
-
-    })
-    )
-    setActiveModal('recap')
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+          },
+        );
+      }),
+    );
+    setActiveModal('recap');
   }
 
   return (
@@ -111,14 +114,14 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
         </select>
       </div>
       <div className="create-session2__buttons">
-        <button
-          className="create-session2__buttons__next"
-          onClick={() => addWeather()}>
+        <button className="create-session2__buttons__next" onClick={() => addWeather()}>
           <h4>valider</h4>
         </button>
         <button
           className="create-session2__buttons__skip"
-          onClick={() => { setActiveModal('recap') }}>
+          onClick={() => {
+            setActiveModal('recap');
+          }}>
           <h3>skip</h3>
         </button>
       </div>

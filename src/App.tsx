@@ -1,6 +1,6 @@
 import './App.scss';
 
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Footer from './components/Footer';

@@ -58,7 +58,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
       .then((result) => result.data)
       .then((data) => setSubscribers(data));
     axios
-      .get<IWeather[]>(`localhost:3000/api/sessions/${id_session}/weather/`)
+      .get<IWeather[]>(`http://localhost:3000/api/sessions/${id_session}/weather/`)
       .then((result) => result.data)
       .then((data) => setWeather(data));
   }, []);
@@ -96,20 +96,13 @@ const Session: FC<Props> = ({ setActiveModal }) => {
           <div className="session__details__weather">
             <h4>Condition météo</h4>
             <div className="session__details__weather__buttons">
-              {weather.map((weather) => {
-                <h6 className="session__details__weather__buttons__button1">
-                  {weather.name}
-                </h6>;
+              {weather.map((weather, index) => {
+                return (
+                  <h6 key={index} className="session__details__weather__buttons__button1">
+                    {weather.name}
+                  </h6>
+                );
               })}
-              {/* <h6 className="session__details__weather__buttons__button1">
-                très petites vagues
-              </h6>
-              <h6 className="session__details__weather__buttons__button1">
-                peu de vent: océan calme
-              </h6>
-              <h6 className="session__details__weather__buttons__button2">
-                du soleil et des nanas
-              </h6> */}
             </div>
           </div>
         </div>
