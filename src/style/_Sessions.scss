@@ -36,16 +36,11 @@
   &__button {
     display: flex;
     justify-content: center;
-    margin: 1vh;
-    margin-bottom: 15vh;
+    margin-top: 2rem;
+    gap: 3rem;
     &__more {
-      width: 12vw;
-      border-radius: 10px;
-      border: none;
-      height: 4vh;
-      font-family: $Second-font;
-      color: #333333;
-      background-color: #e5e5e5;
+      font-size: 2em;
+      fill: $Primary-dark-2;
     }
   }
 }

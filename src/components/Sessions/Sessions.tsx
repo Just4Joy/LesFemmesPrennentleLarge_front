@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from 'react-icons/bs';
 
 import IDepartment from '../../interfaces/IDepartment';
 import IRegion from '../../interfaces/IRegion';
@@ -24,6 +25,8 @@ const Sessions = () => {
   const [selectedDate, setSelectedDate] = useState<string>();
   const [allDates, setAllDates] = useState<NiceDate[]>([]);
   const [mySessions, setMySessions] = useState<MySession[]>([]);
+  const [pagination, setPagination] = useState<number>(0);
+  const [paginationActive, setPaginationActive] = useState<boolean>(false);
 
   // Construit le tableau d'objet niceDates
   const getNiceDates = (sessionsData: ISession[]) => {
@@ -58,7 +61,12 @@ const Sessions = () => {
 
     if (selectedDate !== undefined && selectedDate !== '0') {
       basicUrl += basicUrlChanged ? `&date=${selectedDate}` : `?date=${selectedDate}`;
+      basicUrlChanged = true;
     }
+    if (pagination >= 0) {
+      basicUrl += basicUrlChanged ? `&pages=${pagination}` : `?pages=${pagination}`;
+    }
+    console.log(basicUrl);
     const sessions = await axios.get<ISession[]>(basicUrl);
     return sessions.data;
   };
@@ -88,39 +96,46 @@ const Sessions = () => {
   ) => {
     let mesSessions: MySession[] = [];
     let maSession: MySession;
-    sessionsList.map((session) => {
-      let id_region: number =
-        departmentsList.find(
-          (departement) => departement.id_department == session.id_department,
-        )?.id_region || 0;
-      maSession = {
-        id_session: session.id_session,
-        name: session.name,
-        nice_date: session.nice_date,
-        nice_time: session.nice_time,
-        spot_name: session.spot_name,
-        address: session.address,
-        nb_hiki_max: session.nb_hiki_max,
-        carpool: session.carpool,
-        date: session.date,
-        id_surf_style: session.id_surf_style,
-        id_department: session.id_department,
-        id_user: session.id_user,
-        id_region: id_region,
-        name_session: surfstyleList.find(
-          (surfstyle) => surfstyle.id_surf_style == session.id_surf_style,
-        )?.name_session,
-        region_name:
-          regionsList.find((region) => region.id_region == id_region)?.region_name || '',
-      };
-      mesSessions.push(maSession);
-    });
+
+    if (departmentsList.length && surfstyleList.length && regionsList.length) {
+      sessionsList.map((session) => {
+        let id_region: number =
+          departmentsList.find(
+            (departement) => departement.id_department == session.id_department,
+          )?.id_region || 0;
+
+        maSession = {
+          id_session: session.id_session,
+          name: session.name,
+          nice_date: session.nice_date,
+          nice_time: session.nice_time,
+          spot_name: session.spot_name,
+          address: session.address,
+          nb_hiki_max: session.nb_hiki_max,
+          carpool: session.carpool,
+          date: session.date,
+          id_surf_style: session.id_surf_style,
+          id_department: session.id_department,
+          id_user: session.id_user,
+          id_region: id_region,
+          name_session: surfstyleList.find(
+            (surfstyle) => surfstyle.id_surf_style == session.id_surf_style,
+          )?.name_session,
+          region_name:
+            regionsList.find((region) => region.id_region == id_region)?.region_name ||
+            '',
+        };
+        mesSessions.push(maSession);
+      });
+    }
+
     setMySessions(mesSessions);
   };
 
   // Premier useEffect
   useEffect(() => {
-    console.log('UseEffect');
+    console.log('Premier UseEffect');
+
     Promise.all([
       getAllSessions(),
       getAllRegions(),
@@ -132,6 +147,7 @@ const Sessions = () => {
       setAllSurfstyle(surfstyles);
 
       mySessionsObjectConstructor(sessions, departments, surfstyles, regions);
+
       getNiceDates(sessions);
     });
 
@@ -161,13 +177,20 @@ const Sessions = () => {
         mySessionsObjectConstructor(sessions, departments, surfstyles, regions);
         getNiceDates(sessions);
       });
-    } else {
+    } else if (selectedRegion !== undefined) {
+      console.log('UseEffect regions' + selectedRegion);
+      getAllSessions().then((sessions) => {
+        mySessionsObjectConstructor(sessions, allDepartments, allSurfstyle, allRegions);
+        getNiceDates(sessions);
+      });
+    } else if (pagination >= 0 && paginationActive) {
+      console.log('UseEffect pagination' + selectedRegion);
       getAllSessions().then((sessions) => {
         mySessionsObjectConstructor(sessions, allDepartments, allSurfstyle, allRegions);
         getNiceDates(sessions);
       });
     }
-  }, [selectedRegion]);
+  }, [selectedRegion, pagination]);
 
   // Second useEffect
   useEffect(() => {
@@ -180,7 +203,7 @@ const Sessions = () => {
     }
   }, [selectedDate]);
 
-  //console.log(mySessions);
+  // console.log(mySessions);
   // console.log(selectedDate);
   // console.log(selectedRegion);
 
@@ -189,34 +212,51 @@ const Sessions = () => {
       <h1 className="sessions__h1">Trouver une session</h1>
       {/* Select Region */}
       <div className="sessions__selectors">
-        <select
-          className="sessions__selectors__region"
-          name="region"
-          id="region"
-          onClick={(e) => {
-            setSelectedRegion(Number(e.currentTarget.value));
-            setSelectedDate(String('0'));
-          }}>
-          <option value={parseInt('0')}>Régions</option>
+        <select className="sessions__selectors__region" name="region" id="region">
+          <option
+            value={parseInt('0')}
+            onClick={(e) => {
+              setSelectedRegion(Number(e.currentTarget.value));
+              setSelectedDate(undefined);
+              setPagination(0);
+            }}>
+            Régions
+          </option>
           {allRegions.map((region) => {
             return (
-              <option value={region.id_region} key={region.id_region}>
+              <option
+                value={region.id_region}
+                key={region.id_region}
+                onClick={(e) => {
+                  setSelectedRegion(Number(e.currentTarget.value));
+                  setSelectedDate(undefined);
+                  setPagination(0);
+                }}>
                 {region.region_name}
               </option>
             );
           })}
         </select>
         {/* Select date */}
-        <select
-          className="sessions__selectors__date"
-          name="date"
-          id="date"
-          onClick={(e) => setSelectedDate(String(e.currentTarget.value))}>
-          <option value="0">Dates</option>
+        <select className="sessions__selectors__date" name="date" id="date">
+          <option
+            value="0"
+            onClick={(e) => {
+              setSelectedDate(String(e.currentTarget.value));
+              setPagination(0);
+            }}>
+            Dates
+          </option>
           {allDates &&
             allDates.map((date, index) => {
               return (
-                <option value={date.date} key={index}>
+                <option
+                  value={date.date}
+                  key={index}
+                  onClick={(e) => {
+                    setSelectedDate(String(e.currentTarget.value));
+                    setPagination(0);
+                  }}>
                   {date.nice_date}
                 </option>
               );
@@ -238,7 +278,26 @@ const Sessions = () => {
       </div>
       {mySessions.length > 0 && (
         <div className="sessions__button">
-          <button className="sessions__button__more">voir plus</button>
+          {pagination && pagination >= 5 ? (
+            <BsArrowLeftSquareFill
+              onClick={() => setPagination(pagination - 10)}
+              className="sessions__button__more"
+            />
+          ) : (
+            ''
+          )}
+
+          {mySessions.length === 10 ? (
+            <BsArrowRightSquareFill
+              onClick={() => {
+                setPagination(pagination + 10);
+                setPaginationActive(true);
+              }}
+              className="sessions__button__more"
+            />
+          ) : (
+            ''
+          )}
         </div>
       )}
     </div>
