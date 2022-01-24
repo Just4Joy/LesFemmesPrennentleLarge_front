@@ -38,6 +38,7 @@ const MyProfile: FC<Props> = ({
       .get<IDepartment>(`http://localhost:3000/api/departments/${id_department}`)
       .then((result) => result.data)
       .then((data) => setDepartments(data));
+    console.log(departments);
     //Get Surf Styles
     axios
       .get<ISurfStyle>(`http://localhost:3000/api/surfstyle/${id_surf_style}`)

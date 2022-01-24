@@ -49,30 +49,33 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
       carpool: carpool,
       id_user: id,
     });
-    axios.post<ISession>(
-      'http://localhost:3000/api/sessions/',
-      {
-        name,
-        date: dateFormat(selectedDate, 'yyyy-MM-dd hh:mm:ss'),
-        spot_name,
-        address,
-        nb_hiki_max,
-        id_department,
-        id_surf_style,
-        carpool,
-        id_user: id,
-      },
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+    axios
+      .post<ISession>(
+        'http://localhost:3000/api/sessions/',
+        {
+          name,
+          date: dateFormat(selectedDate, 'yyyy-MM-dd hh:mm:ss'),
+          spot_name,
+          address,
+          nb_hiki_max,
+          id_department,
+          id_surf_style,
+          carpool,
+          id_user: id,
         },
-        withCredentials: true,
-      },
-    ).then((res) => res.data)
-    .then((data) => {
-      console.log(data)
-      setSessionIdCreated(data.id_session)});
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        },
+      )
+      .then((res) => res.data)
+      .then((data) => {
+        console.log(data);
+        setSessionIdCreated(data.id_session);
+      });
   };
 
   return (
