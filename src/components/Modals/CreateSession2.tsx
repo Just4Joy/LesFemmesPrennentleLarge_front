@@ -3,13 +3,14 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
 import IWeather from '../../interfaces/IWeather';
-import CurrentUserContext from '../contexts/CurrentUser';
+import CurrentSessionContext from '../contexts/CurrentSession';
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
 const CreateSession2: FC<Props> = ({ setActiveModal }) => {
-  const { sessionIdCreated } = useContext(CurrentUserContext);
+  const { id_sessionCreated } = useContext(CurrentSessionContext);
+  console.log(id_sessionCreated);
   const [weather, setWeather] = useState<IWeather[]>([]);
   const [wave, setWave] = useState<string>('');
   const [flow, setFlow] = useState<string>('');
@@ -29,7 +30,7 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
     Promise.all(
       dataToSend.map(async (el) => {
         return axios.post(
-          `http://localhost:3000/api/sessions/${sessionIdCreated}/weather`,
+          `http://localhost:3000/api/sessions/${id_sessionCreated}/weather`,
           {
             id_weather: el,
           },

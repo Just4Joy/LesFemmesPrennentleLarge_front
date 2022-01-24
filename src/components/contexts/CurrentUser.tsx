@@ -13,7 +13,7 @@ type UserContent = {
   setSessionIdCreated: React.Dispatch<React.SetStateAction<number>>;
 };
 
-type Props = { children: Element };
+type Props = { children: React.ReactNode };
 
 const CurrentUserContext = createContext<UserContent>({
   id: 0,
