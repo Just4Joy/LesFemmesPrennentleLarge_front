@@ -6,6 +6,7 @@ import { Dispatch, SetStateAction } from 'react';
 import IDepartment from '../../interfaces/IDepartment';
 import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
+import CurrentSessionContext from '../contexts/CurrentSession';
 import CurrentUserContext from '../contexts/CurrentUser';
 import DatetimePicker from '../DatePicker';
 
@@ -13,7 +14,8 @@ type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 const CreateSession1: FC<Props> = ({ setActiveModal }) => {
-  const { id, setSessionIdCreated } = useContext(CurrentUserContext);
+  const { id } = useContext(CurrentUserContext);
+  const { setId_session } = useContext(CurrentSessionContext);
   const [surfStyles, setSurfStyles] = useState<ISurfStyle[]>([]);
   const [departements, setDepartements] = useState<IDepartment[]>([]);
 
@@ -37,7 +39,7 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
       .then((data) => setSurfStyles(data));
   }, []);
 
-  const createSession = () => {
+  const createSession = (id: number) => {
     console.log({
       name,
       date: dateFormat(selectedDate, 'yyyy-MM-dd hh:mm:ss'),
@@ -74,7 +76,8 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
       .then((res) => res.data)
       .then((data) => {
         console.log(data);
-        setSessionIdCreated(data.id_session);
+        setId_session(data.id_session);
+        setActiveModal('create_session2');
       });
   };
 
@@ -169,8 +172,7 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
         <button
           className="create_session__button__next"
           onClick={() => {
-            createSession();
-            setActiveModal('create_session2');
+            createSession(id);
           }}>
           <h4>Suivant</h4>
         </button>
