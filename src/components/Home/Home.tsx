@@ -23,7 +23,7 @@ type MySession = ISession & IDepartment & IRegion;
 const Home: FC<Props> = ({ setActiveModal }) => {
   const [allRegions, setAllRegions] = useState<IRegion[]>([]);
   const [mySessions, setMySessions] = useState<MySession[]>([]);
-  const [allWahine, setAllWahine] = useState<IUser[]>([]);
+  // const [allWahine, setAllWahine] = useState<IUser[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
 
   const first: number = 0;

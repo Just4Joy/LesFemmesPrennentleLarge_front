@@ -25,21 +25,20 @@ const CurrentUserContext = createContext<UserContent>({
   setWahine: () => {},
   sessionIdCreated: 0,
   setSessionIdCreated: () => {},
-
 });
 
 export const CurrentUserContextProvider: React.FC<Props> = ({ children }) => {
   const [id, setId] = useState<number>(0);
   const [firstname, setFirstname] = useState<string>('');
   const [wahine, setWahine] = useState<boolean>(false);
-  const [sessionIdCreated, setSessionIdCreated] = useState<number>(0)
+  const [sessionIdCreated, setSessionIdCreated] = useState<number>(0);
   const removeCookie = useCookies(['user_token'])[2];
 
   const logout = (): void => {
     setId(0);
     setFirstname('');
     setWahine(false);
-    setSessionIdCreated(0)
+    setSessionIdCreated(0);
     removeCookie('user_token');
   };
 
@@ -54,8 +53,7 @@ export const CurrentUserContextProvider: React.FC<Props> = ({ children }) => {
         wahine,
         setWahine,
         sessionIdCreated,
-        setSessionIdCreated
-
+        setSessionIdCreated,
       }}>
       {children}
     </CurrentUserContext.Provider>
