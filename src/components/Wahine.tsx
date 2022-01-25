@@ -13,6 +13,7 @@ const Wahine: FC<Props> = ({
   city,
   favorite_spot,
   id_user,
+  profile_pic,
 }) => {
   return (
     <Link to={`/${id_user}`}>
@@ -23,7 +24,11 @@ const Wahine: FC<Props> = ({
         onClick={() => setActiveModal('wahine')}
         key={id_user}>
         <div className="wahine__img">
-          <img className="" /*src={profile_pic}*/ src={wahineImg} alt="wahine" />
+          <img
+            className=""
+            src={profile_pic !== 'null' ? profile_pic : wahineImg}
+            alt="wahine"
+          />
         </div>
 
         <h5 className="wahine__h5">

@@ -13,7 +13,6 @@ type Props = ISession;
 const MySession: FC<Props> = ({
   address,
   name,
-  date,
   spot_name,
   id_surf_style,
   carpool,
@@ -55,9 +54,7 @@ const MySession: FC<Props> = ({
 
         <div className="mysession__infos__rdv">
           <div className="mysession__infos__rdv__date">
-            <p className="mysession__infos__rdv__date__p">
-              {date && date} {nice_date}
-            </p>
+            <p className="mysession__infos__rdv__date__p">{nice_date}</p>
             <p>{nice_time}</p>
           </div>
           <div className="mysession__infos__rdv__covoit">

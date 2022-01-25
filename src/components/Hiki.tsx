@@ -16,6 +16,7 @@ const Hiki: FC<Props> = ({
   favorite_spot,
   id_user,
   id_surf_style,
+  profile_pic,
 }) => {
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
   useEffect(() => {
@@ -32,7 +33,11 @@ const Hiki: FC<Props> = ({
         style={{ cursor: 'pointer' }}
         onClick={() => setActiveModal('wahine2')}>
         <div className="hiki__img">
-          <img className="" /*src={profile_pic}*/ src={wahine} alt="wahine" />
+          <img
+            className=""
+            src={profile_pic !== 'null' ? profile_pic : wahine}
+            alt="wahine"
+          />
         </div>
 
         <h5 className="hiki__h5">
