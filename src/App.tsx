@@ -22,6 +22,7 @@ import MySessions from './components/MySessions';
 import Profile from './components/Profile/Profile';
 import Session from './components/Session/Session';
 import Sessions from './components/Sessions/Sessions';
+import Unsubscribe from './components/Modals/Unsubscribe';
 
 function App() {
   const [activeModal, setActiveModal] = useState<string>('');
@@ -99,6 +100,11 @@ function App() {
         {activeModal === 'registered' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <Registered />
+          </Modal>
+        )}
+        {activeModal === 'unsubscribe' && (
+          <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+            <Unsubscribe />
           </Modal>
         )}
         {activeModal === 'create_session1' && (
