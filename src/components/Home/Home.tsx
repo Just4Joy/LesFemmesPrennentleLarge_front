@@ -160,7 +160,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
       </div>
 
       {/* Section : Devenir wahine */}
-      <BecomeWahine />
+      <BecomeWahine setActiveModal={setActiveModal} />
     </div>
   );
 };
