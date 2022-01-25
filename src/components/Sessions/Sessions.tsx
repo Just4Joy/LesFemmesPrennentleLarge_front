@@ -66,7 +66,7 @@ const Sessions = () => {
     if (pagination >= 0) {
       basicUrl += basicUrlChanged ? `&pages=${pagination}` : `?pages=${pagination}`;
     }
-    console.log(basicUrl);
+
     const sessions = await axios.get<ISession[]>(basicUrl);
     return sessions.data;
   };
@@ -134,8 +134,6 @@ const Sessions = () => {
 
   // Premier useEffect
   useEffect(() => {
-    console.log('Premier UseEffect');
-
     Promise.all([
       getAllSessions(),
       getAllRegions(),
@@ -163,7 +161,6 @@ const Sessions = () => {
       allRegions.length === 0 &&
       allSurfstyle.length === 0
     ) {
-      console.log('UseEffect regions' + selectedRegion);
       Promise.all([
         getAllSessions(),
         getAllRegions(),
@@ -178,13 +175,11 @@ const Sessions = () => {
         getNiceDates(sessions);
       });
     } else if (selectedRegion !== undefined) {
-      console.log('UseEffect regions' + selectedRegion);
       getAllSessions().then((sessions) => {
         mySessionsObjectConstructor(sessions, allDepartments, allSurfstyle, allRegions);
         getNiceDates(sessions);
       });
     } else if (pagination >= 0 && paginationActive) {
-      console.log('UseEffect pagination' + selectedRegion);
       getAllSessions().then((sessions) => {
         mySessionsObjectConstructor(sessions, allDepartments, allSurfstyle, allRegions);
         getNiceDates(sessions);
@@ -195,7 +190,6 @@ const Sessions = () => {
   // Second useEffect
   useEffect(() => {
     if (selectedDate !== undefined) {
-      console.log('UseEffect date' + selectedDate);
       allRegions &&
         getAllSessions().then((sessions) => {
           mySessionsObjectConstructor(sessions, allDepartments, allSurfstyle, allRegions);
