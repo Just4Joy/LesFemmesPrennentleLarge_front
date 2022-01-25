@@ -28,7 +28,7 @@ const Profile = () => {
           <h1>Mon profil</h1>
         </NavLink>
       </div>
-      {users && <MyProfile/>}
+      {users && <MyProfile />}
     </div>
   );
 };
