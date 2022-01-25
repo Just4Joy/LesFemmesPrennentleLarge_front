@@ -33,16 +33,25 @@ const Session: FC<Props> = ({ setActiveModal }) => {
   const [surfStyle, setSurfStyle] = useState<ISurfStyle>();
   const [wahine, setWahine] = useState<IUser>();
   const [wantSubscribe, setWantSubscribe] = useState<boolean>(false);
+  const [wantUnsubscribe, setWantUnsubscribe] = useState<boolean>(false);
+  const [hasSubscribe, setHasSubscribe] = useState<boolean>(false);
 
-  console.log(id);
+  const CheckHasSubcribe = (subscribersList: IUser[]) => {
+    const subscribe: IUser | undefined = subscribersList.find(
+      (user) => user.id_user == id,
+    );
+    subscribe ? setHasSubscribe(true) : setHasSubscribe(false);
+    console.log(subscribe);
+  };
 
+  // Premier UseEffect
   useEffect(() => {
+    console.log('premier');
     axios
       .get<ISession>(`http://localhost:3000/api/sessions/${id_session}`)
       .then((result) => result.data)
       .then((data) => {
         setSession(data);
-        console.log(data);
         axios
           .get<IUser>(`http://localhost:3000/api/users/${data.id_user}`)
           .then((result) => result.data)
@@ -59,15 +68,20 @@ const Session: FC<Props> = ({ setActiveModal }) => {
     axios
       .get<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users`)
       .then((result) => result.data)
-      .then((data) => setSubscribers(data));
+      .then((data) => {
+        setSubscribers(data);
+        CheckHasSubcribe(data);
+      });
     axios
       .get<IWeather[]>(`http://localhost:3000/api/sessions/${id_session}/weather/`)
       .then((result) => result.data)
       .then((data) => setWeather(data));
   }, []);
 
+  // Second useEffect: rejoindre/désinscription session & chargement des users inscrite
   useEffect(() => {
-    wantSubscribe &&
+    if (wantSubscribe) {
+      console.log('second subscribe');
       axios
         .post<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users/${id}`, {
           method: 'POST',
@@ -76,17 +90,30 @@ const Session: FC<Props> = ({ setActiveModal }) => {
           },
           withCredentials: true,
         })
-
-        .then((result) => console.log(result.data));
-
-    axios
-      .get<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users`)
-      .then((result) => result.data)
-      .then((data) => setSubscribers(data));
-  }, [wantSubscribe]);
+        .then((result) => {
+          setSubscribers(result.data);
+          CheckHasSubcribe(result.data);
+        });
+    }
+    if (wantUnsubscribe) {
+      console.log('second unsubscribe');
+      axios
+        .delete<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        })
+        .then((result) => {
+          setSubscribers(result.data);
+          CheckHasSubcribe(result.data);
+        });
+    }
+  }, [wantSubscribe, wantUnsubscribe]);
 
   console.log(wantSubscribe);
-  console.log(subscribers);
+  // console.log(subscribers);
 
   return (
     <div className="onesession">
@@ -139,18 +166,32 @@ const Session: FC<Props> = ({ setActiveModal }) => {
           )}
         </div>
       </div>
-      <button
-        className="onesession__join"
-        onClick={() => {
-          if (id > 0) {
-            setActiveModal('registered');
-            setWantSubscribe(true);
-          } else {
-            setActiveModal('connect');
-          }
-        }}>
-        Rejoindre la session
-      </button>
+      {hasSubscribe && id > 0 ? (
+        <button
+          className="onesession__join"
+          onClick={() => {
+            setActiveModal('unsubscribe');
+            setWantUnsubscribe(true);
+            setWantSubscribe(false);
+          }}>
+          Se désinscrire
+        </button>
+      ) : (
+        <button
+          className="onesession__join"
+          onClick={() => {
+            if (id > 0) {
+              setActiveModal('registered');
+              setWantSubscribe(true);
+              setWantUnsubscribe(false);
+            } else {
+              setActiveModal('connect');
+            }
+          }}>
+          Rejoindre la session
+        </button>
+      )}
+
       <div className="onesession__group">
         <h3>Hikis de la session</h3>
         <div className="onesession__group__hikis">
