@@ -1,0 +1,10 @@
+.mysessions {
+  &__h1 {
+    padding: 15vh 0 4vh 0;
+  }
+  &__sessions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}

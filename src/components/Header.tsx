@@ -30,12 +30,16 @@ const Header: FC<Props> = ({ setActiveModal }) => {
             </NavLink>
           )}
         </li>
-        <li className="header__list__search">
-          <NavLink to="/search">Search</NavLink>
-        </li>
         <li className="header__list__session">
           <NavLink to="/sessions">Sessions</NavLink>
         </li>
+        {wahine ? (
+          <li className="header__list__create">
+            <NavLink to="/my_sessions">Mes sessions</NavLink>
+          </li>
+        ) : (
+          ''
+        )}
         <li className="header__list__connection">
           {id === 0 ? (
             <NavLink
