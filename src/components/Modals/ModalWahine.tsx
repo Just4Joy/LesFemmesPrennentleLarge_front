@@ -10,7 +10,7 @@ type Props = {
 };
 
 const ModalWahine: FC<Props> = ({ setActiveModal }) => {
-  const { id } = useContext(CurrentUserContext);
+  const { id, wahine } = useContext(CurrentUserContext);
   const [user, setUser] = useState<IUser>();
 
   useEffect(() => {
@@ -19,7 +19,8 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
       .then((result) => result.data)
       .then((data) => setUser(data));
   }, [id]);
-
+  console.log(id);
+  console.log(wahine);
   return (
     <div className="modalWahine">
       <div className="modalWahine__resume">

@@ -12,7 +12,7 @@ export default interface IUser {
   created_date: Date;
   id_department: number;
   id_surf_style: number;
-  wahine: boolean | number;
+  wahine: boolean;
   desc: string;
   phone: number;
 }
