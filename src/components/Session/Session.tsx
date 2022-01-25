@@ -1,16 +1,16 @@
 import axios from 'axios';
-import React, { FC, useEffect, useState, useContext } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { useLayoutEffect } from 'react';
 import { BsFillPatchCheckFill } from 'react-icons/bs';
 import { useParams } from 'react-router';
-import CurrentUserContext from '../contexts/CurrentUser';
 
 import IDepartment from '../../interfaces/IDepartment';
 import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
 import IWeather from '../../interfaces/IWeather';
+import CurrentUserContext from '../contexts/CurrentUser';
 import Hiki from '../Hiki';
 import Wahine2 from '../Wahine2';
 
