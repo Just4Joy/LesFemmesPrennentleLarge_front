@@ -7,7 +7,7 @@ import ISession from '../interfaces/ISession';
 
 type Props = ISession;
 
-const Session: FC<Props> = ({
+const NextSession: FC<Props> = ({
   address,
   name,
   spot_name,
@@ -57,4 +57,4 @@ const Session: FC<Props> = ({
   );
 };
 
-export default Session;
+export default NextSession;
