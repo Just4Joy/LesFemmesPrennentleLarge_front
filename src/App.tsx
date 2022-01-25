@@ -20,6 +20,8 @@ import RegisteredWahine from './components/Modals/RegisteredWahine';
 import Registration from './components/Modals/Registration';
 import SessionPublished from './components/Modals/SessionPublished';
 import SessionResume from './components/Modals/SessionResume';
+import Unsubscribe from './components/Modals/Unsubscribe';
+import MySessions from './components/MySessions';
 import Profile from './components/Profile/Profile';
 import Session from './components/Session/Session';
 import Sessions from './components/Sessions/Sessions';
@@ -48,6 +50,7 @@ function App() {
               path="/create_session"
               element={<Home setActiveModal={setActiveModal} />}
             />
+            <Route path="/my_sessions" element={<MySessions />} />
             <Route path="/:id" element={<Home setActiveModal={setActiveModal} />} />
             <Route
               path="/session/:id"
@@ -99,6 +102,11 @@ function App() {
         {activeModal === 'registered' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <Registered />
+          </Modal>
+        )}
+        {activeModal === 'unsubscribe' && (
+          <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+            <Unsubscribe />
           </Modal>
         )}
         {activeModal === 'create_session1' && (
