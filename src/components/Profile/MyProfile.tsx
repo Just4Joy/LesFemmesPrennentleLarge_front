@@ -21,6 +21,7 @@ const MyProfile = () => {
   const [editProfil, setEditProfil] = useState<boolean>(false);
   const [editSkills, setEditSkills] = useState<boolean>(false);
   const [previewImage, setPreviewImage] = useState<FileList | null | undefined>();
+  console.log(setPreviewImage);
   const [revokeUrl, setRevokeUrl] = useState<boolean>(false);
   const [departments, setDepartments] = useState<IDepartment>();
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
@@ -31,7 +32,6 @@ const MyProfile = () => {
   const [desc, setDesc] = useState<IUser['desc']>('')
   const [city, setCity] = useState<IUser['city']>('')
   const [favorite_spot, setSpot] = useState<IUser['favorite_spot']>('')
-
 
 
     useEffect(() => {
@@ -55,8 +55,7 @@ const MyProfile = () => {
           .then((result) => result.data)
           .then((data) => setSurfSkills(data))
         })
-        
-
+      
           return () => {
             // @ts-ignore: Unreachable code error
             setUsers()
