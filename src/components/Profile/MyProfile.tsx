@@ -78,6 +78,7 @@ const MyProfile = () =>
           .then((result) => result.data)
           .then((data) => setSurfSkills(data));
     }, []);
+    console.log(surfSkills);
 
     const previewProfilImage = () => {
       let imageUrl: string = '';
