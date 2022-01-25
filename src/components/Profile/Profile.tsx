@@ -18,6 +18,10 @@ const Profile = () => {
       .get<IUser>(`http://localhost:3000/api/users/${id}`)
       .then((result) => result.data)
       .then((data) => setUsers(data));
+    return () => {
+      // @ts-ignore: Unreachable code error
+      setUsers()
+    }
   }, [id]);
 
   return (
