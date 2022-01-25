@@ -52,7 +52,10 @@ const ModalProfile = () => {
           </div>
           <div className="modalProfile__column">
             <div className="modalProfile__column__column1">
-              <img src={wahineImg} alt="hiki" />
+              <img
+                src={user && user.profile_pic !== 'null' ? user.profile_pic : wahineImg}
+                alt="hiki"
+              />
               <div className="modalProfile__column__column1__info">
                 <h2>
                   {user.firstname} {user.lastname}
