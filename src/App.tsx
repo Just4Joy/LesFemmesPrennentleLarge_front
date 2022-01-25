@@ -18,11 +18,11 @@ import Registered from './components/Modals/Registered';
 import Registration from './components/Modals/Registration';
 import SessionPublished from './components/Modals/SessionPublished';
 import SessionResume from './components/Modals/SessionResume';
+import Unsubscribe from './components/Modals/Unsubscribe';
 import MySessions from './components/MySessions';
 import Profile from './components/Profile/Profile';
 import Session from './components/Session/Session';
 import Sessions from './components/Sessions/Sessions';
-import Unsubscribe from './components/Modals/Unsubscribe';
 
 function App() {
   const [activeModal, setActiveModal] = useState<string>('');
