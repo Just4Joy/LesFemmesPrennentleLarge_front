@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
@@ -20,6 +22,11 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
   const [password, setPassword] = useState<string>('');
   const [password2, setPassword2] = useState<string>('');
   console.log(password2);
+
+  // Toast gestion d'erreur
+  const errorValidation = () => toast.warn('Données incorrectes.');
+  const emailExist = () => toast.warn('L&aposemail est déjà utilisé.');
+
   const createUserAndConnect = () => {
     axios
       .post<IUser>(
@@ -63,8 +70,10 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
       })
       .catch((err) => {
         console.log(err);
-        if (err.response.status === 401) {
-          setErrorMessage('Email ou mot de passe incorrect');
+        if (err.response.status === 422) {
+          errorValidation();
+        } else if (err.response.status === 400) {
+          emailExist();
         } else {
           setErrorMessage(err);
         }
@@ -72,6 +81,7 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
   };
   return (
     <div className="CreateAccount">
+      <ToastContainer position="top-center" />
       <div className="CreateAccount__title">
         <p className="CreateAccount__title__p">Créer mon compte</p>
       </div>
