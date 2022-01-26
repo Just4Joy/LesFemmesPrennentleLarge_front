@@ -2,7 +2,6 @@ import React, { FC, useContext } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
 import becomeWahine from '../../../img/become-wahine.svg';
-
 import CurrentUserContext from '../contexts/CurrentUser';
 
 type Props = {
