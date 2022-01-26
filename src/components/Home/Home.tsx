@@ -49,7 +49,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
     };
     const getAllSurfstyles = async () => {
       const surfstyles = await axios.get<ISurfStyle[]>(
-        'http://localhost:3000/api/surfstyle',
+        'http://localhost:3000/api/surfstyles',
       );
       return surfstyles.data;
     };

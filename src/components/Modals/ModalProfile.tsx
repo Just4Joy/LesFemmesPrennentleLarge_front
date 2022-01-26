@@ -30,7 +30,7 @@ const ModalProfile = () => {
           .then((data) => setDepartments(data));
         // Get Surf Style
         axios
-          .get<ISurfStyle>(`http://localhost:3000/api/surfstyle/${data.id_surf_style}`)
+          .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
           .then((result) => result.data)
           .then((data) => setSurfStyles(data));
         //Get Surf Skill
