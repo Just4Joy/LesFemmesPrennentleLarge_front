@@ -155,9 +155,6 @@ const Home: FC<Props> = ({ setActiveModal }) => {
                 );
               })}
         </div>
-        <h5 className="home__wahines__link">
-          Toutes les wahines <BsBoxArrowInUpRight />
-        </h5>
       </div>
       {id && wahine === 1 ? '' : <BecomeWahine setActiveModal={setActiveModal} />}
       {/* Section : Devenir wahine */}
