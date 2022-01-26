@@ -1,16 +1,10 @@
-import axios from 'axios';
 import React from 'react';
-
 import { BiArrowBack } from 'react-icons/bi';
 import { NavLink } from 'react-router-dom';
 
-import IUser from '../../interfaces/IUser';
-import CurrentUserContext from '../contexts/CurrentUser';
 import MyProfile from './MyProfile';
 
 const Profile = () => {
-
-
   return (
     <div className="profile">
       <div className="profile__goBack">

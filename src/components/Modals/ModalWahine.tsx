@@ -10,7 +10,7 @@ type Props = {
 };
 
 const ModalWahine: FC<Props> = ({ setActiveModal }) => {
-  const { id } = useContext(CurrentUserContext);
+  const { id, setWahine } = useContext(CurrentUserContext);
   const [user, setUser] = useState<IUser>();
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
     axios
       .put(
         `http://localhost:3000/api/users/${id}`,
-        { wahine: false },
+        { wahine: 1 },
         {
           method: 'PUT',
           headers: {
@@ -33,7 +33,9 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
           withCredentials: true,
         },
       )
-      .then(() => setActiveModal('wahineRegistrated'));
+      .then(() => {
+        setActiveModal('wahineRegistrated'), setWahine(1);
+      });
   };
 
   return (
