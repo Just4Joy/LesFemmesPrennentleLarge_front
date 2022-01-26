@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { FC, useState } from 'react';
 
-const SurfStyle = () => {
+import ISurfStyle from '../interfaces/ISurfStyle';
+
+type Props = ISurfStyle;
+
+const SurfStyle: FC<Props> = (id_surf_style, name_user) => {
+  const [active, setActive] = useState(false);
   return (
     <div className="surfstyle">
-      <button className="surfstyle__button" type="button">
-        Session au large
+      <button
+        className={active ? 'surfstyle__button__active' : 'surfstyle__button'}
+        type="button"
+        onClick={() => {
+          setActive(!active);
+        }}>
+        {name_user}
       </button>
     </div>
   );
