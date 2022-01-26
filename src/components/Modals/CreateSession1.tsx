@@ -34,7 +34,7 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
       .then((data) => setDepartements(data));
 
     axios
-      .get<ISurfStyle[]>('http://localhost:3000/api/surfstyle')
+      .get<ISurfStyle[]>('http://localhost:3000/api/surfstyles')
       .then((result) => result.data)
       .then((data) => setSurfStyles(data));
   }, []);

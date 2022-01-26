@@ -30,7 +30,7 @@ const MySession: FC<Props> = ({
       .then((result) => result.data)
       .then((data) => setDepartment(data));
     axios
-      .get<ISurfStyle>(`http://localhost:3000/api/surfstyle/${id_surf_style}`)
+      .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${id_surf_style}`)
       .then((result) => result.data)
       .then((data) => setSurfStyle(data));
   }, []);

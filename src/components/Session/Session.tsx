@@ -61,7 +61,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
           .then((result) => result.data)
           .then((data) => setDepartment(data));
         axios
-          .get<ISurfStyle>(`http://localhost:3000/api/surfstyle/${data.id_surf_style}`)
+          .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
           .then((result) => result.data)
           .then((data) => setSurfStyle(data));
       });
