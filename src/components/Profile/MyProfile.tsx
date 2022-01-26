@@ -1,9 +1,10 @@
 import axios from 'axios';
 // @ts-ignore: Unreachable code error
 import { IKContext, IKUpload } from 'imagekitio-react';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, } from 'react';
 import { useEffect } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
+import { FiUpload } from 'react-icons/fi';
 
 import IDepartment from '../../interfaces/IDepartment';
 import ISurfSkill from '../../interfaces/ISurfskills';
@@ -11,6 +12,8 @@ import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
 import SurfSkillProfile from '../Profile/SurfSkillProfile';
+
+import SurfSkill from '../SurfSkill';
 
 const MyProfile = () => {
   const { id } = useContext(CurrentUserContext);
@@ -22,42 +25,71 @@ const MyProfile = () => {
 
   const [departments, setDepartments] = useState<IDepartment>();
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
+  const [surfSkillToAdd, setSurfSkillToAdd] = useState<ISurfSkill[]>([])
   const [surfSkills, setSurfSkills] = useState<ISurfSkill[]>([]);
 
-  const [firstname, setFirstname] = useState<IUser['firstname']>('');
-  const [lastname, setLastname] = useState<IUser['lastname']>('');
-  const [desc, setDesc] = useState<IUser['desc']>('');
-  const [city, setCity] = useState<IUser['city']>('');
-  const [favorite_spot, setSpot] = useState<IUser['favorite_spot']>('');
+  const [firstname, setFirstname] = useState<IUser['firstname']>('')
+  const [lastname, setLastname] = useState<IUser['lastname']>('')
+  const [desc, setDesc] = useState<IUser['desc']>('')
+  const [city, setCity] = useState<IUser['city']>('')
+  const [favorite_spot, setSpot] = useState<IUser['favorite_spot']>('')
+
+  const [activeSurfSkill, setActiveSurfSkill] = useState<ISurfSkill['id_surf_skill'][]>(
+    [],
+  );
 
   useEffect(() => {
+
     axios
       .get<IUser>(`http://localhost:3000/api/users/${id}`)
       .then((result) => result.data)
       .then((data) => {
-        setUsers(data);
-        axios
+        setUsers(data)
+
+         axios
           .get<IDepartment>(`http://localhost:3000/api/departments/${data.id_department}`)
           .then((result) => result.data)
-          .then((data) => setDepartments(data));
-
+          .then((data) => setDepartments(data))
         axios
           .get<ISurfStyle>(`http://localhost:3000/api/surfstyle/${data.id_surf_style}`)
           .then((result) => result.data)
-          .then((data) => setSurfStyles(data));
+          .then((data) => setSurfStyles(data))
 
         axios
           .get<ISurfSkill[]>(`http://localhost:3000/api/users/${data.id_user}/surfskills`)
           .then((result) => result.data)
-          .then((data) => setSurfSkills(data));
-      });
+          .then((data) => setSurfSkills(data))
+
+      })
+
+    axios
+      .get<ISurfSkill[]>('http://localhost:3000/api/surfskill')
+      .then((result) => result.data)
+      .then((data) => setSurfSkillToAdd(data));
 
     return () => {
       // @ts-ignore: Unreachable code error
-      setUsers();
-      setUpdate(false);
-    };
-  }, [id, update]);
+      setUsers()
+
+      // @ts-ignore: Unreachable code error
+      setDepartments()
+      // @ts-ignore: Unreachable code error
+      setSurfStyles()
+      // @ts-ignore: Unreachable code error
+      setSurfSkills([])
+      // @ts-ignore: Unreachable code error
+      setSurfSkillToAdd([])
+    }
+  }, [update]);
+
+  const add = (id: ISurfSkill['id_surf_skill']) => {
+    const arr = activeSurfSkill;
+    if (arr.find((el) => el === id)) {
+      arr.splice(arr.indexOf(id), 1);
+    } else arr.push(id);
+
+    setActiveSurfSkill(arr);
+  };
 
   const onSuccess = (res: any) => {
     console.log(res.url);
@@ -79,7 +111,7 @@ const MyProfile = () => {
 
   const updateDataUser = () => {
     const data: any = {
-      fistname: firstname,
+      firstname: firstname,
       lastname: lastname,
       city: city,
       desc: desc,
@@ -91,19 +123,42 @@ const MyProfile = () => {
       }
     }
 
-    axios.put(
-      `http://localhost:3000/api/users/${id}`,
-      { ...data },
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-
-        withCredentials: true,
+    axios.put(`http://localhost:3000/api/users/${id}`, { ...data }, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    );
-  };
+      withCredentials: true,
+    })
+
+    Promise.all([
+      activeSurfSkill && surfSkills && surfSkills.map(async (el) => {
+        axios.delete(
+          `http://localhost:3000/api/users/${id}/surfskills/${el.id_surf_skill}`,
+          {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+          },
+        );
+      }), activeSurfSkill.map(async (el) => {
+        axios.post(
+          `http://localhost:3000/api/users/${id}/surfskills`,
+          { id_surf_skill: el },
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+          },
+        );
+      })
+    ])
+
+  }
 
   return (
     <div className="myProfile">
@@ -112,7 +167,11 @@ const MyProfile = () => {
         {editSkills ? (
           <BsPencilSquare size="2rem" color="black" />
         ) : !editProfil ? (
-          <BsPencilSquare size="2rem" color="black" onClick={() => setEditProfil(true)} />
+          <BsPencilSquare
+            size="2rem"
+            color="black"
+            onClick={() => setEditProfil(true)}
+          />
         ) : (
           <BsPencilSquare size="2rem" color="#fedb9b" />
         )}
@@ -133,20 +192,8 @@ const MyProfile = () => {
         ) : (
           <div className="myProfile__column__column1">
             <form className="myProfile__column__column1__form" action="/" method="POST">
-              {/*                 {!previewImage ? (
-                  <FiUpload size="10rem" color="#fedb9b" />
-                ) : (
-                  <img
-                    className="myProfile__column__column1__form__previewImage"
-                    src={previewProfilImage}
-                    alt=""
-                  />
-                )} */}
-              {/*               <label
-                htmlFor="file-upload"
-                className="myProfile__column__column1__form__label">
-                Téléverser
-              </label> */}
+              {<FiUpload size="10rem" color="#fedb9b" />}
+
               <IKContext
                 publicKey="public_peA2/wgPW2iDjq6xP9HjZRG2/Ys="
                 urlEndpoint="https://ik.imagekit.io/LFPLL/"
@@ -226,14 +273,26 @@ const MyProfile = () => {
           </div>
           <div className="myProfile__column__column2__row2">
             <h2>Skills</h2>
-            <div className="myProfile__column__column2__row2__wrap">
+            {!editProfil ? (<div className="myProfile__column__column2__row2__wrap">
               {surfSkills &&
                 surfSkills.map((surfSkill) => {
                   return (
+
                     <SurfSkillProfile key={surfSkill.id_surf_skill} {...surfSkill} />
                   );
                 })}
-            </div>
+            </div>) : (<div className="createProfil2__skills__tags">{surfSkillToAdd &&
+              surfSkillToAdd.map((surfSkillToAdd) => {
+                return (
+                  <SurfSkill
+                    {...surfSkillToAdd}
+                    key={surfSkillToAdd.id_surf_skill}
+                    id_surf_skill={surfSkillToAdd.id_surf_skill}
+                    add={add}
+                  />
+                );
+              })}</div>)}
+
           </div>
           <div className="myProfile__column__column2__row3">
             {!editProfil ? (
@@ -264,9 +323,10 @@ const MyProfile = () => {
         <button
           className="myProfile__button"
           onClick={() => {
-            updateDataUser();
+            updateDataUser(); 
             editProfil ? setEditProfil(false) : setEditSkills(false);
-            editProfil ? setUpdate(!update) : setUpdate(!update);
+            setUpdate(!update)
+            /*  editProfil ? setUpdate(!update) : setUpdate(!update); */
           }}>
           Enregistrer
         </button>
@@ -276,5 +336,6 @@ const MyProfile = () => {
     </div>
   );
 };
+
 
 export default MyProfile;
