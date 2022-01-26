@@ -20,8 +20,8 @@ const Profile = () => {
       .then((data) => setUsers(data));
     return () => {
       // @ts-ignore: Unreachable code error
-      setUsers()
-    }
+      setUsers();
+    };
   }, [id]);
 
   return (

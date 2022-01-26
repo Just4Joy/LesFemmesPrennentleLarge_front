@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { BsPencilSquare } from 'react-icons/bs';
 import { useParams } from 'react-router';
 
 import wahineImg from '../../../img/wahine.svg';
@@ -71,7 +70,6 @@ const ModalProfile = () => {
                   <p>{departments?.department_name}</p>
                   <p>{surfStyles?.name_user}</p>
                 </div>
-                <BsPencilSquare />
               </div>
               <div className="modalProfile__column__column2__row2">
                 <h2>Skills</h2>
