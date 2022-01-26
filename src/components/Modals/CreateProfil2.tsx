@@ -4,6 +4,8 @@ import { Dispatch, SetStateAction } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import ISurfSkill from '../../interfaces/ISurfskills';
+import ISurfStyle from '../../interfaces/ISurfStyle';
+import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
 import SurfSkill from '../SurfSkill';
 
@@ -17,12 +19,18 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
   const [activeSurfSkill, setActiveSurfSkill] = useState<ISurfSkill['id_surf_skill'][]>(
     [],
   );
+  const [surfStyles, setSurfStyles] = useState<ISurfStyle[]>([]);
+  const [id_surf_style, setId_surf_style] = useState<IUser['id_surf_style']>();
 
   useEffect(() => {
     axios
       .get<ISurfSkill[]>('http://lfpll-back.herokuapp.com/api/surfskill')
       .then((result) => result.data)
       .then((data) => setSurfSkills(data));
+    axios
+      .get<ISurfStyle[]>('http://localhost:3000/api/surfstyle')
+      .then((result) => result.data)
+      .then((data) => setSurfStyles(data));
   }, []);
 
   const add = (id: ISurfSkill['id_surf_skill']) => {
@@ -32,6 +40,24 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
     } else arr.push(id);
 
     setActiveSurfSkill(arr);
+  };
+
+  const updateSurfStyleProfile = () => {
+    axios
+      .put(
+        `http://localhost:3000/api/users/${id}`,
+        {
+          id_surf_style,
+        },
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        },
+      )
+      .then((response) => console.log(response));
   };
 
   const UpdateProfile = () => {
@@ -60,33 +86,53 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
           Skip
         </NavLink>
       </div>
-      <div className="createProfil2__skills">
-        <div className="createProfil2__skills__title">
-          <p> Choisis tes skills</p>
+      <div className="createProfil2__styles">
+        <div className="createProfil2__styles__title">
+          <p> Choisis ton style de surf</p>
         </div>
-        <div className="createProfil2__skills__tags">
-          {surfSkills &&
-            surfSkills.map((surfSkill) => {
-              return (
-                <SurfSkill
-                  {...surfSkill}
-                  key={surfSkill.id_surf_skill}
-                  id_surf_skill={surfSkill.id_surf_skill}
-                  add={add}
-                />
-              );
-            })}
-        </div>
-        <div className="createProfil2__button">
-          <NavLink
-            className="createProfil2__button__validate"
-            to="/profile"
-            onClick={() => {
-              UpdateProfile();
-              setActiveModal('');
+        <div className="createProfil2__styles__tag">
+          <select
+            onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
+              setId_surf_style(parseInt(e.currentTarget.value, 10));
             }}>
-            Valider mon profil
-          </NavLink>
+            <option value="">type de session</option>
+            {surfStyles &&
+              surfStyles.map((surfStyle) => (
+                <option key={surfStyle.id_surf_style} value={surfStyle.id_surf_style}>
+                  {surfStyle.name_user}
+                </option>
+              ))}
+          </select>
+        </div>
+        <div className="createProfil2__skills">
+          <div className="createProfil2__skills__title">
+            <p> Choisis tes skills</p>
+          </div>
+          <div className="createProfil2__skills__tags">
+            {surfSkills &&
+              surfSkills.map((surfSkill) => {
+                return (
+                  <SurfSkill
+                    {...surfSkill}
+                    key={surfSkill.id_surf_skill}
+                    id_surf_skill={surfSkill.id_surf_skill}
+                    add={add}
+                  />
+                );
+              })}
+          </div>
+          <div className="createProfil2__button">
+            <NavLink
+              className="createProfil2__button__validate"
+              to="/profile"
+              onClick={() => {
+                UpdateProfile();
+                setActiveModal('');
+                updateSurfStyleProfile();
+              }}>
+              Valider mon profil
+            </NavLink>
+          </div>
         </div>
       </div>
     </div>

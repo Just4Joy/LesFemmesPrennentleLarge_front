@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
@@ -9,6 +9,7 @@ import IRegion from '../../interfaces/IRegion';
 import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
+import CurrentUserContext from '../contexts/CurrentUser';
 import NextSession from '../NextSession';
 import Wahine from '../Wahine';
 import BecomeWahine from './BecomeWahine';
@@ -25,7 +26,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   // const [allWahine, setAllWahine] = useState<IUser[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
-
+  const { id, wahine } = useContext(CurrentUserContext);
   const first: number = 0;
   const second: number = 5;
 
@@ -155,9 +156,8 @@ const Home: FC<Props> = ({ setActiveModal }) => {
               })}
         </div>
       </div>
-
+      {id && wahine === 1 ? '' : <BecomeWahine setActiveModal={setActiveModal} />}
       {/* Section : Devenir wahine */}
-      <BecomeWahine setActiveModal={setActiveModal} />
     </div>
   );
 };

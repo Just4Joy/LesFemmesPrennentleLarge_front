@@ -10,7 +10,7 @@ type Props = {
 };
 
 const ModalWahine: FC<Props> = ({ setActiveModal }) => {
-  const { id, wahine } = useContext(CurrentUserContext);
+  const { id } = useContext(CurrentUserContext);
   const [user, setUser] = useState<IUser>();
 
   useEffect(() => {
@@ -19,8 +19,23 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
       .then((result) => result.data)
       .then((data) => setUser(data));
   }, [id]);
-  console.log(id);
-  console.log(wahine);
+
+  const updateWahineStatus = () => {
+    axios
+      .put(
+        `http://localhost:3000/api/users/${id}`,
+        { wahine: false },
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        },
+      )
+      .then(() => setActiveModal('wahineRegistrated'));
+  };
+
   return (
     <div className="modalWahine">
       <div className="modalWahine__resume">
@@ -50,7 +65,9 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
       <div className="modalWahine__button">
         <button
           className="modalWahine__button__validate"
-          onClick={() => setActiveModal('wahineRegistrated')}>
+          onClick={() => {
+            updateWahineStatus();
+          }}>
           Devenir Wahine
         </button>
       </div>

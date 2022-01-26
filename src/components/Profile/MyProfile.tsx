@@ -19,8 +19,7 @@ const MyProfile = () => {
 
   const [editProfil, setEditProfil] = useState<boolean>(false);
   const [editSkills, setEditSkills] = useState<boolean>(false);
-  // const [previewImage, setPreviewImage] = useState<FileList | null | undefined>();
-  // const [revokeUrl, setRevokeUrl] = useState<boolean>(false);
+
   const [departments, setDepartments] = useState<IDepartment>();
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
   const [surfSkills, setSurfSkills] = useState<ISurfSkill[]>([]);
@@ -100,6 +99,7 @@ const MyProfile = () => {
         headers: {
           'Content-Type': 'application/json',
         },
+
         withCredentials: true,
       },
     );
