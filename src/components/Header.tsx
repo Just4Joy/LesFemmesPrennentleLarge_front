@@ -46,7 +46,7 @@ const Header: FC<Props> = ({ setActiveModal }) => {
         <li className="header__list__profile">
           {id === 0 ? (
             ''
-          ) : (
+          ) : wahine ? (
             // <NavLink to="/profile">
             //   Profil
             //   <IoIosArrowDown />
@@ -75,7 +75,7 @@ const Header: FC<Props> = ({ setActiveModal }) => {
                       className="header__list__profile__dropdown__links__link"
                       role="presentation"
                       onClick={() => setDropDown(false)}>
-                      My Profile
+                      Mon Profile
                     </li>
                   </NavLink>
                   <NavLink to="/my_sessions">
@@ -91,6 +91,8 @@ const Header: FC<Props> = ({ setActiveModal }) => {
                 ''
               )}
             </div>
+          ) : (
+            <NavLink to="/profile">Mon Profile</NavLink>
           )}
         </li>
         <li className="header__list__session">
