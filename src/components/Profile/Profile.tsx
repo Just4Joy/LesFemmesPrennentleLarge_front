@@ -1,7 +1,6 @@
 import axios from 'axios';
-import React, { useContext } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import React from 'react';
+
 import { BiArrowBack } from 'react-icons/bi';
 import { NavLink } from 'react-router-dom';
 
@@ -10,19 +9,7 @@ import CurrentUserContext from '../contexts/CurrentUser';
 import MyProfile from './MyProfile';
 
 const Profile = () => {
-  const { id } = useContext(CurrentUserContext);
-  const [users, setUsers] = useState<IUser>();
 
-  useEffect(() => {
-    axios
-      .get<IUser>(`http://localhost:3000/api/users/${id}`)
-      .then((result) => result.data)
-      .then((data) => setUsers(data));
-    return () => {
-      // @ts-ignore: Unreachable code error
-      setUsers();
-    };
-  }, [id]);
 
   return (
     <div className="profile">
@@ -32,7 +19,7 @@ const Profile = () => {
           <h1>Mon profil</h1>
         </NavLink>
       </div>
-      {users && <MyProfile />}
+      {<MyProfile />}
     </div>
   );
 };
