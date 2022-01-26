@@ -7,4 +7,18 @@
     flex-direction: row;
     flex-wrap: wrap;
   }
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 3rem;
+    &__left {
+      font-size: 2em;
+      fill: $Primary-dark-2;
+    }
+    &__right {
+      font-size: 2em;
+      fill: $Primary-dark-2;
+    }
+  }
 }
