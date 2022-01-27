@@ -14,7 +14,7 @@ const MySessions = () => {
 
   useEffect(() => {
     axios
-      .get<ISession[]>(`http://localhost:3000/api/users/${id}/sessions`)
+      .get<ISession[]>(`http://localhost:3000/api/sessions?wahine=${id}`)
       .then((result) => result.data)
       .then((data) => setSessions(data));
   }, [id]);
