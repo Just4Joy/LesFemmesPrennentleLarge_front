@@ -6,6 +6,23 @@
     width: 45vw;
     padding-bottom: 2rem;
   }
+  &__styles {
+    &__title {
+      font-size: 20px;
+      font-weight: bold;
+      padding-bottom: 1rem;
+    }
+    &__tag {
+      select {
+        width: 17vw;
+        padding: 0.7rem 1rem;
+        margin: 1rem 0;
+        border: 1px solid #263238;
+        border-radius: 10px;
+        background-color: white;
+      }
+    }
+  }
   &__skills {
     &__title {
       font-size: 20px;
