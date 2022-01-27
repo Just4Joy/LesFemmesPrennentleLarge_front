@@ -197,7 +197,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
         <div className="onesession__group__hikis">
           {subscribers &&
             subscribers
-              .filter((user) => user.wahine)
+              // .filter((user) => user.wahine)
               // .slice(first, second)
               .map((user) => {
                 return (
