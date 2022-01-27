@@ -127,21 +127,26 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
           {searchCity.length < 5 || searchCity.length > 5 ? (
             ''
           ) : (
-            <select
-              className="createProfil1__container__infos__ville"
-              name="city"
-              id="selectCity"
-              onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
-                setCity(e.currentTarget.value);
-              }}>
-              {allCities.map((city, index) => {
-                return (
-                  <option key={index} value={city.nom}>
-                    {city.nom}
-                  </option>
-                );
-              })}
-            </select>
+            <>
+              <h5 className="createProfil1__container__infos__selectVille">
+                Selectionne ta ville
+              </h5>
+              <select
+                className="createProfil1__container__infos__ville"
+                name="city"
+                id="selectCity"
+                onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
+                  setCity(e.currentTarget.value);
+                }}>
+                {allCities.map((city, index) => {
+                  return (
+                    <option key={index} value={city.nom}>
+                      {city.nom}
+                    </option>
+                  );
+                })}
+              </select>
+            </>
           )}
 
           <select
