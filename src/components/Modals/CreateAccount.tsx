@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction, useContext, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+import { error, errorValidation, emailExist } from '../../errors';
 
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
@@ -13,19 +13,13 @@ type Props = {
 
 const CreateAccount: FC<Props> = ({ setActiveModal }) => {
   const { setId, setWahine, setFirstname } = useContext(CurrentUserContext);
-  const [errorMessage, setErrorMessage] = useState<string>();
-  console.log(errorMessage);
+
   const [firstname, setfirstname] = useState<string>('');
   const [lastname, setlastname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [password2, setPassword2] = useState<string>('');
-  console.log(password2);
-
-  // Toast gestion d'erreur
-  const errorValidation = () => toast.warn('Données incorrectes.');
-  const emailExist = () => toast.warn('L&aposemail est déjà utilisé.');
 
   const createUserAndConnect = () => {
     axios
@@ -69,16 +63,16 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
         setActiveModal('complete_profil1');
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 422) {
           errorValidation();
         } else if (err.response.status === 400) {
           emailExist();
         } else {
-          setErrorMessage(err);
+          error();
         }
       });
   };
+
   return (
     <div className="CreateAccount">
       <ToastContainer position="top-center" />

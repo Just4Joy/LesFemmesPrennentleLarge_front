@@ -14,7 +14,9 @@ import CreateSession1 from './components/Modals/CreateSession1';
 import CreateSession2 from './components/Modals/CreateSession2';
 import Modal from './components/Modals/Modal';
 import ModalProfile from './components/Modals/ModalProfile';
+import ModalWahine from './components/Modals/ModalWahine';
 import Registered from './components/Modals/Registered';
+import RegisteredWahine from './components/Modals/RegisteredWahine';
 import Registration from './components/Modals/Registration';
 import SessionPublished from './components/Modals/SessionPublished';
 import SessionResume from './components/Modals/SessionResume';
@@ -125,6 +127,16 @@ function App() {
         {activeModal === 'session_published' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
             <SessionPublished setActiveModal={setActiveModal} />
+          </Modal>
+        )}
+        {activeModal === 'modalWahine' && (
+          <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+            <ModalWahine setActiveModal={setActiveModal} />
+          </Modal>
+        )}
+        {activeModal === 'wahineRegistrated' && (
+          <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
+            <RegisteredWahine setActiveModal={setActiveModal} />
           </Modal>
         )}
       </Router>

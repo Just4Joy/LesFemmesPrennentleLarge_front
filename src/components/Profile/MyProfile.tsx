@@ -13,87 +13,57 @@ import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
 import SurfSkillProfile from '../Profile/SurfSkillProfile';
 
-const MyProfile = () =>
-  // {
-  //   /*   firstname,
-  //   lastname,
-  //   city,
-  //   favorite_spot,
-  //   wahine,
-  //   desc,
-  //   profile_pic,
-  //   id_department,
-  //   id_surf_style,
-  //   id_user, */
-  // },
-  {
-    const { id } = useContext(CurrentUserContext);
-    const [users, setUsers] = useState<IUser>();
-    const [update, setUpdate] = useState<boolean>(false);
+const MyProfile = () => {
+  const { id } = useContext(CurrentUserContext);
+  const [users, setUsers] = useState<IUser>();
+  const [update, setUpdate] = useState<boolean>(false);
+
+  const [editProfil, setEditProfil] = useState<boolean>(false);
+  const [editSkills, setEditSkills] = useState<boolean>(false);
+  const [previewImage, setPreviewImage] = useState<FileList | null | undefined>();
+  console.log(setPreviewImage);
+  const [revokeUrl, setRevokeUrl] = useState<boolean>(false);
+  const [departments, setDepartments] = useState<IDepartment>();
+  const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
+  const [surfSkills, setSurfSkills] = useState<ISurfSkill[]>([]);
+
+  const [firstname, setFirstname] = useState<IUser['firstname']>('')
+  const [lastname, setLastname] = useState<IUser['lastname']>('')
+  const [desc, setDesc] = useState<IUser['desc']>('')
+  const [city, setCity] = useState<IUser['city']>('')
+  const [favorite_spot, setSpot] = useState<IUser['favorite_spot']>('')
+
 
     useEffect(() => {
       axios
         .get<IUser>(`http://localhost:3000/api/users/${id}`)
         .then((result) => result.data)
-        .then((data) => setUsers(data));
+        .then((data) => {
+          setUsers(data)
+          axios
+          .get<IDepartment>(`http://localhost:3000/api/departments/${data.id_department}`)
+          .then((result) => result.data)
+          .then((data) => setDepartments(data))
+
+          axios
+          .get<ISurfStyle>(`http://localhost:3000/api/surfstyle/${data.id_surf_style}`)
+          .then((result) => result.data)
+          .then((data) => setSurfStyles(data))
+
+          axios
+          .get<ISurfSkill[]>(`http://localhost:3000/api/users/${data.id_user}/surfskills`)
+          .then((result) => result.data)
+          .then((data) => setSurfSkills(data))
+        })
+      
+          return () => {
+            // @ts-ignore: Unreachable code error
+            setUsers()
+            setUpdate(false)
+          }
     }, [id, update]);
+   
 
-    const [editProfil, setEditProfil] = useState<boolean>(false);
-    const [editSkills, setEditSkills] = useState<boolean>(false);
-    const [previewImage, setPreviewImage] = useState<FileList | null | undefined>();
-    console.log(setPreviewImage);
-    const [revokeUrl, setRevokeUrl] = useState<boolean>(false);
-    const [departments, setDepartments] = useState<IDepartment>();
-    const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
-    const [surfSkills, setSurfSkills] = useState<ISurfSkill[]>([]);
-
-    const [firstname, setFirstname] = useState<IUser['firstname']>('');
-    const [lastname, setLastname] = useState<IUser['lastname']>('');
-    const [desc, setDesc] = useState<IUser['desc']>('');
-    const [city, setCity] = useState<IUser['city']>('');
-    const [favorite_spot, setSpot] = useState<IUser['favorite_spot']>('');
-
-    useEffect(() => {
-      //Get Departments
-      users &&
-        axios
-          .get<IDepartment>(
-            `http://localhost:3000/api/departments/${users.id_department}`,
-          )
-          .then((result) => result.data)
-          .then((data) => setDepartments(data));
-      console.log(departments);
-      //Get Surf Styles
-      users &&
-        axios
-          .get<ISurfStyle>(`http://localhost:3000/api/surfstyle/${users.id_surf_style}`)
-          .then((result) => result.data)
-          .then((data) => setSurfStyles(data));
-      //Get Surf SKills id
-      users &&
-        axios
-          .get<ISurfSkill[]>(
-            `http://localhost:3000/api/users/${users.id_user}/surfskills`,
-          )
-          .then((result) => result.data)
-          .then((data) => setSurfSkills(data));
-    }, []);
-    console.log(surfSkills);
-
-    const previewProfilImage = () => {
-      let imageUrl: string = '';
-
-      if (revokeUrl) {
-        URL.revokeObjectURL(imageUrl);
-        imageUrl = '';
-        setRevokeUrl(false);
-      }
-      if (previewImage) {
-        imageUrl = URL.createObjectURL(previewImage[0]);
-        return imageUrl;
-      }
-      return imageUrl;
-    };
     const onSuccess = (res: any) => {
       console.log(res.url);
       users &&
@@ -126,22 +96,14 @@ const MyProfile = () =>
         }
       }
 
-      console.log(data);
+      axios.put(`http://localhost:3000/api/users/${id}`, { ...data }, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
 
-      axios
-        .put(
-          `http://localhost:3000/api/users/${id}`,
-          { ...data },
-          {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            withCredentials: true,
-          },
-        )
-        .then((response) => console.log(response));
-    };
+    }
 
     return (
       <div className="myProfile">
@@ -175,15 +137,15 @@ const MyProfile = () =>
           ) : (
             <div className="myProfile__column__column1">
               <form className="myProfile__column__column1__form" action="/" method="POST">
-                {!previewImage ? (
+{/*                 {!previewImage ? (
                   <FiUpload size="10rem" color="#fedb9b" />
                 ) : (
                   <img
                     className="myProfile__column__column1__form__previewImage"
-                    src={previewProfilImage()}
+                    src={previewProfilImage}
                     alt=""
                   />
-                )}
+                )} */}
                 {/*               <label
                 htmlFor="file-upload"
                 className="myProfile__column__column1__form__label">
@@ -272,6 +234,7 @@ const MyProfile = () =>
                 {surfSkills &&
                   surfSkills.map((surfSkill) => {
                     return (
+                      
                       <SurfSkillProfile key={surfSkill.id_surf_skill} {...surfSkill} />
                     );
                   })}
@@ -319,4 +282,5 @@ const MyProfile = () =>
     );
   };
 
-export default MyProfile;
+
+  export default MyProfile;

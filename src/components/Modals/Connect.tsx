@@ -2,9 +2,8 @@ import axios from 'axios';
 import React, { FC, useContext, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { ToastContainer } from 'react-toastify';
+import { error, errorData } from '../../errors';
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
 
@@ -22,13 +21,9 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
 
   const { setId, setWahine, setFirstname } = useContext(CurrentUserContext);
 
-  function redirectHome() {
+  function redirectHome(): void {
     navigate('/');
   }
-
-  // Toast gestion d'erreur
-  const errorData = () => toast.warn('Email ou mot de passe incorrect');
-  const error = () => toast.error('Désolé, une erreur c&aposest produite.');
 
   const login = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,7 +50,6 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
         setActiveModal('__hiddenModal');
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 401) {
           errorData();
         } else {

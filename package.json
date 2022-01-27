@@ -29,6 +29,7 @@
     "react-toastify": "^8.1.0"
   },
   "devDependencies": {
+    "@types/node": "^17.0.12",
     "@types/react": "^17.0.14",
     "@types/react-datepicker": "^4.3.4",
     "@types/react-dom": "^17.0.9",

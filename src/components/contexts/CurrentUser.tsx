@@ -34,6 +34,8 @@ export const CurrentUserContextProvider: React.FC<Props> = ({ children }) => {
   const [sessionIdCreated, setSessionIdCreated] = useState<number>(0);
   const removeCookie = useCookies(['user_token'])[2];
 
+  console.log(wahine);
+
   const logout = (): void => {
     setId(0);
     setFirstname('');
