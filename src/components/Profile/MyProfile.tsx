@@ -49,7 +49,7 @@ const MyProfile = () => {
           .then((result) => result.data)
           .then((data) => setDepartments(data));
         axios
-          .get<ISurfStyle>(`http://localhost:3000/api/surfstyle/${data.id_surf_style}`)
+          .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
           .then((result) => result.data)
           .then((data) => setSurfStyles(data));
 
@@ -60,7 +60,7 @@ const MyProfile = () => {
       });
 
     axios
-      .get<ISurfSkill[]>('http://localhost:3000/api/surfskill')
+      .get<ISurfSkill[]>('http://localhost:3000/api/surfskills')
       .then((result) => result.data)
       .then((data) => setSurfSkillToAdd(data));
 
