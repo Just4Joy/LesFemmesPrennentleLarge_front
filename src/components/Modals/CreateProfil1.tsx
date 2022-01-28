@@ -6,6 +6,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { error, errorValidation, unauthorized, userNotFound } from '../../errors';
 
 import womansurfing from '../../../img/womansurfing.png';
+import ICity from '../../interfaces/ICity';
 import IDepartment from '../../interfaces/IDepartment';
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
@@ -21,13 +22,24 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
   const [id_department, setId_departement] = useState<IUser['id_department']>();
   const [favorite_spot, setFavorite_spot] = useState<IUser['favorite_spot']>('');
   const [departments, setDepartments] = useState<IDepartment[]>([]);
-
+  const [allCities, setAllCities] = useState<ICity[]>([]);
+  const [searchCity, setSearchCity] = useState('');
   useEffect(() => {
     axios
       .get<IDepartment[]>('http://localhost:3000/api/departments')
       .then((result) => result.data)
       .then((data) => setDepartments(data));
   }, []);
+
+  useEffect(() => {
+    axios
+      .get<ICity[]>(`https://geo.api.gouv.fr/communes?codePostal=${searchCity}`)
+
+      .then((res) => res.data)
+      .then((data) => {
+        setAllCities(data);
+      });
+  }, [searchCity]);
 
   const updateProfile = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
@@ -122,27 +134,57 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
           }}
         />
 
-        <input
-          className="createProfil1__container__ville"
-          placeholder="ville"
-          onChange={(e: React.FormEvent<HTMLInputElement>) => {
-            setCity(e.currentTarget.value);
-          }}></input>
-        <select
-          id="region-select"
-          className="createProfil1__container__region"
-          onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
-            setId_departement(parseInt(e.currentTarget.value, 10));
-          }}>
-          <option value="">régions où tu surfes</option>
-          {departments &&
-            departments.map((department) => (
-              <option key={department.id_department} value={department.id_department}>
-                {department.department_name}
-              </option>
-            ))}
-        </select>
+        <div>
+          <input
+            className="createProfil1__container__infos__zipcode"
+            type="text"
+            list="city"
+            placeholder="Entrez votre code postal"
+            value={searchCity}
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setSearchCity(e.currentTarget.value)
+            }
+          />
+          {searchCity.length < 5 || searchCity.length > 5 ? (
+            ''
+          ) : (
+            <>
+              <h5 className="createProfil1__container__infos__selectVille">
+                Selectionne ta ville
+              </h5>
+              <select
+                className="createProfil1__container__infos__ville"
+                name="city"
+                id="selectCity"
+                onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
+                  setCity(e.currentTarget.value);
+                }}>
+                {allCities.map((city, index) => {
+                  return (
+                    <option key={index} value={city.nom}>
+                      {city.nom}
+                    </option>
+                  );
+                })}
+              </select>
+            </>
+          )}
 
+          <select
+            id="region-select"
+            className="createProfil1__container__region"
+            onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
+              setId_departement(parseInt(e.currentTarget.value, 10));
+            }}>
+            <option value="">régions où tu surfes</option>
+            {departments &&
+              departments.map((department) => (
+                <option key={department.id_department} value={department.id_department}>
+                  {department.department_name}
+                </option>
+              ))}
+          </select>
+        </div>
         <input
           className="createProfil1__container__spot"
           placeholder="ton spot préféré"

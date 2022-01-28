@@ -25,7 +25,7 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
 
   useEffect(() => {
     axios
-      .get<ISurfSkill[]>('http://lfpll-back.herokuapp.com/api/surfskills')
+      .get<ISurfSkill[]>('http://lfpll-back.herokuapp.com/api/surfskill')
       .then((result) => result.data)
       .then((data) => setSurfSkills(data));
     axios
