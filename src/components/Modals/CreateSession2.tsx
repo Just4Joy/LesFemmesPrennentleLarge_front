@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
+import { error } from '../../errors';
 import IWeather from '../../interfaces/IWeather';
 import CurrentSessionContext from '../contexts/CurrentSession';
 type Props = {
@@ -21,7 +22,10 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
     axios
       .get<IWeather[]>('http://localhost:3000/api/weather')
       .then((result) => result.data)
-      .then((data) => setWeather(data));
+      .then((data) => setWeather(data))
+      .catch(() => {
+        error();
+      });
   }, []);
 
   function addWeather() {
@@ -43,7 +47,9 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
           },
         );
       }),
-    );
+    ).catch(() => {
+      error();
+    });
     setActiveModal('recap');
   }
 

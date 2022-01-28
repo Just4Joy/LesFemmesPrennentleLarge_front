@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
+import { error } from '../../errors';
 import IDepartment from '../../interfaces/IDepartment';
 import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
@@ -37,26 +38,21 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
     axios
       .get<IDepartment[]>('http://localhost:3000/api/departments')
       .then((result) => result.data)
-      .then((data) => setDepartements(data));
+      .then((data) => setDepartements(data))
+      .catch(() => {
+        error();
+      });
 
     axios
       .get<ISurfStyle[]>('http://localhost:3000/api/surfstyles')
       .then((result) => result.data)
-      .then((data) => setSurfStyles(data));
+      .then((data) => setSurfStyles(data))
+      .catch(() => {
+        error();
+      });
   }, []);
 
   const createSession = (id: number) => {
-    console.log({
-      name,
-      date: new Date(selectedDate),
-      spot_name,
-      address,
-      nb_hiki_max,
-      id_department,
-      id_surf_style,
-      carpool: carpool,
-      id_user: id,
-    });
     axios
       .post<ISession>(
         'http://localhost:3000/api/sessions/',
@@ -81,9 +77,11 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
       )
       .then((res) => res.data)
       .then((data) => {
-        console.log(data);
         setId_session(data.id_session);
         setActiveModal('create_session2');
+      })
+      .catch(() => {
+        error();
       });
   };
 

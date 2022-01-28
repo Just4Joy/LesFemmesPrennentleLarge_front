@@ -5,6 +5,7 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
 import womansurfing from '../../../img/womansurfing.png';
+import { error, errorValidation, unauthorized, userNotFound } from '../../errors';
 import ICity from '../../interfaces/ICity';
 import IDepartment from '../../interfaces/IDepartment';
 import IUser from '../../interfaces/IUser';
@@ -27,8 +28,12 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
     axios
       .get<IDepartment[]>('http://localhost:3000/api/departments')
       .then((result) => result.data)
-      .then((data) => setDepartments(data));
+      .then((data) => setDepartments(data))
+      .catch(() => {
+        error();
+      });
   }, []);
+
   useEffect(() => {
     axios
       .get<ICity[]>(`https://geo.api.gouv.fr/communes?codePostal=${searchCity}`)
@@ -36,9 +41,14 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
       .then((res) => res.data)
       .then((data) => {
         setAllCities(data);
+      })
+      .catch(() => {
+        error();
       });
   }, [searchCity]);
-  const updateProfile = () => {
+
+  const updateProfile = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
     axios
       .put(
         `http://localhost:3000/api/users/${id}`,
@@ -56,8 +66,24 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
           withCredentials: true,
         },
       )
-      .then((response) => console.log(response));
+      .then(() => {
+        setActiveModal('complete_profil2');
+      })
+
+      .catch((err) => {
+        console.log(err);
+        if (err.response.status === 401) {
+          unauthorized();
+        } else if (err.response.status === 422) {
+          errorValidation();
+        } else if (err.response.status === 404) {
+          userNotFound();
+        } else {
+          error();
+        }
+      });
   };
+
   const onSuccess = (res: any) => {
     console.log(res.url);
     axios.put(
@@ -74,6 +100,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
       },
     );
   };
+
   return (
     <div className="createProfil1">
       <div className="createProfil1__title">
@@ -173,10 +200,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
 
         <button
           className="createProfil1__next createProfil1__container__fullRow"
-          onClick={() => {
-            updateProfile();
-            setActiveModal('complete_profil2');
-          }}>
+          onClick={(event: React.MouseEvent<HTMLElement>) => updateProfile(event)}>
           suivant
         </button>
       </form>

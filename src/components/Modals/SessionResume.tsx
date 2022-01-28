@@ -3,6 +3,7 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
 
+import { error, userNotFound } from '../../errors';
 import IDepartment from '../../interfaces/IDepartment';
 import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
@@ -29,26 +30,50 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
         axios
           .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
           .then((result) => result.data)
-          .then((data) => setSurfStyle(data));
+          .then((data) => setSurfStyle(data))
+          .catch(() => {
+            error();
+          });
         axios
           .get<IDepartment>(`http://localhost:3000/api/departments/${data.id_department}`)
           .then((result) => result.data)
-          .then((data) => setDepartment(data));
+          .then((data) => setDepartment(data))
+          .catch(() => {
+            error();
+          });
+      })
+      .catch(() => {
+        error();
       });
     axios
       .get<IWeather[]>(`http://localhost:3000/api/sessions/${id_sessionCreated}/weather/`)
       .then((result) => result.data)
-      .then((data) => setWeather(data));
+      .then((data) => setWeather(data))
+      .catch(() => {
+        error();
+      });
   }, []);
 
   const deleteSession = () => {
-    axios.delete<ISession>(`http://localhost:3000/api/sessions/${id_sessionCreated}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      withCredentials: true,
-    });
+    axios
+      .delete<ISession>(`http://localhost:3000/api/sessions/600`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+        setActiveModal('');
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+          userNotFound();
+        } else {
+          error();
+        }
+      });
   };
 
   return (
@@ -102,7 +127,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
             className="sessionResume__button__cancel"
             role="presentation"
             onClick={() => {
-              deleteSession(), setActiveModal('');
+              deleteSession();
             }}>
             Annuler
           </h4>

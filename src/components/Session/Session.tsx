@@ -41,12 +41,10 @@ const Session: FC<Props> = ({ setActiveModal }) => {
       (user) => user.id_user == id,
     );
     subscribe ? setHasSubscribe(true) : setHasSubscribe(false);
-    console.log(subscribe);
   };
 
   // Premier UseEffect
   useEffect(() => {
-    console.log('premier');
     axios
       .get<ISession>(`http://localhost:3000/api/sessions/${id_session}`)
       .then((result) => result.data)
@@ -81,7 +79,6 @@ const Session: FC<Props> = ({ setActiveModal }) => {
   // Second useEffect: rejoindre/désinscription session & chargement des users inscrite
   useEffect(() => {
     if (wantSubscribe) {
-      console.log('second subscribe');
       axios
         .post<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users/${id}`, {
           method: 'POST',
@@ -96,7 +93,6 @@ const Session: FC<Props> = ({ setActiveModal }) => {
         });
     }
     if (wantUnsubscribe) {
-      console.log('second unsubscribe');
       axios
         .delete<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users/${id}`, {
           method: 'DELETE',
@@ -112,7 +108,6 @@ const Session: FC<Props> = ({ setActiveModal }) => {
     }
   }, [wantSubscribe, wantUnsubscribe]);
 
-  console.log(wantSubscribe);
   // console.log(subscribers);
 
   return (
@@ -196,14 +191,11 @@ const Session: FC<Props> = ({ setActiveModal }) => {
         <h3>Hikis de la session</h3>
         <div className="onesession__group__hikis">
           {subscribers &&
-            subscribers
-              .filter((user) => user.wahine)
-              // .slice(first, second)
-              .map((user) => {
-                return (
-                  <Hiki {...user} setActiveModal={setActiveModal} key={user.id_user} />
-                );
-              })}
+            subscribers.map((user) => {
+              return (
+                <Hiki {...user} setActiveModal={setActiveModal} key={user.id_user} />
+              );
+            })}
         </div>
       </div>
     </div>
