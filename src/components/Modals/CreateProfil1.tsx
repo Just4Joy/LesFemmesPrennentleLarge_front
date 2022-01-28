@@ -28,7 +28,10 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
     axios
       .get<IDepartment[]>('http://localhost:3000/api/departments')
       .then((result) => result.data)
-      .then((data) => setDepartments(data));
+      .then((data) => setDepartments(data))
+      .catch((err) => {
+        error();
+      });
   }, []);
 
   useEffect(() => {
@@ -38,6 +41,9 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
       .then((res) => res.data)
       .then((data) => {
         setAllCities(data);
+      })
+      .catch((err) => {
+        error();
       });
   }, [searchCity]);
 

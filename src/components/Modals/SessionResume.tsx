@@ -68,7 +68,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
         setActiveModal('');
       })
       .catch((err) => {
-        if (err === 404) {
+        if (err.response.status === 404) {
           userNotFound();
         } else {
           error();
