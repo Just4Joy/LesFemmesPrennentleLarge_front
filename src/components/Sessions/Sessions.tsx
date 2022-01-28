@@ -206,51 +206,38 @@ const Sessions = () => {
       <h1 className="sessions__h1">Trouver une session</h1>
       {/* Select Region */}
       <div className="sessions__selectors">
-        <select className="sessions__selectors__region" name="region" id="region">
-          <option
-            value={parseInt('0')}
-            onClick={(e) => {
-              setSelectedRegion(Number(e.currentTarget.value));
-              setSelectedDate(undefined);
-              setPagination(0);
-            }}>
-            Régions
-          </option>
+        <select
+          className="sessions__selectors__region"
+          name="region"
+          id="region"
+          onClick={(e) => {
+            setSelectedRegion(Number(e.currentTarget.value));
+            setSelectedDate(undefined);
+            setPagination(0);
+          }}>
+          <option value={parseInt('0')}>Régions</option>
           {allRegions.map((region) => {
             return (
-              <option
-                value={region.id_region}
-                key={region.id_region}
-                onClick={(e) => {
-                  setSelectedRegion(Number(e.currentTarget.value));
-                  setSelectedDate(undefined);
-                  setPagination(0);
-                }}>
+              <option value={region.id_region} key={region.id_region}>
                 {region.region_name}
               </option>
             );
           })}
         </select>
         {/* Select date */}
-        <select className="sessions__selectors__date" name="date" id="date">
-          <option
-            value="0"
-            onClick={(e) => {
-              setSelectedDate(String(e.currentTarget.value));
-              setPagination(0);
-            }}>
-            Dates
-          </option>
+        <select
+          className="sessions__selectors__date"
+          name="date"
+          id="date"
+          onClick={(e) => {
+            setSelectedDate(String(e.currentTarget.value));
+            setPagination(0);
+          }}>
+          <option value="0">Dates</option>
           {allDates &&
             allDates.map((date, index) => {
               return (
-                <option
-                  value={date.date}
-                  key={index}
-                  onClick={(e) => {
-                    setSelectedDate(String(e.currentTarget.value));
-                    setPagination(0);
-                  }}>
+                <option value={date.date} key={index}>
                   {date.nice_date}
                 </option>
               );

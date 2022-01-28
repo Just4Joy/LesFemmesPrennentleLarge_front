@@ -191,14 +191,11 @@ const Session: FC<Props> = ({ setActiveModal }) => {
         <h3>Hikis de la session</h3>
         <div className="onesession__group__hikis">
           {subscribers &&
-            subscribers
-              // .filter((user) => user.wahine)
-              // .slice(first, second)
-              .map((user) => {
-                return (
-                  <Hiki {...user} setActiveModal={setActiveModal} key={user.id_user} />
-                );
-              })}
+            subscribers.map((user) => {
+              return (
+                <Hiki {...user} setActiveModal={setActiveModal} key={user.id_user} />
+              );
+            })}
         </div>
       </div>
     </div>
