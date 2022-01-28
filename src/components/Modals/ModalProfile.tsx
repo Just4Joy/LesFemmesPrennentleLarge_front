@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
 import wahineImg from '../../../img/wahine.svg';
+import { error } from '../../errors';
 import IDepartment from '../../interfaces/IDepartment';
 import ISurfSkill from '../../interfaces/ISurfskills';
 import ISurfStyle from '../../interfaces/ISurfStyle';
@@ -27,17 +28,29 @@ const ModalProfile = () => {
         axios
           .get<IDepartment>(`http://localhost:3000/api/departments/${data.id_department}`)
           .then((result) => result.data)
-          .then((data) => setDepartments(data));
+          .then((data) => setDepartments(data))
+          .catch((err) => {
+            error();
+          });
         // Get Surf Style
         axios
           .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
           .then((result) => result.data)
-          .then((data) => setSurfStyles(data));
+          .then((data) => setSurfStyles(data))
+          .catch((err) => {
+            error();
+          });
         //Get Surf Skill
         axios
           .get<ISurfSkill[]>(`http://localhost:3000/api/users/${data.id_user}/surfskills`)
           .then((result) => result.data)
-          .then((data) => setSurfSkills(data));
+          .then((data) => setSurfSkills(data))
+          .catch((err) => {
+            error();
+          });
+      })
+      .catch((err) => {
+        error();
       });
   }, []);
   console.log(surfSkills);

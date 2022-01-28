@@ -3,6 +3,7 @@ import axios from 'axios';
 import { IKContext, IKUpload } from 'imagekitio-react';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
+import { error, errorValidation, unauthorized, userNotFound } from '../../errors';
 
 import womansurfing from '../../../img/womansurfing.png';
 import ICity from '../../interfaces/ICity';
@@ -29,6 +30,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
       .then((result) => result.data)
       .then((data) => setDepartments(data));
   }, []);
+
   useEffect(() => {
     axios
       .get<ICity[]>(`https://geo.api.gouv.fr/communes?codePostal=${searchCity}`)
@@ -38,7 +40,9 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
         setAllCities(data);
       });
   }, [searchCity]);
-  const updateProfile = () => {
+
+  const updateProfile = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
     axios
       .put(
         `http://localhost:3000/api/users/${id}`,
@@ -56,8 +60,24 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
           withCredentials: true,
         },
       )
-      .then((response) => console.log(response));
+      .then((response) => {
+        setActiveModal('complete_profil2');
+      })
+
+      .catch((err) => {
+        console.log(err);
+        if (err.response.status === 401) {
+          unauthorized();
+        } else if (err.response.status === 422) {
+          errorValidation();
+        } else if (err.response.status === 404) {
+          userNotFound();
+        } else {
+          error();
+        }
+      });
   };
+
   const onSuccess = (res: any) => {
     console.log(res.url);
     axios.put(
@@ -74,6 +94,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
       },
     );
   };
+
   return (
     <div className="createProfil1">
       <div className="createProfil1__title">
@@ -173,10 +194,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
 
         <button
           className="createProfil1__next createProfil1__container__fullRow"
-          onClick={() => {
-            updateProfile();
-            setActiveModal('complete_profil2');
-          }}>
+          onClick={(event: React.MouseEvent<HTMLElement>) => updateProfile(event)}>
           suivant
         </button>
       </form>

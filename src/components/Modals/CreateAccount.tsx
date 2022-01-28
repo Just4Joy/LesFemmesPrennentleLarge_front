@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import { error, errorValidation, emailExist } from '../../errors';
 
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
@@ -11,15 +12,14 @@ type Props = {
 
 const CreateAccount: FC<Props> = ({ setActiveModal }) => {
   const { setId, setWahine, setFirstname } = useContext(CurrentUserContext);
-  const [errorMessage, setErrorMessage] = useState<string>();
-  console.log(errorMessage);
+
   const [firstname, setfirstname] = useState<string>('');
   const [lastname, setlastname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [password2, setPassword2] = useState<string>('');
-  console.log(password2);
+
   const createUserAndConnect = () => {
     axios
       .post<IUser>(
@@ -63,13 +63,16 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
       })
       .catch((err) => {
         console.log(err);
-        if (err.response.status === 401) {
-          setErrorMessage('Email ou mot de passe incorrect');
+        if (err.response.status === 422) {
+          errorValidation();
+        } else if (err.response.status === 400) {
+          emailExist();
         } else {
-          setErrorMessage(err);
+          error();
         }
       });
   };
+
   return (
     <div className="CreateAccount">
       <div className="CreateAccount__title">

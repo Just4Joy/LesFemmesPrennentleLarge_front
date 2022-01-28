@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { FC, useContext, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-
+import { ToastContainer } from 'react-toastify';
+import { error, errorData } from '../../errors';
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
 
@@ -20,7 +21,7 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
 
   const { setId, setWahine, setFirstname } = useContext(CurrentUserContext);
 
-  function redirectHome() {
+  function redirectHome(): void {
     navigate('/');
   }
 
@@ -51,14 +52,15 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
       .catch((err) => {
         console.log(err);
         if (err.response.status === 401) {
-          setErrorMessage('Email ou mot de passe incorrect');
+          errorData();
         } else {
-          setErrorMessage(err);
+          error();
         }
       });
   };
   return (
     <div className="connect">
+      <ToastContainer position="top-center" />
       <div>
         <div className="connect__title">
           <h2 className="connect__title__h2">Se connecter</h2>
@@ -105,7 +107,6 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
             Se connecter
           </button>
         </div>
-        {errorMessage && <h6 className="connect__errors">{errorMessage}</h6>}
       </div>
     </div>
   );

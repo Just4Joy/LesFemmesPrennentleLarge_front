@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { NavLink } from 'react-router-dom';
+import { error, errorValidation, unauthorized, userNotFound } from '../../errors';
 
 import ISurfSkill from '../../interfaces/ISurfskills';
 import ISurfStyle from '../../interfaces/ISurfStyle';
@@ -57,7 +58,22 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
           withCredentials: true,
         },
       )
-      .then((response) => console.log(response));
+      .then((response) => {
+        console.log(response);
+        setActiveModal('');
+        UpdateProfile();
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          unauthorized();
+        } else if (err.response.status === 422) {
+          errorValidation();
+        } else if (err.response.status === 404) {
+          userNotFound();
+        } else {
+          error();
+        }
+      });
   };
 
   const UpdateProfile = () => {
@@ -75,7 +91,11 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
           },
         );
       }),
-    ).then((response) => console.log(response));
+    )
+      .then((response) => console.log(response))
+      .catch((err) => {
+        error();
+      });
   };
 
   return (
@@ -126,8 +146,6 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
               className="createProfil2__button__validate"
               to="/profile"
               onClick={() => {
-                UpdateProfile();
-                setActiveModal('');
                 updateSurfStyleProfile();
               }}>
               Valider mon profil

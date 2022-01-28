@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
+import { error, userNotFound, errorValidation, unauthorized } from '../../errors';
 
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
@@ -17,7 +18,10 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
     axios
       .get<IUser>(`http://localhost:3000/api/users/${id}`)
       .then((result) => result.data)
-      .then((data) => setUser(data));
+      .then((data) => setUser(data))
+      .catch((err) => {
+        error();
+      });
   }, [id]);
 
   const updateWahineStatus = () => {
@@ -33,8 +37,21 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
           withCredentials: true,
         },
       )
+
       .then(() => {
-        setActiveModal('wahineRegistrated'), setWahine(1);
+        setActiveModal('wahineRegistrated');
+        setWahine(1);
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          unauthorized();
+        } else if (err.response.status === 422) {
+          errorValidation();
+        } else if (err.response.status === 404) {
+          userNotFound();
+        } else {
+          error();
+        }
       });
   };
 
