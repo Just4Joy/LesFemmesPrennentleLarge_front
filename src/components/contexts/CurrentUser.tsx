@@ -6,8 +6,8 @@ type UserContent = {
   setId: React.Dispatch<React.SetStateAction<number>>;
   firstname: string;
   setFirstname: React.Dispatch<React.SetStateAction<string>>;
-  wahine: boolean;
-  setWahine: React.Dispatch<React.SetStateAction<boolean>>;
+  wahine: number;
+  setWahine: React.Dispatch<React.SetStateAction<number>>;
   logout: () => void;
   sessionIdCreated: number;
   setSessionIdCreated: React.Dispatch<React.SetStateAction<number>>;
@@ -21,7 +21,7 @@ const CurrentUserContext = createContext<UserContent>({
   firstname: '',
   setFirstname: () => {},
   logout: () => {},
-  wahine: false,
+  wahine: 0,
   setWahine: () => {},
   sessionIdCreated: 0,
   setSessionIdCreated: () => {},
@@ -30,7 +30,7 @@ const CurrentUserContext = createContext<UserContent>({
 export const CurrentUserContextProvider: React.FC<Props> = ({ children }) => {
   const [id, setId] = useState<number>(0);
   const [firstname, setFirstname] = useState<string>('');
-  const [wahine, setWahine] = useState<boolean>(false);
+  const [wahine, setWahine] = useState<number>(0);
   const [sessionIdCreated, setSessionIdCreated] = useState<number>(0);
   const removeCookie = useCookies(['user_token'])[2];
 
@@ -39,7 +39,7 @@ export const CurrentUserContextProvider: React.FC<Props> = ({ children }) => {
   const logout = (): void => {
     setId(0);
     setFirstname('');
-    setWahine(false);
+    setWahine(0);
     setSessionIdCreated(0);
     removeCookie('user_token');
   };

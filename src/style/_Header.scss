@@ -8,18 +8,52 @@
     font-family: $Main-font;
     display: flex;
     justify-content: space-around;
-    width: 35vw;
+    width: 40vw;
     &__profile {
+      &__dropdown {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        padding: 0.5vh;
+        &__drop {
+          display: flex;
+          cursor: pointer;
+          &__arrow {
+            margin-left: 0.5vw;
+          }
+        }
+        &__links {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          margin-top: 1vh;
+          height: 5vh;
+          &__link:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+      &__dropdown2 {
+        padding: 0.5vh 1vw;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        border: 1px solid $Primary-dark-2;
+        border-radius: 10px;
+      }
     }
-    &__search {
-    }
-    &__session {
+    &__session:hover {
+      text-decoration: underline;
     }
     &__connection {
       &__login {
+        cursor: pointer;
       }
       &__logout {
         cursor: pointer;
+      }
+      &__logout:hover {
+        text-decoration: underline;
       }
     }
   }

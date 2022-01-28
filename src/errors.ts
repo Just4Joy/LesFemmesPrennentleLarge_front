@@ -14,4 +14,11 @@ const emailExist = (): void => {
   toast.warn(`L'email est déjà utilisé.`);
 };
 
-export { error, errorData, errorValidation, emailExist };
+const unauthorized = (): void => {
+  toast.warn('Non autorisé. Veuillez vous connecter.');
+};
+const userNotFound = (): void => {
+  toast.error(`Aucuns utilisateurs correspondants.`);
+};
+
+export { error, errorData, errorValidation, emailExist, unauthorized, userNotFound };

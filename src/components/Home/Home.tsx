@@ -1,14 +1,16 @@
 import axios from 'axios';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
+import { error } from '../../errors';
 
 import IDepartment from '../../interfaces/IDepartment';
 import IRegion from '../../interfaces/IRegion';
 import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
+import CurrentUserContext from '../contexts/CurrentUser';
 import NextSession from '../NextSession';
 import Wahine from '../Wahine';
 import BecomeWahine from './BecomeWahine';
@@ -25,7 +27,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   // const [allWahine, setAllWahine] = useState<IUser[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
-
+  const { id, wahine } = useContext(CurrentUserContext);
   const first: number = 0;
   const second: number = 5;
 
@@ -48,7 +50,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
     };
     const getAllSurfstyles = async () => {
       const surfstyles = await axios.get<ISurfStyle[]>(
-        'http://localhost:3000/api/surfstyle',
+        'http://localhost:3000/api/surfstyles',
       );
       return surfstyles.data;
     };
@@ -58,46 +60,53 @@ const Home: FC<Props> = ({ setActiveModal }) => {
       getAllRegions(),
       getAllDepartments(),
       getAllSurfstyles(),
-    ]).then(([sessions, regions, departments, surfstyles]) => {
-      setAllRegions(regions);
+    ])
+      .then(([sessions, regions, departments, surfstyles]) => {
+        setAllRegions(regions);
 
-      // Construit le tableau d'objet mesSessions
-      let mesSessions: MySession[] = [];
-      let maSession: MySession;
-      sessions.map((session) => {
-        let id_region =
-          departments.find(
-            (departement) => departement.id_department == session.id_department,
-          )?.id_region || 0;
-        maSession = {
-          id_session: session.id_session,
-          name: session.name,
-          nice_date: session.nice_date,
-          nice_time: session.nice_time,
-          spot_name: session.spot_name,
-          address: session.address,
-          nb_hiki_max: session.nb_hiki_max,
-          carpool: session.carpool,
-          date: session.date,
-          id_surf_style: session.id_surf_style,
-          id_department: session.id_department,
-          id_user: session.id_user,
-          id_region: id_region,
-          name_session: surfstyles.find(
-            (surfstyle) => surfstyle.id_surf_style == session.id_surf_style,
-          )?.name_session,
-          region_name:
-            regions.find((region) => region.id_region == id_region)?.region_name || '',
-        };
-        mesSessions.push(maSession);
+        // Construit le tableau d'objet mesSessions
+        let mesSessions: MySession[] = [];
+        let maSession: MySession;
+        sessions.map((session) => {
+          let id_region =
+            departments.find(
+              (departement) => departement.id_department == session.id_department,
+            )?.id_region || 0;
+          maSession = {
+            id_session: session.id_session,
+            name: session.name,
+            nice_date: session.nice_date,
+            nice_time: session.nice_time,
+            spot_name: session.spot_name,
+            address: session.address,
+            nb_hiki_max: session.nb_hiki_max,
+            carpool: session.carpool,
+            date: session.date,
+            id_surf_style: session.id_surf_style,
+            id_department: session.id_department,
+            id_user: session.id_user,
+            id_region: id_region,
+            name_session: surfstyles.find(
+              (surfstyle) => surfstyle.id_surf_style == session.id_surf_style,
+            )?.name_session,
+            region_name:
+              regions.find((region) => region.id_region == id_region)?.region_name || '',
+          };
+          mesSessions.push(maSession);
+        });
+        setMySessions(mesSessions);
+      })
+      .catch((err) => {
+        error();
       });
-      setMySessions(mesSessions);
-    });
 
     axios
       .get<IUser[]>('http://localhost:3000/api/users')
       .then((result) => result.data)
-      .then((data) => setUsers(data));
+      .then((data) => setUsers(data))
+      .catch((err) => {
+        error();
+      });
   }, []);
   return (
     <div className="home">
@@ -154,13 +163,9 @@ const Home: FC<Props> = ({ setActiveModal }) => {
                 );
               })}
         </div>
-        <h5 className="home__wahines__link">
-          Toutes les wahines <BsBoxArrowInUpRight />
-        </h5>
       </div>
-
+      {id && wahine === 1 ? '' : <BecomeWahine setActiveModal={setActiveModal} />}
       {/* Section : Devenir wahine */}
-      <BecomeWahine setActiveModal={setActiveModal} />
     </div>
   );
 };

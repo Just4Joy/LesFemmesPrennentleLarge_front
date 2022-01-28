@@ -21,7 +21,7 @@ const Hiki: FC<Props> = ({
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
   useEffect(() => {
     axios
-      .get<ISurfStyle>(`http://localhost:3000/api/surfstyle/${id_surf_style}`)
+      .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${id_surf_style}`)
       .then((result) => result.data)
       .then((data) => setSurfStyles(data));
   }, []);

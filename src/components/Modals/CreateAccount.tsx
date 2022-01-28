@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction, useContext, useState } from 'react';
-import { ToastContainer } from 'react-toastify';
 import { error, errorValidation, emailExist } from '../../errors';
 
 import IUser from '../../interfaces/IUser';
@@ -59,10 +58,11 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
       .then((data) => {
         setId(data.id_user);
         setFirstname(data.firstname);
-        setWahine(data.wahine === 1);
+        setWahine(data.wahine === 1 ? 1 : 0);
         setActiveModal('complete_profil1');
       })
       .catch((err) => {
+        console.log(err);
         if (err.response.status === 422) {
           errorValidation();
         } else if (err.response.status === 400) {
@@ -75,7 +75,6 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
 
   return (
     <div className="CreateAccount">
-      <ToastContainer position="top-center" />
       <div className="CreateAccount__title">
         <p className="CreateAccount__title__p">Créer mon compte</p>
       </div>

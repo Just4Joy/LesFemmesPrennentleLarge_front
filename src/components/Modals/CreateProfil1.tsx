@@ -3,8 +3,7 @@ import axios from 'axios';
 import { IKContext, IKUpload } from 'imagekitio-react';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { error, errorValidation, unauthorized, userNotFound } from '../../errors';
 
 import womansurfing from '../../../img/womansurfing.png';
 import IDepartment from '../../interfaces/IDepartment';
@@ -22,14 +21,6 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
   const [id_department, setId_departement] = useState<IUser['id_department']>();
   const [favorite_spot, setFavorite_spot] = useState<IUser['favorite_spot']>('');
   const [departments, setDepartments] = useState<IDepartment[]>([]);
-  const [errors, setErrors] = useState();
-
-  console.log(errors);
-  // Toast gestion d'erreur
-  const unauthorized = () => toast.warn('Non autorisé. Veuillez vous connecter.');
-  const userNotFound = () => toast.error(`Aucuns utilisateurs correspondants.`);
-  const error = () => toast.error(`Désolé, une erreur c'est produite.`);
-  const errorValidation = () => toast.warn('Données invalides.');
 
   useEffect(() => {
     axios
@@ -38,10 +29,11 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
       .then((data) => setDepartments(data));
   }, []);
 
-  const updateProfile = () => {
+  const updateProfile = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
     axios
       .put(
-        `http://localhost:3000/api/users/500`,
+        `http://localhost:3000/api/users/${id}`,
         {
           desc,
           city,
@@ -56,10 +48,12 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
           withCredentials: true,
         },
       )
-      .then((response) => console.log(response))
+      .then((response) => {
+        setActiveModal('complete_profil2');
+      })
 
       .catch((err) => {
-        setErrors(err);
+        console.log(err);
         if (err.response.status === 401) {
           unauthorized();
         } else if (err.response.status === 422) {
@@ -91,7 +85,6 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
 
   return (
     <div className="createProfil1">
-      <ToastContainer position="top-center" />
       <div className="createProfil1__title">
         <h2>Compléter son profil 1/2</h2>
         <h2 role="presentation" onClick={() => setActiveModal('complete_profil2')}>
@@ -159,10 +152,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
 
         <button
           className="createProfil1__next createProfil1__container__fullRow"
-          onClick={() => {
-            updateProfile();
-            // setActiveModal('complete_profil2');
-          }}>
+          onClick={(event: React.MouseEvent<HTMLElement>) => updateProfile(event)}>
           suivant
         </button>
       </form>

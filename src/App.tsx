@@ -2,6 +2,8 @@ import './App.scss';
 
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -31,6 +33,7 @@ function App() {
 
   return (
     <div className="App">
+      <ToastContainer position="top-center" />
       <Router>
         <div className="App__page">
           <Header setActiveModal={setActiveModal} />

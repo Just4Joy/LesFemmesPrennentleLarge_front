@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
+import { error, userNotFound, errorValidation, unauthorized } from '../../errors';
 
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
@@ -10,17 +11,46 @@ type Props = {
 };
 
 const ModalWahine: FC<Props> = ({ setActiveModal }) => {
-  const { id, wahine } = useContext(CurrentUserContext);
+  const { id } = useContext(CurrentUserContext);
   const [user, setUser] = useState<IUser>();
 
   useEffect(() => {
     axios
       .get<IUser>(`http://localhost:3000/api/users/${id}`)
       .then((result) => result.data)
-      .then((data) => setUser(data));
+      .then((data) => setUser(data))
+      .catch((err) => {
+        error();
+      });
   }, [id]);
-  console.log(id);
-  console.log(wahine);
+
+  const updateWahineStatus = () => {
+    axios
+      .put(
+        `http://localhost:3000/api/users/${id}`,
+        { wahine: false },
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        },
+      )
+      .then(() => setActiveModal('wahineRegistrated'))
+      .catch((err) => {
+        if (err.response.status === 401) {
+          unauthorized();
+        } else if (err.response.status === 422) {
+          errorValidation();
+        } else if (err.response.status === 404) {
+          userNotFound();
+        } else {
+          error();
+        }
+      });
+  };
+
   return (
     <div className="modalWahine">
       <div className="modalWahine__resume">
@@ -50,7 +80,9 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
       <div className="modalWahine__button">
         <button
           className="modalWahine__button__validate"
-          onClick={() => setActiveModal('wahineRegistrated')}>
+          onClick={() => {
+            updateWahineStatus();
+          }}>
           Devenir Wahine
         </button>
       </div>

@@ -45,11 +45,12 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
         setErrorMessage('');
         setId(data.id_user);
         setFirstname(data.firstname);
-        setWahine(data.wahine === 1);
+        setWahine(data.wahine === 1 ? 1 : 0);
         redirectHome();
         setActiveModal('__hiddenModal');
       })
       .catch((err) => {
+        console.log(err);
         if (err.response.status === 401) {
           errorData();
         } else {
