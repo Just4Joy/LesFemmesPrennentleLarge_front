@@ -1,15 +1,14 @@
 import axios from 'axios';
-import dateFormat from 'dateformat';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
-import { error } from '../../errors';
 
+import { error } from '../../errors';
 import IDepartment from '../../interfaces/IDepartment';
 import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
+import { convertDateToISO } from '../../utils/functions';
 import CurrentSessionContext from '../contexts/CurrentSession';
 import CurrentUserContext from '../contexts/CurrentUser';
-import DatetimePicker from '../DatePicker';
 
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
@@ -22,18 +21,25 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
 
   const [name, setName] = useState<ISession['name']>();
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  console.log(
+    new Date(selectedDate).toLocaleDateString() +
+      ' ' +
+      new Date(selectedDate).toLocaleTimeString(),
+  );
   const [id_department, setId_department] = useState<ISession['id_department']>();
   const [address, setAddress] = useState<ISession['address']>();
   const [spot_name, setspot_name] = useState<ISession['spot_name']>();
   const [nb_hiki_max, setnb_hiki_max] = useState<ISession['nb_hiki_max']>();
   const [id_surf_style, setId_surf_style] = useState<ISession['id_surf_style']>();
   const [carpool, setCarpool] = useState<ISession['carpool']>();
+  console.log(new Date(Date.now()));
+  console.log(convertDateToISO(new Date(Date.now())));
   useEffect(() => {
     axios
       .get<IDepartment[]>('http://localhost:3000/api/departments')
       .then((result) => result.data)
       .then((data) => setDepartements(data))
-      .catch((err) => {
+      .catch(() => {
         error();
       });
 
@@ -41,7 +47,7 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
       .get<ISurfStyle[]>('http://localhost:3000/api/surfstyles')
       .then((result) => result.data)
       .then((data) => setSurfStyles(data))
-      .catch((err) => {
+      .catch(() => {
         error();
       });
   }, []);
@@ -52,7 +58,7 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
         'http://localhost:3000/api/sessions/',
         {
           name,
-          date: dateFormat(selectedDate, 'yyyy-MM-dd hh:mm:ss'),
+          date: selectedDate,
           spot_name,
           address,
           nb_hiki_max,
@@ -74,7 +80,7 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
         setId_session(data.id_session);
         setActiveModal('create_session2');
       })
-      .catch((err) => {
+      .catch(() => {
         error();
       });
   };
@@ -112,24 +118,28 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
                   </option>
                 ))}
             </select>
-
-            <DatetimePicker
-              selectedDate={selectedDate}
-              setSelectedDate={setSelectedDate}
+            <input
+              className="create_session__form__inputs__input"
+              type="datetime-local"
+              name="test"
+              id="test"
+              min={convertDateToISO(new Date(Date.now()))}
+              onChange={(e: any) => setSelectedDate(e.target.value)}
             />
-
             <input
               className="create_session__form__inputs__input"
               placeholder="adresse rdv*"
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
                 setAddress(e.currentTarget.value)
-              }></input>
+              }
+            />
             <input
               className="create_session__form__inputs__input"
               placeholder="spot*"
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
                 setspot_name(e.currentTarget.value)
-              }></input>
+              }
+            />
             <input
               className="create_session__form__inputs__input"
               placeholder="nbr hiki max"

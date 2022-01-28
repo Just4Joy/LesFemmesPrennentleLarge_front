@@ -1,5 +1,6 @@
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import { toast } from 'react-toastify';
 
 const errorData = (): void => {
   toast.warn('Email ou mot de passe incorrect');
@@ -21,4 +22,4 @@ const userNotFound = (): void => {
   toast.error(`Aucun utilisateur correspondant.`);
 };
 
-export { error, errorData, errorValidation, emailExist, unauthorized, userNotFound };
+export { emailExist, error, errorData, errorValidation, unauthorized, userNotFound };

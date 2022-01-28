@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
-import { error, userNotFound, errorValidation, unauthorized } from '../../errors';
 
+import { error, errorValidation, unauthorized, userNotFound } from '../../errors';
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
 
@@ -19,7 +19,7 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
       .get<IUser>(`http://localhost:3000/api/users/${id}`)
       .then((result) => result.data)
       .then((data) => setUser(data))
-      .catch((err) => {
+      .catch(() => {
         error();
       });
   }, [id]);

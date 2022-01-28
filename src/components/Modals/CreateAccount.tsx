@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction, useContext, useState } from 'react';
-import { error, errorValidation, emailExist } from '../../errors';
 
+import { emailExist, error, errorValidation } from '../../errors';
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
 
@@ -19,6 +19,7 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
   const [phone, setPhone] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [password2, setPassword2] = useState<string>('');
+  console.log(password2);
 
   const createUserAndConnect = () => {
     axios
