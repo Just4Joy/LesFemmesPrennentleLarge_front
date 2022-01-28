@@ -6,7 +6,7 @@ const errorData = (): void => {
   toast.warn('Email ou mot de passe incorrect');
 };
 const error = (): void => {
-  toast.error(`Désolé, une erreur c'est produite.`);
+  toast.error(`Désolé, une erreur s'est produite.`);
 };
 const errorValidation = (): void => {
   toast.warn('Données invalides.');
@@ -19,7 +19,7 @@ const unauthorized = (): void => {
   toast.warn('Non autorisé. Veuillez vous connecter.');
 };
 const userNotFound = (): void => {
-  toast.error(`Aucuns utilisateurs correspondants.`);
+  toast.error(`Aucun utilisateur correspondant.`);
 };
 
 export { emailExist, error, errorData, errorValidation, unauthorized, userNotFound };

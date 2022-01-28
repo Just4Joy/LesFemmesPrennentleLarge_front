@@ -48,7 +48,8 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
         );
       }),
     ).catch(() => {
-      error();
+      // console.log(err);
+      // error();
     });
     setActiveModal('recap');
   }

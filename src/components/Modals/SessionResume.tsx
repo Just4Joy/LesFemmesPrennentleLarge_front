@@ -55,8 +55,9 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
   }, []);
 
   const deleteSession = () => {
+    console.log(id_sessionCreated);
     axios
-      .delete<ISession>(`http://localhost:3000/api/sessions/600`, {
+      .delete<ISession>(`http://localhost:3000/api/sessions/${id_sessionCreated}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -64,7 +65,6 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
         setActiveModal('');
       })
       .catch((err) => {
