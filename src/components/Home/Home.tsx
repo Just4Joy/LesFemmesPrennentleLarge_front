@@ -3,8 +3,8 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { BsBoxArrowInUpRight } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
-import { error } from '../../errors';
 
+import { error } from '../../errors';
 import IDepartment from '../../interfaces/IDepartment';
 import IRegion from '../../interfaces/IRegion';
 import ISession from '../../interfaces/ISession';
@@ -96,7 +96,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
         });
         setMySessions(mesSessions);
       })
-      .catch((err) => {
+      .catch(() => {
         error();
       });
 
@@ -104,7 +104,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
       .get<IUser[]>('http://localhost:3000/api/users')
       .then((result) => result.data)
       .then((data) => setUsers(data))
-      .catch((err) => {
+      .catch(() => {
         error();
       });
   }, []);

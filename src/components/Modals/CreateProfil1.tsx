@@ -3,9 +3,9 @@ import axios from 'axios';
 import { IKContext, IKUpload } from 'imagekitio-react';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
-import { error, errorValidation, unauthorized, userNotFound } from '../../errors';
 
 import womansurfing from '../../../img/womansurfing.png';
+import { error, errorValidation, unauthorized, userNotFound } from '../../errors';
 import ICity from '../../interfaces/ICity';
 import IDepartment from '../../interfaces/IDepartment';
 import IUser from '../../interfaces/IUser';
@@ -29,7 +29,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
       .get<IDepartment[]>('http://localhost:3000/api/departments')
       .then((result) => result.data)
       .then((data) => setDepartments(data))
-      .catch((err) => {
+      .catch(() => {
         error();
       });
   }, []);
@@ -42,7 +42,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
       .then((data) => {
         setAllCities(data);
       })
-      .catch((err) => {
+      .catch(() => {
         error();
       });
   }, [searchCity]);
@@ -66,7 +66,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
           withCredentials: true,
         },
       )
-      .then((response) => {
+      .then(() => {
         setActiveModal('complete_profil2');
       })
 

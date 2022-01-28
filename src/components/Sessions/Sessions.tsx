@@ -48,7 +48,6 @@ const Sessions = () => {
     }
     setAllDates(niceDates);
   };
-
   // Les fonctions axios
   const getAllSessions = async () => {
     let basicUrl = `http://localhost:3000/api/sessions`;

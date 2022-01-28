@@ -3,6 +3,7 @@ import React, { FC, useContext, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+
 import { error, errorData } from '../../errors';
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
@@ -17,6 +18,7 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
   const [password, setPassword] = useState<string>('');
 
   const [errorMessage, setErrorMessage] = useState<string>();
+  console.log(errorMessage);
   const navigate: NavigateFunction = useNavigate();
 
   const { setId, setWahine, setFirstname } = useContext(CurrentUserContext);

@@ -29,7 +29,7 @@ const ModalProfile = () => {
           .get<IDepartment>(`http://localhost:3000/api/departments/${data.id_department}`)
           .then((result) => result.data)
           .then((data) => setDepartments(data))
-          .catch((err) => {
+          .catch(() => {
             error();
           });
         // Get Surf Style
@@ -37,7 +37,7 @@ const ModalProfile = () => {
           .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
           .then((result) => result.data)
           .then((data) => setSurfStyles(data))
-          .catch((err) => {
+          .catch(() => {
             error();
           });
         //Get Surf Skill
@@ -45,11 +45,11 @@ const ModalProfile = () => {
           .get<ISurfSkill[]>(`http://localhost:3000/api/users/${data.id_user}/surfskills`)
           .then((result) => result.data)
           .then((data) => setSurfSkills(data))
-          .catch((err) => {
+          .catch(() => {
             error();
           });
       })
-      .catch((err) => {
+      .catch(() => {
         error();
       });
   }, []);
