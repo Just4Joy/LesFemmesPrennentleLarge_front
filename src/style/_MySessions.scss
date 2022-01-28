@@ -2,23 +2,58 @@
   &__h1 {
     padding: 15vh 0 4vh 0;
   }
-  &__sessions {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+  &__hidden {
+    display: none;
   }
-  &__buttons {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-    gap: 3rem;
-    &__left {
-      font-size: 2em;
-      fill: $Primary-dark-2;
+  &__wahine {
+    padding-bottom: 4vh;
+    &__h3 {
+      padding: 0vh 0 4vh 0;
     }
-    &__right {
-      font-size: 2em;
-      fill: $Primary-dark-2;
+
+    &__sessions {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    &__buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+      gap: 3rem;
+      &__left {
+        font-size: 2em;
+        fill: $Primary-dark-2;
+      }
+      &__right {
+        font-size: 2em;
+        fill: $Primary-dark-2;
+      }
+    }
+  }
+  &__hiki {
+    &__h3 {
+      padding: 0vh 0 4vh 0;
+    }
+
+    &__sessions {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    &__buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+      gap: 3rem;
+      &__left {
+        font-size: 2em;
+        fill: $Primary-dark-2;
+      }
+      &__right {
+        font-size: 2em;
+        fill: $Primary-dark-2;
+      }
     }
   }
 }
