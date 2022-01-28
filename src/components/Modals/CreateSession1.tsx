@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction } from 'react';
 import IDepartment from '../../interfaces/IDepartment';
 import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
+import { convertDateToISO } from '../../utils/functions';
 import CurrentSessionContext from '../contexts/CurrentSession';
 import CurrentUserContext from '../contexts/CurrentUser';
 
@@ -30,6 +31,8 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
   const [nb_hiki_max, setnb_hiki_max] = useState<ISession['nb_hiki_max']>();
   const [id_surf_style, setId_surf_style] = useState<ISession['id_surf_style']>();
   const [carpool, setCarpool] = useState<ISession['carpool']>();
+  console.log(new Date(Date.now()));
+  console.log(convertDateToISO(new Date(Date.now())));
   useEffect(() => {
     axios
       .get<IDepartment[]>('http://localhost:3000/api/departments')
@@ -118,9 +121,11 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
                 ))}
             </select>
             <input
+              className="create_session__form__inputs__input"
               type="datetime-local"
               name="test"
               id="test"
+              min={convertDateToISO(new Date(Date.now()))}
               onChange={(e: any) => setSelectedDate(e.target.value)}
             />
             <input
@@ -128,13 +133,15 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
               placeholder="adresse rdv*"
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
                 setAddress(e.currentTarget.value)
-              }></input>
+              }
+            />
             <input
               className="create_session__form__inputs__input"
               placeholder="spot*"
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
                 setspot_name(e.currentTarget.value)
-              }></input>
+              }
+            />
             <input
               className="create_session__form__inputs__input"
               placeholder="nbr hiki max"
