@@ -1,10 +1,10 @@
+import axios from 'axios';
 import React, { FC, useEffect, useState } from 'react';
 import { BsBoxArrowInUpRight, BsFillPatchCheckFill } from 'react-icons/bs';
 import { IoMdCheckboxOutline } from 'react-icons/io';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
-import { error } from '../errors';
 
+import { error } from '../errors';
 import ISession from '../interfaces/ISession';
 import IUser from '../interfaces/IUser';
 
