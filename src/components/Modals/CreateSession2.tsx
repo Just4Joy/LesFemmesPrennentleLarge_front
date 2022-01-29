@@ -29,29 +29,32 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
   }, []);
 
   function addWeather() {
-    const dataToSend = [weather, wave, flow, power, temperature];
-    console.log(dataToSend);
+    const dataToSend = [wave, flow, power, temperature]; // "weather" retiré du tableau sinon premier map NaN
+
     Promise.all(
       dataToSend.map(async (el) => {
-        return axios.post(
-          `http://localhost:3000/api/sessions/${id_sessionCreated}/weather`,
-          {
-            id_weather: el,
-          },
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
+        return axios
+          .post(
+            `http://localhost:3000/api/sessions/${id_sessionCreated}/weather`,
+            {
+              id_weather: el,
             },
-            withCredentials: true,
-          },
-        );
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              withCredentials: true,
+            },
+          )
+          .then((result) => {
+            setActiveModal('recap');
+          })
+          .catch((err) => {
+            error();
+          });
       }),
-    ).catch(() => {
-      // console.log(err);
-      // error();
-    });
-    setActiveModal('recap');
+    );
   }
 
   return (

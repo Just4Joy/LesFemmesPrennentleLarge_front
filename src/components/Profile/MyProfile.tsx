@@ -5,6 +5,7 @@ import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
 import { FiUpload } from 'react-icons/fi';
+import { error, unauthorized, errorValidation, userNotFound } from '../../errors';
 
 import IDepartment from '../../interfaces/IDepartment';
 import ISurfSkill from '../../interfaces/ISurfskills';
@@ -43,31 +44,43 @@ const MyProfile = () => {
       .then((result) => result.data)
       .then((data) => {
         setUsers(data);
-
         axios
           .get<IDepartment>(`http://localhost:3000/api/departments/${data.id_department}`)
           .then((result) => result.data)
-          .then((data) => setDepartments(data));
+          .then((data) => setDepartments(data))
+          .catch(() => {
+            error();
+          });
         axios
           .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
           .then((result) => result.data)
-          .then((data) => setSurfStyles(data));
-
+          .then((data) => setSurfStyles(data))
+          .catch(() => {
+            error();
+          });
         axios
           .get<ISurfSkill[]>(`http://localhost:3000/api/users/${data.id_user}/surfskills`)
           .then((result) => result.data)
-          .then((data) => setSurfSkills(data));
+          .then((data) => setSurfSkills(data))
+          .catch(() => {
+            error();
+          });
+      })
+      .catch(() => {
+        error();
       });
 
     axios
       .get<ISurfSkill[]>('http://localhost:3000/api/surfskills')
       .then((result) => result.data)
-      .then((data) => setSurfSkillToAdd(data));
+      .then((data) => setSurfSkillToAdd(data))
+      .catch(() => {
+        error();
+      });
 
     return () => {
       // @ts-ignore: Unreachable code error
       setUsers();
-
       // @ts-ignore: Unreachable code error
       setDepartments();
       // @ts-ignore: Unreachable code error
@@ -91,19 +104,32 @@ const MyProfile = () => {
   const onSuccess = (res: any) => {
     console.log(res.url);
     users &&
-      axios.put(
-        `http://localhost:3000/api/users/${id}`,
-        {
-          profile_pic: res.url,
-        },
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
+      axios
+        .put(
+          `http://localhost:3000/api/users/${id}`,
+          {
+            profile_pic: res.url,
           },
-          withCredentials: true,
-        },
-      );
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+          },
+        )
+        .then((result) => console.log(result))
+        .catch((err) => {
+          if (err.response.status === 401) {
+            unauthorized();
+          } else if (err.response.status === 422) {
+            errorValidation();
+          } else if (err.response.status === 404) {
+            userNotFound();
+          } else {
+            error();
+          }
+        });
   };
 
   const updateDataUser = () => {
@@ -119,18 +145,31 @@ const MyProfile = () => {
         delete data[key];
       }
     }
-
-    axios.put(
-      `http://localhost:3000/api/users/${id}`,
-      { ...data },
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
+    console.log(data);
+    axios
+      .put(
+        `http://localhost:3000/api/users/${id}`,
+        { ...data },
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
         },
-        withCredentials: true,
-      },
-    );
+      )
+      .then((result) => console.log(result))
+      .catch((err) => {
+        if (err.response.status === 401) {
+          unauthorized();
+        } else if (err.response.status === 422) {
+          errorValidation();
+        } else if (err.response.status === 404) {
+          userNotFound();
+        } else {
+          error();
+        }
+      });
 
     Promise.all([
       activeSurfSkill &&

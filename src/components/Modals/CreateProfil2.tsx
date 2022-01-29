@@ -37,7 +37,6 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
       .then((result) => result.data)
       .then((data) => setSurfStyles(data))
       .catch((err) => {
-        console.log(err);
         error();
       });
   }, []);
@@ -66,8 +65,7 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
           withCredentials: true,
         },
       )
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         setActiveModal('');
         UpdateProfile();
       })
@@ -80,7 +78,6 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
           userNotFound();
         } else {
           error();
-          console.log(err);
         }
       });
   };
@@ -103,7 +100,6 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
     )
       .then((response) => console.log(response))
       .catch((err) => {
-        console.log(err);
         error();
       });
   };

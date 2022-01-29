@@ -14,12 +14,22 @@ const errorValidation = (): void => {
 const emailExist = (): void => {
   toast.warn(`L'email est déjà utilisé.`);
 };
-
 const unauthorized = (): void => {
   toast.warn('Non autorisé. Veuillez vous connecter.');
 };
 const userNotFound = (): void => {
   toast.error(`Aucun utilisateur correspondant.`);
 };
+const sessionNotFound = (): void => {
+  toast.error(`Aucune session correspondante.`);
+};
 
-export { emailExist, error, errorData, errorValidation, unauthorized, userNotFound };
+export {
+  emailExist,
+  error,
+  errorData,
+  errorValidation,
+  unauthorized,
+  userNotFound,
+  sessionNotFound,
+};

@@ -3,7 +3,7 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
 
-import { error, userNotFound } from '../../errors';
+import { error, sessionNotFound } from '../../errors';
 import IDepartment from '../../interfaces/IDepartment';
 import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
@@ -69,7 +69,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
       })
       .catch((err) => {
         if (err.response.status === 404) {
-          userNotFound();
+          sessionNotFound();
         } else {
           error();
         }
