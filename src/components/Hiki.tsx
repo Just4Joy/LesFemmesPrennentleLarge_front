@@ -3,6 +3,7 @@ import React, { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 
 import wahine from '../../img/wahine.svg';
+import { error } from '../errors';
 import ISurfStyle from '../interfaces/ISurfStyle';
 import IUser from '../interfaces/IUser';
 
@@ -23,7 +24,10 @@ const Hiki: FC<Props> = ({
     axios
       .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${id_surf_style}`)
       .then((result) => result.data)
-      .then((data) => setSurfStyles(data));
+      .then((data) => setSurfStyles(data))
+      .catch(() => {
+        error();
+      });
   }, []);
   return (
     <Link to={`/session/${id_user}`}>

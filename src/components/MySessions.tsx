@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from 'react-icons/bs';
 
+import { error } from '../errors';
 import ISession from '../interfaces/ISession';
 import CurrentUserContext from './contexts/CurrentUser';
 import MySession from './MySession';
@@ -17,12 +18,19 @@ const MySessions = () => {
     axios
       .get<ISession[]>(`http://localhost:3000/api/sessions?wahine=${id}`)
       .then((result) => result.data)
-      .then((data) => setSessions(data));
+      .then((data) => setSessions(data))
+      .catch(() => {
+        error();
+      });
     axios
       .get<ISession[]>(`http://localhost:3000/api/users/${id}/sessions`)
       .then((results) => results.data)
-      .then((data) => setParticipants(data));
+      .then((data) => setParticipants(data))
+      .catch(() => {
+        error();
+      });
   }, [id]);
+
   return (
     <div className="mysessions">
       <h1 className="mysessions__h1">Mes Sessions</h1>

@@ -4,6 +4,7 @@ import { BsBoxArrowInUpRight } from 'react-icons/bs';
 import { BsFillPatchCheckFill } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
 
+import { error } from '../errors';
 import IDepartment from '../interfaces/IDepartment';
 import ISession from '../interfaces/ISession';
 import ISurfStyle from '../interfaces/ISurfStyle';
@@ -28,11 +29,17 @@ const MySession: FC<Props> = ({
     axios
       .get<IDepartment>(`http://localhost:3000/api/departments/${id_department}`)
       .then((result) => result.data)
-      .then((data) => setDepartment(data));
+      .then((data) => setDepartment(data))
+      .catch(() => {
+        error();
+      });
     axios
       .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${id_surf_style}`)
       .then((result) => result.data)
-      .then((data) => setSurfStyle(data));
+      .then((data) => setSurfStyle(data))
+      .catch(() => {
+        error();
+      });
   }, []);
 
   return (
