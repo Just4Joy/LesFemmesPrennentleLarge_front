@@ -5,8 +5,8 @@ import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
 import { FiUpload } from 'react-icons/fi';
-import { error, unauthorized, errorValidation, userNotFound } from '../../errors';
 
+import { error, errorValidation, unauthorized, userNotFound } from '../../errors';
 import IDepartment from '../../interfaces/IDepartment';
 import ISurfSkill from '../../interfaces/ISurfskills';
 import ISurfStyle from '../../interfaces/ISurfStyle';
@@ -146,30 +146,33 @@ const MyProfile = () => {
       }
     }
     console.log(data);
-    axios
-      .put(
-        `http://localhost:3000/api/users/${id}`,
-        { ...data },
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
+    if (Object.keys(data).length !== 0) {
+      console.log('kuku');
+      axios
+        .put(
+          `http://localhost:3000/api/users/${id}`,
+          { ...data },
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            withCredentials: true,
           },
-          withCredentials: true,
-        },
-      )
-      .then((result) => console.log(result))
-      .catch((err) => {
-        if (err.response.status === 401) {
-          unauthorized();
-        } else if (err.response.status === 422) {
-          errorValidation();
-        } else if (err.response.status === 404) {
-          userNotFound();
-        } else {
-          error();
-        }
-      });
+        )
+        .then((result) => console.log(result))
+        .catch((err) => {
+          if (err.response.status === 401) {
+            unauthorized();
+          } else if (err.response.status === 422) {
+            errorValidation();
+          } else if (err.response.status === 404) {
+            userNotFound();
+          } else {
+            error();
+          }
+        });
+    }
 
     Promise.all([
       activeSurfSkill &&
@@ -199,7 +202,9 @@ const MyProfile = () => {
           },
         );
       }),
-    ]);
+    ]).catch(() => {
+      error();
+    });
   };
 
   return (

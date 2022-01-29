@@ -64,7 +64,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
         },
         withCredentials: true,
       })
-      .then((res) => {
+      .then(() => {
         setActiveModal('');
       })
       .catch((err) => {

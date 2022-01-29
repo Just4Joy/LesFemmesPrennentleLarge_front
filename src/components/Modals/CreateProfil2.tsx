@@ -28,15 +28,14 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
       .get<ISurfSkill[]>('http://lfpll-back.herokuapp.com/api/surfskill')
       .then((result) => result.data)
       .then((data) => setSurfSkills(data))
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         error();
       });
     axios
       .get<ISurfStyle[]>('http://localhost:3000/api/surfstyles')
       .then((result) => result.data)
       .then((data) => setSurfStyles(data))
-      .catch((err) => {
+      .catch(() => {
         error();
       });
   }, []);
@@ -99,7 +98,7 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
       }),
     )
       .then((response) => console.log(response))
-      .catch((err) => {
+      .catch(() => {
         error();
       });
   };

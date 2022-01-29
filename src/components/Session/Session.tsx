@@ -5,6 +5,7 @@ import { useLayoutEffect } from 'react';
 import { BsFillPatchCheckFill } from 'react-icons/bs';
 import { useParams } from 'react-router';
 
+import { alreadySubscribe, error, notSubscribe } from '../../errors';
 import IDepartment from '../../interfaces/IDepartment';
 import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
@@ -53,15 +54,27 @@ const Session: FC<Props> = ({ setActiveModal }) => {
         axios
           .get<IUser>(`http://localhost:3000/api/users/${data.id_user}`)
           .then((result) => result.data)
-          .then((data) => setWahine(data));
+          .then((data) => setWahine(data))
+          .catch(() => {
+            error();
+          });
         axios
           .get<IDepartment>(`http://localhost:3000/api/departments/${data.id_department}`)
           .then((result) => result.data)
-          .then((data) => setDepartment(data));
+          .then((data) => setDepartment(data))
+          .catch(() => {
+            error();
+          });
         axios
           .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
           .then((result) => result.data)
-          .then((data) => setSurfStyle(data));
+          .then((data) => setSurfStyle(data))
+          .catch(() => {
+            error();
+          });
+      })
+      .catch(() => {
+        error();
       });
     axios
       .get<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users`)
@@ -69,11 +82,17 @@ const Session: FC<Props> = ({ setActiveModal }) => {
       .then((data) => {
         setSubscribers(data);
         CheckHasSubcribe(data);
+      })
+      .catch(() => {
+        error();
       });
     axios
       .get<IWeather[]>(`http://localhost:3000/api/sessions/${id_session}/weather/`)
       .then((result) => result.data)
-      .then((data) => setWeather(data));
+      .then((data) => setWeather(data))
+      .catch(() => {
+        error();
+      });
   }, []);
 
   // Second useEffect: rejoindre/désinscription session & chargement des users inscrite
@@ -90,6 +109,13 @@ const Session: FC<Props> = ({ setActiveModal }) => {
         .then((result) => {
           setSubscribers(result.data);
           CheckHasSubcribe(result.data);
+        })
+        .catch((err) => {
+          if (err.response.status === 422) {
+            alreadySubscribe();
+          } else {
+            error();
+          }
         });
     }
     if (wantUnsubscribe) {
@@ -104,6 +130,13 @@ const Session: FC<Props> = ({ setActiveModal }) => {
         .then((result) => {
           setSubscribers(result.data);
           CheckHasSubcribe(result.data);
+        })
+        .catch((err) => {
+          if (err.response.status === 404) {
+            notSubscribe();
+          } else {
+            error();
+          }
         });
     }
   }, [wantSubscribe, wantUnsubscribe]);

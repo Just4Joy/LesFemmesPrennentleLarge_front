@@ -47,10 +47,10 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
               withCredentials: true,
             },
           )
-          .then((result) => {
+          .then(() => {
             setActiveModal('recap');
           })
-          .catch((err) => {
+          .catch(() => {
             error();
           });
       }),

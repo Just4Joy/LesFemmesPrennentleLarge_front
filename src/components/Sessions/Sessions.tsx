@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
 
+import { error } from '../../errors';
 import IDepartment from '../../interfaces/IDepartment';
 import IRegion from '../../interfaces/IRegion';
 import ISession from '../../interfaces/ISession';
@@ -138,15 +139,19 @@ const Sessions = () => {
       getAllRegions(),
       getAllDepartments(),
       getAllSurfstyles(),
-    ]).then(([sessions, regions, departments, surfstyles]) => {
-      setAllRegions(regions);
-      setAllDepartments(departments);
-      setAllSurfstyle(surfstyles);
+    ])
+      .then(([sessions, regions, departments, surfstyles]) => {
+        setAllRegions(regions);
+        setAllDepartments(departments);
+        setAllSurfstyle(surfstyles);
 
-      mySessionsObjectConstructor(sessions, departments, surfstyles, regions);
+        mySessionsObjectConstructor(sessions, departments, surfstyles, regions);
 
-      getNiceDates(sessions);
-    });
+        getNiceDates(sessions);
+      })
+      .catch(() => {
+        error();
+      });
 
     if (id_region !== undefined) {
       setSelectedRegion(id_region);
@@ -165,24 +170,36 @@ const Sessions = () => {
         getAllRegions(),
         getAllDepartments(),
         getAllSurfstyles(),
-      ]).then(([sessions, regions, departments, surfstyles]) => {
-        setAllRegions(regions);
-        setAllDepartments(departments);
-        setAllSurfstyle(surfstyles);
+      ])
+        .then(([sessions, regions, departments, surfstyles]) => {
+          setAllRegions(regions);
+          setAllDepartments(departments);
+          setAllSurfstyle(surfstyles);
 
-        mySessionsObjectConstructor(sessions, departments, surfstyles, regions);
-        getNiceDates(sessions);
-      });
+          mySessionsObjectConstructor(sessions, departments, surfstyles, regions);
+          getNiceDates(sessions);
+        })
+        .catch(() => {
+          error();
+        });
     } else if (selectedRegion !== undefined) {
-      getAllSessions().then((sessions) => {
-        mySessionsObjectConstructor(sessions, allDepartments, allSurfstyle, allRegions);
-        getNiceDates(sessions);
-      });
+      getAllSessions()
+        .then((sessions) => {
+          mySessionsObjectConstructor(sessions, allDepartments, allSurfstyle, allRegions);
+          getNiceDates(sessions);
+        })
+        .catch(() => {
+          error();
+        });
     } else if (pagination >= 0 && paginationActive) {
-      getAllSessions().then((sessions) => {
-        mySessionsObjectConstructor(sessions, allDepartments, allSurfstyle, allRegions);
-        getNiceDates(sessions);
-      });
+      getAllSessions()
+        .then((sessions) => {
+          mySessionsObjectConstructor(sessions, allDepartments, allSurfstyle, allRegions);
+          getNiceDates(sessions);
+        })
+        .catch(() => {
+          error();
+        });
     }
   }, [selectedRegion, pagination]);
 
@@ -190,9 +207,18 @@ const Sessions = () => {
   useEffect(() => {
     if (selectedDate !== undefined) {
       allRegions &&
-        getAllSessions().then((sessions) => {
-          mySessionsObjectConstructor(sessions, allDepartments, allSurfstyle, allRegions);
-        });
+        getAllSessions()
+          .then((sessions) => {
+            mySessionsObjectConstructor(
+              sessions,
+              allDepartments,
+              allSurfstyle,
+              allRegions,
+            );
+          })
+          .catch(() => {
+            error();
+          });
     }
   }, [selectedDate]);
 
