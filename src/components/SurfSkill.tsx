@@ -8,7 +8,7 @@ const SurfSkill: FC<Props> = ({ name, add, id_surf_skill }) => {
   return (
     <div className="surfskill">
       <button
-        className={active ? 'surfskill__button__active' : 'surfskill__button'}
+        className={active ? 'surfskill__active' : 'surfskill__notactive'}
         type="button"
         onClick={() => {
           setActive(!active);
