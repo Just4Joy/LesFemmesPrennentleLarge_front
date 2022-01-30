@@ -43,6 +43,19 @@
         color: black;
         padding-bottom: 1rem;
       }
+      &__full {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        &__text {
+          font-weight: 700;
+          font-size: 13px;
+          color: black;
+        }
+        &__icon {
+          font-size: 17px;
+        }
+      }
     }
     &__rdv {
       display: flex;
@@ -60,6 +73,19 @@
           margin-bottom: 0.5rem;
         }
       }
+      &__covoit {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        &__text {
+          font-weight: 500;
+          font-size: 15px;
+          color: black;
+        }
+        &__icon {
+          font-size: 17px;
+        }
+      }
     }
   }
   &__hr {
@@ -68,8 +94,19 @@
   }
 
   &__details {
+    gap: 0.4rem;
     font-size: 0.8rem;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    &__text {
+      font-weight: 700;
+      font-size: 15px;
+      color: rgb(58, 58, 58);
+    }
+    &__icon {
+      font-size: 17px;
+      color: rgb(58, 58, 58);
+    }
   }
 }
