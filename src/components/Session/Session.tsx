@@ -141,7 +141,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
     }
   }, [wantSubscribe, wantUnsubscribe]);
 
-  // console.log(subscribers);
+  console.log(session);
 
   return (
     <div className="onesession">
@@ -163,6 +163,11 @@ const Session: FC<Props> = ({ setActiveModal }) => {
               <h6 className="session__details__infos__type__button">
                 {surfStyle?.name_session}
               </h6>
+            </div>
+            <div className="session__details__infos__hikimax">
+              <h5 className="session__details__infos__hikimax__title">
+                Nombre maximum de participantes : {session?.nb_hiki_max}
+              </h5>
             </div>
             <div className="session__details__infos__covoit">
               <h4>
