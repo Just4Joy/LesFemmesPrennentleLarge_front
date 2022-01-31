@@ -165,6 +165,11 @@ const Session: FC<Props> = ({ setActiveModal }) => {
                 {surfStyle?.name_session}
               </h6>
             </div>
+            <div className="session__details__infos__hikimax">
+              <h5 className="session__details__infos__hikimax__title">
+                Nombre maximum de participantes : {session?.nb_hiki_max}
+              </h5>
+            </div>
             <div className="session__details__infos__covoit">
               <h4>
                 Co-voiturage <BsFillPatchCheckFill color="#1f8387" />
