@@ -286,17 +286,17 @@ const Sessions = () => {
         <div className="sessions__button">
           {pagination && pagination >= 5 ? (
             <BsArrowLeftSquareFill
-              onClick={() => setPagination(pagination - 10)}
+              onClick={() => setPagination(pagination - 9)}
               className="sessions__button__more"
             />
           ) : (
             ''
           )}
 
-          {mySessions.length === 10 ? (
+          {mySessions.length === 9 ? (
             <BsArrowRightSquareFill
               onClick={() => {
-                setPagination(pagination + 10);
+                setPagination(pagination + 9);
                 setPaginationActive(true);
               }}
               className="sessions__button__more"
