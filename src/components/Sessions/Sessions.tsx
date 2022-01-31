@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
-
 import { error } from '../../errors';
 import IDepartment from '../../interfaces/IDepartment';
 import IRegion from '../../interfaces/IRegion';
@@ -12,43 +11,17 @@ import NextSession from '../NextSession';
 
 type MySession = ISession & IDepartment & IRegion;
 
-type NiceDate = {
-  date: string;
-  nice_date: string;
-};
-
 const Sessions = () => {
-  let { id_region } = useParams<{ id_region: string | undefined }>();
+  const { id_region } = useParams<{ id_region: string | undefined }>();
   const [allRegions, setAllRegions] = useState<IRegion[]>([]);
   const [allDepartments, setAllDepartments] = useState<IDepartment[]>([]);
-  const [allSurfstyle, setAllSurfstyle] = useState<ISurfStyle[]>([]);
+  const [allSurfstyles, setAllSurfstyles] = useState<ISurfStyle[]>([]);
   const [selectedRegion, setSelectedRegion] = useState<number | undefined | string>();
-  const [selectedDate, setSelectedDate] = useState<string>();
-  const [allDates, setAllDates] = useState<NiceDate[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Date | string>('');
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [pagination, setPagination] = useState<number>(0);
   const [paginationActive, setPaginationActive] = useState<boolean>(false);
 
-  // Construit le tableau d'objet niceDates
-  const getNiceDates = (sessionsData: ISession[]) => {
-    let compareDate: string[] = [];
-    let niceDates: NiceDate[] = [];
-
-    if (sessionsData.length === 1) {
-      niceDates.push({
-        nice_date: sessionsData[0].nice_date,
-        date: sessionsData[0].date,
-      });
-    } else if (sessionsData.length > 1) {
-      sessionsData.map((session) => {
-        if (!compareDate.includes(session.nice_date)) {
-          compareDate.push(session.nice_date);
-          niceDates.push({ nice_date: session.nice_date, date: session.date });
-        }
-      });
-    }
-    setAllDates(niceDates);
-  };
   // Les fonctions axios
   const getAllSessions = async () => {
     let basicUrl = `http://localhost:3000/api/sessions`;
@@ -58,7 +31,6 @@ const Sessions = () => {
       basicUrl += `?region=${selectedRegion}`;
       basicUrlChanged = true;
     }
-
     if (selectedDate !== undefined && selectedDate !== '0') {
       basicUrl += basicUrlChanged ? `&date=${selectedDate}` : `?date=${selectedDate}`;
       basicUrlChanged = true;
@@ -128,7 +100,6 @@ const Sessions = () => {
         mesSessions.push(maSession);
       });
     }
-
     setMySessions(mesSessions);
   };
 
@@ -143,11 +114,9 @@ const Sessions = () => {
       .then(([sessions, regions, departments, surfstyles]) => {
         setAllRegions(regions);
         setAllDepartments(departments);
-        setAllSurfstyle(surfstyles);
+        setAllSurfstyles(surfstyles);
 
         mySessionsObjectConstructor(sessions, departments, surfstyles, regions);
-
-        getNiceDates(sessions);
       })
       .catch(() => {
         error();
@@ -157,13 +126,13 @@ const Sessions = () => {
       setSelectedRegion(id_region);
     }
   }, []);
-
+  // au changemenet de région
   useEffect(() => {
     if (
       selectedRegion !== undefined &&
       allDepartments.length === 0 &&
       allRegions.length === 0 &&
-      allSurfstyle.length === 0
+      allSurfstyles.length === 0
     ) {
       Promise.all([
         getAllSessions(),
@@ -174,10 +143,9 @@ const Sessions = () => {
         .then(([sessions, regions, departments, surfstyles]) => {
           setAllRegions(regions);
           setAllDepartments(departments);
-          setAllSurfstyle(surfstyles);
+          setAllSurfstyles(surfstyles);
 
           mySessionsObjectConstructor(sessions, departments, surfstyles, regions);
-          getNiceDates(sessions);
         })
         .catch(() => {
           error();
@@ -185,8 +153,12 @@ const Sessions = () => {
     } else if (selectedRegion !== undefined) {
       getAllSessions()
         .then((sessions) => {
-          mySessionsObjectConstructor(sessions, allDepartments, allSurfstyle, allRegions);
-          getNiceDates(sessions);
+          mySessionsObjectConstructor(
+            sessions,
+            allDepartments,
+            allSurfstyles,
+            allRegions,
+          );
         })
         .catch(() => {
           error();
@@ -194,8 +166,12 @@ const Sessions = () => {
     } else if (pagination >= 0 && paginationActive) {
       getAllSessions()
         .then((sessions) => {
-          mySessionsObjectConstructor(sessions, allDepartments, allSurfstyle, allRegions);
-          getNiceDates(sessions);
+          mySessionsObjectConstructor(
+            sessions,
+            allDepartments,
+            allSurfstyles,
+            allRegions,
+          );
         })
         .catch(() => {
           error();
@@ -203,7 +179,7 @@ const Sessions = () => {
     }
   }, [selectedRegion, pagination]);
 
-  // Second useEffect
+  // Second useEffect au changement de date
   useEffect(() => {
     if (selectedDate !== undefined) {
       allRegions &&
@@ -212,7 +188,7 @@ const Sessions = () => {
             mySessionsObjectConstructor(
               sessions,
               allDepartments,
-              allSurfstyle,
+              allSurfstyles,
               allRegions,
             );
           })
@@ -233,10 +209,10 @@ const Sessions = () => {
           id="region"
           onClick={(e) => {
             setSelectedRegion(Number(e.currentTarget.value));
-            setSelectedDate(undefined);
+            setSelectedDate('');
             setPagination(0);
           }}>
-          <option value={parseInt('0')}>Régions</option>
+          <option value={0}>Régions</option>
           {allRegions.map((region) => {
             return (
               <option value={region.id_region} key={region.id_region}>
@@ -246,24 +222,17 @@ const Sessions = () => {
           })}
         </select>
         {/* Select date */}
-        <select
+        <input
           className="sessions__selectors__date"
           name="date"
+          type="date"
+          list="dateList"
           id="date"
-          onClick={(e) => {
-            setSelectedDate(String(e.currentTarget.value));
+          onChange={(e) => {
+            setSelectedDate(e.currentTarget.value);
             setPagination(0);
-          }}>
-          <option value="0">Dates</option>
-          {allDates &&
-            allDates.map((date, index) => {
-              return (
-                <option value={date.date} key={index}>
-                  {date.nice_date}
-                </option>
-              );
-            })}
-        </select>
+          }}
+        />
       </div>
 
       {/* Composants NextSession */}
@@ -292,7 +261,7 @@ const Sessions = () => {
           {mySessions.length === 9 ? (
             <BsArrowRightSquareFill
               onClick={() => {
-                setPagination(pagination + 9);
+                setPagination(pagination + 10);
                 setPaginationActive(true);
               }}
               className="sessions__button__more"
