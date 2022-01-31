@@ -39,7 +39,7 @@ const Hiki: FC<Props> = ({
         <div className="hiki__img">
           <img
             className=""
-            src={profile_pic !== 'null' ? profile_pic : wahine}
+            src={profile_pic !== 'null' && profile_pic !== null ? profile_pic : wahine}
             alt="wahine"
           />
         </div>
