@@ -24,9 +24,9 @@ const MyProfile = () => {
   const [editSkills, setEditSkills] = useState<boolean>(false);
 
   const [departments, setDepartments] = useState<IDepartment>();
-  const [allDepartments, setAllDepartments] = useState<IDepartment[]>()
+  const [allDepartments, setAllDepartments] = useState<IDepartment[]>();
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
-  const [allSurfStyles, setAllSurfStyles] = useState<ISurfStyle[]>()
+  const [allSurfStyles, setAllSurfStyles] = useState<ISurfStyle[]>();
   const [surfSkillToAdd, setSurfSkillToAdd] = useState<ISurfSkill[]>([]);
   const [surfSkills, setSurfSkills] = useState<ISurfSkill[]>([]);
 
@@ -35,10 +35,8 @@ const MyProfile = () => {
   const [desc, setDesc] = useState<IUser['desc']>('');
   const [city, setCity] = useState<IUser['city']>('');
   const [favorite_spot, setSpot] = useState<IUser['favorite_spot']>('');
-  const [newDepartment, setNewDepartment] = useState<Number>()
-  const [newSurfStyles, setNewSurfStyles] = useState<Number>()
-
-
+  const [newDepartment, setNewDepartment] = useState<Number>();
+  const [newSurfStyles, setNewSurfStyles] = useState<Number>();
 
   const [activeSurfSkill, setActiveSurfSkill] = useState<ISurfSkill['id_surf_skill'][]>(
     [],
@@ -92,16 +90,13 @@ const MyProfile = () => {
         error();
       });
 
-      axios
+    axios
       .get<ISurfStyle[]>('http://localhost:3000/api/surfstyles')
       .then((result) => result.data)
       .then((data) => setAllSurfStyles(data))
       .catch(() => {
         error();
       });
-
-
-
 
     // return () => {
     //   // @ts-ignore: Unreachable code error
@@ -158,7 +153,7 @@ const MyProfile = () => {
   };
 
   const updateDataUser = () => {
-    console.log(newDepartment,newSurfStyles,'NEW DEPARTEMENT NEW SURFSTYLE ON CLICK')
+    console.log(newDepartment, newSurfStyles, 'NEW DEPARTEMENT NEW SURFSTYLE ON CLICK');
     const data: any = {
       firstname: firstname,
       lastname: lastname,
@@ -166,8 +161,7 @@ const MyProfile = () => {
       desc: desc,
       favorite_spot: favorite_spot,
       id_department: newDepartment,
-      id_surf_style: newSurfStyles
-      
+      id_surf_style: newSurfStyles,
     };
     for (let key in data) {
       if (data[key] === '') {
@@ -176,7 +170,6 @@ const MyProfile = () => {
     }
     console.log(data);
     if (Object.keys(data).length !== 0) {
-      console.log('kuku');
       axios
         .put(
           `http://localhost:3000/api/users/${id}`,
@@ -198,19 +191,23 @@ const MyProfile = () => {
             })
             .then(() => {
               axios
-              .get<IDepartment>(`http://localhost:3000/api/departments/${data.id_department}`)
-              .then((result) => result.data)
-              .then((data) => setDepartments(data))
-              .catch(() => {
-                error();
-              });
-             axios
-              .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
-              .then((result) => result.data)
-              .then((data) => setSurfStyles(data))
-              .catch(() => {
-                error();
-              });
+                .get<IDepartment>(
+                  `http://localhost:3000/api/departments/${data.id_department}`,
+                )
+                .then((result) => result.data)
+                .then((data) => setDepartments(data))
+                .catch(() => {
+                  error();
+                });
+              axios
+                .get<ISurfStyle>(
+                  `http://localhost:3000/api/surfstyles/${data.id_surf_style}`,
+                )
+                .then((result) => result.data)
+                .then((data) => setSurfStyles(data))
+                .catch(() => {
+                  error();
+                });
             })
             .catch(() => {
               error();
@@ -229,39 +226,38 @@ const MyProfile = () => {
         });
     }
 
-
-    axios.delete(
-      `http://localhost:3000/api/users/${id}/surfskills/`,
-      {
+    axios
+      .delete(`http://localhost:3000/api/users/${id}/surfskills/`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
         withCredentials: true,
-      },
-    ).then(() => {
-      Promise.all(activeSurfSkill.map(async (el) => {
-        axios.post(
-          `http://localhost:3000/api/users/${id}/surfskills`,
-          { id_surf_skill: el },
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            withCredentials: true,
-          },
+      })
+      .then(() => {
+        Promise.all(
+          activeSurfSkill.map(async (el) => {
+            axios.post(
+              `http://localhost:3000/api/users/${id}/surfskills`,
+              { id_surf_skill: el },
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+              },
+            );
+          }),
         );
-      }))
-    })
+      })
       .then(() => {
         axios
           .get<ISurfSkill[]>(`http://localhost:3000/api/users/${id}/surfskills`)
           .then((result) => result.data)
           .then((data) => {
-            console.log()
-            setActiveSurfSkill([])
-            setSurfSkills(data)
+            setActiveSurfSkill([]);
+            setSurfSkills(data);
           })
           .catch(() => {
             error();
@@ -362,18 +358,20 @@ const MyProfile = () => {
         )}
 
         <div className="myProfile__column__column2">
-          {!editProfil ? (<div className="myProfile__column__column2__row1">
-            <div>
-              <p>
-                {departments && departments.department_name} {/*Should be regions*/}
-              </p>
-              <p>{surfStyles && surfStyles.name_user}</p>
-            </div>
-          </div>) :
-            (<div className="myProfile__column__column2__row1">
+          {!editProfil ? (
+            <div className="myProfile__column__column2__row1">
               <div>
                 <p>
-                  {allDepartments &&
+                  {departments && departments.department_name} {/*Should be regions*/}
+                </p>
+                <p>{surfStyles && surfStyles.name_user}</p>
+              </div>
+            </div>
+          ) : (
+            <div className="myProfile__column__column2__row1">
+              <div>
+                <p>
+                  {allDepartments && (
                     <select
                       id="region-select"
                       className="createProfil1__container__region"
@@ -383,27 +381,36 @@ const MyProfile = () => {
                       <option value="">régions où tu surfes</option>
                       {allDepartments &&
                         allDepartments.map((department) => (
-                          <option key={department.id_department} value={department.id_department}>
+                          <option
+                            key={department.id_department}
+                            value={department.id_department}>
                             {department.department_name}
                           </option>
                         ))}
                     </select>
-                  }</p>
-                <p>{<select
-                  onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
-                    setNewSurfStyles(parseInt(e.currentTarget.value, 10));
-                  }}>
-                  <option value="">type de session</option>
-                  {allSurfStyles &&
-                    allSurfStyles.map((surfStyle) => (
-                      <option key={surfStyle.id_surf_style} value={surfStyle.id_surf_style}>
-                        {surfStyle.name_user}
-                      </option>
-                    ))}
-                </select>}</p>
+                  )}
+                </p>
+                <p>
+                  {
+                    <select
+                      onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
+                        setNewSurfStyles(parseInt(e.currentTarget.value, 10));
+                      }}>
+                      <option value="">type de session</option>
+                      {allSurfStyles &&
+                        allSurfStyles.map((surfStyle) => (
+                          <option
+                            key={surfStyle.id_surf_style}
+                            value={surfStyle.id_surf_style}>
+                            {surfStyle.name_user}
+                          </option>
+                        ))}
+                    </select>
+                  }
+                </p>
               </div>
             </div>
-            )}
+          )}
 
           <div className="myProfile__column__column2__row2">
             <h2>Skills</h2>

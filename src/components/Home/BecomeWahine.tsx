@@ -10,8 +10,6 @@ type Props = {
 
 const BecomeWahine: FC<Props> = ({ setActiveModal }) => {
   const { id, wahine } = useContext(CurrentUserContext);
-  console.log(wahine);
-  console.log(id);
 
   return (
     <div className="becomeWahine">

@@ -141,9 +141,6 @@ const Session: FC<Props> = ({ setActiveModal }) => {
     }
   }, [wantSubscribe, wantUnsubscribe]);
 
-  // console.log(subscribers);
-  // console.log(wahine);
-
   return (
     <div className="onesession">
       <div className="session">

@@ -11,7 +11,7 @@ type Props = {
 
 const CreateSession2: FC<Props> = ({ setActiveModal }) => {
   const { id_sessionCreated } = useContext(CurrentSessionContext);
-  console.log(id_sessionCreated);
+
   const [weather, setWeather] = useState<IWeather[]>([]);
   const [wave, setWave] = useState<string>('');
   const [flow, setFlow] = useState<string>('');

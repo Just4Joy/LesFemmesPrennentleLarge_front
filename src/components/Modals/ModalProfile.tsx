@@ -53,7 +53,6 @@ const ModalProfile = () => {
         error();
       });
   }, []);
-  console.log(surfSkills);
 
   return (
     <div className="modalwahine">

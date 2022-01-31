@@ -35,7 +35,7 @@ const MySessions = () => {
     <div className="mysessions">
       <h1 className="mysessions__h1">Mes Sessions</h1>
       <div className={wahine ? 'mysessions__wahine' : 'mysessions__hidden'}>
-        <h3 className="mysessions__wahine__h3">Crées</h3>
+        <h3 className="mysessions__wahine__h3">Créées</h3>
         <div className="mysessions__wahine__sessions">
           {sessions &&
             sessions.slice(firstNext, secondNext).map((session, index) => {

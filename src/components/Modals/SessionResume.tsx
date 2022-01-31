@@ -55,7 +55,6 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
   }, []);
 
   const deleteSession = () => {
-    console.log(id_sessionCreated);
     axios
       .delete<ISession>(`http://localhost:3000/api/sessions/${id_sessionCreated}`, {
         method: 'DELETE',
