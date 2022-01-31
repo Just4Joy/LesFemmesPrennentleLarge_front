@@ -46,6 +46,13 @@
           font-weight: 400;
         }
       }
+      &__hikimax {
+        margin-top: 1rem;
+        &__title {
+          font-size: 15px;
+          color: black;
+        }
+      }
       &__covoit {
         display: flex;
         flex-direction: row;
@@ -101,8 +108,7 @@
       }
     }
   }
-  &__organiser {
-  }
+
   margin-bottom: 5vh;
 }
 

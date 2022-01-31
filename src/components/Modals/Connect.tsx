@@ -14,11 +14,8 @@ type Props = {
 
 const Connect: FC<Props> = ({ setActiveModal }) => {
   const [email, setEmail] = useState<string>('');
-
   const [password, setPassword] = useState<string>('');
 
-  const [errorMessage, setErrorMessage] = useState<string>();
-  console.log(errorMessage);
   const navigate: NavigateFunction = useNavigate();
 
   const { setId, setWahine, setFirstname } = useContext(CurrentUserContext);
@@ -44,7 +41,6 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
       )
       .then((response) => response.data)
       .then((data) => {
-        setErrorMessage('');
         setId(data.id_user);
         setFirstname(data.firstname);
         setWahine(data.wahine === 1 ? 1 : 0);
@@ -87,6 +83,7 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
               placeholder="password"
               id="password"
               name="password"
+              type="password"
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
                 setPassword(e.currentTarget.value)
               }

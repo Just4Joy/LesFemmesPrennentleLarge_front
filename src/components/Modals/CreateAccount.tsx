@@ -108,6 +108,7 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
         <input
           className="CreateAccount__form__input"
           placeholder="mot de passe*"
+          type="password"
           onChange={(e: React.FormEvent<HTMLInputElement>) =>
             setPassword(e.currentTarget.value)
           }></input>
