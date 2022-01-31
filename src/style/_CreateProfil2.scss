@@ -1,10 +1,17 @@
 .createProfil2 {
+  max-height: 70vh;
   &__titles {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 45vw;
     padding-bottom: 2rem;
+    &__skip {
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
   &__styles {
     &__title {
