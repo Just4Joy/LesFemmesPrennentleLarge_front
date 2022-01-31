@@ -1,11 +1,12 @@
 .wahine {
-  width: 10vw;
+  max-width: 10vw;
 
   &__img {
     display: flex;
     justify-content: start;
     margin: 1rem 0 2rem 0;
-    width: 13vw;
+    // width: 13vw;
+    max-height: 20vh;
     > img {
       max-height: 100%;
 

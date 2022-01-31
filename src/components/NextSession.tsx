@@ -21,8 +21,12 @@ const NextSession: FC<Props> = ({
   nice_time,
   id_session,
   nb_hiki_max,
+  id_user,
 }) => {
   const [subscribers, setSubscribers] = useState<IUser[]>([]);
+  const [wahine, setWahine] = useState<IUser>();
+  console.log(id_user);
+  console.log(wahine);
 
   useEffect(() => {
     axios
@@ -34,6 +38,10 @@ const NextSession: FC<Props> = ({
       .catch(() => {
         error();
       });
+    axios
+      .get<IUser>(`http://localhost:3000/api/users/${id_user}`)
+      .then((results) => results.data)
+      .then((data) => setWahine(data));
   }, []);
 
   return (
@@ -47,6 +55,9 @@ const NextSession: FC<Props> = ({
           <h4 className="nextsession__infos__spot__h4">{name}</h4>
           <h6 className="nextsession__infos__spot__h6"> {spot_name} </h6>
           <h6 className="nextsession__infos__spot__adress"> {address} </h6>
+          <h6 className="nextsession__infos__spot__wahine">
+            Organisée par {wahine && wahine.firstname} {wahine && wahine.lastname}
+          </h6>
           {nb_hiki_max === subscribers.length ? (
             <div className="nextsession__infos__spot__full">
               <h6 className="nextsession__infos__spot__full__text">Session complète</h6>
