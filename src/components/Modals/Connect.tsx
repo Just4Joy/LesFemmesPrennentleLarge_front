@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';

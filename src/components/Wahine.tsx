@@ -26,7 +26,7 @@ const Wahine: FC<Props> = ({
         <div className="wahine__img">
           <img
             className=""
-            src={profile_pic !== 'null' ? profile_pic : wahineImg}
+            src={profile_pic !== 'null' && profile_pic !== null ? profile_pic : wahineImg}
             alt="wahine"
           />
         </div>
