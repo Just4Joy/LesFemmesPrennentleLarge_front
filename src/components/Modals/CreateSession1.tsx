@@ -21,19 +21,14 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
 
   const [name, setName] = useState<ISession['name']>();
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  console.log(
-    new Date(selectedDate).toLocaleDateString() +
-      ' ' +
-      new Date(selectedDate).toLocaleTimeString(),
-  );
+
   const [id_department, setId_department] = useState<ISession['id_department']>();
   const [address, setAddress] = useState<ISession['address']>();
   const [spot_name, setspot_name] = useState<ISession['spot_name']>();
   const [nb_hiki_max, setnb_hiki_max] = useState<ISession['nb_hiki_max']>();
   const [id_surf_style, setId_surf_style] = useState<ISession['id_surf_style']>();
   const [carpool, setCarpool] = useState<ISession['carpool']>();
-  console.log(new Date(Date.now()));
-  console.log(convertDateToISO(new Date(Date.now())));
+
   useEffect(() => {
     axios
       .get<IDepartment[]>('http://localhost:3000/api/departments')

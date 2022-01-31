@@ -222,10 +222,6 @@ const Sessions = () => {
     }
   }, [selectedDate]);
 
-  // console.log(mySessions);
-  // console.log(selectedDate);
-  // console.log(selectedRegion);
-
   return (
     <div className="sessions">
       <h1 className="sessions__h1">Trouver une session</h1>

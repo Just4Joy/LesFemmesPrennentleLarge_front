@@ -25,8 +25,6 @@ const NextSession: FC<Props> = ({
 }) => {
   const [subscribers, setSubscribers] = useState<IUser[]>([]);
   const [wahine, setWahine] = useState<IUser>();
-  console.log(id_user);
-  console.log(wahine);
 
   useEffect(() => {
     axios
