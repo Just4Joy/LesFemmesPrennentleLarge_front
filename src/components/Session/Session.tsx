@@ -32,7 +32,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
   const [weather, setWeather] = useState<IWeather[]>([]);
   const [department, setDepartment] = useState<IDepartment>();
   const [surfStyle, setSurfStyle] = useState<ISurfStyle>();
-  const [wahine, setWahine] = useState<IUser>();
+  const [wahine, setWahine] = useState<IUser | undefined>();
   const [wantSubscribe, setWantSubscribe] = useState<boolean>(false);
   const [wantUnsubscribe, setWantUnsubscribe] = useState<boolean>(false);
   const [hasSubscribe, setHasSubscribe] = useState<boolean>(false);
@@ -141,7 +141,8 @@ const Session: FC<Props> = ({ setActiveModal }) => {
     }
   }, [wantSubscribe, wantUnsubscribe]);
 
-  console.log(session);
+  // console.log(subscribers);
+  // console.log(wahine);
 
   return (
     <div className="onesession">
@@ -199,30 +200,36 @@ const Session: FC<Props> = ({ setActiveModal }) => {
           )}
         </div>
       </div>
-      {hasSubscribe && id > 0 ? (
-        <button
-          className="onesession__join"
-          onClick={() => {
-            setActiveModal('unsubscribe');
-            setWantUnsubscribe(true);
-            setWantSubscribe(false);
-          }}>
-          Se désinscrire
-        </button>
+      {wahine && id !== wahine.id_user ? (
+        hasSubscribe && id > 0 ? (
+          <button
+            className="onesession__join"
+            onClick={() => {
+              setActiveModal('unsubscribe');
+              setWantUnsubscribe(true);
+              setWantSubscribe(false);
+            }}>
+            Se désinscrire
+          </button>
+        ) : session && subscribers.length < session?.nb_hiki_max ? (
+          <button
+            className="onesession__join"
+            onClick={() => {
+              if (id > 0) {
+                setActiveModal('registered');
+                setWantSubscribe(true);
+                setWantUnsubscribe(false);
+              } else {
+                setActiveModal('connect');
+              }
+            }}>
+            Rejoindre la session
+          </button>
+        ) : (
+          ''
+        )
       ) : (
-        <button
-          className="onesession__join"
-          onClick={() => {
-            if (id > 0) {
-              setActiveModal('registered');
-              setWantSubscribe(true);
-              setWantUnsubscribe(false);
-            } else {
-              setActiveModal('connect');
-            }
-          }}>
-          Rejoindre la session
-        </button>
+        ''
       )}
 
       <div className="onesession__group">

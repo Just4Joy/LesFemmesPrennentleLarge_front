@@ -105,7 +105,10 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
     <div className="createProfil1">
       <div className="createProfil1__title">
         <h2>Compléter son profil 1/2</h2>
-        <h2 role="presentation" onClick={() => setActiveModal('complete_profil2')}>
+        <h2
+          className="createProfil1__title__skip"
+          role="presentation"
+          onClick={() => setActiveModal('complete_profil2')}>
           Skip
         </h2>
       </div>

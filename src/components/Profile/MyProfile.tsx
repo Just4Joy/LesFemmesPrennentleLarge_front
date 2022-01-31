@@ -78,19 +78,19 @@ const MyProfile = () => {
         error();
       });
 
-    return () => {
-      // @ts-ignore: Unreachable code error
-      setUsers();
-      // @ts-ignore: Unreachable code error
-      setDepartments();
-      // @ts-ignore: Unreachable code error
-      setSurfStyles();
-      // @ts-ignore: Unreachable code error
-      setSurfSkills([]);
-      // @ts-ignore: Unreachable code error
-      setSurfSkillToAdd([]);
-    };
-  }, [update]);
+    // return () => {
+    //   // @ts-ignore: Unreachable code error
+    //   setUsers();
+    //   // @ts-ignore: Unreachable code error
+    //   setDepartments();
+    //   // @ts-ignore: Unreachable code error
+    //   setSurfStyles();
+    //   // @ts-ignore: Unreachable code error
+    //   setSurfSkills([]);
+    //   // @ts-ignore: Unreachable code error
+    //   setSurfSkillToAdd([]);
+    // };
+  }, []);
 
   const add = (id: ISurfSkill['id_surf_skill']) => {
     const arr = activeSurfSkill;
@@ -160,7 +160,17 @@ const MyProfile = () => {
             withCredentials: true,
           },
         )
-        .then((result) => console.log(result))
+        .then(() => {
+          axios
+            .get<IUser>(`http://localhost:3000/api/users/${id}`)
+            .then((result) => result.data)
+            .then((data) => {
+              setUsers(data);
+            })
+            .catch(() => {
+              error();
+            });
+        })
         .catch((err) => {
           if (err.response.status === 401) {
             unauthorized();
@@ -202,18 +212,26 @@ const MyProfile = () => {
           },
         );
       }),
-    ]).catch(() => {
-      error();
-    });
+    ])
+      .then(() => {
+        axios
+          .get<ISurfSkill[]>(`http://localhost:3000/api/users/${id}/surfskills`)
+          .then((result) => result.data)
+          .then((data) => setSurfSkills(data))
+          .catch(() => {
+            error();
+          });
+      })
+      .catch(() => {
+        error();
+      });
   };
 
   return (
     <div className="myProfile">
       <div className="myProfile__row">
         <p>{users && users.wahine ? 'Wahine' : 'Hiki'}</p>
-        {editSkills ? (
-          <BsPencilSquare size="2rem" color="black" />
-        ) : !editProfil ? (
+        {!editProfil ? (
           <BsPencilSquare size="2rem" color="black" onClick={() => setEditProfil(true)} />
         ) : (
           <BsPencilSquare size="2rem" color="#fedb9b" />
@@ -306,13 +324,6 @@ const MyProfile = () => {
               </p>
               <p>{surfStyles && surfStyles.name_user}</p>
             </div>
-            {editProfil ? (
-              <BsPencilSquare color="grey" />
-            ) : !editSkills ? (
-              <BsPencilSquare color="grey" onClick={() => setEditSkills(true)} />
-            ) : (
-              <BsPencilSquare color="#fedb9b" />
-            )}
           </div>
           <div className="myProfile__column__column2__row2">
             <h2>Skills</h2>

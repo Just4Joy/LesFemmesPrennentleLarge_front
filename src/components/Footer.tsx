@@ -27,11 +27,11 @@ const Footer = () => {
           <li>CGU</li>
         </ul>
 
-        <div className="footer__row1__newsletter">
+        {/* <div className="footer__row1__newsletter">
           <label htmlFor="#">Newsletter</label>
           <input type="text" placeholder="E-mail" />
           <button>S&apos;inscrire</button>
-        </div>
+        </div> */}
       </div>
       <div className="footer__row2">
         <div className="footer__row2__socialIcon">
