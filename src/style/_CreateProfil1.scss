@@ -1,0 +1,68 @@
+.createProfil1 {
+  max-height: 70vh;
+  &__title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 45vw;
+    padding-bottom: 2rem;
+    &__skip {
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 0.2rem;
+    &__fullRow {
+      justify-self: center;
+      grid-column: 1 / span 2;
+    }
+
+    &__img {
+      align-self: center;
+    }
+    &__upload {
+      color: darkgrey;
+      margin-left: 2rem;
+      justify-self: start;
+    }
+    &__textarea {
+      grid-column: 1 / span 2;
+    }
+    // &__infos {
+    //   &__selectVille {
+    //     font-size: 40px;
+    //   }
+    // }
+
+    &__spot {
+      grid-column: 1 / span 2;
+    }
+
+    input,
+    textarea,
+    select {
+      font-size: 12px;
+
+      box-sizing: border-box;
+      margin: 0.6rem 2rem;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      border: 1px solid #c3c7c8;
+      width: 100%;
+    }
+  }
+  &__next {
+    width: 12vw;
+    border-radius: 10px;
+    border: 1px solid #c3c7c8;
+    padding: 0.5rem 0;
+    background-color: #fdc969;
+    cursor: pointer;
+    font-weight: bolder;
+  }
+}

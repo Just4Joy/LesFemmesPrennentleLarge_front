@@ -1,0 +1,22 @@
+.wahine {
+  max-width: 10vw;
+
+  &__img {
+    display: flex;
+    justify-content: start;
+    margin: 1rem 0 2rem 0;
+    // width: 13vw;
+    max-height: 20vh;
+    > img {
+      max-height: 100%;
+
+      max-width: 100%;
+    }
+  }
+  &__h5 {
+    margin-bottom: 1rem;
+  }
+  &__h6 {
+    color: black;
+  }
+}

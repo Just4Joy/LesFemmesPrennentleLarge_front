@@ -1,0 +1,33 @@
+.header {
+  font-family: $Main-font;
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0;
+
+  &__list {
+    font-family: $Main-font;
+    display: flex;
+    justify-content: space-around;
+    width: 40vw;
+    &__profile:hover {
+      text-decoration: underline;
+    }
+    &__mysessions:hover {
+      text-decoration: underline;
+    }
+    &__session:hover {
+      text-decoration: underline;
+    }
+    &__connection {
+      &__login {
+        cursor: pointer;
+      }
+      &__logout {
+        cursor: pointer;
+      }
+      &__logout:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

@@ -1,12 +1,69 @@
-import React from "react";
+import React, { FC, useContext } from 'react';
+import { Dispatch, SetStateAction } from 'react';
+import { NavLink } from 'react-router-dom';
 
-const Header = () => {
+import LFPLL from '../../img/LFPLL.svg';
+import CurrentUserContext from './contexts/CurrentUser';
 
-    return (
-        <div>
+type Props = {
+  setActiveModal: Dispatch<SetStateAction<string>>;
+};
 
-        </div>
-    )
-}
+const Header: FC<Props> = ({ setActiveModal }) => {
+  const { id, logout, wahine } = useContext(CurrentUserContext);
+
+  return (
+    <div className="header">
+      <div className="header__logo">
+        <NavLink to="/">
+          <img className="Logo" src={LFPLL} alt="Logo" />
+        </NavLink>
+      </div>
+      <ul className="header__list">
+        <li className="header__list__profile">
+          {id === 0 ? '' : <NavLink to="/profile">Mon Profil</NavLink>}
+        </li>
+        <li className="header__list__mysessions">
+          {id === 0 ? '' : <NavLink to="/my_sessions">Mes Sessions</NavLink>}
+        </li>
+        <li className="header__list__session">
+          <NavLink to="/sessions">Sessions</NavLink>
+        </li>
+
+        <li className="header__list__connection">
+          {id === 0 ? (
+            <NavLink
+              end
+              to="/login"
+              onClick={() => setActiveModal('connect')}
+              className="header__list__connection__login">
+              Se connecter
+            </NavLink>
+          ) : (
+            <NavLink to="/">
+              <span
+                className="header__list__connection__logout"
+                role="presentation"
+                onClick={() => logout()}>
+                Se déconnecter
+              </span>
+            </NavLink>
+          )}
+        </li>
+        {wahine ? (
+          <li className="header__list__create" style={{ textDecoration: 'underline' }}>
+            <NavLink
+              to="/create_session"
+              onClick={() => setActiveModal('create_session1')}>
+              Créer une session
+            </NavLink>
+          </li>
+        ) : (
+          ''
+        )}
+      </ul>
+    </div>
+  );
+};
 
 export default Header;

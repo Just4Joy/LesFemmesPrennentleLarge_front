@@ -1,0 +1,46 @@
+.CreateAccount {
+  &__title {
+    font-family: $Second-font;
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 600;
+  }
+  &__form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-column-gap: 20px;
+    &__input {
+      width: 100%;
+      margin: 1rem 2rem;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      border: 1px solid #c3c7c8;
+    }
+  }
+
+  &__button {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    &__return {
+      width: 12vw;
+      border-radius: 10px;
+      border: 1px solid #c3c7c8;
+      padding: 0.5rem 0;
+      background-color: white;
+      cursor: pointer;
+      font-weight: bolder;
+    }
+    &__connect {
+      width: 12vw;
+      border-radius: 10px;
+      border: 1px solid #c3c7c8;
+      padding: 0.5rem 0;
+      background-color: #fdc969;
+      cursor: pointer;
+      font-weight: bolder;
+    }
+  }
+}

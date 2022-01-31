@@ -1,0 +1,9 @@
+@mixin hiki {
+  font-family: $Second-font;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 0.4rem 4rem;
+  background-color: $Hiki;
+  border-radius: 8px;
+  line-height: 1.3rem;
+}

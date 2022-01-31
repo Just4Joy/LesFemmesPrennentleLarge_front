@@ -1,0 +1,25 @@
+.becomeWahine {
+  background-color: $Accent-4;
+  padding: 5rem;
+  margin: 5rem 0;
+  border-radius: 10px;
+  &__h1 {
+    margin-bottom: 1rem;
+  }
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 2rem;
+  }
+  &__btn {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    background-color: #333333;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}

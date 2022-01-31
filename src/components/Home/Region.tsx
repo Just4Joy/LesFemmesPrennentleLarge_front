@@ -1,12 +1,20 @@
-import React from "react";
+import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
 
-const Region = () => {
+import IRegion from '../../interfaces/IRegion';
 
-    return (
-        <div>
+type Props = IRegion;
 
-        </div>
-    )
-}
+const Region: FC<Props> = ({ region_name, color, id_region }) => {
+  return (
+    <div className="region">
+      <Link to={'/sessions/' + id_region}>
+        <button className="region__button" type="button" style={{ background: color }}>
+          {region_name}
+        </button>
+      </Link>
+    </div>
+  );
+};
 
 export default Region;

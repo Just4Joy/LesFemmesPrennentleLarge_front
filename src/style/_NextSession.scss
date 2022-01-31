@@ -1,0 +1,116 @@
+.nextsession {
+  width: 28%;
+  padding: 0 1rem;
+  margin: 2rem;
+  &__button {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 2rem;
+    &__region {
+      background-color: #fbdcc5;
+      border-radius: 10px;
+      padding: 0.5rem 2rem;
+      color: black;
+      font-weight: 400;
+    }
+    &__surfstyle {
+      background-color: #c2e5e0;
+      border-radius: 10px;
+      padding: 0.5rem 2rem;
+      color: black;
+      font-weight: 400;
+    }
+  }
+
+  &__infos {
+    &__spot {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 2rem;
+      &__h4 {
+        font-weight: bold;
+        padding-bottom: 1rem;
+      }
+      &__h6 {
+        font-weight: 500;
+        font-size: 15px;
+        color: black;
+        padding-bottom: 1rem;
+      }
+      &__adress {
+        font-weight: 500;
+        font-size: 15px;
+        color: black;
+        padding-bottom: 1rem;
+      }
+      &__wahine {
+        font-weight: 500;
+        font-size: 12px;
+      }
+      &__full {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        &__text {
+          font-weight: 700;
+          font-size: 13px;
+          color: black;
+        }
+        &__icon {
+          font-size: 17px;
+        }
+      }
+    }
+    &__rdv {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-family: $Main-font;
+      font-weight: 500;
+      font-size: 15px;
+      color: black;
+      padding-bottom: 1rem;
+      &__date {
+        display: flex;
+        flex-direction: column;
+        &__p {
+          margin-bottom: 0.5rem;
+        }
+      }
+      &__covoit {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        &__text {
+          font-weight: 500;
+          font-size: 15px;
+          color: black;
+        }
+        &__icon {
+          font-size: 17px;
+        }
+      }
+    }
+  }
+  &__hr {
+    border: 1px solid #ebebeb;
+    margin: 2rem 2rem;
+  }
+
+  &__details {
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    &__text {
+      font-weight: 700;
+      font-size: 15px;
+      color: rgb(58, 58, 58);
+    }
+    &__icon {
+      font-size: 17px;
+      color: rgb(58, 58, 58);
+    }
+  }
+}

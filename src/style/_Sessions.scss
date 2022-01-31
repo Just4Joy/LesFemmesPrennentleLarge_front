@@ -1,0 +1,46 @@
+.sessions {
+  &__h1 {
+    padding-top: 15vh;
+  }
+  &__selectors {
+    display: flex;
+    justify-content: flex-start;
+    margin: 2rem 0;
+
+    &__region {
+      border-radius: 10px;
+      background-color: white;
+      width: 13vw;
+      margin-right: 1rem;
+      height: 4vh;
+      padding-left: 0.5rem;
+      color: #263238;
+    }
+    &__date {
+      border-radius: 10px;
+      background-color: white;
+      width: 13vw;
+      height: 4vh;
+      padding-left: 0.5rem;
+      color: #263238;
+    }
+  }
+  &__nextsession {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10vh;
+    &__not-sessions {
+      margin-bottom: 20vh;
+    }
+  }
+  &__button {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 3rem;
+    &__more {
+      font-size: 2em;
+      fill: $Primary-dark-2;
+    }
+  }
+}
