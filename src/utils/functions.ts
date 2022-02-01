@@ -20,4 +20,4 @@ const convertDateTimeToString = (dateToConvert: Date): string => {
   return dateConverted;
 };
 
-export { convertDateToISO, convertDateTimeToString };
+export { convertDateTimeToString, convertDateToISO };

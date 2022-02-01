@@ -65,14 +65,14 @@ const Home: FC<Props> = ({ setActiveModal }) => {
         setAllRegions(regions);
 
         // Construit le tableau d'objet mesSessions
-        let mesSessions: MySession[] = [];
-        let maSession: MySession;
+        let sessionsList: MySession[] = [];
+        let mySession: MySession;
         sessions.map((session) => {
           let id_region =
             departments.find(
               (departement) => departement.id_department == session.id_department,
             )?.id_region || 0;
-          maSession = {
+          mySession = {
             id_session: session.id_session,
             name: session.name,
             nice_date: session.nice_date,
@@ -92,9 +92,9 @@ const Home: FC<Props> = ({ setActiveModal }) => {
             region_name:
               regions.find((region) => region.id_region == id_region)?.region_name || '',
           };
-          mesSessions.push(maSession);
+          sessionsList.push(mySession);
         });
-        setMySessions(mesSessions);
+        setMySessions(sessionsList);
       })
       .catch(() => {
         error();
