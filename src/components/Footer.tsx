@@ -1,5 +1,4 @@
 import React from 'react';
-// import Link from 'react-router-dom';
 import { AiFillFacebook, AiFillInstagram, AiFillLinkedin } from 'react-icons/ai';
 
 import Logo from '../../img/logo.svg';
@@ -26,12 +25,6 @@ const Footer = () => {
           <li>CGV</li>
           <li>CGU</li>
         </ul>
-
-        {/* <div className="footer__row1__newsletter">
-          <label htmlFor="#">Newsletter</label>
-          <input type="text" placeholder="E-mail" />
-          <button>S&apos;inscrire</button>
-        </div> */}
       </div>
       <div className="footer__row2">
         <div className="footer__row2__socialIcon">

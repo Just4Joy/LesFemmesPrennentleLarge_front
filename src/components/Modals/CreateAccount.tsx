@@ -18,8 +18,6 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
   const [email, setEmail] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [password2, setPassword2] = useState<string>('');
-  console.log(password2);
 
   const createUserAndConnect = () => {
     axios
@@ -77,7 +75,7 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
   return (
     <div className="CreateAccount">
       <div className="CreateAccount__title">
-        <p className="CreateAccount__title__p">Créer mon compte</p>
+        <h3 className="CreateAccount__title__p">Créer mon compte</h3>
       </div>
       <div className="CreateAccount__form">
         <input
@@ -114,10 +112,7 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
           }></input>
         <input
           className="CreateAccount__form__input"
-          placeholder="confirmer le mot de passe*"
-          onChange={(e: React.FormEvent<HTMLInputElement>) =>
-            setPassword2(e.currentTarget.value)
-          }></input>
+          placeholder="confirmer le mot de passe*"></input>
       </div>
       <div className="CreateAccount__button">
         <button

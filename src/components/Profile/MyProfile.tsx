@@ -43,11 +43,13 @@ const MyProfile = () => {
   );
 
   useEffect(() => {
+    //GET User
     axios
       .get<IUser>(`http://localhost:3000/api/users/${id}`)
       .then((result) => result.data)
       .then((data) => {
         setUsers(data);
+        //GET department of the user
         axios
           .get<IDepartment>(`http://localhost:3000/api/departments/${data.id_department}`)
           .then((result) => result.data)
@@ -55,6 +57,7 @@ const MyProfile = () => {
           .catch(() => {
             error();
           });
+        //GET the surfstyle of the user
         axios
           .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
           .then((result) => result.data)
@@ -62,6 +65,7 @@ const MyProfile = () => {
           .catch(() => {
             error();
           });
+        //GET the surfskills of the user
         axios
           .get<ISurfSkill[]>(`http://localhost:3000/api/users/${data.id_user}/surfskills`)
           .then((result) => result.data)
@@ -73,7 +77,7 @@ const MyProfile = () => {
       .catch(() => {
         error();
       });
-
+    //GET surfskills
     axios
       .get<ISurfSkill[]>('http://localhost:3000/api/surfskills')
       .then((result) => result.data)
@@ -81,7 +85,7 @@ const MyProfile = () => {
       .catch(() => {
         error();
       });
-
+    //GET departments
     axios
       .get<IDepartment[]>('http://localhost:3000/api/departments')
       .then((result) => result.data)
@@ -89,7 +93,7 @@ const MyProfile = () => {
       .catch(() => {
         error();
       });
-
+    //GET surfstyles
     axios
       .get<ISurfStyle[]>('http://localhost:3000/api/surfstyles')
       .then((result) => result.data)
@@ -97,21 +101,8 @@ const MyProfile = () => {
       .catch(() => {
         error();
       });
-
-    // return () => {
-    //   // @ts-ignore: Unreachable code error
-    //   setUsers();
-    //   // @ts-ignore: Unreachable code error
-    //   setDepartments();
-    //   // @ts-ignore: Unreachable code error
-    //   setSurfStyles();
-    //   // @ts-ignore: Unreachable code error
-    //   setSurfSkills([]);
-    //   // @ts-ignore: Unreachable code error
-    //   setSurfSkillToAdd([]);
-    // };
   }, []);
-
+  //Avoids having a surfskills selected two times
   const add = (id: ISurfSkill['id_surf_skill']) => {
     const arr = activeSurfSkill;
     if (arr.find((el) => el === id)) {
@@ -121,6 +112,7 @@ const MyProfile = () => {
     setActiveSurfSkill(arr);
   };
 
+  //PUT User Profile Pic
   const onSuccess = (res: any) => {
     console.log(res.url);
     users &&
@@ -152,6 +144,7 @@ const MyProfile = () => {
         });
   };
 
+  //PUT User details
   const updateDataUser = () => {
     console.log(newDepartment, newSurfStyles, 'NEW DEPARTEMENT NEW SURFSTYLE ON CLICK');
     const data: any = {
@@ -181,7 +174,7 @@ const MyProfile = () => {
             },
             withCredentials: true,
           },
-        )
+        ) //retrieving the information of the user after the put is finished
         .then(() => {
           axios
             .get<IUser>(`http://localhost:3000/api/users/${id}`)
@@ -225,7 +218,7 @@ const MyProfile = () => {
           }
         });
     }
-
+    //DELETE Surfskills of the user
     axios
       .delete(`http://localhost:3000/api/users/${id}/surfskills/`, {
         method: 'DELETE',
@@ -250,7 +243,7 @@ const MyProfile = () => {
             );
           }),
         );
-      })
+      }) //retrieves the surfskills
       .then(() => {
         axios
           .get<ISurfSkill[]>(`http://localhost:3000/api/users/${id}/surfskills`)
@@ -471,7 +464,6 @@ const MyProfile = () => {
             updateDataUser();
             editProfil ? setEditProfil(false) : setEditSkills(false);
             setUpdate(!update);
-            /*  editProfil ? setUpdate(!update) : setUpdate(!update); */
           }}>
           Enregistrer
         </button>
