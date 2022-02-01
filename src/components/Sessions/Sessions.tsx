@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import Calendar from 'react-calendar';
+// import Calendar from 'react-calendar';
 import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ import IDepartment from '../../interfaces/IDepartment';
 import IRegion from '../../interfaces/IRegion';
 import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
-import { convertDateTimeToDDMMYYY } from '../../utils/functions';
+// import { convertDateTimeToDDMMYYY } from '../../utils/functions';
 import NextSession from '../NextSession';
 type MySession = ISession & IDepartment & IRegion;
 
@@ -200,7 +200,7 @@ const Sessions = () => {
     }
   }, [selectedDate]);
 
-  const mark = ['24-12-2021', '02-02-2022', '05-02-2022'];
+  // const mark = ['24-12-2021', '02-02-2022', '05-02-2022'];
 
   return (
     <div className="sessions">
