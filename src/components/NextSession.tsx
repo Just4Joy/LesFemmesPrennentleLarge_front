@@ -27,6 +27,7 @@ const NextSession: FC<Props> = ({
   const [wahine, setWahine] = useState<IUser>();
 
   useEffect(() => {
+    //GET users who have subsribed to the session
     axios
       .get<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users`)
       .then((result) => result.data)
@@ -36,6 +37,7 @@ const NextSession: FC<Props> = ({
       .catch(() => {
         error();
       });
+    //GET the user
     axios
       .get<IUser>(`http://localhost:3000/api/users/${id_user}`)
       .then((results) => results.data)

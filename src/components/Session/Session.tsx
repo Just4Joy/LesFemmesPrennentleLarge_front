@@ -44,13 +44,15 @@ const Session: FC<Props> = ({ setActiveModal }) => {
     subscribe ? setHasSubscribe(true) : setHasSubscribe(false);
   };
 
-  // Premier UseEffect
+  // First UseEffect
   useEffect(() => {
+    //GET Session
     axios
       .get<ISession>(`http://localhost:3000/api/sessions/${id_session}`)
       .then((result) => result.data)
       .then((data) => {
         setSession(data);
+        //GET the Wahine who organized the session
         axios
           .get<IUser>(`http://localhost:3000/api/users/${data.id_user}`)
           .then((result) => result.data)
@@ -58,6 +60,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
           .catch(() => {
             error();
           });
+        //GET department of the session
         axios
           .get<IDepartment>(`http://localhost:3000/api/departments/${data.id_department}`)
           .then((result) => result.data)
@@ -65,6 +68,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
           .catch(() => {
             error();
           });
+        //GET surfstyle of the session
         axios
           .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
           .then((result) => result.data)
@@ -76,6 +80,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
       .catch(() => {
         error();
       });
+    //GET Users participating to the session
     axios
       .get<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users`)
       .then((result) => result.data)
@@ -86,6 +91,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
       .catch(() => {
         error();
       });
+    //GET Weather of the session
     axios
       .get<IWeather[]>(`http://localhost:3000/api/sessions/${id_session}/weather/`)
       .then((result) => result.data)
@@ -95,7 +101,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
       });
   }, []);
 
-  // Second useEffect: rejoindre/désinscription session & chargement des users inscrite
+  // Second useEffect: join/unsubscribe to the session & loading of the users subscribed
   useEffect(() => {
     if (wantSubscribe) {
       axios

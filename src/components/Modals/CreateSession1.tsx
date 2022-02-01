@@ -30,6 +30,7 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
   const [carpool, setCarpool] = useState<ISession['carpool']>();
 
   useEffect(() => {
+    //GET Departments
     axios
       .get<IDepartment[]>('http://localhost:3000/api/departments')
       .then((result) => result.data)
@@ -37,7 +38,7 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
       .catch(() => {
         error();
       });
-
+    //GET surfstyles
     axios
       .get<ISurfStyle[]>('http://localhost:3000/api/surfstyles')
       .then((result) => result.data)
@@ -47,6 +48,7 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
       });
   }, []);
 
+  //POST Session
   const createSession = (id: number) => {
     axios
       .post<ISession>(

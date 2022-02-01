@@ -22,7 +22,7 @@ const Sessions = () => {
   const [pagination, setPagination] = useState<number>(0);
   const [paginationActive, setPaginationActive] = useState<boolean>(false);
 
-  // Les fonctions axios
+  // Axios functions
   const getAllSessions = async () => {
     let basicUrl = `http://localhost:3000/api/sessions`;
     let basicUrlChanged = false;
@@ -59,7 +59,7 @@ const Sessions = () => {
     return surfstyles.data;
   };
 
-  // Construit le tableau d'objet mySessions
+  // Constructing hte array of object mySession
   const mySessionsObjectConstructor = (
     sessionsList: ISession[],
     departmentsList: IDepartment[],
@@ -103,7 +103,7 @@ const Sessions = () => {
     setMySessions(mesSessions);
   };
 
-  // Premier useEffect
+  // First useEffect
   useEffect(() => {
     Promise.all([
       getAllSessions(),
@@ -126,7 +126,7 @@ const Sessions = () => {
       setSelectedRegion(id_region);
     }
   }, []);
-  // au changemenet de région
+  // at the change of region
   useEffect(() => {
     if (
       selectedRegion !== undefined &&
@@ -179,7 +179,7 @@ const Sessions = () => {
     }
   }, [selectedRegion, pagination]);
 
-  // Second useEffect au changement de date
+  // Second useEffect at the change of date
   useEffect(() => {
     if (selectedDate !== undefined) {
       allRegions &&
@@ -235,7 +235,7 @@ const Sessions = () => {
         />
       </div>
 
-      {/* Composants NextSession */}
+      {/* Componant NextSession */}
       <div className="sessions__nextsession">
         {mySessions && mySessions.length === 0 ? (
           <h1 className="sessions__nextsession__not-sessions">

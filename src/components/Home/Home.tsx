@@ -25,12 +25,13 @@ type MySession = ISession & IDepartment & IRegion;
 const Home: FC<Props> = ({ setActiveModal }) => {
   const [allRegions, setAllRegions] = useState<IRegion[]>([]);
   const [mySessions, setMySessions] = useState<MySession[]>([]);
-  // const [allWahine, setAllWahine] = useState<IUser[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
   const { id, wahine } = useContext(CurrentUserContext);
+  //Variable pour l'affichage du nombre de wahine sur Home'
   const first: number = 0;
   const second: number = 5;
 
+  //GET Sessions, regions, departments, surfstyles
   useEffect(() => {
     const getAllSessions = async () => {
       const sessions = await axios.get<ISession[]>(
@@ -64,7 +65,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
       .then(([sessions, regions, departments, surfstyles]) => {
         setAllRegions(regions);
 
-        // Construit le tableau d'objet mesSessions
+        // Construction of the array of object MesSessions
         let mesSessions: MySession[] = [];
         let maSession: MySession;
         sessions.map((session) => {

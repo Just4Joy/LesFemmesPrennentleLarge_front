@@ -15,6 +15,7 @@ const MySessions = () => {
   const [participants, setParticipants] = useState<ISession[]>([]);
 
   useEffect(() => {
+    //GET session I created
     axios
       .get<ISession[]>(`http://localhost:3000/api/sessions?wahine=${id}`)
       .then((result) => result.data)
@@ -22,6 +23,7 @@ const MySessions = () => {
       .catch(() => {
         error();
       });
+    //GET sessions of the user
     axios
       .get<ISession[]>(`http://localhost:3000/api/users/${id}/sessions`)
       .then((results) => results.data)

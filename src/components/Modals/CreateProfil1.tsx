@@ -24,6 +24,8 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
   const [departments, setDepartments] = useState<IDepartment[]>([]);
   const [allCities, setAllCities] = useState<ICity[]>([]);
   const [searchCity, setSearchCity] = useState('');
+
+  //GET Departments
   useEffect(() => {
     axios
       .get<IDepartment[]>('http://localhost:3000/api/departments')
@@ -34,6 +36,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
       });
   }, []);
 
+  //GET ZIP Code from another API
   useEffect(() => {
     axios
       .get<ICity[]>(`https://geo.api.gouv.fr/communes?codePostal=${searchCity}`)
@@ -47,6 +50,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
       });
   }, [searchCity]);
 
+  //PUT profil
   const updateProfile = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     axios
@@ -84,6 +88,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
       });
   };
 
+  //PUT profile picture
   const onSuccess = (res: any) => {
     console.log(res.url);
     axios.put(

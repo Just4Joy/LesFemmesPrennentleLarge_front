@@ -7,7 +7,7 @@ import IUser from '../interfaces/IUser';
 type Props = IUser & { setActiveModal: Dispatch<SetStateAction<string>> };
 
 const Wahine: FC<Props> = ({
-  setActiveModal, // profile_pic,
+  setActiveModal,
   firstname,
   lastname,
   city,

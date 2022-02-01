@@ -22,11 +22,13 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
   const [department, setDepartment] = useState<IDepartment>();
 
   useEffect(() => {
+    //GET Session
     axios
       .get<ISession>(`http://localhost:3000/api/sessions/${id_sessionCreated}`)
       .then((result) => result.data)
       .then((data) => {
         setSession(data);
+        //GET surfstyle of the session
         axios
           .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
           .then((result) => result.data)
@@ -34,6 +36,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
           .catch(() => {
             error();
           });
+        //GET department of the session
         axios
           .get<IDepartment>(`http://localhost:3000/api/departments/${data.id_department}`)
           .then((result) => result.data)
@@ -45,6 +48,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
       .catch(() => {
         error();
       });
+    //GET the weather of the session
     axios
       .get<IWeather[]>(`http://localhost:3000/api/sessions/${id_sessionCreated}/weather/`)
       .then((result) => result.data)
@@ -54,6 +58,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
       });
   }, []);
 
+  //DELETE the session
   const deleteSession = () => {
     axios
       .delete<ISession>(`http://localhost:3000/api/sessions/${id_sessionCreated}`, {
