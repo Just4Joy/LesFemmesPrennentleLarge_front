@@ -126,78 +126,8 @@ const Sessions = () => {
     if (id_region !== undefined) {
       setSelectedRegion(id_region);
     }
-  }, []);
-  // at the change of region
-  useEffect(() => {
-    if (
-      selectedRegion !== undefined &&
-      allDepartments.length === 0 &&
-      allRegions.length === 0 &&
-      allSurfstyles.length === 0
-    ) {
-      Promise.all([
-        getAllSessions(),
-        getAllRegions(),
-        getAllDepartments(),
-        getAllSurfstyles(),
-      ])
-        .then(([sessions, regions, departments, surfstyles]) => {
-          setAllRegions(regions);
-          setAllDepartments(departments);
-          setAllSurfstyles(surfstyles);
+  }, [selectedRegion, pagination, selectedDate]);
 
-          mySessionsObjectConstructor(sessions, departments, surfstyles, regions);
-        })
-        .catch(() => {
-          error();
-        });
-    } else if (selectedRegion !== undefined) {
-      getAllSessions()
-        .then((sessions) => {
-          mySessionsObjectConstructor(
-            sessions,
-            allDepartments,
-            allSurfstyles,
-            allRegions,
-          );
-        })
-        .catch(() => {
-          error();
-        });
-    } else if (pagination >= 0 && paginationActive) {
-      getAllSessions()
-        .then((sessions) => {
-          mySessionsObjectConstructor(
-            sessions,
-            allDepartments,
-            allSurfstyles,
-            allRegions,
-          );
-        })
-        .catch(() => {
-          error();
-        });
-    }
-  }, [selectedRegion, pagination]);
-
-  // Second useEffect at the change of date
-  useEffect(() => {
-    if (selectedDate !== undefined) {
-      allRegions &&
-        getAllSessions()
-          .then((sessions) => {
-            mySessionsObjectConstructor(
-              sessions,
-              allDepartments,
-              allSurfstyles,
-              allRegions,
-            );
-          })
-          .catch(() => {
-            error();
-          });
-    }
-  }, [selectedDate]);
 
   return (
     <div className="sessions">

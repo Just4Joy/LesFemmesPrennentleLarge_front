@@ -67,10 +67,7 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
         <h1>2/2</h1>
       </div>
       <div className="create-session2__paragraph">
-        <p>
-          Tu sais analyser les conditions météos via des sites, comme liens, liens ou
-          liens?
-        </p>
+        <p>Tu sais analyser les conditions météos via des sites?</p>
         <p>Donne des indications aux participantes de la session</p>
       </div>
       <div className="create-session2__selects">

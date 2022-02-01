@@ -4,7 +4,7 @@ import ISurfStyle from '../interfaces/ISurfStyle';
 
 type Props = ISurfStyle;
 
-const SurfStyle: FC<Props> = (id_surf_style, name_user) => {
+const SurfStyle: FC<Props> = (name_user) => {
   const [active, setActive] = useState(false);
   return (
     <div className="surfstyle">
