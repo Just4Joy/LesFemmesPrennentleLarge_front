@@ -1,14 +1,16 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import Calendar from 'react-calendar';
 import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
+
 import { error } from '../../errors';
 import IDepartment from '../../interfaces/IDepartment';
 import IRegion from '../../interfaces/IRegion';
 import ISession from '../../interfaces/ISession';
 import ISurfStyle from '../../interfaces/ISurfStyle';
+import { convertDateTimeToDDMMYYY } from '../../utils/functions';
 import NextSession from '../NextSession';
-
 type MySession = ISession & IDepartment & IRegion;
 
 const Sessions = () => {
@@ -198,6 +200,8 @@ const Sessions = () => {
     }
   }, [selectedDate]);
 
+  const mark = ['24-12-2021', '02-02-2022', '05-02-2022'];
+
   return (
     <div className="sessions">
       <h1 className="sessions__h1">Trouver une session</h1>
@@ -233,6 +237,20 @@ const Sessions = () => {
             setPagination(0);
           }}
         />
+        {/* <Calendar
+          onChange={(date: Date) => {
+            console.log(date);
+            setSelectedDate(date);
+            setPagination(0);
+          }}
+          tileClassName={({ date }) => {
+            let b: string = '';
+            if (mark.find((x) => x === convertDateTimeToDDMMYYY(date))) {
+              b = 'test';
+            }
+            return b;
+          }}
+        /> */}
       </div>
 
       {/* Composants NextSession */}

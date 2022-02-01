@@ -20,4 +20,14 @@ const convertDateTimeToString = (dateToConvert: Date): string => {
   return dateConverted;
 };
 
-export { convertDateToISO, convertDateTimeToString };
+const convertDateTimeToDDMMYYY = (dateToConvert: Date): string => {
+  const dateConverted: string =
+    ('0' + (dateToConvert.getUTCDate() + 1)).slice(-2) +
+    '-' +
+    ('0' + (dateToConvert.getUTCMonth() + 1)).slice(-2) +
+    '-' +
+    dateToConvert.getUTCFullYear();
+  return dateConverted;
+};
+
+export { convertDateTimeToDDMMYYY, convertDateTimeToString, convertDateToISO };
