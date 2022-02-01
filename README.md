@@ -8,8 +8,11 @@ I found out about Vite and I wanted to have a boilerplate for the technologies t
 
 ## Installation
 
-Clone the repo and run `yarn install`
+Clone the repo back and run `npm install`
+Clone the repo front and run `npm install`
 
 ## Start
 
-After the successfull installation of the packages: `yarn dev`
+On the back, after the succesful installation, run `npm run ts`.
+Open another terminal and run `npm start`.
+On the front, after the succesful installation, run `npm start`

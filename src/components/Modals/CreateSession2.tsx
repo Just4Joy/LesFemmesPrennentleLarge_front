@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { error } from '../../errors';
 import IWeather from '../../interfaces/IWeather';
 import CurrentSessionContext from '../contexts/CurrentSession';
+
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
@@ -18,6 +19,7 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
   const [power, setPower] = useState<string>('');
   const [temperature, setTemperature] = useState<string>('');
 
+  //GET Weather
   useEffect(() => {
     axios
       .get<IWeather[]>('http://localhost:3000/api/weather')
@@ -29,8 +31,9 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
   }, []);
 
   function addWeather() {
-    const dataToSend = [wave, flow, power, temperature]; // "weather" retiré du tableau sinon premier map NaN
+    const dataToSend = [wave, flow, power, temperature]; // "weather" removed from arrayy otherwise first map NaN
 
+    //POST Weather to a Session
     Promise.all(
       dataToSend.map(async (el) => {
         return axios

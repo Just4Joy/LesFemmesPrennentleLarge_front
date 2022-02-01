@@ -14,6 +14,7 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
   const { id, setWahine } = useContext(CurrentUserContext);
   const [user, setUser] = useState<IUser>();
 
+  //GET User
   useEffect(() => {
     axios
       .get<IUser>(`http://localhost:3000/api/users/${id}`)
@@ -24,6 +25,7 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
       });
   }, [id]);
 
+  //PUT Wahine
   const updateWahineStatus = () => {
     axios
       .put(

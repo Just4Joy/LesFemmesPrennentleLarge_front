@@ -11,6 +11,7 @@ import IUser from '../../interfaces/IUser';
 import SurfSkillProfile from '../Profile/SurfSkillProfile';
 
 const ModalProfile = () => {
+  // Id of the user in params
   const { id } = useParams();
   const [user, setUser] = useState<IUser>();
   const [departments, setDepartments] = useState<IDepartment>();

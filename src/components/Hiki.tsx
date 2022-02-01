@@ -10,7 +10,7 @@ import IUser from '../interfaces/IUser';
 type Props = IUser & { setActiveModal: Dispatch<SetStateAction<string>> };
 
 const Hiki: FC<Props> = ({
-  setActiveModal, // profile_pic,
+  setActiveModal,
   firstname,
   lastname,
   city,
@@ -21,6 +21,7 @@ const Hiki: FC<Props> = ({
 }) => {
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
   useEffect(() => {
+    //GET Surfstyles
     axios
       .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${id_surf_style}`)
       .then((result) => result.data)

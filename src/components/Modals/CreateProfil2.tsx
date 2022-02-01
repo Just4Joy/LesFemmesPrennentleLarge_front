@@ -24,6 +24,7 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
   const [id_surf_style, setId_surf_style] = useState<IUser['id_surf_style']>();
 
   useEffect(() => {
+    //GET surfskills
     axios
       .get<ISurfSkill[]>('http://lfpll-back.herokuapp.com/api/surfskill')
       .then((result) => result.data)
@@ -31,6 +32,7 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
       .catch(() => {
         error();
       });
+    //GET surfstyles
     axios
       .get<ISurfStyle[]>('http://localhost:3000/api/surfstyles')
       .then((result) => result.data)
@@ -40,6 +42,7 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
       });
   }, []);
 
+  //Avoids having two surfskills selected during the PUT
   const add = (id: ISurfSkill['id_surf_skill']) => {
     const arr = activeSurfSkill;
     if (arr.find((el) => el === id)) {
@@ -49,6 +52,7 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
     setActiveSurfSkill(arr);
   };
 
+  //PUT Profile
   const updateSurfStyleProfile = () => {
     axios
       .put(
@@ -81,6 +85,7 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
       });
   };
 
+  //POST Surfskills
   const UpdateProfile = () => {
     Promise.all(
       activeSurfSkill.map(async (el) => {
