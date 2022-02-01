@@ -35,8 +35,8 @@ const MyProfile = () => {
   const [desc, setDesc] = useState<IUser['desc']>('');
   const [city, setCity] = useState<IUser['city']>('');
   const [favorite_spot, setSpot] = useState<IUser['favorite_spot']>('');
-  const [newDepartment, setNewDepartment] = useState<Number>();
-  const [newSurfStyles, setNewSurfStyles] = useState<Number>();
+  const [newDepartment, setNewDepartment] = useState<Number>(0);
+  const [newSurfStyles, setNewSurfStyles] = useState<Number>(0);
 
   const [activeSurfSkill, setActiveSurfSkill] = useState<ISurfSkill['id_surf_skill'][]>(
     [],
@@ -157,7 +157,7 @@ const MyProfile = () => {
       id_surf_style: newSurfStyles,
     };
     for (let key in data) {
-      if (data[key] === '') {
+      if (data[key] === '' || data[key] === 0) {
         delete data[key];
       }
     }
@@ -371,7 +371,7 @@ const MyProfile = () => {
                       onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
                         setNewDepartment(parseInt(e.currentTarget.value, 10));
                       }}>
-                      <option value="">régions où tu surfes</option>
+                      <option value="0">régions où tu surfes</option>
                       {allDepartments &&
                         allDepartments.map((department) => (
                           <option
@@ -389,7 +389,7 @@ const MyProfile = () => {
                       onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
                         setNewSurfStyles(parseInt(e.currentTarget.value, 10));
                       }}>
-                      <option value="">type de session</option>
+                      <option value="0">type de session</option>
                       {allSurfStyles &&
                         allSurfStyles.map((surfStyle) => (
                           <option
