@@ -89,7 +89,7 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
               }
               value={password}
             />
-            <p>mot de passe oublié?</p>
+            <h6>mot de passe oublié?</h6>
           </form>
         </div>
         <div className="connect__button">
