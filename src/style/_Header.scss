@@ -31,3 +31,57 @@
     }
   }
 }
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+  .header__list {
+    display: none;
+  }
+  .header__burger {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .header__hidden {
+    display: none;
+  }
+  .header__links {
+    &__list {
+      padding: 2vh 0;
+      font-family: $Main-font;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      width: 40vw;
+      height: fit-content;
+      &__profile:hover {
+        text-decoration: underline;
+      }
+      &__mysessions:hover {
+        text-decoration: underline;
+      }
+      &__session:hover {
+        text-decoration: underline;
+      }
+      &__connection {
+        &__login {
+          cursor: pointer;
+        }
+        &__logout {
+          cursor: pointer;
+        }
+        &__logout:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  .padding {
+    padding: 1vh 0;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .header__burger {
+    display: none;
+  }
+}
