@@ -22,3 +22,18 @@
     padding: 4rem;
   }
 }
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+  .App__showModal {
+    position: fixed;
+    top: 15vh;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+
+    background-color: white;
+    border-radius: 30px;
+    padding: 4rem;
+  }
+}
