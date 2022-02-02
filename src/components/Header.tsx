@@ -1,11 +1,11 @@
 import React, { FC, useContext } from 'react';
 import { Dispatch, SetStateAction } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { NavLink } from 'react-router-dom';
 
 import LFPLL from '../../img/LFPLL.svg';
 import CurrentUserContext from './contexts/CurrentUser';
-import { useState } from 'react';
 
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;

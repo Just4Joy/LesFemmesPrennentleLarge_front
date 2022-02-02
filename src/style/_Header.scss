@@ -8,7 +8,7 @@
     font-family: $Main-font;
     display: flex;
     justify-content: space-around;
-    width: 40vw;
+    width: 60vw;
     &__profile:hover {
       text-decoration: underline;
     }
@@ -29,6 +29,14 @@
         text-decoration: underline;
       }
     }
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+  .header__list {
+    min-width: 65vw;
+    font-size: 1.5vw;
   }
 }
 
