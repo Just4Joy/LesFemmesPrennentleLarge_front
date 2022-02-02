@@ -76,3 +76,119 @@
     }
   }
 }
+
+@media only screen and (max-width: 1422px) {
+  .create_session {
+    &__form {
+      &__inputs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        &__input {
+          width: 15vw;
+          margin: 0.5rem 2rem;
+          padding: 0.5rem 1rem;
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 1164px) {
+  .create_session {
+    &__title {
+      h1 {
+        font-size: 4vh;
+      }
+    }
+    &__form {
+      &__inputs {
+        &__input {
+          width: 13vw;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .create_session {
+    &__title {
+      display: flex;
+      flex-direction: row;
+
+      width: 100%;
+      h1 {
+        font-size: 4vh;
+      }
+    }
+    &__form {
+      &__inputs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        &__input {
+          width: 25vw;
+          margin: 0.5rem 2rem;
+          padding: 0.5rem 1rem;
+        }
+      }
+    }
+    &__button {
+      &__next {
+        width: 25vw;
+        padding: 0.5rem 0;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 610px) {
+  .create_session {
+    &__title {
+      h1 {
+        font-size: 3vh;
+      }
+    }
+    &__form {
+      &__inputs {
+        &__input {
+          width: 50vw;
+        }
+      }
+      &__type {
+        display: flex;
+        justify-content: center;
+        margin-top: 1vh;
+        &__h4 {
+          display: none;
+        }
+        select {
+          width: 50vw;
+        }
+      }
+      &__hr {
+        display: none;
+      }
+      &__carpool {
+        display: flex;
+        justify-content: center;
+        margin-top: 1vh;
+        &__h4 {
+          display: none;
+        }
+        select {
+          width: 50vw;
+        }
+      }
+    }
+    &__button {
+      margin-top: 2.5vh;
+      display: flex;
+      justify-content: center;
+      &__next {
+        width: 25vw;
+        padding: 0.5rem 0;
+      }
+    }
+  }
+}

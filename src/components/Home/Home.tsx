@@ -65,7 +65,6 @@ const Home: FC<Props> = ({ setActiveModal }) => {
       .then(([sessions, regions, departments, surfstyles]) => {
         setAllRegions(regions);
 
-
         // Construction of the array of object sessionList
 
         let sessionsList: MySession[] = [];
@@ -127,6 +126,9 @@ const Home: FC<Props> = ({ setActiveModal }) => {
           Pour tous les niveaux et organisés par des filles du coin qui maitrisent leur
           spot
         </h4>
+      </div>
+      <div className="home__presentation-responsive">
+        <h1 className="home__presentation__h1"> Bonjour,</h1>
       </div>
       {/*Section : Les sessions de ta région*/}
       <div className="home__region">

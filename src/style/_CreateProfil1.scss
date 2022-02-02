@@ -14,31 +14,76 @@
     }
   }
   &__container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 0.2rem;
-    &__fullRow {
-      justify-self: center;
-      grid-column: 1 / span 2;
+    // display: grid;
+    // grid-template-columns: 1fr 2fr;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__pic {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      &__img {
+        align-self: center;
+      }
+      div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2vh;
+        & input {
+          width: 10vw;
+        }
+        &__upload {
+          color: darkgrey;
+          margin-left: 2rem;
+          justify-self: start;
+        }
+      }
+    }
+    &__div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      div {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    &__infos__zipcode {
+      width: 15vw;
+      font-size: 12px;
+
+      box-sizing: border-box;
+      margin: 0.6rem 2rem;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      border: 1px solid #c3c7c8;
+      height: 6vh;
+    }
+    &__infos__selectVille {
+      width: 5vw;
     }
 
-    &__img {
-      align-self: center;
-    }
-    &__upload {
-      color: darkgrey;
-      margin-left: 2rem;
-      justify-self: start;
-    }
-    &__textarea {
-      grid-column: 1 / span 2;
+    &__row {
+      display: flex;
+      flex-direction: row;
+      &__spot {
+        font-size: 12px;
+
+        box-sizing: border-box;
+        margin: 0.6rem 2rem;
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        border: 1px solid #c3c7c8;
+        width: 15vw;
+      }
     }
 
-    &__spot {
-      grid-column: 1 / span 2;
-    }
-
-    input,
     textarea,
     select {
       font-size: 12px;
@@ -59,5 +104,68 @@
     background-color: #fdc969;
     cursor: pointer;
     font-weight: bolder;
+    margin-top: 2vh;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+  .createProfil1 {
+    &__title {
+      margin: 2vh 0;
+      width: 100%;
+      h1 {
+        font-size: 3vh;
+      }
+    }
+    &__container {
+      margin-top: 2vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      &__pic {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        div {
+          display: flex;
+          flex-direction: column;
+          margin-left: 4vw;
+          & input {
+            width: 15vw;
+          }
+        }
+      }
+
+      textarea {
+        width: 50vw;
+      }
+
+      input {
+        width: 20vw;
+      }
+      select {
+        width: 20vw;
+      }
+    }
+
+    &__next {
+      width: 16vw;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .createProfil1__container {
+    textarea {
+      width: 70vw;
+    }
+    input {
+      width: 30vw;
+    }
+    select {
+      width: 30vw;
+    }
   }
 }

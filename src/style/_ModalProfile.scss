@@ -23,6 +23,7 @@
     &__column1 {
       display: flex;
       flex-direction: column;
+      justify-content: center;
       width: 20%;
       gap: 1rem;
       > img {
@@ -90,6 +91,179 @@
             margin-bottom: 0.5rem;
           }
         }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .modalProfile {
+    padding: 0;
+    width: 100%;
+    margin-top: 0;
+    &__row {
+      justify-content: center;
+      margin-bottom: 1.4vh;
+    }
+    &__column {
+      flex-direction: column;
+      margin-top: 4vh;
+      &__column1 {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+        > img {
+          border: 1px rgb(167, 167, 167) solid;
+          width: 12vw;
+        }
+        &__info {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          border: none;
+          padding: 0;
+          > h2 {
+            font-size: 3.5vh;
+            margin-bottom: 2vh;
+          }
+          > h6 {
+            font-size: 2.5vh;
+            margin-bottom: 1.5vh;
+          }
+        }
+      }
+      &__column2 {
+        width: 100%;
+        &__row1 {
+          display: flex;
+          justify-content: space-around;
+          border-bottom: none;
+          padding-bottom: 0.5vh;
+          > div {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+
+            > p {
+              text-align: center;
+              font-size: 1.7vh;
+              width: 20vw;
+              padding: 1vh 0;
+            }
+          }
+        }
+        &__row2 {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          > h2 {
+            display: none;
+          }
+          &__wrap {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+          }
+        }
+        &__row3 {
+          &__describe {
+            border: 1px rgb(167, 167, 167) solid;
+            border-radius: 15px;
+            padding: 1rem;
+            min-height: 6.5rem;
+            > h2 {
+              font-weight: 600;
+              margin-bottom: 0.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .modalProfile {
+    &__column {
+      &__column1 {
+        > img {
+          border: 1px rgb(167, 167, 167) solid;
+          width: 17vw;
+        }
+        &__info {
+          > h2 {
+            font-size: 3vh;
+          }
+          > h6 {
+            font-size: 2.3vh;
+          }
+        }
+      }
+      &__column2 {
+        &__row1 {
+          > div {
+            > p {
+              text-align: center;
+              font-size: 1.7vh;
+              width: 29vw;
+            }
+          }
+        }
+        &__row2 {
+          &__wrap {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+          }
+        }
+        &__row3 {
+          display: flex;
+          justify-content: center;
+          &__describe {
+            width: 70vw;
+            > h2 {
+              font-size: 2.5vh;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .modalProfile__column__column1 {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    > img {
+      border: 1px rgb(167, 167, 167) solid;
+      width: 21vw;
+    }
+    &__info {
+      > h2 {
+        font-size: 2.2vh;
+      }
+      > h6 {
+        font-size: 1.7vh;
+      }
+    }
+  }
+  .modalProfile__column__column2__row1 {
+    > div {
+      > p {
+        text-align: center;
+        font-size: 1.3vh;
+        width: 29vw;
+      }
+    }
+  }
+  .modalProfile__column__column2__row1 {
+    > div {
+      > p {
+        text-align: center;
+        font-size: 1.3vh;
+        width: 32vw;
       }
     }
   }
