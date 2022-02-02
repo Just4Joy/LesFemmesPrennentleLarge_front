@@ -11,7 +11,7 @@
     &__region {
       border-radius: 10px;
       background-color: white;
-      width: 13vw;
+      width: 15vw;
       margin-right: 1rem;
       height: 4vh;
       padding-left: 0.5rem;
@@ -20,7 +20,7 @@
     &__date {
       border-radius: 10px;
       background-color: white;
-      width: 13vw;
+      width: 15vw;
       height: 4vh;
       padding-left: 0.5rem;
       color: #263238;
@@ -42,6 +42,56 @@
     &__more {
       font-size: 2em;
       fill: $Primary-dark-2;
+    }
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+  .sessions__selectors {
+    &__region {
+      width: 25vw;
+      height: 4vh;
+    }
+    &__date {
+      width: 25vw;
+      height: 4vh;
+    }
+  }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+  .sessions__selectors {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &__region {
+      width: 40vw;
+      height: 4vh;
+      margin-right: 0;
+      margin: 3vh 0;
+    }
+    &__date {
+      width: 40vw;
+      height: 4vh;
+    }
+  }
+  .sessions__h1 {
+    padding-top: 5vh;
+  }
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .sessions__selectors {
+    &__region {
+      width: 60vw;
+      height: 4vh;
+      margin-right: 0;
+      margin: 3vh 0;
+    }
+    &__date {
+      width: 60vw;
+      height: 4vh;
     }
   }
 }
