@@ -49,3 +49,74 @@
     }
   }
 }
+
+@media only screen and (max-width: 992px) {
+  .create-session2 {
+    &__title {
+      width: 100%;
+    }
+    &__selects {
+      margin-top: 2.5vh;
+      > select {
+        width: 30vw;
+        margin: 2vh 0;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .create-session2 {
+    &__title {
+      h1 {
+        font-size: 3.5vh;
+      }
+    }
+    &__paragraph {
+      margin-top: 1vh;
+      > p {
+        margin-top: 0.5vh;
+      }
+    }
+    &__selects {
+      margin-top: 2.5vh;
+      > select {
+        width: 40vw;
+        margin: 1.5vh 0;
+      }
+    }
+    &__buttons {
+      justify-content: center;
+      &__next {
+        width: 20vw;
+        padding: 0.5rem 0;
+      }
+      &__skip {
+        width: 20vw;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .create-session2 {
+    &__paragraph {
+      > p {
+        font-size: 1.7vh;
+      }
+    }
+    &__selects {
+      > select {
+        width: 50vw;
+      }
+    }
+    &__buttons {
+      &__next {
+        width: 25vw;
+      }
+      &__skip {
+        width: 25vw;
+      }
+    }
+  }
+}
