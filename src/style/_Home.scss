@@ -10,6 +10,9 @@
       font-weight: 400;
     }
   }
+  &__presentation-responsive {
+    display: none;
+  }
   &__region {
     margin-bottom: 5rem;
     &__h3 {
@@ -17,7 +20,8 @@
     }
     &__component {
       display: flex;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      justify-content: center;
     }
   }
   &__sessions {
@@ -27,7 +31,8 @@
     }
     &__component {
       display: flex;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      justify-content: center;
     }
     &__h5 {
       display: flex;
@@ -43,7 +48,8 @@
   &__wahines {
     &__component {
       display: flex;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      justify-content: space-around;
       margin-top: 1.5rem;
     }
     &__link {
@@ -51,6 +57,37 @@
       display: flex;
       justify-content: flex-end;
       margin-top: 4rem;
+    }
+  }
+  &__becomeWahine {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .home {
+    &__sessions {
+      &__h5 {
+        justify-content: center;
+      }
+    }
+  }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .home {
+    &__presentation {
+      display: none;
+    }
+    &__presentation-responsive {
+      display: block;
+      margin: 10vh 0;
+
+      &__h1 {
+        margin-bottom: 2rem;
+      }
     }
   }
 }

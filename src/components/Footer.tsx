@@ -9,7 +9,7 @@ const Footer = () => {
       <h4 className="footer__h4">Des questions, contactez nous,</h4>
       <h4 className="footer__h4">lesfemmesprennentlelarge33@gmail.com</h4>
       <div className="footer__row1">
-        <img src={Logo} alt="" />
+        <img className="footer__row1__logo" src={Logo} alt="" />
 
         <ul className="footer__row1__nav">
           <li>Pages</li>
