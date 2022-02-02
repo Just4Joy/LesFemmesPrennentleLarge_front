@@ -145,7 +145,7 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
               }></input>
           </div>
           <div className="create_session__form__type">
-            <h4>Type de session</h4>
+            <h4 className="create_session__form__type__h4">Type de session</h4>
             <select
               onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
                 setId_surf_style(parseInt(e.currentTarget.value, 10));
@@ -160,9 +160,9 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
             </select>
           </div>
         </form>
-        <hr />
+        <hr className="create_session__form__hr" />
         <div className="create_session__form__carpool">
-          <h4>Co-voiturage ?</h4>
+          <h4 className="create_session__form__carpool__h4">Co-voiturage ?</h4>
           <select
             onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
               setCarpool(parseInt(e.currentTarget.value, 10));
