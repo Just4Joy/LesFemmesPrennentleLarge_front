@@ -1,8 +1,9 @@
 .becomeWahine {
   background-color: $Accent-4;
-  padding: 5rem;
-  margin: 5rem 0;
+  padding: 8vw 5vw;
+  margin: 8vh 0;
   border-radius: 10px;
+  min-width: 60vw;
   &__h1 {
     margin-bottom: 1rem;
   }
@@ -11,15 +12,72 @@
     justify-content: space-between;
     align-items: flex-end;
     margin-top: 2rem;
+    &__btn {
+      font-size: 1.5vw;
+      font-weight: 600;
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      background-color: #333333;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    &__logo {
+      width: 5vw;
+    }
   }
-  &__btn {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: white;
-    padding: 1rem 2rem;
-    border: none;
-    background-color: #333333;
-    border-radius: 5px;
-    cursor: pointer;
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+  .becomeWahine__row__logo {
+    width: 7vw;
+  }
+  .becomeWahine {
+    &__h1 {
+      font-size: 2.5vw;
+    }
+    &__h2 {
+      font-size: 2vw;
+    }
+    &__row {
+      &__logo {
+        width: 7vw;
+      }
+    }
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+  .becomeWahine {
+    &__h1 {
+      font-size: 3vw;
+    }
+    &__h2 {
+      font-size: 2vw;
+    }
+    &__row {
+      &__logo {
+        width: 9vw;
+      }
+    }
+  }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .becomeWahine {
+    &__h1 {
+      font-size: 2.5vw;
+    }
+    &__h2 {
+      font-size: 2vw;
+    }
+    &__row {
+      &__logo {
+        width: 7vw;
+      }
+    }
   }
 }

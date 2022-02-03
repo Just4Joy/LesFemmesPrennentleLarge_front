@@ -1,9 +1,9 @@
 .wahine {
-  max-width: 10vw;
+  width: 10vw;
 
   &__img {
     display: flex;
-    justify-content: start;
+    justify-content: center;
     margin: 1rem 0 2rem 0;
     max-height: 20vh;
     > img {
@@ -17,5 +17,18 @@
   }
   &__h6 {
     color: black;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+  .wahine {
+    min-width: 20vw;
+  }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+  .wahine {
+    min-width: 30vw;
   }
 }

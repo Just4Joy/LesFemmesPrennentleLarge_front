@@ -101,12 +101,14 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
           Session du {session && session.nice_date} à {session && session.nice_time} au{' '}
           {session && session.spot_name}
         </h3>
-        <p className="sessionResume__session__adress">
-          Adresse: {session && session.address}
-        </p>
-        <p className="sessionResume__session__number">
-          Nombre de Hiki: {session && session.nb_hiki_max}
-        </p>
+        <div className="sessionResume__session__details">
+          <div className="sessionResume__session__details__adress">
+            <p>Adresse: {session && session.address}</p>
+          </div>
+          <div className="sessionResume__session__details__number">
+            <p>Nombre de Hiki: {session && session.nb_hiki_max}</p>
+          </div>
+        </div>
       </div>
       <div className="sessionResume__title2">
         <h3>Conditions météo</h3>

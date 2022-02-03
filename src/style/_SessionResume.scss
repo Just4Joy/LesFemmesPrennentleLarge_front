@@ -31,15 +31,17 @@
     &__title {
       margin-bottom: 2vh;
     }
-    &__adress {
-      font-family: $Main-font;
-      font-size: 2vh;
-      margin-bottom: 1.5vh;
-    }
-    &__number {
-      font-family: $Main-font;
-      font-size: 2vh;
-      margin-bottom: 5vh;
+    &__details {
+      &__adress {
+        font-family: $Main-font;
+        font-size: 2vh;
+        margin-bottom: 1.5vh;
+      }
+      &__number {
+        font-family: $Main-font;
+        font-size: 2vh;
+        margin-bottom: 5vh;
+      }
     }
   }
   &__title2 {
@@ -69,6 +71,7 @@
     margin: 1.5rem 0 0 0;
     display: flex;
     flex-direction: row-reverse;
+    align-items: center;
     &__validate {
       width: 10vw;
       border-radius: 10px;
@@ -83,6 +86,136 @@
       background-color: white;
       text-decoration: underline;
       cursor: pointer;
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .sessionResume {
+    &__title {
+      h1 {
+        font-size: 4vh;
+      }
+    }
+    &__tags {
+      &__tag {
+        width: 20vw;
+      }
+    }
+    &__weather {
+      &__buttons {
+        width: 15vw;
+      }
+    }
+    &__button {
+      margin: 1.5vh 0 0 0;
+      &__validate {
+        width: 15vw;
+        margin-left: 1vw;
+      }
+      &__cancel {
+        width: 15vw;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .sessionResume {
+    &__title {
+      h1 {
+        font-size: 3.3vh;
+      }
+    }
+    &__tags {
+      &__tag {
+        width: 20vw;
+      }
+    }
+    &__session {
+      &__title {
+        font-size: 2.5vh;
+      }
+      &__details {
+        display: flex;
+        justify-content: space-around;
+
+        &__adress {
+          font-family: $Main-font;
+          font-size: 2vh;
+          margin-bottom: 1.5vh;
+        }
+        &__number {
+          font-family: $Main-font;
+          font-size: 2vh;
+          margin-bottom: 5vh;
+        }
+      }
+    }
+    &__title2 {
+      h3 {
+        font-size: 2.5vh;
+      }
+    }
+    &__weather {
+      justify-content: space-around;
+      &__buttons {
+        width: 20vw;
+      }
+    }
+    &__button {
+      justify-content: center;
+      &__validate {
+        width: 15vw;
+        margin-left: 1vw;
+      }
+      &__cancel {
+        width: 15vw;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .sessionResume {
+    &__title {
+      width: 100%;
+      h1 {
+        font-size: 2.5vh;
+      }
+    }
+    &__tags {
+      flex-wrap: wrap;
+      margin-bottom: 1vh;
+      &__tag {
+        width: 30vw;
+        margin-bottom: 1vh;
+      }
+    }
+    &__session {
+      &__title {
+        font-size: 2vh;
+      }
+    }
+    &__title2 {
+      padding-bottom: 1vh;
+      h3 {
+        font-size: 2vh;
+      }
+    }
+    &__weather {
+      &__buttons {
+        margin-bottom: 1.5vh;
+        width: 25vw;
+      }
+    }
+    &__button {
+      &__validate {
+        width: 20vw;
+      }
+      &__cancel {
+        width: 20vw;
+      }
     }
   }
 }

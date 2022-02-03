@@ -13,7 +13,7 @@ const SessionPublished: FC<Props> = () => {
         <h3>Session publiée</h3>
       </div>
       <div className="published__logo">
-        <BsCheckCircle style={{ fontSize: '4vw', color: '#4AAEA1' }} />
+        <BsCheckCircle className="published__logo__style" />
       </div>
     </div>
   );

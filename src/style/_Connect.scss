@@ -47,3 +47,68 @@
     margin-top: 1rem;
   }
 }
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+  .connect {
+    &__title {
+      margin: 7vh 0;
+    }
+    &__form {
+      &__input {
+        width: 30vw;
+        margin: 1vh 0;
+        padding: 0.5rem 1rem;
+      }
+      > h6 {
+        margin-top: 1vh;
+        text-decoration: underline;
+      }
+    }
+    &__button {
+      margin-top: 6vh;
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+      &__create {
+        width: 16vw;
+        padding: 0.5rem 0;
+        margin-top: 4vh;
+      }
+      &__connect {
+        width: 16vw;
+        padding: 0.5rem 0;
+      }
+    }
+    &__errors {
+      text-align: center;
+      font-size: 13px;
+      margin-top: 1rem;
+    }
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+  .connect {
+    &__form {
+      &__input {
+        width: 40vw;
+        margin: 1vh 0;
+      }
+    }
+    &__button {
+      &__create {
+        width: 30vw;
+      }
+      &__connect {
+        width: 30vw;
+      }
+    }
+    &__errors {
+      text-align: center;
+      font-size: 13px;
+      margin-top: 1rem;
+    }
+  }
+}
