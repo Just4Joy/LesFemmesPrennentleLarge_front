@@ -1,22 +1,23 @@
 .mysession {
-  width: 28%;
+  min-width: 25vw;
+  max-width: 30vw;
   padding: 0 1rem;
   margin: 2rem;
   &__button {
     display: flex;
     justify-content: space-around;
-    padding-bottom: 2rem;
+    padding-bottom: 2vw;
     &__region {
       background-color: #fbdcc5;
       border-radius: 10px;
-      padding: 0.5rem 2rem;
+      padding: 0.5vw 1vh;
       color: black;
       font-weight: 400;
     }
     &__surfstyle {
       background-color: #c2e5e0;
       border-radius: 10px;
-      padding: 0.5rem 2rem;
+      padding: 0.5vw 1vw;
       color: black;
       font-weight: 400;
     }
@@ -71,5 +72,35 @@
     font-size: 0.8rem;
     display: flex;
     justify-content: flex-end;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+  .mysession {
+    min-width: 40vw;
+  }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+  .mysession {
+    min-width: 60vw;
+  }
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .mysession {
+    min-width: 70vw;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .mysession__button {
+    &__region {
+      text-align: center;
+    }
+    &__surfstyle {
+      text-align: center;
+    }
   }
 }
