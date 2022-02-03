@@ -24,7 +24,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 9vw;
+    width: 12vw;
     border-radius: 10px;
     background-color: #f7ba8c;
     border: none;
@@ -36,12 +36,38 @@
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (max-width: 992px) {
   .hiki {
+    align-items: center;
+    justify-content: space-around;
+    margin-right: 0;
     min-width: 20vw;
+    &__tag {
+      width: 15vw;
+    }
   }
 }
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (max-width: 768px) {
   .hiki {
     min-width: 30vw;
+    &__tag {
+      font-size: 1.2vh;
+      width: 20vw;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .hiki {
+    min-width: 35vw;
+    &__h5 {
+      font-size: 1.7vh;
+    }
+    &__img {
+      width: 20vw;
+    }
+    &__tag {
+      font-size: 1.2vh;
+      width: 28vw;
+    }
   }
 }

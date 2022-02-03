@@ -8,7 +8,7 @@ const Registered = () => {
         <h3>Tu es inscrite</h3>
       </div>
       <div className="registered__logo">
-        <BsCheckCircle style={{ fontSize: '4vw', color: '#4AAEA1' }} />
+        <BsCheckCircle className="registered__logo__style" />
       </div>
     </div>
   );

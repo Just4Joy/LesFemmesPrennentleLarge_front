@@ -7,5 +7,40 @@
   &__logo {
     margin: 3rem 0 6rem 0;
     width: 100%;
+    &__style {
+      font-size: 4vw;
+      color: #4aaea1;
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .registered {
+    height: 60vh;
+    div {
+      h3 {
+        font-size: 5vh;
+      }
+    }
+    &__logo {
+      &__style {
+        font-size: 9vw;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .registered {
+    div {
+      h3 {
+        font-size: 4vh;
+      }
+    }
+    &__logo {
+      &__style {
+        font-size: 13vw;
+      }
+    }
   }
 }

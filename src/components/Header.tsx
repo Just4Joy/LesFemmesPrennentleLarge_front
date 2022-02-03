@@ -19,7 +19,13 @@ const Header: FC<Props> = ({ setActiveModal }) => {
       {/* Logo */}
       <div className="header__logo">
         <NavLink to="/">
-          <img className="Logo" src={LFPLL} alt="Logo" />
+          <img
+            role="presentation"
+            onClick={() => setBurger(false)}
+            className="Logo"
+            src={LFPLL}
+            alt="Logo"
+          />
         </NavLink>
       </div>
       <div className="header__burger">
@@ -31,19 +37,31 @@ const Header: FC<Props> = ({ setActiveModal }) => {
         <div className={burger ? 'header__links' : 'header__hidden'}>
           <ul className="header__links__list">
             {/* If logged in, myProfile is visible */}
-            <li className="header__links__list__profile padding">
+            <li
+              role="presentation"
+              onClick={() => setBurger(false)}
+              className="header__links__list__profile padding">
               {id === 0 ? '' : <NavLink to="/profile">Mon Profil</NavLink>}
             </li>
             {/* If logged in, MySessions is visible */}
-            <li className="header__links__list__mysessions padding">
+            <li
+              role="presentation"
+              onClick={() => setBurger(false)}
+              className="header__links__list__mysessions padding">
               {id === 0 ? '' : <NavLink to="/my_sessions">Mes Sessions</NavLink>}
             </li>
             {/* Sessions */}
-            <li className="header__links__list__session padding">
+            <li
+              role="presentation"
+              onClick={() => setBurger(false)}
+              className="header__links__list__session padding">
               <NavLink to="/sessions">Sessions</NavLink>
             </li>
             {/* If not logged in, LogIn is visible, else LogOut is */}
-            <li className="header__links__list__connection padding">
+            <li
+              role="presentation"
+              onClick={() => setBurger(false)}
+              className="header__links__list__connection padding">
               {id === 0 ? (
                 <NavLink
                   end
@@ -66,6 +84,8 @@ const Header: FC<Props> = ({ setActiveModal }) => {
             </li>
             {wahine ? (
               <li
+                role="presentation"
+                onClick={() => setBurger(false)}
                 className="header__links__list__create padding"
                 style={{ textDecoration: 'underline' }}>
                 <NavLink
