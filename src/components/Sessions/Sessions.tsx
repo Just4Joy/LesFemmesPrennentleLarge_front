@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
+import Calendar from 'react-calendar';
+import moment from 'moment';
 
 import { error } from '../../errors';
 import IDepartment from '../../interfaces/IDepartment';
@@ -20,11 +22,19 @@ const Sessions = () => {
   const [allSurfstyles, setAllSurfstyles] = useState<ISurfStyle[]>([]);
   console.log(allSurfstyles);
   const [selectedRegion, setSelectedRegion] = useState<number | undefined | string>();
-  const [selectedDate, setSelectedDate] = useState<Date | string>('');
+  const [selectedDate, setSelectedDate] = useState<string>('');
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [pagination, setPagination] = useState<number>(0);
   const [paginationActive, setPaginationActive] = useState<boolean>(false);
+  const [sessions, setSessions] = useState<ISession[]>([]);
   console.log(paginationActive);
+
+  useEffect(() => {
+    axios
+      .get<ISession[]>(`http://localhost:3000/api/sessions`)
+      .then((result) => result.data)
+      .then((data) => setSessions(data));
+  }, []);
 
   // Axios functions
   const getAllSessions = async () => {
@@ -131,6 +141,8 @@ const Sessions = () => {
     }
   }, [selectedRegion, pagination, selectedDate]);
 
+  const [showCalendar, setShowCalendar] = useState<boolean>(false);
+
   return (
     <div className="sessions">
       <h1 className="sessions__h1">Trouver une session</h1>
@@ -142,7 +154,7 @@ const Sessions = () => {
           id="region"
           onClick={(e) => {
             setSelectedRegion(Number(e.currentTarget.value));
-            setSelectedDate('');
+            // setSelectedDate(new Date().toLocaleDateString());
             setPagination(0);
           }}>
           <option value={0}>Régions</option>
@@ -162,8 +174,31 @@ const Sessions = () => {
           list="dateList"
           id="date"
           onChange={(e) => {
+            console.log(e.currentTarget.value);
             setSelectedDate(e.currentTarget.value);
             setPagination(0);
+          }}
+        />
+        <input
+          value={selectedDate ? selectedDate : 'dd/mm/yyyy'}
+          onFocus={() => setShowCalendar(true)}
+          readOnly
+        />
+        <Calendar
+          className={showCalendar ? '' : 'hide'}
+          onChange={(date: Date) => {
+            console.log(date.toLocaleDateString());
+            console.log(sessions);
+            setSelectedDate(moment(date).format('DD/MM/YYYY'));
+            setShowCalendar(false);
+            // setSessions([...sessions, date.toLocaleDateString()]);
+          }}
+          tileClassName={({ date }) => {
+            let b = '';
+            if (sessions.find((x) => x.nice_date === moment(date).format('DD/MM/YYYY'))) {
+              b = 'highlight';
+            }
+            return b;
           }}
         />
       </div>
