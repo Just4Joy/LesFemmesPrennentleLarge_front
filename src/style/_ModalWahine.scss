@@ -50,3 +50,70 @@
     }
   }
 }
+
+@media only screen and (max-width: 992px) {
+  .modalWahine {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8vh;
+    &__resume {
+      display: flex;
+      justify-content: space-around;
+      width: 60vw;
+      height: fit-content;
+
+      &__infos {
+        padding-top: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+    &__explication {
+      margin: 4vh 0;
+      &__text {
+        height: 100%;
+        width: 60vw;
+        font-size: 3vh;
+        line-height: 4vh;
+      }
+    }
+    &__button {
+      &__validate {
+        width: 20vw;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .modalWahine {
+    margin-top: 6vh;
+    &__resume {
+      width: 70vw;
+
+      &__infos {
+        padding-top: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+    &__explication {
+      margin: 4vh 0;
+      &__text {
+        height: 100%;
+        width: 70vw;
+        font-size: 2.3vh;
+        line-height: 4vh;
+      }
+    }
+    &__button {
+      &__validate {
+        width: 30vw;
+      }
+    }
+  }
+}

@@ -46,16 +46,24 @@
   }
 }
 
+@media only screen and (max-width: 1408px) {
+  .sessions__nextsession {
+    align-items: center;
+    justify-content: space-around;
+  }
+}
+
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (max-width: 992px) {
   .sessions__selectors {
+    align-items: center;
     &__region {
-      width: 25vw;
-      height: 4vh;
+      width: 20vw;
+      margin: 3vh 0;
     }
     &__date {
-      width: 25vw;
-      height: 4vh;
+      width: 20vw;
+      margin-left: 4vw;
     }
   }
 }
@@ -74,10 +82,12 @@
     &__date {
       width: 40vw;
       height: 4vh;
+      margin-left: 0;
     }
   }
   .sessions__h1 {
     padding-top: 5vh;
+    text-align: center;
   }
 }
 /* Extra small devices (phones, 600px and down) */
