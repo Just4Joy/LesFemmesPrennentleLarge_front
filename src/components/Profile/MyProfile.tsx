@@ -32,7 +32,7 @@ const MyProfile = () => {
 
   const [firstname, setFirstname] = useState<IUser['firstname']>('');
   const [lastname, setLastname] = useState<IUser['lastname']>('');
-  const [desc, setDesc] = useState<IUser['desc']>('');
+  const [desc, setDesc] = useState<IUser['description']>('');
   const [city, setCity] = useState<IUser['city']>('');
   const [favorite_spot, setSpot] = useState<IUser['favorite_spot']>('');
   const [newDepartment, setNewDepartment] = useState<Number>(0);
@@ -146,12 +146,12 @@ const MyProfile = () => {
 
   //PUT User details
   const updateDataUser = () => {
-    console.log(newDepartment, newSurfStyles, 'NEW DEPARTEMENT NEW SURFSTYLE ON CLICK');
+    // console.log(newDepartment, newSurfStyles, 'NEW DEPARTEMENT NEW SURFSTYLE ON CLICK');
     const data: any = {
       firstname: firstname,
       lastname: lastname,
       city: city,
-      desc: desc,
+      description: desc,
       favorite_spot: favorite_spot,
       id_department: newDepartment,
       id_surf_style: newSurfStyles,
@@ -177,7 +177,7 @@ const MyProfile = () => {
         ) //retrieving the information of the user after the put is finished
         .then(() => {
           axios
-            .get<IUser>(`http://localhost:3000/api/users/${id}`)
+            .get<IUser>(`http://localhost:3000/api/users/${id}?display=all`)
             .then((result) => result.data)
             .then((data) => {
               setUsers(data);
@@ -246,7 +246,9 @@ const MyProfile = () => {
       }) //retrieves the surfskills
       .then(() => {
         axios
-          .get<ISurfSkill[]>(`http://localhost:3000/api/users/${id}/surfskills`)
+          .get<ISurfSkill[]>(
+            `http://localhost:3000/api/users/${id}/surfskills?display=all`,
+          )
           .then((result) => result.data)
           .then((data) => {
             setActiveSurfSkill([]);
@@ -436,7 +438,7 @@ const MyProfile = () => {
             {!editProfil ? (
               <div className="myProfile__column__column2__row3__describe">
                 <h2>3 mots pour me décrire</h2>
-                <h6>{users && users.desc}</h6>
+                <h6>{users && users.description}</h6>
               </div>
             ) : (
               <div className="myProfile__column__column2__row3__describe">

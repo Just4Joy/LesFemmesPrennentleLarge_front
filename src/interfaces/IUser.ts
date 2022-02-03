@@ -13,6 +13,6 @@ export default interface IUser {
   id_department: number;
   id_surf_style: number;
   wahine: number;
-  desc: string;
+  description: string;
   phone: number;
 }

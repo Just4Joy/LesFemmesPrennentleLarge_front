@@ -54,7 +54,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
         setSession(data);
         //GET the Wahine who organized the session
         axios
-          .get<IUser>(`http://localhost:3000/api/users/${data.id_user}`)
+          .get<IUser>(`http://localhost:3000/api/users/${data.id_user}?display=all`)
           .then((result) => result.data)
           .then((data) => setWahine(data))
           .catch(() => {
@@ -82,7 +82,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
       });
     //GET Users participating to the session
     axios
-      .get<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users`)
+      .get<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users?display=all`)
       .then((result) => result.data)
       .then((data) => {
         setSubscribers(data);

@@ -25,6 +25,7 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
       });
   }, [id]);
 
+  console.log(user);
   //PUT Wahine
   const updateWahineStatus = () => {
     axios
