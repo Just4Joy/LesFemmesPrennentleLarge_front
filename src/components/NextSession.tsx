@@ -29,7 +29,7 @@ const NextSession: FC<Props> = ({
   useEffect(() => {
     //GET users who have subsribed to the session
     axios
-      .get<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users`)
+      .get<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users?display=all`)
       .then((result) => result.data)
       .then((data) => {
         setSubscribers(data);

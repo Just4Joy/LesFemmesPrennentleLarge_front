@@ -21,7 +21,7 @@ const ModalProfile = () => {
   useEffect(() => {
     //Get Users
     axios
-      .get<IUser>(`http://localhost:3000/api/users/${id}`)
+      .get<IUser>(`http://localhost:3000/api/users/${id}?display=all`)
       .then((result) => result.data)
       .then((data) => {
         setUser(data);

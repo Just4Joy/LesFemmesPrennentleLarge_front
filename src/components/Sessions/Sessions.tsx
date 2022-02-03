@@ -199,6 +199,7 @@ const Sessions = () => {
     }
   }, [selectedDate]);
 
+  console.log(mySessions);
   return (
     <div className="sessions">
       <h1 className="sessions__h1">Trouver une session</h1>

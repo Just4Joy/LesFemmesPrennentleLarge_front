@@ -48,7 +48,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
   useEffect(() => {
     //GET Session
     axios
-      .get<ISession>(`http://localhost:3000/api/sessions/${id_session}`)
+      .get<ISession>(`http://localhost:3000/api/sessions/${id_session}?display=all`)
       .then((result) => result.data)
       .then((data) => {
         setSession(data);
