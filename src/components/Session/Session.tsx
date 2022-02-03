@@ -105,13 +105,17 @@ const Session: FC<Props> = ({ setActiveModal }) => {
   useEffect(() => {
     if (wantSubscribe) {
       axios
-        .post<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users/${id}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+        .post<IUser[]>(
+          `http://localhost:3000/api/sessions/${id_session}/users/${id}`,
+          { id_session, id },
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            withCredentials: true,
           },
-          withCredentials: true,
-        })
+        )
         .then((result) => {
           setSubscribers(result.data);
           CheckHasSubcribe(result.data);

@@ -368,15 +368,18 @@ const MyProfile = () => {
                 <p>
                   {allDepartments && (
                     <select
-                      id="region-select"
+                      id="select"
                       className="createProfil1__container__region"
                       onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
                         setNewDepartment(parseInt(e.currentTarget.value, 10));
                       }}>
-                      <option value="0">régions où tu surfes</option>
+                      <option id="option" value="0">
+                        régions où tu surfes
+                      </option>
                       {allDepartments &&
                         allDepartments.map((department) => (
                           <option
+                            id="option"
                             key={department.id_department}
                             value={department.id_department}>
                             {department.department_name}
@@ -388,13 +391,17 @@ const MyProfile = () => {
                 <p>
                   {
                     <select
+                      id="select"
                       onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
                         setNewSurfStyles(parseInt(e.currentTarget.value, 10));
                       }}>
-                      <option value="0">type de session</option>
+                      <option id="option" value="0">
+                        type de session
+                      </option>
                       {allSurfStyles &&
                         allSurfStyles.map((surfStyle) => (
                           <option
+                            id="option"
                             key={surfStyle.id_surf_style}
                             value={surfStyle.id_surf_style}>
                             {surfStyle.name_user}

@@ -30,6 +30,9 @@
       }
     }
   }
+  &__hidden {
+    display: none;
+  }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -42,6 +45,12 @@
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (max-width: 768px) {
+  .hidden {
+    display: none;
+  }
+  .header {
+    margin-bottom: 0;
+  }
   .header__list {
     display: none;
   }
@@ -54,15 +63,23 @@
     display: none;
   }
   .header__links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid;
+    height: fit-content;
     &__list {
       padding: 2vh 0;
       font-family: $Main-font;
       display: flex;
       flex-direction: column;
-      justify-content: start;
-      align-items: flex-end;
+      justify-content: space-around;
+      align-items: center;
       width: 40vw;
       height: fit-content;
+      li {
+        margin: 4vh 0;
+      }
       &__profile:hover {
         text-decoration: underline;
       }

@@ -138,3 +138,249 @@
     }
   }
 }
+
+@media only screen and (max-width: 1530px) {
+  .session__details__title {
+    h1 {
+      font-size: 3.5vh;
+    }
+  }
+}
+
+@media only screen and (max-width: 1303px) {
+  .session__details__title {
+    h1 {
+      font-size: 3vh;
+    }
+  }
+  .session__details {
+    width: 50vw;
+    h4 {
+      font-size: 2vh;
+    }
+  }
+  .session__details__infos {
+    &__type__button {
+      width: 20vw;
+    }
+  }
+  .session__details__hr {
+    width: 45vw;
+  }
+  .session__details__weather {
+    width: 50vw;
+    &__buttons {
+      width: 50vw;
+      &__button1 {
+        width: 20vw;
+      }
+    }
+  }
+  .onesession__join {
+    width: 20vw;
+    margin: 4vh 37vw;
+  }
+}
+
+@media only screen and (max-width: 1034px) {
+  .session__details__title {
+    width: 45vw;
+    h1 {
+      font-size: 2.7vh;
+    }
+    &__region {
+      width: 15vw;
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .session {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6vh;
+    &__details {
+      margin-right: 0;
+      align-items: center;
+      &__title {
+        width: 50vw;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-start;
+        align-items: center;
+
+        &__region {
+          margin-left: 0;
+          width: 20vw;
+          height: 3vh;
+          margin-bottom: 3vh;
+        }
+      }
+      &__infos {
+        margin: 1.5vh 0;
+        width: 70vw;
+        &__adresse {
+          margin-top: 1.5vh;
+        }
+        &__type {
+          margin-top: 1.5vh;
+          width: 100%;
+          justify-content: space-between;
+          &__button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #c2e5e0;
+            // margin-left: 20vw;
+            width: 18vw;
+            border-radius: 10px;
+            color: black;
+            font-weight: 400;
+          }
+        }
+        &__hikimax {
+          margin-top: 1rem;
+          &__title {
+            font-size: 15px;
+            color: black;
+          }
+        }
+        &__covoit {
+          justify-content: space-between;
+          margin-top: 1.5vh;
+          &__button {
+            width: 18vw;
+          }
+        }
+        padding-bottom: 4vh;
+        border-bottom: 0.1vh solid grey;
+      }
+      &__hr {
+        display: none;
+      }
+      &__weather {
+        margin: 1.5vh 0;
+        width: 70vw;
+        &__buttons {
+          justify-content: space-around;
+          width: 70vw;
+          &__button1 {
+            text-align: center;
+            margin-top: 1.5vh;
+            height: 3.5vh;
+            margin-left: 0;
+            width: 25vw;
+          }
+          &__button2 {
+            margin-top: 1.5vh;
+            height: 3vh;
+            margin-left: 0;
+            width: 25vw;
+          }
+        }
+      }
+    }
+    &__organiser {
+      margin-top: 8vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      h4 {
+        margin-bottom: 6vh;
+      }
+    }
+  }
+  .onesession {
+    &__join {
+      width: 20vw;
+      height: 5vh;
+      margin: 4vh 34vw;
+    }
+    &__group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      &__hikis {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        width: 70vw;
+        margin-top: 6vh;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .onesession__join {
+    width: 30vw;
+    margin: 4vh 26vw;
+  }
+  .onesession__group {
+    margin: 0;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .session {
+    &__details {
+      &__infos {
+        &__type {
+          &__button {
+            width: 25vw;
+          }
+        }
+        &__covoit {
+          &__button {
+            width: 25vw;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .session {
+    &__details {
+      &__title {
+        width: 70vw;
+        h1 {
+          font-size: 2.5vh;
+        }
+        &__region {
+          width: 40vw;
+        }
+      }
+      &__infos {
+        &__type {
+          &__button {
+            width: 30vw;
+          }
+        }
+        &__covoit {
+          &__button {
+            width: 30vw;
+          }
+        }
+      }
+      &__weather__buttons {
+        width: 70vw;
+        flex-direction: column;
+        align-items: center;
+        &__button1 {
+          width: 45vw;
+        }
+      }
+    }
+  }
+
+  .onesession__join {
+    width: 40vw;
+    margin: 4vh 21vw;
+  }
+}
