@@ -1,9 +1,9 @@
 import axios from 'axios';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
+import Calendar from 'react-calendar';
 import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
-import Calendar from 'react-calendar';
-import moment from 'moment';
 
 import { error } from '../../errors';
 import IDepartment from '../../interfaces/IDepartment';
