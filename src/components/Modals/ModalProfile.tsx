@@ -13,6 +13,7 @@ import SurfSkillProfile from '../Profile/SurfSkillProfile';
 const ModalProfile = () => {
   // Id of the user in params
   const { id } = useParams();
+
   const [user, setUser] = useState<IUser>();
   const [departments, setDepartments] = useState<IDepartment>();
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
@@ -21,7 +22,7 @@ const ModalProfile = () => {
   useEffect(() => {
     //Get Users
     axios
-      .get<IUser>(`http://localhost:3000/api/users/${id}`)
+      .get<IUser>(`http://localhost:3000/api/users/${id}?display=all`)
       .then((result) => result.data)
       .then((data) => {
         setUser(data);
@@ -98,7 +99,7 @@ const ModalProfile = () => {
               <div className="modalProfile__column__column2__row3">
                 <div className="modalProfile__column__column2__row3__describe">
                   <h2>3 mots pour me décrire</h2>
-                  <h6>{!user.desc ? 'Description...' : user.desc}</h6>
+                  <h6>{!user.description ? 'Description...' : user.description}</h6>
                 </div>
               </div>
             </div>

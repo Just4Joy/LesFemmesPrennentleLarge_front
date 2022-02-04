@@ -16,15 +16,12 @@ const Sessions = () => {
   const { id_region } = useParams<{ id_region: string | undefined }>();
   const [allRegions, setAllRegions] = useState<IRegion[]>([]);
   const [allDepartments, setAllDepartments] = useState<IDepartment[]>([]);
-  console.log(allDepartments);
   const [allSurfstyles, setAllSurfstyles] = useState<ISurfStyle[]>([]);
-  console.log(allSurfstyles);
   const [selectedRegion, setSelectedRegion] = useState<number | undefined | string>();
   const [selectedDate, setSelectedDate] = useState<Date | string>('');
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [pagination, setPagination] = useState<number>(0);
   const [paginationActive, setPaginationActive] = useState<boolean>(false);
-  console.log(paginationActive);
 
   // Axios functions
   const getAllSessions = async () => {
@@ -109,6 +106,9 @@ const Sessions = () => {
 
   // First useEffect
   useEffect(() => {
+    if (id_region !== undefined) {
+      setSelectedRegion(id_region);
+    }
     Promise.all([
       getAllSessions(),
       getAllRegions(),
@@ -125,10 +125,26 @@ const Sessions = () => {
       .catch(() => {
         error();
       });
+  }, []);
 
-    if (id_region !== undefined) {
-      setSelectedRegion(id_region);
-    }
+  // First useEffect
+  useEffect(() => {
+    Promise.all([
+      getAllSessions(),
+      getAllRegions(),
+      getAllDepartments(),
+      getAllSurfstyles(),
+    ])
+      .then(([sessions, regions, departments, surfstyles]) => {
+        setAllRegions(regions);
+        setAllDepartments(departments);
+        setAllSurfstyles(surfstyles);
+
+        mySessionsObjectConstructor(sessions, departments, surfstyles, regions);
+      })
+      .catch(() => {
+        error();
+      });
   }, [selectedRegion, pagination, selectedDate]);
 
   return (

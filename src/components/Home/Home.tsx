@@ -111,6 +111,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
         error();
       });
   }, []);
+
   return (
     <div className="home">
       {/*Section : Présentation*/}

@@ -17,7 +17,7 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
   //GET User
   useEffect(() => {
     axios
-      .get<IUser>(`http://localhost:3000/api/users/${id}`)
+      .get<IUser>(`http://localhost:3000/api/users/${id}?display=all`)
       .then((result) => result.data)
       .then((data) => setUser(data))
       .catch(() => {
@@ -25,6 +25,7 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
       });
   }, [id]);
 
+  console.log(user);
   //PUT Wahine
   const updateWahineStatus = () => {
     axios
