@@ -17,7 +17,7 @@ type Props = {
 
 const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
   const { id } = useContext(CurrentUserContext);
-  const [desc, setDesc] = useState<IUser['desc']>('');
+  const [description, setDescription] = useState<IUser['description']>('');
   const [city, setCity] = useState<IUser['city']>('');
   const [id_department, setId_departement] = useState<IUser['id_department']>();
   const [favorite_spot, setFavorite_spot] = useState<IUser['favorite_spot']>('');
@@ -57,7 +57,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
       .put(
         `http://localhost:3000/api/users/${id}`,
         {
-          desc,
+          description,
           city,
           id_department,
           favorite_spot,
@@ -150,7 +150,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
           rows={4}
           placeholder="3 mots pour te décrire"
           onChange={(e: React.FormEvent<HTMLTextAreaElement>) => {
-            setDesc(e.currentTarget.value);
+            setDescription(e.currentTarget.value);
           }}
         />
 
