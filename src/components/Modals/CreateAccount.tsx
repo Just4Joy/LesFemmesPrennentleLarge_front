@@ -112,6 +112,7 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
           }></input>
         <input
           className="CreateAccount__form__input"
+          type="password"
           placeholder="confirmer le mot de passe*"></input>
       </div>
       <div className="CreateAccount__button">

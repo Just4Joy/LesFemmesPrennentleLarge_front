@@ -26,15 +26,7 @@ const Sessions = () => {
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [pagination, setPagination] = useState<number>(0);
   const [paginationActive, setPaginationActive] = useState<boolean>(false);
-  const [sessions, setSessions] = useState<ISession[]>([]);
   console.log(paginationActive);
-
-  useEffect(() => {
-    axios
-      .get<ISession[]>(`http://localhost:3000/api/sessions`)
-      .then((result) => result.data)
-      .then((data) => setSessions(data));
-  }, []);
 
   // Axios functions
   const getAllSessions = async () => {
@@ -167,7 +159,7 @@ const Sessions = () => {
           })}
         </select>
         {/* Select date */}
-        <input
+        {/* <input
           className="sessions__selectors__date"
           name="date"
           type="date"
@@ -178,29 +170,36 @@ const Sessions = () => {
             setSelectedDate(e.currentTarget.value);
             setPagination(0);
           }}
-        />
-        <input
-          value={selectedDate ? selectedDate : 'dd/mm/yyyy'}
-          onFocus={() => setShowCalendar(true)}
-          readOnly
-        />
-        <Calendar
-          className={showCalendar ? '' : 'hide'}
-          onChange={(date: Date) => {
-            console.log(date.toLocaleDateString());
-            console.log(sessions);
-            setSelectedDate(moment(date).format('DD/MM/YYYY'));
-            setShowCalendar(false);
-            // setSessions([...sessions, date.toLocaleDateString()]);
-          }}
-          tileClassName={({ date }) => {
-            let b = '';
-            if (sessions.find((x) => x.nice_date === moment(date).format('DD/MM/YYYY'))) {
-              b = 'highlight';
+        /> */}
+        <div className="session__selectors__date">
+          <input
+            className="sessions__selectors__date__input"
+            value={
+              selectedDate ? moment(selectedDate).format('DD/MM/YYYY') : 'dd/mm/yyyy'
             }
-            return b;
-          }}
-        />
+            onFocus={() => setShowCalendar(true)}
+            readOnly
+          />
+          <Calendar
+            className={showCalendar ? '' : 'hide'}
+            onChange={(date: Date) => {
+              // console.log(date.toLocaleDateString());
+              // console.log(sessions);
+              setSelectedDate(moment(date).format('YYYY-MM-DD'));
+              setShowCalendar(false);
+              // setSessions([...sessions, date.toLocaleDateString()]);
+            }}
+            tileClassName={({ date }) => {
+              let b = '';
+              if (
+                mySessions.find((x) => x.nice_date === moment(date).format('DD/MM/YYYY'))
+              ) {
+                b = 'highlight';
+              }
+              return b;
+            }}
+          />
+        </div>
       </div>
 
       {/* Componant NextSession */}
