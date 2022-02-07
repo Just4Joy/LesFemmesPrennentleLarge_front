@@ -19,8 +19,8 @@ const CreateProfile1: FC<Props> = ({ setActiveModal }) => {
   const { id } = useContext(CurrentUserContext);
   const [description, setDescription] = useState<IUser['description']>('');
   const [city, setCity] = useState<IUser['city']>('');
-  const [id_department, setId_departement] = useState<IUser['id_department']>();
-  const [favorite_spot, setFavorite_spot] = useState<IUser['favorite_spot']>('');
+  const [idDepartment, setIdDepartement] = useState<IUser['id_department']>();
+  const [favoriteSpot, setFavoriteSpot] = useState<IUser['favorite_spot']>('');
   const [departments, setDepartments] = useState<IDepartment[]>([]);
   const [allCities, setAllCities] = useState<ICity[]>([]);
   const [searchCity, setSearchCity] = useState('');
@@ -59,8 +59,8 @@ const CreateProfile1: FC<Props> = ({ setActiveModal }) => {
         {
           description,
           city,
-          id_department,
-          favorite_spot,
+          idDepartment,
+          favoriteSpot,
         },
         {
           method: 'PUT',
@@ -185,7 +185,7 @@ const CreateProfile1: FC<Props> = ({ setActiveModal }) => {
             id="region-select"
             className="createProfil1__container__row__region"
             onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
-              setId_departement(parseInt(e.currentTarget.value, 10));
+              setIdDepartement(parseInt(e.currentTarget.value, 10));
             }}>
             <option value="">régions où tu surfes</option>
             {departments &&
@@ -199,7 +199,7 @@ const CreateProfile1: FC<Props> = ({ setActiveModal }) => {
             className="createProfil1__container__row__spot"
             placeholder="ton spot préféré"
             onChange={(e: React.FormEvent<HTMLInputElement>) => {
-              setFavorite_spot(e.currentTarget.value);
+              setFavoriteSpot(e.currentTarget.value);
             }}></input>
         </div>
 

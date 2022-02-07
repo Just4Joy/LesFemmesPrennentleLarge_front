@@ -44,7 +44,7 @@ const Header: FC<Props> = ({ setActiveModal }) => {
           </li>
           {/* If logged in, MySessions is visible */}
           <li className="header__list__mysessions">
-            {id === 0 ? '' : <NavLink to="/my_sessions">Mes Sessions</NavLink>}
+            {id === 0 ? '' : <NavLink to="/mySessions">Mes Sessions</NavLink>}
           </li>
           {/* Sessions */}
           <li className="header__list__session">
@@ -75,7 +75,7 @@ const Header: FC<Props> = ({ setActiveModal }) => {
           {wahine ? (
             <li className="header__list__create" style={{ textDecoration: 'underline' }}>
               <NavLink
-                to="/create_session"
+                to="/createSession"
                 onClick={() => setActiveModal('create_session1')}>
                 Créer une session
               </NavLink>
@@ -99,7 +99,7 @@ const Header: FC<Props> = ({ setActiveModal }) => {
             role="presentation"
             onClick={() => setBurger(false)}
             className={id === 0 ? 'hidden' : 'header__links__list__mysessions padding'}>
-            {id === 0 ? '' : <NavLink to="/my_sessions">Mes Sessions</NavLink>}
+            {id === 0 ? '' : <NavLink to="/mySessions">Mes Sessions</NavLink>}
           </li>
           {/* Sessions */}
           <li
@@ -140,7 +140,7 @@ const Header: FC<Props> = ({ setActiveModal }) => {
               className="header__links__list__create padding"
               style={{ textDecoration: 'underline' }}>
               <NavLink
-                to="/create_session"
+                to="/createSession"
                 onClick={() => setActiveModal('create_session1')}>
                 Créer une session
               </NavLink>
