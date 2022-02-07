@@ -24,9 +24,20 @@ const Sessions = () => {
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [pagination, setPagination] = useState<number>(0);
   const [paginationActive, setPaginationActive] = useState<boolean>(false);
+  const [sessions, setSessions] = useState<ISession[]>([]);
   console.log(allDepartments);
   console.log(allSurfstyles);
   console.log(paginationActive);
+
+  useEffect(() => {
+    axios
+      .get<ISession[]>(`http://localhost:3000/api/sessions`)
+      .then((results) => results.data)
+      .then((data) => setSessions(data))
+      .catch(() => {
+        error();
+      });
+  }, []);
 
   // Axios functions
   const getAllSessions = async () => {
@@ -177,19 +188,6 @@ const Sessions = () => {
             );
           })}
         </select>
-        {/* Select date */}
-        {/* <input
-          className="sessions__selectors__date"
-          name="date"
-          type="date"
-          list="dateList"
-          id="date"
-          onChange={(e) => {
-            console.log(e.currentTarget.value);
-            setSelectedDate(e.currentTarget.value);
-            setPagination(0);
-          }}
-        /> */}
         <div className="session__selectors__date">
           <input
             className="sessions__selectors__date__input"
@@ -202,20 +200,19 @@ const Sessions = () => {
           <Calendar
             className={showCalendar ? '' : 'hide'}
             onChange={(date: Date) => {
-              // console.log(date.toLocaleDateString());
-              // console.log(sessions);
               setSelectedDate(moment(date).format('YYYY-MM-DD'));
               setShowCalendar(false);
-              // setSessions([...sessions, date.toLocaleDateString()]);
             }}
             tileClassName={({ date }) => {
-              let b = '';
+              let className = '';
               if (
-                mySessions.find((x) => x.nice_date === moment(date).format('DD/MM/YYYY'))
+                sessions.find(
+                  (session) => session.nice_date === moment(date).format('DD/MM/YYYY'),
+                )
               ) {
-                b = 'highlight';
+                className = 'highlight';
               }
-              return b;
+              return className;
             }}
           />
         </div>
