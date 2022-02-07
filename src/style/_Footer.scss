@@ -2,12 +2,20 @@
   margin-top: 20vh;
   &__h4 {
     margin-bottom: 0.8rem;
+    @media only screen and (max-width: $Medium) {
+      font-size: 3.5vw;
+    }
   }
   &__row1 {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     margin: 2rem 0;
+    &__logo {
+      @media only screen and (max-width: $Medium) {
+        display: none;
+      }
+    }
   }
   &__row1__nav {
     font-family: $Main-font;
@@ -70,39 +78,27 @@
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 2rem;
+    @media only screen and (max-width: $Medium) {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
   }
   &__row2__socialIcon {
     width: 50%;
     display: flex;
     justify-content: flex-end;
     gap: 1rem;
+    @media only screen and (max-width: $Medium) {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
   }
   &__row2__email {
     font-size: 15px;
-  }
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 768px) {
-  .footer {
-    &__h4 {
-      font-size: 3.5vw;
-    }
-    &__row2 {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-      &__socialIcon {
-        width: 50%;
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-      }
-    }
-  }
-  .footer__row1__logo {
-    display: none;
   }
 }
