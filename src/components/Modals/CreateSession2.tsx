@@ -40,7 +40,7 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
           .post(
             `http://localhost:3000/api/sessions/${id_sessionCreated}/weather`,
             {
-              id_weather: el,
+              idWeather: el,
             },
             {
               method: 'POST',

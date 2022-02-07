@@ -60,7 +60,7 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
           address,
           nb_hiki_max,
           id_department,
-          idSurfStyle,
+          id_surf_style: idSurfStyle,
           carpool,
           id_user: id,
         },

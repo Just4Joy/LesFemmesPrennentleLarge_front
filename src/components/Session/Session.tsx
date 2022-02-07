@@ -138,6 +138,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
           withCredentials: true,
         })
         .then((result) => {
+          console.log(result);
           setSubscribers(result.data);
           CheckHasSubcribe(result.data);
         })
