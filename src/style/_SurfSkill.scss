@@ -4,6 +4,22 @@
     height: 40px;
     border-radius: 6px;
     border: 0px;
+    @media only screen and (max-width: XXLarge) {
+      width: 12vw;
+      height: 5vh;
+    }
+    @media only screen and (max-width: $Large) {
+      width: 15vw;
+      height: 5vh;
+    }
+    @media only screen and (max-width: $Large) {
+      font-size: 1.5vh;
+    }
+    @media only screen and (max-width: $Large) {
+      width: 17vw;
+      height: 5vh;
+      font-size: 1.2vh;
+    }
   }
   &__active {
     width: 200px;
@@ -11,58 +27,18 @@
     border-radius: 6px;
     border: 0px;
     background-color: #fdc969;
-  }
-}
-
-@media only screen and (max-width: 1440px) {
-  .surfskill {
-    &__notactive {
+    @media only screen and (max-width: XXLarge) {
       width: 12vw;
       height: 5vh;
     }
-    &__active {
-      width: 12vw;
-      height: 5vh;
-    }
-  }
-}
-
-@media only screen and (max-width: 992px) {
-  .surfskill {
-    &__notactive {
+    @media only screen and (max-width: $Large) {
       width: 15vw;
       height: 5vh;
     }
-    &__active {
-      width: 15vw;
-      height: 5vh;
-    }
-  }
-}
-
-@media only screen and (max-width: 766px) {
-  .surfskill {
-    &__notactive {
-      width: 15vw;
-      height: 5vh;
+    @media only screen and (max-width: $Large) {
       font-size: 1.5vh;
     }
-    &__active {
-      width: 15vw;
-      height: 5vh;
-      font-size: 1.5vh;
-    }
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .surfskill {
-    &__notactive {
-      width: 17vw;
-      height: 5vh;
-      font-size: 1.2vh;
-    }
-    &__active {
+    @media only screen and (max-width: $Large) {
       width: 17vw;
       height: 5vh;
       font-size: 1.2vh;
