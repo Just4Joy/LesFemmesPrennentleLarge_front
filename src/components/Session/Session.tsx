@@ -25,7 +25,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
   });
 
   const { id } = useContext(CurrentUserContext);
-  const { id_session } = useParams();
+  const { idSession } = useParams();
 
   const [session, setSession] = useState<ISession>();
   const [subscribers, setSubscribers] = useState<IUser[]>([]);
@@ -48,7 +48,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
   useEffect(() => {
     //GET Session
     axios
-      .get<ISession>(`http://localhost:3000/api/sessions/${id_session}?display=all`)
+      .get<ISession>(`http://localhost:3000/api/sessions/${idSession}?display=all`)
       .then((result) => result.data)
       .then((data) => {
         setSession(data);
@@ -82,7 +82,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
       });
     //GET Users participating to the session
     axios
-      .get<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users?display=all`)
+      .get<IUser[]>(`http://localhost:3000/api/sessions/${idSession}/users?display=all`)
       .then((result) => result.data)
       .then((data) => {
         setSubscribers(data);
@@ -93,7 +93,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
       });
     //GET Weather of the session
     axios
-      .get<IWeather[]>(`http://localhost:3000/api/sessions/${id_session}/weather/`)
+      .get<IWeather[]>(`http://localhost:3000/api/sessions/${idSession}/weather/`)
       .then((result) => result.data)
       .then((data) => setWeathers(data))
       .catch(() => {
@@ -106,8 +106,8 @@ const Session: FC<Props> = ({ setActiveModal }) => {
     if (wantSubscribe) {
       axios
         .post<IUser[]>(
-          `http://localhost:3000/api/sessions/${id_session}/users/${id}`,
-          { id_session, id },
+          `http://localhost:3000/api/sessions/${idSession}/users/${id}`,
+          { idSession, id },
           {
             method: 'POST',
             headers: {
@@ -130,7 +130,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
     }
     if (wantUnsubscribe) {
       axios
-        .delete<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users/${id}`, {
+        .delete<IUser[]>(`http://localhost:3000/api/sessions/${idSession}/users/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',

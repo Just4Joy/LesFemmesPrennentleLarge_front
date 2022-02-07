@@ -15,7 +15,7 @@ type Props = {
 };
 
 const SessionResume: FC<Props> = ({ setActiveModal }) => {
-  const { id_sessionCreated } = useContext(CurrentSessionContext);
+  const { idSessionCreated } = useContext(CurrentSessionContext);
   const [session, setSession] = useState<ISession>();
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
   const [weathers, setWeathers] = useState<IWeather[]>([]);
@@ -24,7 +24,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
   useEffect(() => {
     //GET Session
     axios
-      .get<ISession>(`http://localhost:3000/api/sessions/${id_sessionCreated}`)
+      .get<ISession>(`http://localhost:3000/api/sessions/${idSessionCreated}`)
       .then((result) => result.data)
       .then((data) => {
         setSession(data);
@@ -50,7 +50,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
       });
     //GET the weather of the session
     axios
-      .get<IWeather[]>(`http://localhost:3000/api/sessions/${id_sessionCreated}/weather/`)
+      .get<IWeather[]>(`http://localhost:3000/api/sessions/${idSessionCreated}/weather/`)
       .then((result) => result.data)
       .then((data) => setWeathers(data))
       .catch(() => {
@@ -61,7 +61,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
   //DELETE the session
   const deleteSession = () => {
     axios
-      .delete<ISession>(`http://localhost:3000/api/sessions/${id_sessionCreated}`, {
+      .delete<ISession>(`http://localhost:3000/api/sessions/${idSessionCreated}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

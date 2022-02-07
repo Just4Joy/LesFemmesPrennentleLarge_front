@@ -15,7 +15,7 @@ import NextSession from '../NextSession';
 type MySession = ISession & IDepartment & IRegion;
 
 const Sessions = () => {
-  const { id_region } = useParams<{ id_region: string | undefined }>();
+  const { idRegion } = useParams<{ idRegion: string | undefined }>();
   const [allRegions, setAllRegions] = useState<IRegion[]>([]);
   const [allDepartments, setAllDepartments] = useState<IDepartment[]>([]);
   const [allSurfstyles, setAllSurfstyles] = useState<ISurfStyle[]>([]);
@@ -122,8 +122,8 @@ const Sessions = () => {
 
   // First useEffect
   useEffect(() => {
-    if (id_region !== undefined) {
-      setSelectedRegion(id_region);
+    if (idRegion !== undefined) {
+      setSelectedRegion(idRegion);
     }
     Promise.all([
       getAllSessions(),

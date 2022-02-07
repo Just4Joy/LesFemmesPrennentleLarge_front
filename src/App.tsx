@@ -41,19 +41,19 @@ function App() {
           <Routes>
             <Route path="/" element={<Home setActiveModal={setActiveModal} />} />
             <Route path="/sessions" element={<Sessions />} />
-            <Route path="/sessions/:id_region" element={<Sessions />} />
+            <Route path="/sessions/:idRegion" element={<Sessions />} />
 
             <Route
-              path="/session/:id_session"
+              path="/session/:idSession"
               element={<Session setActiveModal={setActiveModal} />}
             />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Home setActiveModal={setActiveModal} />} />
             <Route
-              path="/create_session"
+              path="/createSession"
               element={<Home setActiveModal={setActiveModal} />}
             />
-            <Route path="/my_sessions" element={<MySessions />} />
+            <Route path="/mySessions" element={<MySessions />} />
             <Route path="/:id" element={<Home setActiveModal={setActiveModal} />} />
             <Route
               path="/session/:id"
