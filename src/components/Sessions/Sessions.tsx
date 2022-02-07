@@ -70,23 +70,23 @@ const Sessions = () => {
     return departments.data;
   };
   const getAllSurfstyles = async () => {
-    const surfstyles = await axios.get<ISurfStyle[]>(
+    const surfStyles = await axios.get<ISurfStyle[]>(
       'http://localhost:3000/api/surfstyles',
     );
-    return surfstyles.data;
+    return surfStyles.data;
   };
 
   // Constructing hte array of object mySession
   const mySessionsObjectConstructor = (
     sessionsList: ISession[],
     departmentsList: IDepartment[],
-    surfstyleList: ISurfStyle[],
+    surfStylesList: ISurfStyle[],
     regionsList: IRegion[],
   ) => {
     const mesSessions: MySession[] = [];
     let maSession: MySession;
 
-    if (departmentsList.length && surfstyleList.length && regionsList.length) {
+    if (departmentsList.length && surfStylesList.length && regionsList.length) {
       sessionsList.map((session) => {
         const id_region: number =
           departmentsList.find(
@@ -107,7 +107,7 @@ const Sessions = () => {
           id_department: session.id_department,
           id_user: session.id_user,
           id_region: id_region,
-          name_session: surfstyleList.find(
+          name_session: surfStylesList.find(
             (surfstyle) => surfstyle.id_surf_style == session.id_surf_style,
           )?.name_session,
           region_name:
@@ -131,12 +131,12 @@ const Sessions = () => {
       getAllDepartments(),
       getAllSurfstyles(),
     ])
-      .then(([sessions, regions, departments, surfstyles]) => {
+      .then(([sessions, regions, departments, surfStyles]) => {
         setAllRegions(regions);
         setAllDepartments(departments);
-        setAllSurfstyles(surfstyles);
+        setAllSurfstyles(surfStyles);
 
-        mySessionsObjectConstructor(sessions, departments, surfstyles, regions);
+        mySessionsObjectConstructor(sessions, departments, surfStyles, regions);
       })
       .catch(() => {
         error();
@@ -151,12 +151,12 @@ const Sessions = () => {
       getAllDepartments(),
       getAllSurfstyles(),
     ])
-      .then(([sessions, regions, departments, surfstyles]) => {
+      .then(([sessions, regions, departments, surfStyles]) => {
         setAllRegions(regions);
         setAllDepartments(departments);
-        setAllSurfstyles(surfstyles);
+        setAllSurfstyles(surfStyles);
 
-        mySessionsObjectConstructor(sessions, departments, surfstyles, regions);
+        mySessionsObjectConstructor(sessions, departments, surfStyles, regions);
       })
       .catch(() => {
         error();

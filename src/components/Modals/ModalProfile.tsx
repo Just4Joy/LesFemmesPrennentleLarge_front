@@ -5,7 +5,7 @@ import { useParams } from 'react-router';
 import wahineImg from '../../../img/wahine.svg';
 import { error } from '../../errors';
 import IDepartment from '../../interfaces/IDepartment';
-import ISurfSkill from '../../interfaces/ISurfskills';
+import ISurfSkill from '../../interfaces/ISurfSkill';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
 import SurfSkillProfile from '../Profile/SurfSkillProfile';

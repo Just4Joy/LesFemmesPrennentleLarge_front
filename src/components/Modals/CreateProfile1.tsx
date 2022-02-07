@@ -15,7 +15,7 @@ type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
+const CreateProfile1: FC<Props> = ({ setActiveModal }) => {
   const { id } = useContext(CurrentUserContext);
   const [description, setDescription] = useState<IUser['description']>('');
   const [city, setCity] = useState<IUser['city']>('');
@@ -127,12 +127,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
               publicKey="public_peA2/wgPW2iDjq6xP9HjZRG2/Ys="
               urlEndpoint="https://ik.imagekit.io/LFPLL/"
               authenticationEndpoint="http://localhost:3000/api/login">
-              <IKUpload
-                folder="/profil"
-                onError={console.log('ERROR')}
-                onSuccess={onSuccess}
-                responseFields={['url']}
-              />
+              <IKUpload folder="/profil" onSuccess={onSuccess} responseFields={['url']} />
             </IKContext>
 
             <h6 className="createProfil1__container__pic__upload  ">
@@ -218,4 +213,4 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
   );
 };
 
-export default CreateProfil1;
+export default CreateProfile1;

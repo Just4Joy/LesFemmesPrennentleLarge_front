@@ -26,7 +26,7 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
   const [address, setAddress] = useState<ISession['address']>();
   const [spot_name, setspot_name] = useState<ISession['spot_name']>();
   const [nb_hiki_max, setnb_hiki_max] = useState<ISession['nb_hiki_max']>();
-  const [id_surf_style, setId_surf_style] = useState<ISession['id_surf_style']>();
+  const [idSurfStyle, setIdSurfStyle] = useState<ISession['id_surf_style']>();
   const [carpool, setCarpool] = useState<ISession['carpool']>();
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
           address,
           nb_hiki_max,
           id_department,
-          id_surf_style,
+          idSurfStyle,
           carpool,
           id_user: id,
         },
@@ -148,7 +148,7 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
             <h4 className="create_session__form__type__h4">Type de session</h4>
             <select
               onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
-                setId_surf_style(parseInt(e.currentTarget.value, 10));
+                setIdSurfStyle(parseInt(e.currentTarget.value, 10));
               }}>
               <option value="">type de session</option>
               {surfStyles &&

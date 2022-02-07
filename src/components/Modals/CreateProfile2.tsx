@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { error, errorValidation, unauthorized, userNotFound } from '../../errors';
-import ISurfSkill from '../../interfaces/ISurfskills';
+import ISurfSkill from '../../interfaces/ISurfSkill';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
@@ -14,19 +14,19 @@ type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
+const CreateProfile2: FC<Props> = ({ setActiveModal }) => {
   const { id } = useContext(CurrentUserContext);
   const [surfSkills, setSurfSkills] = useState<ISurfSkill[]>([]);
   const [activeSurfSkill, setActiveSurfSkill] = useState<ISurfSkill['id_surf_skill'][]>(
     [],
   );
   const [surfStyles, setSurfStyles] = useState<ISurfStyle[]>([]);
-  const [id_surf_style, setId_surf_style] = useState<IUser['id_surf_style']>();
+  const [idSurfStyle, setIdSurfStyle] = useState<IUser['id_surf_style']>();
 
   useEffect(() => {
     //GET surfskills
     axios
-      .get<ISurfSkill[]>('http://lfpll-back.herokuapp.com/api/surfskill')
+      .get<ISurfSkill[]>('http://localhost:3000/api/surfskills')
       .then((result) => result.data)
       .then((data) => setSurfSkills(data))
       .catch(() => {
@@ -58,7 +58,7 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
       .put(
         `http://localhost:3000/api/users/${id}`,
         {
-          id_surf_style,
+          idSurfStyle,
         },
         {
           method: 'PUT',
@@ -101,11 +101,9 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
           },
         );
       }),
-    )
-      .then((response) => console.log(response))
-      .catch(() => {
-        error();
-      });
+    ).catch(() => {
+      error();
+    });
   };
 
   return (
@@ -128,7 +126,7 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
         <div className="createProfil2__styles__tag">
           <select
             onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
-              setId_surf_style(parseInt(e.currentTarget.value, 10));
+              setIdSurfStyle(parseInt(e.currentTarget.value, 10));
             }}>
             <option value="">type de session</option>
             {surfStyles &&
@@ -172,4 +170,4 @@ const CreateProfil2: FC<Props> = ({ setActiveModal }) => {
   );
 };
 
-export default CreateProfil2;
+export default CreateProfile2;
