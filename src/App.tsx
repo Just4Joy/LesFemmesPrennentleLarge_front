@@ -10,8 +10,8 @@ import Header from './components/Header';
 import Home from './components/Home/Home';
 import Connect from './components/Modals/Connect';
 import CreateAccount from './components/Modals/CreateAccount';
-import CreateProfil1 from './components/Modals/CreateProfil1';
-import CreateProfil2 from './components/Modals/CreateProfil2';
+import CreateProfile1 from './components/Modals/CreateProfile1';
+import CreateProfile2 from './components/Modals/CreateProfile2';
 import CreateSession1 from './components/Modals/CreateSession1';
 import CreateSession2 from './components/Modals/CreateSession2';
 import Modal from './components/Modals/Modal';
@@ -75,12 +75,12 @@ function App() {
         )}
         {activeModal === 'complete_profil1' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
-            <CreateProfil1 setActiveModal={setActiveModal} />
+            <CreateProfile1 setActiveModal={setActiveModal} />
           </Modal>
         )}
         {activeModal === 'complete_profil2' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
-            <CreateProfil2 setActiveModal={setActiveModal} />
+            <CreateProfile2 setActiveModal={setActiveModal} />
           </Modal>
         )}
         {activeModal === 'wahine2' && (

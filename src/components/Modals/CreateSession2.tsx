@@ -31,7 +31,7 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
   }, []);
 
   function addWeather() {
-    const dataToSend = [wave, flow, power, temperature]; // "weather" removed from arrayy otherwise first map NaN
+    const dataToSend = [wave, flow, power, temperature];
 
     //POST Weather to a Session
     Promise.all(

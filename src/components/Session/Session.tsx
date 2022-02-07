@@ -29,9 +29,9 @@ const Session: FC<Props> = ({ setActiveModal }) => {
 
   const [session, setSession] = useState<ISession>();
   const [subscribers, setSubscribers] = useState<IUser[]>([]);
-  const [weather, setWeather] = useState<IWeather[]>([]);
+  const [weathers, setWeathers] = useState<IWeather[]>([]);
   const [department, setDepartment] = useState<IDepartment>();
-  const [surfStyle, setSurfStyle] = useState<ISurfStyle>();
+  const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
   const [wahine, setWahine] = useState<IUser | undefined>();
   const [wantSubscribe, setWantSubscribe] = useState<boolean>(false);
   const [wantUnsubscribe, setWantUnsubscribe] = useState<boolean>(false);
@@ -72,7 +72,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
         axios
           .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
           .then((result) => result.data)
-          .then((data) => setSurfStyle(data))
+          .then((data) => setSurfStyles(data))
           .catch(() => {
             error();
           });
@@ -95,7 +95,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
     axios
       .get<IWeather[]>(`http://localhost:3000/api/sessions/${id_session}/weather/`)
       .then((result) => result.data)
-      .then((data) => setWeather(data))
+      .then((data) => setWeathers(data))
       .catch(() => {
         error();
       });
@@ -169,7 +169,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
             <div className="session__details__infos__type">
               <h4>Type de session</h4>
               <h6 className="session__details__infos__type__button">
-                {surfStyle?.name_session}
+                {surfStyles?.name_session}
               </h6>
             </div>
             <div className="session__details__infos__hikimax">
@@ -190,7 +190,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
           <div className="session__details__weather">
             <h4>Condition météo</h4>
             <div className="session__details__weather__buttons">
-              {weather.map((weather, index) => {
+              {weathers.map((weather, index) => {
                 return (
                   <h6 key={index} className="session__details__weather__buttons__button1">
                     {weather.name}

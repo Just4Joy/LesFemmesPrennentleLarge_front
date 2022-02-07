@@ -61,7 +61,6 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
         setActiveModal('complete_profil1');
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 422) {
           errorValidation();
         } else if (err.response.status === 400) {

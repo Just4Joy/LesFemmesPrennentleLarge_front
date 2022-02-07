@@ -17,8 +17,8 @@ type Props = {
 const SessionResume: FC<Props> = ({ setActiveModal }) => {
   const { id_sessionCreated } = useContext(CurrentSessionContext);
   const [session, setSession] = useState<ISession>();
-  const [surfStyle, setSurfStyle] = useState<ISurfStyle>();
-  const [weather, setWeather] = useState<IWeather[]>([]);
+  const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
+  const [weathers, setWeathers] = useState<IWeather[]>([]);
   const [department, setDepartment] = useState<IDepartment>();
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
         axios
           .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
           .then((result) => result.data)
-          .then((data) => setSurfStyle(data))
+          .then((data) => setSurfStyles(data))
           .catch(() => {
             error();
           });
@@ -52,7 +52,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
     axios
       .get<IWeather[]>(`http://localhost:3000/api/sessions/${id_sessionCreated}/weather/`)
       .then((result) => result.data)
-      .then((data) => setWeather(data))
+      .then((data) => setWeathers(data))
       .catch(() => {
         error();
       });
@@ -90,7 +90,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
           {session && department && department.department_name}
         </h6>
         <h6 className="sessionResume__tags__tag">
-          {session && surfStyle && surfStyle.name_session}
+          {session && surfStyles && surfStyles.name_session}
         </h6>
         <h6 className="sessionResume__tags__tag">
           {session && session.carpool ? 'Covoiturage possible' : 'Pas de covoiturage'}
@@ -114,7 +114,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
         <h3>Conditions météo</h3>
       </div>
       <div className="sessionResume__weather">
-        {weather.map((weather, index) => {
+        {weathers.map((weather, index) => {
           return (
             <h6 key={index} className="sessionResume__weather__buttons">
               {weather.name}

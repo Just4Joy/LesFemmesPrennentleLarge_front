@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import ISurfSkill from '../../interfaces/ISurfskills';
+import ISurfSkill from '../../interfaces/ISurfskill';
 
 type Props = ISurfSkill;
 const SurfSkillProfile: FC<Props> = ({ ...surfSkill }) => {
