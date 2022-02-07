@@ -151,6 +151,14 @@
   background-color: white;
 }
 
+@media only screen and (max-width: 992px) {
+  .myProfile__column__column1 {
+    img {
+      padding: 2vh 2vw;
+    }
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .myProfile {
     width: 80vw;
@@ -177,6 +185,7 @@
         justify-content: center;
         width: 100%;
         > img {
+          width: 30vw;
           margin-right: 4vw;
         }
 
@@ -260,6 +269,11 @@
       p {
         width: 30vw;
       }
+    }
+  }
+  .myProfile__column__column1 {
+    img {
+      padding: 2vh 2vw;
     }
   }
 }
