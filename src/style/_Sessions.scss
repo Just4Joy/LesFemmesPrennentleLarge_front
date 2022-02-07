@@ -1,13 +1,24 @@
 .sessions {
   &__h1 {
     padding-top: 15vh;
+    @media only screen and (max-width: $Medium) {
+      padding-top: 5vh;
+      text-align: center;
+    }
   }
   &__selectors {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     margin: 2rem 0;
-
+    @media only screen and (max-width: $XLarge) {
+      width: 80vw;
+    }
+    @media only screen and (max-width: $Large) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
     &__region {
       border-radius: 10px;
       background-color: white;
@@ -16,6 +27,25 @@
       height: 4vh;
       padding-left: 0.5rem;
       color: #263238;
+      @media only screen and (max-width: $XLarge) {
+        width: 25vw;
+      }
+      @media only screen and (max-width: $Large) {
+        width: 40vw;
+        margin: 3vh 0;
+      }
+      @media only screen and (max-width: $Medium) {
+        width: 40vw;
+        height: 4vh;
+        margin-right: 0;
+        margin: 3vh 0;
+      }
+      @media only screen and (max-width: $Small) {
+        width: 60vw;
+        height: 4vh;
+        margin-right: 0;
+        margin: 3vh 0;
+      }
     }
     &__date {
       display: flex;
@@ -28,12 +58,35 @@
       height: 4vh;
       padding-left: 0.5rem;
       color: #263238;
+      @media only screen and (max-width: $XXLarge) {
+        width: 20vw;
+      }
+      @media only screen and (max-width: $XLarge) {
+        width: 25vw;
+      }
+      @media only screen and (max-width: $Large) {
+        width: 40vw;
+        margin-left: 0vw;
+      }
+      @media only screen and (max-width: $Medium) {
+        width: 40vw;
+        height: 4vh;
+        margin-left: 0;
+      }
+      @media only screen and (max-width: $Small) {
+        width: 60vw;
+        height: 4vh;
+      }
     }
   }
   &__nextsession {
     display: flex;
     flex-wrap: wrap;
     margin-top: 10vh;
+    @media only screen and (max-width: $XXLarge) {
+      align-items: center;
+      justify-content: space-around;
+    }
     &__not-sessions {
       margin-bottom: 20vh;
     }
@@ -50,93 +103,6 @@
   }
 }
 
-@media only screen and (max-width: 1408px) {
-  .sessions__nextsession {
-    align-items: center;
-    justify-content: space-around;
-  }
-  .sessions__selectors__date__input {
-    width: 20vw;
-  }
-  .sessions__selectors__region {
-    width: 20vw;
-  }
-  .react-calendar__navigation {
-    width: fit-content;
-  }
-  .react-calendar {
-    /* padding-top: 50px; */
-    width: 20vw;
-  }
-}
-
-@media only screen and (max-width: 1150px) {
-  .sessions__selectors {
-    width: 80vw;
-  }
-  .sessions__selectors__date__input {
-    width: 25vw;
-  }
-  .sessions__selectors__region {
-    width: 25vw;
-  }
-  .react-calendar {
-    /* padding-top: 50px; */
-    width: 25vw !important;
-  }
-  .react-calendar__navigation {
-    width: 25vw !important;
-  }
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (max-width: 992px) {
-  .sessions__selectors {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    &__region {
-      width: 40vw;
-      margin: 3vh 0;
-    }
-
-    &__date__input {
-      width: 40vw;
-      margin-left: 0vw;
-    }
-  }
-  .react-calendar {
-    /* padding-top: 50px; */
-    width: 40vw !important;
-  }
-  .react-calendar__navigation {
-    width: 40vw !important;
-  }
-}
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 768px) {
-  .sessions__selectors {
-    &__region {
-      width: 40vw;
-      height: 4vh;
-      margin-right: 0;
-      margin: 3vh 0;
-    }
-    &__date__input {
-      width: 40vw;
-      height: 4vh;
-      margin-left: 0;
-    }
-  }
-  .sessions__h1 {
-    padding-top: 5vh;
-    text-align: center;
-  }
-  .react-calendar__navigation {
-    width: 40vw !important;
-  }
-}
-
 //Calendar
 .react-calendar {
   /* padding-top: 50px; */
@@ -146,6 +112,18 @@
   /* border: 1px solid #a0a096; */
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.125em;
+  @media only screen and (max-width: $XXLarge) {
+    width: 20vw;
+  }
+  @media only screen and (max-width: $XLarge) {
+    width: 25vw !important;
+  }
+  @media only screen and (max-width: $Large) {
+    width: 40vw !important;
+  }
+  @media only screen and (max-width: $Small) {
+    width: 60vw !important;
+  }
 }
 .react-calendar--doubleView {
   width: 700px;
@@ -184,6 +162,21 @@
   margin-bottom: 10px;
   padding: 10px;
   text-align: center;
+  @media only screen and (max-width: $XXLarge) {
+    width: fit-content;
+  }
+  @media only screen and (max-width: $XLarge) {
+    width: 25vw !important;
+  }
+  @media only screen and (max-width: $Large) {
+    width: 40vw !important;
+  }
+  @media only screen and (max-width: $Medium) {
+    width: 40vw !important;
+  }
+  @media only screen and (max-width: $Small) {
+    width: 60vw !important;
+  }
 }
 .react-calendar__navigation button {
   min-width: 0;
@@ -238,27 +231,4 @@
 
 .hide {
   display: none;
-}
-
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-  .sessions__selectors {
-    &__region {
-      width: 60vw;
-      height: 4vh;
-      margin-right: 0;
-      margin: 3vh 0;
-    }
-    &__date__input {
-      width: 60vw;
-      height: 4vh;
-    }
-  }
-  .react-calendar {
-    /* padding-top: 50px; */
-    width: 60vw !important;
-  }
-  .react-calendar__navigation {
-    width: 60vw !important;
-  }
 }

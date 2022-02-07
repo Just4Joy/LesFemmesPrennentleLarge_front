@@ -2,7 +2,9 @@
   &__presentation {
     text-align: center;
     margin: 13rem 0;
-
+    @media only screen and (max-width: $Small) {
+      display: none;
+    }
     &__h1 {
       margin-bottom: 2rem;
     }
@@ -12,6 +14,15 @@
   }
   &__presentation-responsive {
     display: none;
+    @media only screen and (max-width: $Small) {
+      display: block;
+      margin: 10vh 0;
+    }
+    &__h1 {
+      @media only screen and (max-width: $Small) {
+        margin-bottom: 2rem;
+      }
+    }
   }
   &__region {
     margin-bottom: 5rem;
@@ -43,6 +54,9 @@
       font-size: 16px;
       line-height: 20px;
       color: #333333;
+      @media only screen and (max-width: $Large) {
+        justify-content: center;
+      }
     }
   }
   &__wahines {
@@ -62,32 +76,5 @@
   &__becomeWahine {
     display: flex;
     justify-content: center;
-  }
-}
-
-@media only screen and (max-width: 992px) {
-  .home {
-    &__sessions {
-      &__h5 {
-        justify-content: center;
-      }
-    }
-  }
-}
-
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-  .home {
-    &__presentation {
-      display: none;
-    }
-    &__presentation-responsive {
-      display: block;
-      margin: 10vh 0;
-
-      &__h1 {
-        margin-bottom: 2rem;
-      }
-    }
   }
 }
