@@ -3,6 +3,15 @@
   max-width: 30vw;
   padding: 0 1rem;
   margin: 2rem;
+  @media only screen and (max-width: $Large) {
+    min-width: 40vw;
+  }
+  @media only screen and (max-width: $Medium) {
+    min-width: 60vw;
+  }
+  @media only screen and (max-width: $Medium) {
+    min-width: 70vw;
+  }
   &__button {
     display: flex;
     justify-content: space-around;
@@ -113,24 +122,5 @@
       font-size: 17px;
       color: rgb(58, 58, 58);
     }
-  }
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (max-width: 992px) {
-  .nextsession {
-    min-width: 40vw;
-  }
-}
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 768px) {
-  .nextsession {
-    min-width: 60vw;
-  }
-}
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-  .nextsession {
-    min-width: 70vw;
   }
 }
