@@ -25,7 +25,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
   });
 
   const { id } = useContext(CurrentUserContext);
-  let { id_session } = useParams();
+  const { id_session } = useParams();
 
   const [session, setSession] = useState<ISession>();
   const [subscribers, setSubscribers] = useState<IUser[]>([]);

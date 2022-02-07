@@ -24,6 +24,20 @@ const Sessions = () => {
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [pagination, setPagination] = useState<number>(0);
   const [paginationActive, setPaginationActive] = useState<boolean>(false);
+  const [sessions, setSessions] = useState<ISession[]>([]);
+  console.log(allDepartments);
+  console.log(allSurfstyles);
+  console.log(paginationActive);
+
+  useEffect(() => {
+    axios
+      .get<ISession[]>(`http://localhost:3000/api/sessions`)
+      .then((results) => results.data)
+      .then((data) => setSessions(data))
+      .catch(() => {
+        error();
+      });
+  }, []);
 
   // Axios functions
   const getAllSessions = async () => {
@@ -69,12 +83,12 @@ const Sessions = () => {
     surfStylesList: ISurfStyle[],
     regionsList: IRegion[],
   ) => {
-    let mesSessions: MySession[] = [];
+    const mesSessions: MySession[] = [];
     let maSession: MySession;
 
     if (departmentsList.length && surfStylesList.length && regionsList.length) {
       sessionsList.map((session) => {
-        let id_region: number =
+        const id_region: number =
           departmentsList.find(
             (departement) => departement.id_department == session.id_department,
           )?.id_region || 0;
@@ -174,7 +188,6 @@ const Sessions = () => {
             );
           })}
         </select>
-
         <div className="session__selectors__date">
           <input
             className="sessions__selectors__date__input"
@@ -191,13 +204,15 @@ const Sessions = () => {
               setShowCalendar(false);
             }}
             tileClassName={({ date }) => {
-              let b = '';
+              let className = '';
               if (
-                mySessions.find((x) => x.nice_date === moment(date).format('DD/MM/YYYY'))
+                sessions.find(
+                  (session) => session.nice_date === moment(date).format('DD/MM/YYYY'),
+                )
               ) {
-                b = 'highlight';
+                className = 'highlight';
               }
-              return b;
+              return className;
             }}
           />
         </div>

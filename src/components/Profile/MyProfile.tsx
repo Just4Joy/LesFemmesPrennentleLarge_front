@@ -153,7 +153,7 @@ const MyProfile = () => {
       id_department: newDepartment,
       id_surf_style: newSurfStyles,
     };
-    for (let key in data) {
+    for (const key in data) {
       if (data[key] === '' || data[key] === 0) {
         delete data[key];
       }
@@ -225,10 +225,10 @@ const MyProfile = () => {
       })
       .then(() => {
         Promise.all(
-          activeSurfSkills.map(async (el) => {
+          activeSurfSkills.map(async (index) => {
             axios.post(
               `http://localhost:3000/api/users/${id}/surfskills`,
-              { id_surf_skill: el },
+              { id_surf_skill: index },
               {
                 method: 'POST',
                 headers: {
