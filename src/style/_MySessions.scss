@@ -15,6 +15,8 @@
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-around;
     }
     &__buttons {
       display: flex;
@@ -40,6 +42,8 @@
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-around;
     }
     &__buttons {
       display: flex;

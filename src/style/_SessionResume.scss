@@ -3,13 +3,27 @@
     width: 45vw;
     padding: 3vh 0;
     font-family: $Main-font;
+    @media only screen and (max-width: $Medium) {
+      width: 100%;
+    }
+    h1 {
+      @media only screen and (max-width: $Large) {
+        font-size: 4vh;
+      }
+      @media only screen and (max-width: $Medium) {
+        font-size: 2.5vh;
+      }
+    }
   }
   &__tags {
     width: 100%;
     display: flex;
     justify-content: space-around;
     margin-bottom: 4vh;
-
+    @media only screen and (max-width: $Medium) {
+      flex-wrap: wrap;
+      margin-bottom: 1vh;
+    }
     &__tag {
       display: flex;
       align-items: center;
@@ -22,6 +36,13 @@
       color: black;
       font-weight: 400;
       font-size: 1.3vh;
+      @media only screen and (max-width: $Large) {
+        width: 20vw;
+      }
+      @media only screen and (max-width: $Medium) {
+        width: 30vw;
+        margin-bottom: 1vh;
+      }
     }
   }
   &__session {
@@ -30,25 +51,45 @@
     justify-content: space-between;
     &__title {
       margin-bottom: 2vh;
+      @media only screen and (max-width: $Medium) {
+        font-size: 2vh;
+      }
     }
-    &__adress {
-      font-family: $Main-font;
-      font-size: 2vh;
-      margin-bottom: 1.5vh;
-    }
-    &__number {
-      font-family: $Main-font;
-      font-size: 2vh;
-      margin-bottom: 5vh;
+    &__details {
+      @media only screen and (max-width: $Medium) {
+        display: flex;
+        justify-content: space-around;
+      }
+      &__adress {
+        font-family: $Main-font;
+        font-size: 2vh;
+        margin-bottom: 1.5vh;
+      }
+      &__number {
+        font-family: $Main-font;
+        font-size: 2vh;
+        margin-bottom: 5vh;
+      }
     }
   }
   &__title2 {
     padding-bottom: 2rem;
+    @media only screen and (max-width: $Medium) {
+      padding-bottom: 1vh;
+    }
+    h3 {
+      @media only screen and (max-width: $Medium) {
+        font-size: 2vh;
+      }
+    }
   }
   &__weather {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    @media only screen and (max-width: $Medium) {
+      justify-content: space-around;
+    }
     &__buttons {
       display: flex;
       align-items: center;
@@ -63,12 +104,26 @@
       font-size: 1.3vh;
       padding: 0.7vh 0;
       margin-bottom: 3vh;
+      @media only screen and (max-width: $Large) {
+        width: 15vw;
+      }
+      @media only screen and (max-width: $Medium) {
+        width: 25vw;
+        margin-bottom: 1.5vh;
+      }
     }
   }
   &__button {
     margin: 1.5rem 0 0 0;
     display: flex;
     flex-direction: row-reverse;
+    align-items: center;
+    @media only screen and (max-width: $Large) {
+      margin: 1.5vh 0 0 0;
+    }
+    @media only screen and (max-width: $Medium) {
+      justify-content: center;
+    }
     &__validate {
       width: 10vw;
       border-radius: 10px;
@@ -76,6 +131,13 @@
       padding: 0.5rem 0;
       background-color: #fdc969;
       cursor: pointer;
+      @media only screen and (max-width: $Large) {
+        width: 15vw;
+        margin-left: 1vw;
+      }
+      @media only screen and (max-width: $Medium) {
+        width: 20vw;
+      }
     }
     &__cancel {
       width: 10vw;
@@ -83,6 +145,12 @@
       background-color: white;
       text-decoration: underline;
       cursor: pointer;
+      @media only screen and (max-width: $Large) {
+        width: 15vw;
+      }
+      @media only screen and (max-width: $Medium) {
+        width: 20vw;
+      }
     }
   }
 }

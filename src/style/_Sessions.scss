@@ -1,34 +1,92 @@
 .sessions {
   &__h1 {
     padding-top: 15vh;
+    @media only screen and (max-width: $Medium) {
+      padding-top: 5vh;
+      text-align: center;
+    }
   }
   &__selectors {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
     margin: 2rem 0;
-
+    @media only screen and (max-width: $XLarge) {
+      width: 80vw;
+    }
+    @media only screen and (max-width: $Large) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
     &__region {
       border-radius: 10px;
       background-color: white;
-      width: 13vw;
+      width: 15vw;
       margin-right: 1rem;
       height: 4vh;
       padding-left: 0.5rem;
       color: #263238;
+      @media only screen and (max-width: $XLarge) {
+        width: 25vw;
+      }
+      @media only screen and (max-width: $Large) {
+        width: 40vw;
+        margin: 3vh 0;
+      }
+      @media only screen and (max-width: $Medium) {
+        width: 40vw;
+        height: 4vh;
+        margin-right: 0;
+        margin: 3vh 0;
+      }
+      @media only screen and (max-width: $Small) {
+        width: 60vw;
+        height: 4vh;
+        margin-right: 0;
+        margin: 3vh 0;
+      }
     }
     &__date {
+      display: flex;
+      flex-direction: column;
+    }
+    &__date__input {
       border-radius: 10px;
       background-color: white;
-      width: 13vw;
+      width: 15vw;
       height: 4vh;
       padding-left: 0.5rem;
       color: #263238;
+      @media only screen and (max-width: $XXLarge) {
+        width: 20vw;
+      }
+      @media only screen and (max-width: $XLarge) {
+        width: 25vw;
+      }
+      @media only screen and (max-width: $Large) {
+        width: 40vw;
+        margin-left: 0vw;
+      }
+      @media only screen and (max-width: $Medium) {
+        width: 40vw;
+        height: 4vh;
+        margin-left: 0;
+      }
+      @media only screen and (max-width: $Small) {
+        width: 60vw;
+        height: 4vh;
+      }
     }
   }
   &__nextsession {
     display: flex;
     flex-wrap: wrap;
     margin-top: 10vh;
+    @media only screen and (max-width: $XXLarge) {
+      align-items: center;
+      justify-content: space-around;
+    }
     &__not-sessions {
       margin-bottom: 20vh;
     }
@@ -43,4 +101,134 @@
       fill: $Primary-dark-2;
     }
   }
+}
+
+//Calendar
+.react-calendar {
+  /* padding-top: 50px; */
+  width: 20vw;
+  max-width: 100%;
+  background: white;
+  /* border: 1px solid #a0a096; */
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
+  @media only screen and (max-width: $XXLarge) {
+    width: 20vw;
+  }
+  @media only screen and (max-width: $XLarge) {
+    width: 25vw !important;
+  }
+  @media only screen and (max-width: $Large) {
+    width: 40vw !important;
+  }
+  @media only screen and (max-width: $Small) {
+    width: 60vw !important;
+  }
+}
+.react-calendar--doubleView {
+  width: 700px;
+}
+.react-calendar__viewContainer {
+  width: fit-content;
+}
+.react-calendar--doubleView .react-calendar__viewContainer {
+  display: flex;
+  margin: -0.5em;
+}
+.react-calendar--doubleView .react-calendar__viewContainer > * {
+  width: 30%;
+  margin: 0.5em;
+}
+.react-calendar,
+.react-calendar *,
+.react-calendar *:before,
+.react-calendar *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.react-calendar button {
+  margin: 0;
+  border: 0;
+  outline: none;
+}
+.react-calendar button:enabled:hover {
+  cursor: pointer;
+  border-radius: 50%;
+}
+.react-calendar__navigation {
+  height: 44px;
+  width: 20vw;
+  margin-bottom: 10px;
+  padding: 10px;
+  text-align: center;
+  @media only screen and (max-width: $XXLarge) {
+    width: fit-content;
+  }
+  @media only screen and (max-width: $XLarge) {
+    width: 25vw !important;
+  }
+  @media only screen and (max-width: $Large) {
+    width: 40vw !important;
+  }
+  @media only screen and (max-width: $Medium) {
+    width: 40vw !important;
+  }
+  @media only screen and (max-width: $Small) {
+    width: 60vw !important;
+  }
+}
+.react-calendar__navigation button {
+  min-width: 0;
+  background: none;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: #ffe4e1;
+}
+.react-calendar__navigation button[disabled] {
+  background-color: #ffe4e1;
+}
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.75em;
+}
+.react-calendar__month-view__weekdays__weekday {
+  padding: 0.5em;
+}
+.react-calendar__month-view__weekNumbers {
+  font-weight: bold;
+}
+.react-calendar__month-view__weekNumbers .react-calendar__tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75em;
+  padding: calc(0.75em / 0.75) calc(0.5em / 0.75);
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #a5a4a4;
+}
+.react-calendar__year-view .react-calendar__tile,
+.react-calendar__decade-view .react-calendar__tile,
+.react-calendar__century-view .react-calendar__tile {
+  padding: 2em 0.5em;
+}
+.react-calendar__tile {
+  max-width: 100%;
+  text-align: center;
+  padding: 0.75em 0.5em;
+  background: none;
+}
+.highlight {
+  background: #ffe4e1;
+  border-radius: 50%;
+}
+
+.hide {
+  display: none;
 }

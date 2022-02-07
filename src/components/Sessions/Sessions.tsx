@@ -1,5 +1,7 @@
 import axios from 'axios';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
+import Calendar from 'react-calendar';
 import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
 
@@ -13,15 +15,29 @@ import NextSession from '../NextSession';
 type MySession = ISession & IDepartment & IRegion;
 
 const Sessions = () => {
-  const { id_region } = useParams<{ id_region: string | undefined }>();
+  const { idRegion } = useParams<{ idRegion: string | undefined }>();
   const [allRegions, setAllRegions] = useState<IRegion[]>([]);
   const [allDepartments, setAllDepartments] = useState<IDepartment[]>([]);
   const [allSurfstyles, setAllSurfstyles] = useState<ISurfStyle[]>([]);
   const [selectedRegion, setSelectedRegion] = useState<number | undefined | string>();
-  const [selectedDate, setSelectedDate] = useState<Date | string>('');
+  const [selectedDate, setSelectedDate] = useState<string>('');
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [pagination, setPagination] = useState<number>(0);
   const [paginationActive, setPaginationActive] = useState<boolean>(false);
+  const [sessions, setSessions] = useState<ISession[]>([]);
+  console.log(allDepartments);
+  console.log(allSurfstyles);
+  console.log(paginationActive);
+
+  useEffect(() => {
+    axios
+      .get<ISession[]>(`http://localhost:3000/api/sessions`)
+      .then((results) => results.data)
+      .then((data) => setSessions(data))
+      .catch(() => {
+        error();
+      });
+  }, []);
 
   // Axios functions
   const getAllSessions = async () => {
@@ -54,25 +70,25 @@ const Sessions = () => {
     return departments.data;
   };
   const getAllSurfstyles = async () => {
-    const surfstyles = await axios.get<ISurfStyle[]>(
+    const surfStyles = await axios.get<ISurfStyle[]>(
       'http://localhost:3000/api/surfstyles',
     );
-    return surfstyles.data;
+    return surfStyles.data;
   };
 
   // Constructing hte array of object mySession
   const mySessionsObjectConstructor = (
     sessionsList: ISession[],
     departmentsList: IDepartment[],
-    surfstyleList: ISurfStyle[],
+    surfStylesList: ISurfStyle[],
     regionsList: IRegion[],
   ) => {
-    let mesSessions: MySession[] = [];
+    const mesSessions: MySession[] = [];
     let maSession: MySession;
 
-    if (departmentsList.length && surfstyleList.length && regionsList.length) {
+    if (departmentsList.length && surfStylesList.length && regionsList.length) {
       sessionsList.map((session) => {
-        let id_region: number =
+        const id_region: number =
           departmentsList.find(
             (departement) => departement.id_department == session.id_department,
           )?.id_region || 0;
@@ -91,7 +107,7 @@ const Sessions = () => {
           id_department: session.id_department,
           id_user: session.id_user,
           id_region: id_region,
-          name_session: surfstyleList.find(
+          name_session: surfStylesList.find(
             (surfstyle) => surfstyle.id_surf_style == session.id_surf_style,
           )?.name_session,
           region_name:
@@ -106,28 +122,48 @@ const Sessions = () => {
 
   // First useEffect
   useEffect(() => {
+    if (idRegion !== undefined) {
+      setSelectedRegion(idRegion);
+    }
     Promise.all([
       getAllSessions(),
       getAllRegions(),
       getAllDepartments(),
       getAllSurfstyles(),
     ])
-      .then(([sessions, regions, departments, surfstyles]) => {
+      .then(([sessions, regions, departments, surfStyles]) => {
         setAllRegions(regions);
         setAllDepartments(departments);
-        setAllSurfstyles(surfstyles);
+        setAllSurfstyles(surfStyles);
 
-        mySessionsObjectConstructor(sessions, departments, surfstyles, regions);
+        mySessionsObjectConstructor(sessions, departments, surfStyles, regions);
       })
       .catch(() => {
         error();
       });
+  }, []);
 
-    if (id_region !== undefined) {
-      setSelectedRegion(id_region);
-    }
+  // First useEffect
+  useEffect(() => {
+    Promise.all([
+      getAllSessions(),
+      getAllRegions(),
+      getAllDepartments(),
+      getAllSurfstyles(),
+    ])
+      .then(([sessions, regions, departments, surfStyles]) => {
+        setAllRegions(regions);
+        setAllDepartments(departments);
+        setAllSurfstyles(surfStyles);
+
+        mySessionsObjectConstructor(sessions, departments, surfStyles, regions);
+      })
+      .catch(() => {
+        error();
+      });
   }, [selectedRegion, pagination, selectedDate]);
 
+  const [showCalendar, setShowCalendar] = useState<boolean>(false);
 
   return (
     <div className="sessions">
@@ -140,7 +176,7 @@ const Sessions = () => {
           id="region"
           onClick={(e) => {
             setSelectedRegion(Number(e.currentTarget.value));
-            setSelectedDate('');
+            // setSelectedDate(new Date().toLocaleDateString());
             setPagination(0);
           }}>
           <option value={0}>Régions</option>
@@ -152,18 +188,34 @@ const Sessions = () => {
             );
           })}
         </select>
-        {/* Select date */}
-        <input
-          className="sessions__selectors__date"
-          name="date"
-          type="date"
-          list="dateList"
-          id="date"
-          onChange={(e) => {
-            setSelectedDate(e.currentTarget.value);
-            setPagination(0);
-          }}
-        />
+        <div className="session__selectors__date">
+          <input
+            className="sessions__selectors__date__input"
+            value={
+              selectedDate ? moment(selectedDate).format('DD/MM/YYYY') : 'dd/mm/yyyy'
+            }
+            onFocus={() => setShowCalendar(true)}
+            readOnly
+          />
+          <Calendar
+            className={showCalendar ? '' : 'hide'}
+            onChange={(date: Date) => {
+              setSelectedDate(moment(date).format('YYYY-MM-DD'));
+              setShowCalendar(false);
+            }}
+            tileClassName={({ date }) => {
+              let className = '';
+              if (
+                sessions.find(
+                  (session) => session.nice_date === moment(date).format('DD/MM/YYYY'),
+                )
+              ) {
+                className = 'highlight';
+              }
+              return className;
+            }}
+          />
+        </div>
       </div>
 
       {/* Componant NextSession */}

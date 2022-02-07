@@ -15,18 +15,18 @@ type Props = {
 };
 const CreateSession1: FC<Props> = ({ setActiveModal }) => {
   const { id } = useContext(CurrentUserContext);
-  const { setId_session } = useContext(CurrentSessionContext);
+  const { setIdSession } = useContext(CurrentSessionContext);
   const [surfStyles, setSurfStyles] = useState<ISurfStyle[]>([]);
   const [departements, setDepartements] = useState<IDepartment[]>([]);
 
   const [name, setName] = useState<ISession['name']>();
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
-  const [id_department, setId_department] = useState<ISession['id_department']>();
+  const [idDepartment, setIdDepartment] = useState<ISession['id_department']>();
   const [address, setAddress] = useState<ISession['address']>();
-  const [spot_name, setspot_name] = useState<ISession['spot_name']>();
-  const [nb_hiki_max, setnb_hiki_max] = useState<ISession['nb_hiki_max']>();
-  const [id_surf_style, setId_surf_style] = useState<ISession['id_surf_style']>();
+  const [spotName, setSpotName] = useState<ISession['spot_name']>();
+  const [nbHikiMax, setNbHikiMax] = useState<ISession['nb_hiki_max']>();
+  const [idSurfStyle, setIdSurfStyle] = useState<ISession['id_surf_style']>();
   const [carpool, setCarpool] = useState<ISession['carpool']>();
 
   useEffect(() => {
@@ -56,11 +56,11 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
         {
           name,
           date: selectedDate,
-          spot_name,
+          spotName,
           address,
-          nb_hiki_max,
-          id_department,
-          id_surf_style,
+          nbHikiMax,
+          idDepartment,
+          id_surf_style: idSurfStyle,
           carpool,
           id_user: id,
         },
@@ -74,7 +74,7 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
       )
       .then((res) => res.data)
       .then((data) => {
-        setId_session(data.id_session);
+        setIdSession(data.id_session);
         setActiveModal('create_session2');
       })
       .catch(() => {
@@ -103,7 +103,7 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
               id="region-select"
               className="create_session__form__inputs__input"
               onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
-                setId_department(parseInt(e.currentTarget.value, 10));
+                setIdDepartment(parseInt(e.currentTarget.value, 10));
               }}>
               <option value="">Département</option>
               {departements &&
@@ -134,21 +134,21 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
               className="create_session__form__inputs__input"
               placeholder="spot*"
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                setspot_name(e.currentTarget.value)
+                setSpotName(e.currentTarget.value)
               }
             />
             <input
               className="create_session__form__inputs__input"
               placeholder="nbr hiki max"
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                setnb_hiki_max(parseInt(e.currentTarget.value, 10))
+                setNbHikiMax(parseInt(e.currentTarget.value, 10))
               }></input>
           </div>
           <div className="create_session__form__type">
-            <h4>Type de session</h4>
+            <h4 className="create_session__form__type__h4">Type de session</h4>
             <select
               onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
-                setId_surf_style(parseInt(e.currentTarget.value, 10));
+                setIdSurfStyle(parseInt(e.currentTarget.value, 10));
               }}>
               <option value="">type de session</option>
               {surfStyles &&
@@ -160,9 +160,9 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
             </select>
           </div>
         </form>
-        <hr />
+        <hr className="create_session__form__hr" />
         <div className="create_session__form__carpool">
-          <h4>Co-voiturage ?</h4>
+          <h4 className="create_session__form__carpool__h4">Co-voiturage ?</h4>
           <select
             onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
               setCarpool(parseInt(e.currentTarget.value, 10));

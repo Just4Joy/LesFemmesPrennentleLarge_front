@@ -15,16 +15,16 @@ type Props = {
 };
 
 const SessionResume: FC<Props> = ({ setActiveModal }) => {
-  const { id_sessionCreated } = useContext(CurrentSessionContext);
+  const { idSessionCreated } = useContext(CurrentSessionContext);
   const [session, setSession] = useState<ISession>();
-  const [surfStyle, setSurfStyle] = useState<ISurfStyle>();
-  const [weather, setWeather] = useState<IWeather[]>([]);
+  const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
+  const [weathers, setWeathers] = useState<IWeather[]>([]);
   const [department, setDepartment] = useState<IDepartment>();
 
   useEffect(() => {
     //GET Session
     axios
-      .get<ISession>(`http://localhost:3000/api/sessions/${id_sessionCreated}`)
+      .get<ISession>(`http://localhost:3000/api/sessions/${idSessionCreated}`)
       .then((result) => result.data)
       .then((data) => {
         setSession(data);
@@ -32,7 +32,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
         axios
           .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
           .then((result) => result.data)
-          .then((data) => setSurfStyle(data))
+          .then((data) => setSurfStyles(data))
           .catch(() => {
             error();
           });
@@ -50,9 +50,9 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
       });
     //GET the weather of the session
     axios
-      .get<IWeather[]>(`http://localhost:3000/api/sessions/${id_sessionCreated}/weather/`)
+      .get<IWeather[]>(`http://localhost:3000/api/sessions/${idSessionCreated}/weather/`)
       .then((result) => result.data)
-      .then((data) => setWeather(data))
+      .then((data) => setWeathers(data))
       .catch(() => {
         error();
       });
@@ -61,7 +61,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
   //DELETE the session
   const deleteSession = () => {
     axios
-      .delete<ISession>(`http://localhost:3000/api/sessions/${id_sessionCreated}`, {
+      .delete<ISession>(`http://localhost:3000/api/sessions/${idSessionCreated}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
           {session && department && department.department_name}
         </h6>
         <h6 className="sessionResume__tags__tag">
-          {session && surfStyle && surfStyle.name_session}
+          {session && surfStyles && surfStyles.name_session}
         </h6>
         <h6 className="sessionResume__tags__tag">
           {session && session.carpool ? 'Covoiturage possible' : 'Pas de covoiturage'}
@@ -101,18 +101,20 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
           Session du {session && session.nice_date} à {session && session.nice_time} au{' '}
           {session && session.spot_name}
         </h3>
-        <p className="sessionResume__session__adress">
-          Adresse: {session && session.address}
-        </p>
-        <p className="sessionResume__session__number">
-          Nombre de Hiki: {session && session.nb_hiki_max}
-        </p>
+        <div className="sessionResume__session__details">
+          <div className="sessionResume__session__details__adress">
+            <p>Adresse: {session && session.address}</p>
+          </div>
+          <div className="sessionResume__session__details__number">
+            <p>Nombre de Hiki: {session && session.nb_hiki_max}</p>
+          </div>
+        </div>
       </div>
       <div className="sessionResume__title2">
         <h3>Conditions météo</h3>
       </div>
       <div className="sessionResume__weather">
-        {weather.map((weather, index) => {
+        {weathers.map((weather, index) => {
           return (
             <h6 key={index} className="sessionResume__weather__buttons">
               {weather.name}

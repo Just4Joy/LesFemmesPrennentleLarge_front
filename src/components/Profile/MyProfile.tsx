@@ -8,7 +8,7 @@ import { FiUpload } from 'react-icons/fi';
 
 import { error, errorValidation, unauthorized, userNotFound } from '../../errors';
 import IDepartment from '../../interfaces/IDepartment';
-import ISurfSkill from '../../interfaces/ISurfskills';
+import ISurfSkill from '../../interfaces/ISurfSkill';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
@@ -27,25 +27,25 @@ const MyProfile = () => {
   const [allDepartments, setAllDepartments] = useState<IDepartment[]>();
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
   const [allSurfStyles, setAllSurfStyles] = useState<ISurfStyle[]>();
-  const [surfSkillToAdd, setSurfSkillToAdd] = useState<ISurfSkill[]>([]);
+  const [surfSkillsToAdd, setSurfSkillsToAdd] = useState<ISurfSkill[]>([]);
   const [surfSkills, setSurfSkills] = useState<ISurfSkill[]>([]);
 
   const [firstname, setFirstname] = useState<IUser['firstname']>('');
   const [lastname, setLastname] = useState<IUser['lastname']>('');
-  const [desc, setDesc] = useState<IUser['desc']>('');
+  const [desc, setDesc] = useState<IUser['description']>('');
   const [city, setCity] = useState<IUser['city']>('');
   const [favorite_spot, setSpot] = useState<IUser['favorite_spot']>('');
   const [newDepartment, setNewDepartment] = useState<Number>(0);
   const [newSurfStyles, setNewSurfStyles] = useState<Number>(0);
 
-  const [activeSurfSkill, setActiveSurfSkill] = useState<ISurfSkill['id_surf_skill'][]>(
+  const [activeSurfSkills, setActiveSurfSkills] = useState<ISurfSkill['id_surf_skill'][]>(
     [],
   );
 
   useEffect(() => {
     //GET User
     axios
-      .get<IUser>(`http://localhost:3000/api/users/${id}`)
+      .get<IUser>(`http://localhost:3000/api/users/${id}?display=all`)
       .then((result) => result.data)
       .then((data) => {
         setUsers(data);
@@ -81,7 +81,7 @@ const MyProfile = () => {
     axios
       .get<ISurfSkill[]>('http://localhost:3000/api/surfskills')
       .then((result) => result.data)
-      .then((data) => setSurfSkillToAdd(data))
+      .then((data) => setSurfSkillsToAdd(data))
       .catch(() => {
         error();
       });
@@ -104,17 +104,16 @@ const MyProfile = () => {
   }, []);
   //Avoids having a surfskills selected two times
   const add = (id: ISurfSkill['id_surf_skill']) => {
-    const arr = activeSurfSkill;
+    const arr = activeSurfSkills;
     if (arr.find((el) => el === id)) {
       arr.splice(arr.indexOf(id), 1);
     } else arr.push(id);
 
-    setActiveSurfSkill(arr);
+    setActiveSurfSkills(arr);
   };
 
   //PUT User Profile Pic
   const onSuccess = (res: any) => {
-    console.log(res.url);
     users &&
       axios
         .put(
@@ -130,7 +129,6 @@ const MyProfile = () => {
             withCredentials: true,
           },
         )
-        .then((result) => console.log(result))
         .catch((err) => {
           if (err.response.status === 401) {
             unauthorized();
@@ -146,22 +144,20 @@ const MyProfile = () => {
 
   //PUT User details
   const updateDataUser = () => {
-    console.log(newDepartment, newSurfStyles, 'NEW DEPARTEMENT NEW SURFSTYLE ON CLICK');
     const data: any = {
       firstname: firstname,
       lastname: lastname,
       city: city,
-      desc: desc,
+      description: desc,
       favorite_spot: favorite_spot,
       id_department: newDepartment,
       id_surf_style: newSurfStyles,
     };
-    for (let key in data) {
+    for (const key in data) {
       if (data[key] === '' || data[key] === 0) {
         delete data[key];
       }
     }
-    console.log(data);
     if (Object.keys(data).length !== 0) {
       axios
         .put(
@@ -177,7 +173,7 @@ const MyProfile = () => {
         ) //retrieving the information of the user after the put is finished
         .then(() => {
           axios
-            .get<IUser>(`http://localhost:3000/api/users/${id}`)
+            .get<IUser>(`http://localhost:3000/api/users/${id}?display=all`)
             .then((result) => result.data)
             .then((data) => {
               setUsers(data);
@@ -229,10 +225,10 @@ const MyProfile = () => {
       })
       .then(() => {
         Promise.all(
-          activeSurfSkill.map(async (el) => {
+          activeSurfSkills.map(async (index) => {
             axios.post(
               `http://localhost:3000/api/users/${id}/surfskills`,
-              { id_surf_skill: el },
+              { idSurfSkill: index },
               {
                 method: 'POST',
                 headers: {
@@ -246,10 +242,12 @@ const MyProfile = () => {
       }) //retrieves the surfskills
       .then(() => {
         axios
-          .get<ISurfSkill[]>(`http://localhost:3000/api/users/${id}/surfskills`)
+          .get<ISurfSkill[]>(
+            `http://localhost:3000/api/users/${id}/surfskills?display=all`,
+          )
           .then((result) => result.data)
           .then((data) => {
-            setActiveSurfSkill([]);
+            setActiveSurfSkills([]);
             setSurfSkills(data);
           })
           .catch(() => {
@@ -295,7 +293,6 @@ const MyProfile = () => {
                 authenticationEndpoint="http://localhost:3000/api/login">
                 <IKUpload
                   folder="/profil"
-                  onError={console.log('ERROR')}
                   onSuccess={onSuccess}
                   responseFields={['url']}
                 />
@@ -354,9 +351,7 @@ const MyProfile = () => {
           {!editProfil ? (
             <div className="myProfile__column__column2__row1">
               <div>
-                <p>
-                  {departments && departments.department_name} {/*Should be regions*/}
-                </p>
+                <p>{departments && departments.department_name}</p>
                 <p>{surfStyles && surfStyles.name_user}</p>
               </div>
             </div>
@@ -366,15 +361,18 @@ const MyProfile = () => {
                 <p>
                   {allDepartments && (
                     <select
-                      id="region-select"
+                      id="select"
                       className="createProfil1__container__region"
                       onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
                         setNewDepartment(parseInt(e.currentTarget.value, 10));
                       }}>
-                      <option value="0">régions où tu surfes</option>
+                      <option id="option" value="0">
+                        régions où tu surfes
+                      </option>
                       {allDepartments &&
                         allDepartments.map((department) => (
                           <option
+                            id="option"
                             key={department.id_department}
                             value={department.id_department}>
                             {department.department_name}
@@ -386,13 +384,17 @@ const MyProfile = () => {
                 <p>
                   {
                     <select
+                      id="select"
                       onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
                         setNewSurfStyles(parseInt(e.currentTarget.value, 10));
                       }}>
-                      <option value="0">type de session</option>
+                      <option id="option" value="0">
+                        type de session
+                      </option>
                       {allSurfStyles &&
                         allSurfStyles.map((surfStyle) => (
                           <option
+                            id="option"
                             key={surfStyle.id_surf_style}
                             value={surfStyle.id_surf_style}>
                             {surfStyle.name_user}
@@ -418,8 +420,8 @@ const MyProfile = () => {
               </div>
             ) : (
               <div className="createProfil2__skills__tags">
-                {surfSkillToAdd &&
-                  surfSkillToAdd.map((surfSkillToAdd) => {
+                {surfSkillsToAdd &&
+                  surfSkillsToAdd.map((surfSkillToAdd) => {
                     return (
                       <SurfSkill
                         {...surfSkillToAdd}
@@ -436,7 +438,7 @@ const MyProfile = () => {
             {!editProfil ? (
               <div className="myProfile__column__column2__row3__describe">
                 <h2>3 mots pour me décrire</h2>
-                <h6>{users && users.desc}</h6>
+                <h6>{users && users.description}</h6>
               </div>
             ) : (
               <div className="myProfile__column__column2__row3__describe">

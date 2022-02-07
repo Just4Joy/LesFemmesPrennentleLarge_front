@@ -1,6 +1,12 @@
 .App {
   padding: 0 5rem;
 }
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+  .App {
+    padding: 0 10vw;
+  }
+}
 
 //////////////////////////////////
 //////////////////////////// RESET

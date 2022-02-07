@@ -48,7 +48,6 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
         setActiveModal('__hiddenModal');
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 401) {
           errorData();
         } else {
@@ -89,7 +88,7 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
               }
               value={password}
             />
-            <p>mot de passe oublié?</p>
+            <h6>mot de passe oublié?</h6>
           </form>
         </div>
         <div className="connect__button">

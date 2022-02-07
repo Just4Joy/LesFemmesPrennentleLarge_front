@@ -10,8 +10,8 @@ import Header from './components/Header';
 import Home from './components/Home/Home';
 import Connect from './components/Modals/Connect';
 import CreateAccount from './components/Modals/CreateAccount';
-import CreateProfil1 from './components/Modals/CreateProfil1';
-import CreateProfil2 from './components/Modals/CreateProfil2';
+import CreateProfile1 from './components/Modals/CreateProfile1';
+import CreateProfile2 from './components/Modals/CreateProfile2';
 import CreateSession1 from './components/Modals/CreateSession1';
 import CreateSession2 from './components/Modals/CreateSession2';
 import Modal from './components/Modals/Modal';
@@ -41,19 +41,19 @@ function App() {
           <Routes>
             <Route path="/" element={<Home setActiveModal={setActiveModal} />} />
             <Route path="/sessions" element={<Sessions />} />
-            <Route path="/sessions/:id_region" element={<Sessions />} />
+            <Route path="/sessions/:idRegion" element={<Sessions />} />
 
             <Route
-              path="/session/:id_session"
+              path="/session/:idSession"
               element={<Session setActiveModal={setActiveModal} />}
             />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Home setActiveModal={setActiveModal} />} />
             <Route
-              path="/create_session"
+              path="/createSession"
               element={<Home setActiveModal={setActiveModal} />}
             />
-            <Route path="/my_sessions" element={<MySessions />} />
+            <Route path="/mySessions" element={<MySessions />} />
             <Route path="/:id" element={<Home setActiveModal={setActiveModal} />} />
             <Route
               path="/session/:id"
@@ -75,12 +75,12 @@ function App() {
         )}
         {activeModal === 'complete_profil1' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
-            <CreateProfil1 setActiveModal={setActiveModal} />
+            <CreateProfile1 setActiveModal={setActiveModal} />
           </Modal>
         )}
         {activeModal === 'complete_profil2' && (
           <Modal activeModal={activeModal} setActiveModal={setActiveModal}>
-            <CreateProfil2 setActiveModal={setActiveModal} />
+            <CreateProfile2 setActiveModal={setActiveModal} />
           </Modal>
         )}
         {activeModal === 'wahine2' && (

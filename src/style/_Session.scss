@@ -2,17 +2,61 @@
   display: flex;
   justify-content: space-evenly;
   margin-top: 10rem;
-
+  @media only screen and (max-width: $Large) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6vh;
+  }
   &__details {
     display: flex;
     flex-direction: column;
     margin-right: 25vw;
     max-width: 35vw;
+    @media only screen and (max-width: 1303px) {
+      width: 50vw;
+    }
+    @media only screen and (max-width: $Large) {
+      margin-right: 0;
+      align-items: center;
+    }
+    h4 {
+      @media only screen and (max-width: 1303px) {
+        font-size: 2vh;
+      }
+    }
     &__title {
       width: 100%;
       display: flex;
       justify-content: flex-start;
-
+      @media only screen and (max-width: 1034px) {
+        width: 45vw;
+      }
+      @media only screen and (max-width: $Large) {
+        width: 50vw;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-start;
+        align-items: center;
+      }
+      @media only screen and (max-width: $Small) {
+        width: 70vw;
+      }
+      h1 {
+        @media only screen and (max-width: 1530px) {
+          font-size: 3.5vh;
+        }
+        @media only screen and (max-width: 1303px) {
+          font-size: 3vh;
+        }
+        @media only screen and (max-width: 1034px) {
+          font-size: 2.7vh;
+        }
+        @media only screen and (max-width: $Small) {
+          font-size: 2.5vh;
+        }
+      }
       &__region {
         display: flex;
         align-items: center;
@@ -23,17 +67,43 @@
         border-radius: 10px;
         color: black;
         font-weight: 400;
+        @media only screen and (max-width: 1034px) {
+          width: 15vw;
+        }
+        @media only screen and (max-width: $Large) {
+          margin-left: 0;
+          width: 20vw;
+          height: 3vh;
+          margin-bottom: 3vh;
+        }
+        @media only screen and (max-width: $Small) {
+          width: 40vw;
+        }
       }
     }
     &__infos {
       margin: 1rem 0;
+      @media only screen and (max-width: $Large) {
+        margin: 1.5vh 0;
+        width: 70vw;
+        padding-bottom: 4vh;
+        border-bottom: 0.1vh solid grey;
+      }
       &__adresse {
         margin-top: 1rem;
+        @media only screen and (max-width: $Large) {
+          margin-top: 1.5vh;
+        }
       }
       &__type {
         margin-top: 1rem;
         display: flex;
         flex-direction: row;
+        @media only screen and (max-width: $Large) {
+          margin-top: 1.5vh;
+          width: 100%;
+          justify-content: space-between;
+        }
         &__button {
           display: flex;
           align-items: center;
@@ -44,6 +114,25 @@
           border-radius: 10px;
           color: black;
           font-weight: 400;
+          @media only screen and (max-width: 1303px) {
+            width: 20vw;
+          }
+          @media only screen and (max-width: $Large) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #c2e5e0;
+            width: 18vw;
+            border-radius: 10px;
+            color: black;
+            font-weight: 400;
+          }
+          @media only screen and (max-width: $Medium) {
+            width: 25vw;
+          }
+          @media only screen and (max-width: $Small) {
+            width: 30vw;
+          }
         }
       }
       &__hikimax {
@@ -57,6 +146,10 @@
         display: flex;
         flex-direction: row;
         margin-top: 1rem;
+        @media only screen and (max-width: $Large) {
+          justify-content: space-between;
+          margin-top: 1.5vh;
+        }
         &__button {
           display: flex;
           align-items: center;
@@ -67,18 +160,52 @@
           border-radius: 10px;
           color: black;
           font-weight: 400;
+          @media only screen and (max-width: $Large) {
+            width: 18vw;
+          }
+          @media only screen and (max-width: $Medium) {
+            width: 25vw;
+          }
+          @media only screen and (max-width: $Small) {
+            width: 30vw;
+          }
         }
       }
     }
     &__hr {
       width: 100%;
+      @media only screen and (max-width: 1303px) {
+        width: 45vw;
+      }
+      @media only screen and (max-width: $Large) {
+        display: none;
+      }
     }
     &__weather {
       margin: 1rem 0;
+      @media only screen and (max-width: 1303px) {
+        width: 50vw;
+      }
+      @media only screen and (max-width: $Large) {
+        margin: 1.5vh 0;
+        width: 70vw;
+      }
       &__buttons {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        @media only screen and (max-width: 1303px) {
+          width: 50vw;
+        }
+        @media only screen and (max-width: $Large) {
+          justify-content: space-around;
+          width: 70vw;
+        }
+        @media only screen and (max-width: $Small) {
+          width: 70vw;
+          flex-direction: column;
+          align-items: center;
+        }
         &__button1 {
           margin-top: 1rem;
           height: 1.5rem;
@@ -91,6 +218,19 @@
           border-radius: 10px;
           color: black;
           font-weight: 400;
+          @media only screen and (max-width: 1303px) {
+            width: 20vw;
+          }
+          @media only screen and (max-width: $Large) {
+            text-align: center;
+            margin-top: 1.5vh;
+            height: 3.5vh;
+            margin-left: 0;
+            width: 25vw;
+          }
+          @media only screen and (max-width: $Small) {
+            width: 45vw;
+          }
         }
         &__button2 {
           margin-top: 1rem;
@@ -104,6 +244,24 @@
           border-radius: 10px;
           color: black;
           font-weight: 400;
+          @media only screen and (max-width: $Large) {
+            margin-top: 1.5vh;
+            height: 3vh;
+            margin-left: 0;
+            width: 25vw;
+          }
+        }
+      }
+    }
+    &__organiser {
+      @media only screen and (max-width: $Large) {
+        margin-top: 8vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        h4 {
+          margin-bottom: 6vh;
         }
       }
     }
@@ -124,6 +282,19 @@
     border: none;
     height: 2rem;
     cursor: pointer;
+    @media only screen and (max-width: 1303px) {
+      width: 20vw;
+      margin: 4vh 37vw;
+    }
+    @media only screen and (max-width: $Large) {
+      height: 5vh;
+      width: 30vw;
+      margin: 4vh 26vw;
+    }
+    @media only screen and (max-width: $Small) {
+      width: 40vw;
+      margin: 4vh 21vw;
+    }
   }
   &__group {
     display: flex;
@@ -131,10 +302,24 @@
     margin-left: 4vw;
     margin-top: 15vh;
     margin-bottom: 30vh;
+    @media only screen and (max-width: $Large) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
     &__hikis {
       display: flex;
       flex-direction: row;
       margin-top: 1rem;
+      @media only screen and (max-width: $Large) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        width: 70vw;
+        margin-top: 6vh;
+      }
     }
   }
 }

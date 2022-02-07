@@ -25,13 +25,13 @@ const Session: FC<Props> = ({ setActiveModal }) => {
   });
 
   const { id } = useContext(CurrentUserContext);
-  let { id_session } = useParams();
+  const { idSession } = useParams();
 
   const [session, setSession] = useState<ISession>();
   const [subscribers, setSubscribers] = useState<IUser[]>([]);
-  const [weather, setWeather] = useState<IWeather[]>([]);
+  const [weathers, setWeathers] = useState<IWeather[]>([]);
   const [department, setDepartment] = useState<IDepartment>();
-  const [surfStyle, setSurfStyle] = useState<ISurfStyle>();
+  const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
   const [wahine, setWahine] = useState<IUser | undefined>();
   const [wantSubscribe, setWantSubscribe] = useState<boolean>(false);
   const [wantUnsubscribe, setWantUnsubscribe] = useState<boolean>(false);
@@ -48,13 +48,13 @@ const Session: FC<Props> = ({ setActiveModal }) => {
   useEffect(() => {
     //GET Session
     axios
-      .get<ISession>(`http://localhost:3000/api/sessions/${id_session}`)
+      .get<ISession>(`http://localhost:3000/api/sessions/${idSession}?display=all`)
       .then((result) => result.data)
       .then((data) => {
         setSession(data);
         //GET the Wahine who organized the session
         axios
-          .get<IUser>(`http://localhost:3000/api/users/${data.id_user}`)
+          .get<IUser>(`http://localhost:3000/api/users/${data.id_user}?display=all`)
           .then((result) => result.data)
           .then((data) => setWahine(data))
           .catch(() => {
@@ -72,7 +72,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
         axios
           .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
           .then((result) => result.data)
-          .then((data) => setSurfStyle(data))
+          .then((data) => setSurfStyles(data))
           .catch(() => {
             error();
           });
@@ -82,7 +82,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
       });
     //GET Users participating to the session
     axios
-      .get<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users`)
+      .get<IUser[]>(`http://localhost:3000/api/sessions/${idSession}/users?display=all`)
       .then((result) => result.data)
       .then((data) => {
         setSubscribers(data);
@@ -93,9 +93,9 @@ const Session: FC<Props> = ({ setActiveModal }) => {
       });
     //GET Weather of the session
     axios
-      .get<IWeather[]>(`http://localhost:3000/api/sessions/${id_session}/weather/`)
+      .get<IWeather[]>(`http://localhost:3000/api/sessions/${idSession}/weather/`)
       .then((result) => result.data)
-      .then((data) => setWeather(data))
+      .then((data) => setWeathers(data))
       .catch(() => {
         error();
       });
@@ -105,13 +105,17 @@ const Session: FC<Props> = ({ setActiveModal }) => {
   useEffect(() => {
     if (wantSubscribe) {
       axios
-        .post<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users/${id}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+        .post<IUser[]>(
+          `http://localhost:3000/api/sessions/${idSession}/users/${id}`,
+          { idSession, id },
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            withCredentials: true,
           },
-          withCredentials: true,
-        })
+        )
         .then((result) => {
           setSubscribers(result.data);
           CheckHasSubcribe(result.data);
@@ -126,7 +130,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
     }
     if (wantUnsubscribe) {
       axios
-        .delete<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users/${id}`, {
+        .delete<IUser[]>(`http://localhost:3000/api/sessions/${idSession}/users/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -134,6 +138,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
           withCredentials: true,
         })
         .then((result) => {
+          console.log(result);
           setSubscribers(result.data);
           CheckHasSubcribe(result.data);
         })
@@ -165,7 +170,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
             <div className="session__details__infos__type">
               <h4>Type de session</h4>
               <h6 className="session__details__infos__type__button">
-                {surfStyle?.name_session}
+                {surfStyles?.name_session}
               </h6>
             </div>
             <div className="session__details__infos__hikimax">
@@ -186,7 +191,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
           <div className="session__details__weather">
             <h4>Condition météo</h4>
             <div className="session__details__weather__buttons">
-              {weather.map((weather, index) => {
+              {weathers.map((weather, index) => {
                 return (
                   <h6 key={index} className="session__details__weather__buttons__button1">
                     {weather.name}

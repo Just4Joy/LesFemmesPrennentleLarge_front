@@ -27,7 +27,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
   const { id, wahine } = useContext(CurrentUserContext);
-  //Variable pour l'affichage du nombre de wahine sur Home'
+  //const for wahine's number
   const first: number = 0;
   const second: number = 5;
 
@@ -50,10 +50,10 @@ const Home: FC<Props> = ({ setActiveModal }) => {
       return departments.data;
     };
     const getAllSurfstyles = async () => {
-      const surfstyles = await axios.get<ISurfStyle[]>(
+      const surfStyles = await axios.get<ISurfStyle[]>(
         'http://localhost:3000/api/surfstyles',
       );
-      return surfstyles.data;
+      return surfStyles.data;
     };
 
     Promise.all([
@@ -62,17 +62,16 @@ const Home: FC<Props> = ({ setActiveModal }) => {
       getAllDepartments(),
       getAllSurfstyles(),
     ])
-      .then(([sessions, regions, departments, surfstyles]) => {
+      .then(([sessions, regions, departments, surfStyles]) => {
         setAllRegions(regions);
-
 
         // Construction of the array of object sessionList
 
-        let sessionsList: MySession[] = [];
+        const sessionsList: MySession[] = [];
         let mySession: MySession;
 
         sessions.map((session) => {
-          let id_region =
+          const id_region =
             departments.find(
               (departement) => departement.id_department == session.id_department,
             )?.id_region || 0;
@@ -90,7 +89,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
             id_department: session.id_department,
             id_user: session.id_user,
             id_region: id_region,
-            name_session: surfstyles.find(
+            name_session: surfStyles.find(
               (surfstyle) => surfstyle.id_surf_style == session.id_surf_style,
             )?.name_session,
             region_name:
@@ -112,6 +111,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
         error();
       });
   }, []);
+
   return (
     <div className="home">
       {/*Section : Présentation*/}
@@ -128,6 +128,9 @@ const Home: FC<Props> = ({ setActiveModal }) => {
           spot
         </h4>
       </div>
+      <div className="home__presentation-responsive">
+        <h1 className="home__presentation__h1"> Bonjour,</h1>
+      </div>
       {/*Section : Les sessions de ta région*/}
       <div className="home__region">
         <h3 className="home__region__h3">Les sessions de ta région</h3>
@@ -139,7 +142,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
         </div>
       </div>
 
-      {/*Section : Les prochaines sessions*/}
+      {/*Section : Next sessions*/}
       <div className="home__sessions">
         <h3 className="home__sessions__h3">Les prochaines sessions</h3>
         <div className="home__sessions__component">
@@ -168,8 +171,8 @@ const Home: FC<Props> = ({ setActiveModal }) => {
               })}
         </div>
       </div>
-      {id && wahine === 1 ? '' : <BecomeWahine setActiveModal={setActiveModal} />}
       {/* Section : Devenir wahine */}
+      {id && wahine === 1 ? '' : <BecomeWahine setActiveModal={setActiveModal} />}
     </div>
   );
 };

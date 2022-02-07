@@ -14,21 +14,23 @@ const BecomeWahine: FC<Props> = ({ setActiveModal }) => {
   return (
     <div className="becomeWahine">
       <h1 className="becomeWahine__h1">Envie d&apos;accompagner des surfeuses ?</h1>
-      <h2 className="">Créer des sessions dans tes spots préférés</h2>
+      <h2 className="becomeWahine__h2">Créer des sessions dans tes spots préférés</h2>
       <div className="becomeWahine__row">
         {id && wahine === 0 ? (
           <button
-            className="becomeWahine__btn"
+            className="becomeWahine__row__btn"
             onClick={() => setActiveModal('modalWahine')}>
             Devenir wahine
           </button>
         ) : (
-          <button className="becomeWahine__btn" onClick={() => setActiveModal('connect')}>
+          <button
+            className="becomeWahine__row__btn"
+            onClick={() => setActiveModal('connect')}>
             Devenir wahine
           </button>
         )}
 
-        <img className="" src={becomeWahine} alt="Become wahine" />
+        <img className="becomeWahine__row__logo" src={becomeWahine} alt="Become wahine" />
       </div>
     </div>
   );

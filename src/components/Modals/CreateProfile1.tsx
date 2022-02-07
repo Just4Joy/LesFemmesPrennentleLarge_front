@@ -15,12 +15,12 @@ type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
 };
 
-const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
+const CreateProfile1: FC<Props> = ({ setActiveModal }) => {
   const { id } = useContext(CurrentUserContext);
-  const [desc, setDesc] = useState<IUser['desc']>('');
+  const [description, setDescription] = useState<IUser['description']>('');
   const [city, setCity] = useState<IUser['city']>('');
-  const [id_department, setId_departement] = useState<IUser['id_department']>();
-  const [favorite_spot, setFavorite_spot] = useState<IUser['favorite_spot']>('');
+  const [idDepartment, setIdDepartement] = useState<IUser['id_department']>();
+  const [favoriteSpot, setFavoriteSpot] = useState<IUser['favorite_spot']>('');
   const [departments, setDepartments] = useState<IDepartment[]>([]);
   const [allCities, setAllCities] = useState<ICity[]>([]);
   const [searchCity, setSearchCity] = useState('');
@@ -57,10 +57,10 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
       .put(
         `http://localhost:3000/api/users/${id}`,
         {
-          desc,
+          description,
           city,
-          id_department,
-          favorite_spot,
+          idDepartment,
+          favoriteSpot,
         },
         {
           method: 'PUT',
@@ -75,7 +75,6 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
       })
 
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 401) {
           unauthorized();
         } else if (err.response.status === 422) {
@@ -90,7 +89,6 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
 
   //PUT profile picture
   const onSuccess = (res: any) => {
-    console.log(res.url);
     axios.put(
       `http://localhost:3000/api/users/${id}`,
       {
@@ -109,7 +107,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
   return (
     <div className="createProfil1">
       <div className="createProfil1__title">
-        <h2>Compléter son profil 1/2</h2>
+        <h1>Compléter son profil 1/2</h1>
         <h2
           className="createProfil1__title__skip"
           role="presentation"
@@ -118,24 +116,25 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
         </h2>
       </div>
       <form className="createProfil1__container">
-        <img
-          className="createProfil1__container__img createProfil1__container__fullRow"
-          src={womansurfing}
-          alt=""
-        />
-        <IKContext
-          publicKey="public_peA2/wgPW2iDjq6xP9HjZRG2/Ys="
-          urlEndpoint="https://ik.imagekit.io/LFPLL/"
-          authenticationEndpoint="http://localhost:3000/api/login">
-          <IKUpload
-            folder="/profil"
-            onError={console.log('ERROR')}
-            onSuccess={onSuccess}
-            responseFields={['url']}
+        <div className="createProfil1__container__pic">
+          <img
+            className="createProfil1__container__pic__img createProfil1__container__pic__fullRow"
+            src={womansurfing}
+            alt=""
           />
-        </IKContext>
+          <div>
+            <IKContext
+              publicKey="public_peA2/wgPW2iDjq6xP9HjZRG2/Ys="
+              urlEndpoint="https://ik.imagekit.io/LFPLL/"
+              authenticationEndpoint="http://localhost:3000/api/login">
+              <IKUpload folder="/profil" onSuccess={onSuccess} responseFields={['url']} />
+            </IKContext>
 
-        <p className="createProfil1__container__upload  ">Upload ta photo de profil</p>
+            <h6 className="createProfil1__container__pic__upload  ">
+              Upload ta photo de profil
+            </h6>
+          </div>
+        </div>
 
         <textarea
           className="createProfil1__container__textarea"
@@ -144,11 +143,11 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
           rows={4}
           placeholder="3 mots pour te décrire"
           onChange={(e: React.FormEvent<HTMLTextAreaElement>) => {
-            setDesc(e.currentTarget.value);
+            setDescription(e.currentTarget.value);
           }}
         />
 
-        <div>
+        <div className="createProfil1__container__div">
           <input
             className="createProfil1__container__infos__zipcode"
             type="text"
@@ -162,10 +161,7 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
           {searchCity.length < 5 || searchCity.length > 5 ? (
             ''
           ) : (
-            <>
-              <h5 className="createProfil1__container__infos__selectVille">
-                Selectionne ta ville
-              </h5>
+            <div>
               <select
                 className="createProfil1__container__infos__ville"
                 name="city"
@@ -181,14 +177,15 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
                   );
                 })}
               </select>
-            </>
+            </div>
           )}
-
+        </div>
+        <div className="createProfil1__container__row">
           <select
             id="region-select"
-            className="createProfil1__container__region"
+            className="createProfil1__container__row__region"
             onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
-              setId_departement(parseInt(e.currentTarget.value, 10));
+              setIdDepartement(parseInt(e.currentTarget.value, 10));
             }}>
             <option value="">régions où tu surfes</option>
             {departments &&
@@ -198,13 +195,13 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
                 </option>
               ))}
           </select>
+          <input
+            className="createProfil1__container__row__spot"
+            placeholder="ton spot préféré"
+            onChange={(e: React.FormEvent<HTMLInputElement>) => {
+              setFavoriteSpot(e.currentTarget.value);
+            }}></input>
         </div>
-        <input
-          className="createProfil1__container__spot"
-          placeholder="ton spot préféré"
-          onChange={(e: React.FormEvent<HTMLInputElement>) => {
-            setFavorite_spot(e.currentTarget.value);
-          }}></input>
 
         <button
           className="createProfil1__next createProfil1__container__fullRow"
@@ -216,4 +213,4 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
   );
 };
 
-export default CreateProfil1;
+export default CreateProfile1;

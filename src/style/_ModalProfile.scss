@@ -3,10 +3,19 @@
   padding: 2rem;
   margin: auto;
   width: 60vw;
+  @media only screen and (max-width: $Large) {
+    padding: 0;
+    width: 100%;
+    margin-top: 0;
+  }
   &__row {
     display: flex;
     justify-content: space-between;
     margin-bottom: 1.4rem;
+    @media only screen and (max-width: $Large) {
+      justify-content: center;
+      margin-bottom: 1.4vh;
+    }
     > p {
       font-family: 'Poppins', sans-serif;
       font-weight: 500;
@@ -20,25 +29,88 @@
   &__column {
     display: flex;
     gap: 2rem;
+    @media only screen and (max-width: $Large) {
+      flex-direction: column;
+      margin-top: 4vh;
+    }
+    @media only screen and (max-width: $Small) {
+      margin-top: 2vh;
+    }
     &__column1 {
       display: flex;
       flex-direction: column;
+      justify-content: center;
       width: 20%;
       gap: 1rem;
+      @media only screen and (max-width: $Large) {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+      }
+      @media only screen and (max-width: $Small) {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+        height: 9vh;
+      }
+
       > img {
         border: 1px rgb(167, 167, 167) solid;
         border-radius: 15px;
         padding: 1rem;
         max-height: 100%;
         max-width: 100%;
+        @media only screen and (max-width: $Large) {
+          border: 1px rgb(167, 167, 167) solid;
+          width: 12vw;
+        }
+        @media only screen and (max-width: $Medium) {
+          border: 1px rgb(167, 167, 167) solid;
+          width: 17vw;
+        }
+        @media only screen and (max-width: $Small) {
+          border: 1px rgb(167, 167, 167) solid;
+          width: 21vw;
+        }
       }
       &__info {
         border: 1px rgb(167, 167, 167) solid;
         border-radius: 15px;
         padding: 1rem;
+        @media only screen and (max-width: $Large) {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          border: none;
+          padding: 0;
+        }
         > h2 {
           font-weight: 600;
           margin-bottom: 0.5rem;
+          @media only screen and (max-width: $Large) {
+            font-size: 3.5vh;
+            margin-bottom: 2vh;
+          }
+          @media only screen and (max-width: $Medium) {
+            font-size: 3vh;
+          }
+          @media only screen and (max-width: $Small) {
+            font-size: 2vh;
+            margin-bottom: 0.5vh;
+          }
+        }
+        h6 {
+          @media only screen and (max-width: $Large) {
+            font-size: 2.5vh;
+            margin-bottom: 1.5vh;
+          }
+          @media only screen and (max-width: $Medium) {
+            font-size: 2.3vh;
+          }
+          @media only screen and (max-width: $Small) {
+            font-size: 1.5vh;
+            margin-bottom: 0.5vh;
+          }
         }
       }
     }
@@ -48,14 +120,28 @@
       justify-content: space-between;
       width: 60%;
       gap: 1rem;
+      @media only screen and (max-width: $Large) {
+        width: 100%;
+      }
       &__row1 {
         display: flex;
         justify-content: space-between;
         border-bottom: 1px rgb(209, 209, 209) solid;
         padding-bottom: 0.5rem;
+        @media only screen and (max-width: $Large) {
+          display: flex;
+          justify-content: space-around;
+          border-bottom: none;
+          padding-bottom: 0.5vh;
+        }
         > div {
           display: flex;
           width: 100%;
+          @media only screen and (max-width: $Large) {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+          }
 
           > p {
             background-color: cadetblue;
@@ -63,31 +149,85 @@
             border-radius: 5px;
             font-size: 11px;
             margin-right: 1rem;
+            @media only screen and (max-width: $Large) {
+              text-align: center;
+              font-size: 1.7vh;
+              width: 20vw;
+              padding: 1vh 0;
+            }
+            @media only screen and (max-width: $Medium) {
+              text-align: center;
+              font-size: 1.7vh;
+              width: 29vw;
+            }
+            @media only screen and (max-width: $Small) {
+              text-align: center;
+              font-size: 1.3vh;
+              width: 32vw;
+            }
           }
         }
       }
       &__row2 {
         display: flex;
         flex-direction: column;
+        @media only screen and (max-width: $Large) {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
         > h2 {
           font-weight: 600;
           margin-bottom: 0.5rem;
+          @media only screen and (max-width: $Large) {
+            display: none;
+          }
         }
         &__wrap {
           display: flex;
           flex-wrap: wrap;
           justify-content: space-around;
+          @media only screen and (max-width: $Large) {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+          }
+          @media only screen and (max-width: $Medium) {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+          }
         }
       }
       &__row3 {
+        @media only screen and (max-width: $Medium) {
+          display: flex;
+          justify-content: center;
+        }
         &__describe {
           border: 1px rgb(167, 167, 167) solid;
           border-radius: 15px;
           padding: 1rem;
           min-height: 6.5rem;
+          @media only screen and (max-width: $Large) {
+            border: 1px rgb(167, 167, 167) solid;
+            border-radius: 15px;
+            padding: 1rem;
+            min-height: 6.5rem;
+          }
+          @media only screen and (max-width: $Medium) {
+            width: 70vw;
+          }
           > h2 {
             font-weight: 600;
             margin-bottom: 0.5rem;
+            @media only screen and (max-width: $Large) {
+              font-weight: 600;
+              margin-bottom: 0.5rem;
+            }
+            @media only screen and (max-width: $Medium) {
+              font-size: 2.5vh;
+            }
           }
         }
       }

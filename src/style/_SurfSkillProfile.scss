@@ -6,4 +6,28 @@
   font-size: 11px;
   border-radius: 5px;
   font-family: $Second-font;
+  @media only screen and (max-width: $Large) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25vw;
+    height: 6vh;
+  }
+  @media only screen and (max-width: $Medium) {
+    width: 30vw;
+    height: 6vh;
+  }
+  @media only screen and (max-width: $Large) {
+    width: 32vw;
+    height: 6vh;
+  }
+  p {
+    @media only screen and (max-width: $Large) {
+      text-align: center;
+    }
+    @media only screen and (max-width: $Large) {
+      text-align: center;
+      font-size: 1vh;
+    }
+  }
 }
