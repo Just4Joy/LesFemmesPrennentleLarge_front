@@ -88,10 +88,10 @@ const CreateProfile2: FC<Props> = ({ setActiveModal }) => {
   //POST Surfskills
   const UpdateProfile = () => {
     Promise.all(
-      activeSurfSkill.map(async (el) => {
+      activeSurfSkill.map(async (index) => {
         axios.post(
           `http://localhost:3000/api/users/${id}/surfskills`,
-          { idSurfSkill: el },
+          { idSurfSkill: index },
           {
             method: 'POST',
             headers: {
