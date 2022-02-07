@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { error, errorValidation, unauthorized, userNotFound } from '../../errors';
-import ISurfSkill from '../../interfaces/ISurfskill';
+import ISurfSkill from '../../interfaces/ISurfSkill';
 import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
