@@ -228,7 +228,7 @@ const MyProfile = () => {
           activeSurfSkills.map(async (index) => {
             axios.post(
               `http://localhost:3000/api/users/${id}/surfskills`,
-              { id_surf_skill: index },
+              { idSurfSkill: index },
               {
                 method: 'POST',
                 headers: {
