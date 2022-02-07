@@ -5,13 +5,30 @@
     flex-direction: row;
     justify-content: space-between;
     width: 45vw;
+    @media only screen and (max-width: $Large) {
+      width: 100%;
+    }
+    h1 {
+      @media only screen and (max-width: $Medium) {
+        font-size: 3.5vh;
+      }
+    }
   }
   &__paragraph {
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
+    @media only screen and (max-width: $Medium) {
+      margin-top: 1vh;
+    }
     > p {
       margin-top: 0.5rem;
+      @media only screen and (max-width: $Medium) {
+        margin-top: 0.5vh;
+      }
+      @media only screen and (max-width: $Small) {
+        font-size: 1.7vh;
+      }
     }
   }
   &__selects {
@@ -19,6 +36,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    @media only screen and (max-width: $Large) {
+      margin-top: 2.5vh;
+    }
+    @media only screen and (max-width: $Medium) {
+      margin-top: 2.5vh;
+    }
     > select {
       width: 17vw;
       padding: 0.7rem 1rem;
@@ -26,12 +49,26 @@
       border: 1px solid #263238;
       border-radius: 10px;
       background-color: white;
+      @media only screen and (max-width: $Large) {
+        width: 30vw;
+        margin: 2vh 0;
+      }
+      @media only screen and (max-width: $Medium) {
+        width: 40vw;
+        margin: 1.5vh 0;
+      }
+      @media only screen and (max-width: $Small) {
+        width: 50vw;
+      }
     }
   }
   &__buttons {
     margin: 1.5rem 0 0 0;
     display: flex;
     flex-direction: row-reverse;
+    @media only screen and (max-width: $Medium) {
+      justify-content: center;
+    }
     &__next {
       width: 10vw;
       border-radius: 10px;
@@ -39,6 +76,13 @@
       padding: 0.5rem 0;
       background-color: #fdc969;
       cursor: pointer;
+      @media only screen and (max-width: $Medium) {
+        width: 20vw;
+        padding: 0.5rem 0;
+      }
+      @media only screen and (max-width: $Small) {
+        width: 25vw;
+      }
     }
     &__skip {
       width: 10vw;
@@ -46,75 +90,10 @@
       background-color: white;
       text-decoration: underline;
       cursor: pointer;
-    }
-  }
-}
-
-@media only screen and (max-width: 992px) {
-  .create-session2 {
-    &__title {
-      width: 100%;
-    }
-    &__selects {
-      margin-top: 2.5vh;
-      > select {
-        width: 30vw;
-        margin: 2vh 0;
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .create-session2 {
-    &__title {
-      h1 {
-        font-size: 3.5vh;
-      }
-    }
-    &__paragraph {
-      margin-top: 1vh;
-      > p {
-        margin-top: 0.5vh;
-      }
-    }
-    &__selects {
-      margin-top: 2.5vh;
-      > select {
-        width: 40vw;
-        margin: 1.5vh 0;
-      }
-    }
-    &__buttons {
-      justify-content: center;
-      &__next {
-        width: 20vw;
-        padding: 0.5rem 0;
-      }
-      &__skip {
+      @media only screen and (max-width: $Medium) {
         width: 20vw;
       }
-    }
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .create-session2 {
-    &__paragraph {
-      > p {
-        font-size: 1.7vh;
-      }
-    }
-    &__selects {
-      > select {
-        width: 50vw;
-      }
-    }
-    &__buttons {
-      &__next {
-        width: 25vw;
-      }
-      &__skip {
+      @media only screen and (max-width: $Small) {
         width: 25vw;
       }
     }
