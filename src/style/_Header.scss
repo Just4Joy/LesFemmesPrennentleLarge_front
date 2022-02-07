@@ -3,12 +3,21 @@
   display: flex;
   justify-content: space-between;
   margin: 2rem 0;
-
+  @media only screen and (max-width: $Medium) {
+    margin-bottom: 0;
+  }
   &__list {
     font-family: $Main-font;
     display: flex;
     justify-content: space-around;
     width: 60vw;
+    @media only screen and (max-width: $Large) {
+      min-width: 65vw;
+      font-size: 1.5vw;
+    }
+    @media only screen and (max-width: $Medium) {
+      display: none;
+    }
     &__profile:hover {
       text-decoration: underline;
     }
@@ -30,16 +39,74 @@
       }
     }
   }
+  &__burger {
+    @media only screen and (max-width: $Medium) {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    @media only screen and (min-width: $Medium) {
+      display: none;
+    }
+  }
   &__hidden {
     display: none;
+    @media only screen and (max-width: $Medium) {
+      display: none;
+    }
+  }
+  &__links {
+    @media only screen and (max-width: $Medium) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid;
+      height: fit-content;
+      &__list {
+        padding: 2vh 0;
+        font-family: $Main-font;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 40vw;
+        height: fit-content;
+        li {
+          margin: 4vh 0;
+        }
+        &__profile:hover {
+          text-decoration: underline;
+        }
+        &__mysessions:hover {
+          text-decoration: underline;
+        }
+        &__session:hover {
+          text-decoration: underline;
+        }
+        &__connection {
+          &__login {
+            cursor: pointer;
+          }
+          &__logout {
+            cursor: pointer;
+          }
+          &__logout:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+.padding {
+  @media only screen and (max-width: $Medium) {
+    padding: 1vh 0;
   }
 }
 
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (max-width: 992px) {
-  .header__list {
-    min-width: 65vw;
-    font-size: 1.5vw;
+.hidden {
+  @media only screen and (max-width: $Medium) {
+    display: none;
   }
 }
 
