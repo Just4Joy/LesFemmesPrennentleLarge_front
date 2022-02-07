@@ -4,8 +4,22 @@
   margin: 8vh 0;
   border-radius: 10px;
   min-width: 60vw;
+  @media only screen and (max-width: $Large) {
+    &__h2 {
+      font-size: 2vw;
+    }
+  }
   &__h1 {
     margin-bottom: 1rem;
+    @media only screen and (max-width: $Large) {
+      font-size: 2.5vw;
+    }
+    @media only screen and (max-width: $Medium) {
+      font-size: 3vw;
+    }
+    @media only screen and (max-width: $Small) {
+      font-size: 2.5vw;
+    }
   }
   &__row {
     display: flex;
@@ -24,58 +38,13 @@
     }
     &__logo {
       width: 5vw;
-    }
-  }
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (max-width: 992px) {
-  .becomeWahine__row__logo {
-    width: 7vw;
-  }
-  .becomeWahine {
-    &__h1 {
-      font-size: 2.5vw;
-    }
-    &__h2 {
-      font-size: 2vw;
-    }
-    &__row {
-      &__logo {
+      @media only screen and (max-width: $Large) {
         width: 7vw;
       }
-    }
-  }
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 768px) {
-  .becomeWahine {
-    &__h1 {
-      font-size: 3vw;
-    }
-    &__h2 {
-      font-size: 2vw;
-    }
-    &__row {
-      &__logo {
+      @media only screen and (max-width: $Medium) {
         width: 9vw;
       }
-    }
-  }
-}
-
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-  .becomeWahine {
-    &__h1 {
-      font-size: 2.5vw;
-    }
-    &__h2 {
-      font-size: 2vw;
-    }
-    &__row {
-      &__logo {
+      @media only screen and (max-width: $Small) {
         width: 7vw;
       }
     }
