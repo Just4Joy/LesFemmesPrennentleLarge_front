@@ -27,7 +27,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
   const { id, wahine } = useContext(CurrentUserContext);
-  //Variable pour l'affichage du nombre de wahine sur Home'
+  //const for wahine's number
   const first: number = 0;
   const second: number = 5;
 
@@ -67,11 +67,11 @@ const Home: FC<Props> = ({ setActiveModal }) => {
 
         // Construction of the array of object sessionList
 
-        let sessionsList: MySession[] = [];
+        const sessionsList: MySession[] = [];
         let mySession: MySession;
 
         sessions.map((session) => {
-          let id_region =
+          const id_region =
             departments.find(
               (departement) => departement.id_department == session.id_department,
             )?.id_region || 0;
@@ -142,7 +142,7 @@ const Home: FC<Props> = ({ setActiveModal }) => {
         </div>
       </div>
 
-      {/*Section : Les prochaines sessions*/}
+      {/*Section : Next sessions*/}
       <div className="home__sessions">
         <h3 className="home__sessions__h3">Les prochaines sessions</h3>
         <div className="home__sessions__component">

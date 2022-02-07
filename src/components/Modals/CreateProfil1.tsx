@@ -75,7 +75,6 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
       })
 
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 401) {
           unauthorized();
         } else if (err.response.status === 422) {
@@ -90,7 +89,6 @@ const CreateProfil1: FC<Props> = ({ setActiveModal }) => {
 
   //PUT profile picture
   const onSuccess = (res: any) => {
-    console.log(res.url);
     axios.put(
       `http://localhost:3000/api/users/${id}`,
       {

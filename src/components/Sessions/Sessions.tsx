@@ -24,6 +24,9 @@ const Sessions = () => {
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [pagination, setPagination] = useState<number>(0);
   const [paginationActive, setPaginationActive] = useState<boolean>(false);
+  console.log(allDepartments);
+  console.log(allSurfstyles);
+  console.log(paginationActive);
 
   // Axios functions
   const getAllSessions = async () => {
@@ -69,12 +72,12 @@ const Sessions = () => {
     surfstyleList: ISurfStyle[],
     regionsList: IRegion[],
   ) => {
-    let mesSessions: MySession[] = [];
+    const mesSessions: MySession[] = [];
     let maSession: MySession;
 
     if (departmentsList.length && surfstyleList.length && regionsList.length) {
       sessionsList.map((session) => {
-        let id_region: number =
+        const id_region: number =
           departmentsList.find(
             (departement) => departement.id_department == session.id_department,
           )?.id_region || 0;
