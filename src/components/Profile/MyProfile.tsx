@@ -20,7 +20,7 @@ const MyProfile = () => {
   const [users, setUsers] = useState<IUser>();
   const [update, setUpdate] = useState<boolean>(false);
 
-  const [editProfile, setEditProfile] = useState<boolean>(false);
+  const [editProfil, setEditProfil] = useState<boolean>(false);
   const [editSkills, setEditSkills] = useState<boolean>(false);
 
   const [departments, setDepartments] = useState<IDepartment>();
@@ -183,7 +183,8 @@ const MyProfile = () => {
     if (Object.keys(data).length !== 0) {
       try {
         const updatedUser = await updateUser(id, data);
-        console.log(updatedUser);
+        updatedUser &&
+        
       } catch (err) {}
 
       // const updatedUser = await axios
@@ -288,19 +289,15 @@ const MyProfile = () => {
     <div className="myProfile">
       <div className="myProfile__row">
         <p>{users && users.wahine ? 'Wahine' : 'Hiki'}</p>
-        {!editProfile ? (
-          <BsPencilSquare
-            size="2rem"
-            color="black"
-            onClick={() => setEditProfile(true)}
-          />
+        {!editProfil ? (
+          <BsPencilSquare size="2rem" color="black" onClick={() => setEditProfil(true)} />
         ) : (
           <BsPencilSquare size="2rem" color="#fedb9b" />
         )}
       </div>
 
       <div className="myProfile__column">
-        {!editProfile ? (
+        {!editProfil ? (
           <div className="myProfile__column__column1">
             <img src={users && users.profile_pic} alt="hiki" />
             <div className="myProfile__column__column1__info">
@@ -377,7 +374,7 @@ const MyProfile = () => {
         )}
 
         <div className="myProfile__column__column2">
-          {!editProfile ? (
+          {!editProfil ? (
             <div className="myProfile__column__column2__row1">
               <div>
                 <p>{departments && departments.department_name}</p>
@@ -438,7 +435,7 @@ const MyProfile = () => {
 
           <div className="myProfile__column__column2__row2">
             <h2>Skills</h2>
-            {!editProfile ? (
+            {!editProfil ? (
               <div className="myProfile__column__column2__row2__wrap">
                 {surfSkills &&
                   surfSkills.map((surfSkill) => {
@@ -464,7 +461,7 @@ const MyProfile = () => {
             )}
           </div>
           <div className="myProfile__column__column2__row3">
-            {!editProfile ? (
+            {!editProfil ? (
               <div className="myProfile__column__column2__row3__describe">
                 <h2>3 mots pour me décrire</h2>
                 <h6>{users && users.description}</h6>
@@ -488,12 +485,12 @@ const MyProfile = () => {
           </div>
         </div>
       </div>
-      {editProfile || editSkills ? (
+      {editProfil || editSkills ? (
         <button
           className="myProfile__button"
           onClick={() => {
             updateDataUser();
-            editProfile ? setEditProfile(false) : setEditSkills(false);
+            editProfil ? setEditProfil(false) : setEditSkills(false);
             setUpdate(!update);
           }}>
           Enregistrer
