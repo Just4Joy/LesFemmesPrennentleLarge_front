@@ -6,9 +6,10 @@ import IRegion from '../../interfaces/IRegion';
 type Props = IRegion;
 
 const Region: FC<Props> = ({ region_name, color, id_region }) => {
+  const idRegion = id_region;
   return (
     <div className="region">
-      <Link to={'/sessions/' + id_region}>
+      <Link to={'/sessions/' + idRegion}>
         <button className="region__button" type="button" style={{ background: color }}>
           {region_name}
         </button>

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import React, { FC, useContext, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
@@ -24,11 +24,10 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
     navigate('/');
   }
 
-  const login = (e: React.FormEvent<HTMLFormElement>) => {
+  const login = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    axios
-      .post<IUser>(
+    try {
+      const login = await axios.post<IUser>(
         'http://localhost:3000/api/login',
         { email, password },
         {
@@ -38,22 +37,36 @@ const Connect: FC<Props> = ({ setActiveModal }) => {
           },
           withCredentials: true,
         },
-      )
-      .then((response) => response.data)
-      .then((data) => {
-        setId(data.id_user);
-        setFirstname(data.firstname);
-        setWahine(data.wahine === 1 ? 1 : 0);
-        redirectHome();
-        setActiveModal('__hiddenModal');
-      })
-      .catch((err) => {
-        if (err.response.status === 401) {
-          errorData();
-        } else {
-          error();
-        }
-      });
+      );
+      setId(login.data.id_user);
+      setFirstname(login.data.firstname);
+      setWahine(login.data.wahine === 1 ? 1 : 0);
+      redirectHome();
+      setActiveModal('__hiddenModal');
+    } catch (err) {
+      const er = err as AxiosError;
+      if (er.response?.status === 401) {
+        errorData();
+      } else {
+        error();
+      }
+    }
+
+    // .then((response) => response.data)
+    // .then((data) => {
+    //   setId(data.id_user);
+    //   setFirstname(data.firstname);
+    //   setWahine(data.wahine === 1 ? 1 : 0);
+    //   redirectHome();
+    //   setActiveModal('__hiddenModal');
+    // })
+    // .catch((err) => {
+    //   if (err.response.status === 401) {
+    //     errorData();
+    //   } else {
+    //     error();
+    //   }
+    // });
   };
   return (
     <div className="connect">

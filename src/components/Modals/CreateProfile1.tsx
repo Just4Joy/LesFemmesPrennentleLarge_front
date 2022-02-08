@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 // @ts-ignore: Unreachable code error
 import { IKContext, IKUpload } from 'imagekitio-react';
 import React, { FC, useContext, useEffect, useState } from 'react';
@@ -25,36 +25,43 @@ const CreateProfile1: FC<Props> = ({ setActiveModal }) => {
   const [allCities, setAllCities] = useState<ICity[]>([]);
   const [searchCity, setSearchCity] = useState('');
 
+  const getAllDepartments = async () => {
+    const departements = await axios.get<IDepartment[]>(
+      'http://localhost:3000/api/departments',
+    );
+    setDepartments(departements.data);
+  };
+
+  const getAllCities = async () => {
+    const citys = await axios.get<ICity[]>(
+      `https://geo.api.gouv.fr/communes?codePostal=${searchCity}`,
+    );
+    setAllCities(citys.data);
+  };
+
   //GET Departments
   useEffect(() => {
-    axios
-      .get<IDepartment[]>('http://localhost:3000/api/departments')
-      .then((result) => result.data)
-      .then((data) => setDepartments(data))
-      .catch(() => {
-        error();
-      });
+    try {
+      getAllDepartments();
+    } catch (err) {
+      error();
+    }
   }, []);
 
   //GET ZIP Code from another API
   useEffect(() => {
-    axios
-      .get<ICity[]>(`https://geo.api.gouv.fr/communes?codePostal=${searchCity}`)
-
-      .then((res) => res.data)
-      .then((data) => {
-        setAllCities(data);
-      })
-      .catch(() => {
-        error();
-      });
+    try {
+      getAllCities();
+    } catch (err) {
+      error();
+    }
   }, [searchCity]);
 
   //PUT profil
-  const updateProfile = (event: React.MouseEvent<HTMLElement>) => {
+  const updateProfile = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
-    axios
-      .put(
+    try {
+      const updatedUser = await axios.put(
         `http://localhost:3000/api/users/${id}`,
         {
           description,
@@ -69,39 +76,44 @@ const CreateProfile1: FC<Props> = ({ setActiveModal }) => {
           },
           withCredentials: true,
         },
-      )
-      .then(() => {
-        setActiveModal('complete_profil2');
-      })
-
-      .catch((err) => {
-        if (err.response.status === 401) {
-          unauthorized();
-        } else if (err.response.status === 422) {
-          errorValidation();
-        } else if (err.response.status === 404) {
-          userNotFound();
-        } else {
-          error();
-        }
-      });
+      );
+      setActiveModal('complete_profil2');
+      if (updatedUser.status !== 200) {
+        throw new Error();
+      }
+    } catch (err) {
+      const er = err as AxiosError;
+      if (er.response?.status === 401) {
+        unauthorized();
+      } else if (er.response?.status === 422) {
+        errorValidation();
+      } else if (er.response?.status === 404) {
+        userNotFound();
+      } else {
+        error();
+      }
+    }
   };
 
   //PUT profile picture
-  const onSuccess = (res: any) => {
-    axios.put(
-      `http://localhost:3000/api/users/${id}`,
-      {
-        profile_pic: res.url,
-      },
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
+  const onSuccess = async (res: any) => {
+    try {
+      axios.put(
+        `http://localhost:3000/api/users/${id}`,
+        {
+          profile_pic: res.url,
         },
-        withCredentials: true,
-      },
-    );
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        },
+      );
+    } catch (err) {
+      //TODO faire un toast
+    }
   };
 
   return (

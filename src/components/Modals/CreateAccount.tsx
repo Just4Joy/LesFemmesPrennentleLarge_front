@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction, useContext, useState } from 'react';
 
@@ -12,16 +12,15 @@ type Props = {
 
 const CreateAccount: FC<Props> = ({ setActiveModal }) => {
   const { setId, setWahine, setFirstname } = useContext(CurrentUserContext);
-
   const [firstname, setfirstname] = useState<string>('');
   const [lastname, setlastname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const createUserAndConnect = () => {
-    axios
-      .post<IUser>(
+  const createUserAndConnect = async () => {
+    try {
+      const createdUser = await axios.post<IUser>(
         'http://localhost:3000/api/users/',
         {
           firstname: firstname,
@@ -38,37 +37,34 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
           },
           withCredentials: true,
         },
-      )
-      .then((response) => response.data)
-      .then((data) => {
-        return axios.post<IUser>(
-          'http://localhost:3000/api/login',
-          { email: data.email, password: password },
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            withCredentials: true,
+      );
+
+      const login = await axios.post<IUser>(
+        'http://localhost:3000/api/login',
+        { email: createdUser.data.email, password: password },
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        );
-      })
-      .then((response) => response.data)
-      .then((data) => {
-        setId(data.id_user);
-        setFirstname(data.firstname);
-        setWahine(data.wahine === 1 ? 1 : 0);
-        setActiveModal('complete_profil1');
-      })
-      .catch((err) => {
-        if (err.response.status === 422) {
-          errorValidation();
-        } else if (err.response.status === 400) {
-          emailExist();
-        } else {
-          error();
-        }
-      });
+          withCredentials: true,
+        },
+      );
+
+      setId(login.data.id_user);
+      setFirstname(login.data.firstname);
+      setWahine(login.data.wahine === 1 ? 1 : 0);
+      setActiveModal('complete_profil1');
+    } catch (err) {
+      const er = err as AxiosError;
+      if (er.response?.status === 422) {
+        errorValidation();
+      } else if (er.response?.status === 400) {
+        emailExist();
+      } else {
+        error();
+      }
+    }
   };
 
   return (
@@ -123,6 +119,7 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
         <button
           className="CreateAccount__button__connect"
           onClick={() => {
+            console.log('kuku');
             createUserAndConnect();
           }}>
           s&apos;inscrire

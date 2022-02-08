@@ -26,22 +26,26 @@ const NextSession: FC<Props> = ({
   const [subscribers, setSubscribers] = useState<IUser[]>([]);
   const [wahine, setWahine] = useState<IUser>();
 
+  const idSession = id_session;
+  const getSubscribers = async (idSession: number) => {
+    const subscribers = await axios.get<IUser[]>(
+      `http://localhost:3000/api/sessions/${idSession}/users?display=all`,
+    );
+    setSubscribers(subscribers.data);
+  };
+
+  const getWahine = async (idUser: number) => {
+    const wahine = await axios.get<IUser>(`http://localhost:3000/api/users/${idUser}`);
+    setWahine(wahine.data);
+  };
+
   useEffect(() => {
-    //GET users who have subsribed to the session
-    axios
-      .get<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users?display=all`)
-      .then((result) => result.data)
-      .then((data) => {
-        setSubscribers(data);
-      })
-      .catch(() => {
-        error();
-      });
-    //GET the user
-    axios
-      .get<IUser>(`http://localhost:3000/api/users/${id_user}`)
-      .then((results) => results.data)
-      .then((data) => setWahine(data));
+    try {
+      getSubscribers(id_session);
+      getWahine(id_user);
+    } catch (err) {
+      error();
+    }
   }, []);
 
   return (
@@ -90,7 +94,7 @@ const NextSession: FC<Props> = ({
         </div>
       </div>
       <hr className="nextsession__hr" />
-      <NavLink to={`/session/${id_session}`}>
+      <NavLink to={`/session/${idSession}`}>
         <div className="nextsession__details">
           <h5 className="nextsession__details__text">Details</h5>
           <BsBoxArrowInUpRight className="nextsession__details__icon" />
