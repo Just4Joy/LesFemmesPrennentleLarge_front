@@ -17,7 +17,7 @@ type Props = {
 const SessionResume: FC<Props> = ({ setActiveModal }) => {
   const { idSessionCreated } = useContext(CurrentSessionContext);
   const [session, setSession] = useState<ISession>();
-  const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
+  const [surfStyle, setSurfStyle] = useState<ISurfStyle>();
   const [weathers, setWeathers] = useState<IWeather[]>([]);
   const [department, setDepartment] = useState<IDepartment>();
 
@@ -25,7 +25,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
     const surfStyle = await axios.get<ISurfStyle>(
       `http://localhost:3000/api/surfstyles/${session.id_surf_style}`,
     );
-    setSurfStyles(surfStyle.data);
+    setSurfStyle(surfStyle.data);
   };
 
   const getSessionDepartment = async (session: ISession) => {
@@ -98,7 +98,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
           {session && department && department.department_name}
         </h6>
         <h6 className="sessionResume__tags__tag">
-          {session && surfStyles && surfStyles.name_session}
+          {session && surfStyle && surfStyle.name_session}
         </h6>
         <h6 className="sessionResume__tags__tag">
           {session && session.carpool ? 'Covoiturage possible' : 'Pas de covoiturage'}

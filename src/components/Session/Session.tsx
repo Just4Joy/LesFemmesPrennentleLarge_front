@@ -31,7 +31,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
   const [subscribers, setSubscribers] = useState<IUser[]>([]);
   const [weathers, setWeathers] = useState<IWeather[]>([]);
   const [department, setDepartment] = useState<IDepartment>();
-  const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
+  const [surfStyle, setSurfStyle] = useState<ISurfStyle>();
   const [wahine, setWahine] = useState<IUser | undefined>();
   const [wantSubscribe, setWantSubscribe] = useState<boolean>(false);
   const [wantUnsubscribe, setWantUnsubscribe] = useState<boolean>(false);
@@ -63,7 +63,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
     const SurfStyle = await axios.get<ISurfStyle>(
       `http://localhost:3000/api/surfstyles/${session.id_surf_style}`,
     );
-    setSurfStyles(SurfStyle.data);
+    setSurfStyle(SurfStyle.data);
   };
 
   const getOneSession = async (idSession: string | undefined) => {
@@ -180,7 +180,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
             <div className="session__details__infos__type">
               <h4>Type de session</h4>
               <h6 className="session__details__infos__type__button">
-                {surfStyles?.name_session}
+                {surfStyle?.name_session}
               </h6>
             </div>
             <div className="session__details__infos__hikimax">

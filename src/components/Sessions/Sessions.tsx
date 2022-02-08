@@ -175,6 +175,11 @@ const Sessions = () => {
           name="region"
           id="region"
           value={selectedRegion}
+          onChange={(e) => {
+            setSelectedRegion(Number(e.currentTarget.value));
+            // setSelectedDate(new Date().toLocaleDateString());
+            setPagination(0);
+          }}
           onBlur={(e) => {
             setSelectedRegion(Number(e.currentTarget.value));
             // setSelectedDate(new Date().toLocaleDateString());
