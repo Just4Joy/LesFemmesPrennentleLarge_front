@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 // @ts-ignore: Unreachable code error
 import { IKContext, IKUpload } from 'imagekitio-react';
 import React, { useContext, useState } from 'react';
@@ -42,81 +42,50 @@ const MyProfile = () => {
     [],
   );
 
-  const getUserSurfSkills = async (user: IUser) => {
-    const surfSkills = await axios.get<ISurfSkill[]>(
-      `http://localhost:3000/api/users/${user.id_user}/surfskills`,
-    );
-    setSurfSkills(surfSkills.data);
-  };
-
-  const getSurfStyle = async (user: IUser) => {
-    const surfStyle = await axios.get<ISurfStyle>(
-      `http://localhost:3000/api/surfstyles/${user.id_surf_style}`,
-    );
-    setSurfStyles(surfStyle.data);
-  };
-
-  const getDepartment = async (user: IUser) => {
-    const department = await axios.get<IDepartment>(
-      `http://localhost:3000/api/departments/${user.id_department}`,
-    );
-    setDepartments(department.data);
-  };
-
-  const getOneUser = async (idUser: number) => {
-    const user = await axios.get<IUser>(
-      `http://localhost:3000/api/users/${idUser}?display=all`,
-    );
-    setUsers(user.data);
-    getDepartment(user.data);
-    getSurfStyle(user.data);
-    getUserSurfSkills(user.data);
-  };
-
-  const getAllSurfSkills = async () => {
-    const surfSkills = await axios.get<ISurfSkill[]>(
-      'http://localhost:3000/api/surfskills',
-    );
-    setSurfSkillsToAdd(surfSkills.data);
-  };
-
-  const getAllDepartments = async () => {
-    const departments = await axios.get<IDepartment[]>(
-      'http://localhost:3000/api/departments',
-    );
-    setAllDepartments(departments.data);
-  };
-
-  const getAllSurfStyles = async () => {
-    const surfStyles = await axios.get<ISurfStyle[]>(
-      'http://localhost:3000/api/surfstyles',
-    );
-    setAllSurfStyles(surfStyles.data);
-  };
-
-  const updateUser = async (idUser: number, data: any) => {
-    return await axios.put(
-      `http://localhost:3000/api/users/${idUser}`,
-      { ...data },
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      },
-    ); //retrieving the information of the user after the put is finished
-  };
-
   useEffect(() => {
-    try {
-      getOneUser(id);
-      getAllSurfSkills();
-      getAllDepartments();
-      getAllSurfStyles();
-    } catch (err) {
-      error();
-    }
+    (async () => {
+      try {
+        //GET User
+        const user = await axios.get<IUser>(
+          `http://localhost:3000/api/users/${id}?display=all`,
+        );
+        setUsers(user.data);
+        //GET department of the user
+        const departement = await axios.get<IDepartment>(
+          `http://localhost:3000/api/departments/${user.data.id_department}`,
+        );
+        setDepartments(departement.data);
+        //GET the surfstyle of the user
+        const surfStyle = await axios.get<ISurfStyle>(
+          `http://localhost:3000/api/surfstyles/${user.data.id_surf_style}`,
+        );
+        setSurfStyles(surfStyle.data);
+        //GET the surfskills of the user
+        const SurfSkills = await axios.get<ISurfSkill[]>(
+          `http://localhost:3000/api/users/${user.data.id_user}/surfskills`,
+        );
+        setSurfSkills(SurfSkills.data);
+
+        //GET surfskills
+        const SurfSkillsToAdd = await axios.get<ISurfSkill[]>(
+          'http://localhost:3000/api/surfskills',
+        );
+        setSurfSkillsToAdd(SurfSkillsToAdd.data);
+
+        //GET departments
+        const departments = await axios.get<IDepartment[]>(
+          'http://localhost:3000/api/departments',
+        );
+        setAllDepartments(departments.data);
+
+        const SurfStyles = await axios.get<ISurfStyle[]>(
+          'http://localhost:3000/api/surfstyles',
+        );
+        setAllSurfStyles(SurfStyles.data);
+      } catch (err: unknown) {
+        error();
+      }
+    })();
   }, []);
   //Avoids having a surfskills selected two times
   const add = (id: ISurfSkill['id_surf_skill']) => {
@@ -130,9 +99,9 @@ const MyProfile = () => {
 
   //PUT User Profile Pic
   const onSuccess = async (res: any) => {
-    if (users) {
-      try {
-        const updatedUser = await axios.put(
+    try {
+      if (users) {
+        const response = await axios.put<IUser>(
           `http://localhost:3000/api/users/${id}`,
           {
             profile_pic: res.url,
@@ -145,27 +114,28 @@ const MyProfile = () => {
             withCredentials: true,
           },
         );
-
-        if (updatedUser.status !== 200) {
+        if (response.status !== 204) {
           throw new Error();
         }
-      } catch (err) {
-        const er = err as AxiosError;
-        if (er.response?.status === 401) {
-          unauthorized();
-        } else if (er.response?.status === 422) {
-          errorValidation();
-        } else if (er.response?.status === 404) {
-          userNotFound();
-        } else {
-          error();
-        }
+      }
+    } catch (err) {
+      const er = err as AxiosError;
+
+      if (er.response?.status === 401) {
+        unauthorized();
+      } else if (er.response?.status === 422) {
+        errorValidation();
+      } else if (er.response?.status === 404) {
+        userNotFound();
+      } else {
+        error();
       }
     }
   };
 
   //PUT User details
   const updateDataUser = async () => {
+    // console.log(newDepartment, newSurfStyles, 'NEW DEPARTEMENT NEW SURFSTYLE ON CLICK');
     const data: any = {
       firstname: firstname,
       lastname: lastname,
@@ -182,107 +152,117 @@ const MyProfile = () => {
     }
     if (Object.keys(data).length !== 0) {
       try {
-        const updatedUser = await updateUser(id, data);
-        updatedUser &&
-        
-      } catch (err) {}
+        const response = await axios.put(
+          `http://localhost:3000/api/users/${id}`,
+          { ...data },
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+          },
+        );
 
-      // const updatedUser = await axios
-      //   .put(
-      //     `http://localhost:3000/api/users/${id}`,
-      //     { ...data },
-      //     {
-      //       method: 'PUT',
-      //       headers: {
-      //         'Content-Type': 'application/json',
-      //       },
-      //       withCredentials: true,
-      //     },
-      //   ) //retrieving the information of the user after the put is finished
-      //   .then(() => {
-      axios
-        .get<IUser>(`http://localhost:3000/api/users/${id}?display=all`)
-        .then((result) => result.data)
-        .then((data) => {
-          setUsers(data);
-        })
-        .then(() => {
-          axios
-            .get<IDepartment>(
-              `http://localhost:3000/api/departments/${data.id_department}`,
-            )
-            .then((result) => result.data)
-            .then((data) => setDepartments(data))
-            .catch(() => {
-              error();
-            });
-          axios
-            .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
-            .then((result) => result.data)
-            .then((data) => setSurfStyles(data))
-            .catch(() => {
-              error();
-            });
-        })
-        .catch(() => {
+        if (response.status !== 200) {
+          throw new Error();
+        }
+      } catch (err) {
+        const er = err as AxiosError;
+        if (er.response?.status === 401) {
+          unauthorized();
+        } else if (er.response?.status === 422) {
+          errorValidation();
+        } else if (er.response?.status === 404) {
+          userNotFound();
+        } else {
           error();
-        });
-      // })
-      // .catch((err) => {
-      //   if (err.response.status === 401) {
-      //     unauthorized();
-      //   } else if (err.response.status === 422) {
-      //     errorValidation();
-      //   } else if (err.response.status === 404) {
-      //     userNotFound();
-      //   } else {
-      //     error();
-      //   }
-      // });
+        }
+      }
+      //retrieving the information of the user after the put is finished
+      try {
+        const user = await axios.get<IUser>(
+          `http://localhost:3000/api/users/${id}?display=all`,
+        );
+        setUsers(user.data);
+        if (user.status !== 200) {
+          throw new Error();
+        }
+        const departement = await axios.get<IDepartment>(
+          `http://localhost:3000/api/departments/${data.id_department}`,
+        );
+        setDepartments(departement.data);
+        if (departement.status !== 200) {
+          throw new Error();
+        }
+        const SurfStyle = await axios.get<ISurfStyle>(
+          `http://localhost:3000/api/surfstyles/${data.id_surf_style}`,
+        );
+        setSurfStyles(SurfStyle.data);
+      } catch (err) {
+        const er = err as AxiosError;
+        if (er.response?.status === 401) {
+          unauthorized();
+        } else if (er.response?.status === 422) {
+          errorValidation();
+        } else if (er.response?.status === 404) {
+          userNotFound();
+        } else {
+          error();
+        }
+      }
     }
     //DELETE Surfskills of the user
-    axios
-      .delete(`http://localhost:3000/api/users/${id}/surfskills/`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
+    try {
+      const response = await axios.delete(
+        `http://localhost:3000/api/users/${id}/surfskills/`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
         },
-        withCredentials: true,
-      })
-      .then(() => {
-        Promise.all(
-          activeSurfSkills.map(async (index) => {
-            axios.post(
-              `http://localhost:3000/api/users/${id}/surfskills`,
-              { idSurfSkill: index },
-              {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                withCredentials: true,
+      );
+      if (response.status !== 204) {
+        throw new Error();
+      }
+
+      //Replenish with new Surfskills of the user
+      const responses = await Promise.all(
+        activeSurfSkills.map(async (el) => {
+          axios.post(
+            `http://localhost:3000/api/users/${id}/surfskills`,
+            { idSurfSkill: el },
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
               },
-            );
-          }),
-        );
-      }) //retrieves the surfskills
-      .then(() => {
-        axios
-          .get<ISurfSkill[]>(
-            `http://localhost:3000/api/users/${id}/surfskills?display=all`,
-          )
-          .then((result) => result.data)
-          .then((data) => {
-            setActiveSurfSkills([]);
-            setSurfSkills(data);
-          })
-          .catch(() => {
-            error();
-          });
-      })
-      .catch(() => {
+              withCredentials: true,
+            },
+          );
+        }),
+      );
+
+      //retrieves the surfskills
+      const surfskill = await axios.get<ISurfSkill[]>(
+        `http://localhost:3000/api/users/${id}/surfskills?display=all`,
+      );
+      setActiveSurfSkills([]);
+      setSurfSkills(surfskill.data);
+    } catch (err) {
+      const er = err as AxiosError;
+      if (er.response?.status === 401) {
+        unauthorized();
+      } else if (er.response?.status === 422) {
+        errorValidation();
+      } else if (er.response?.status === 404) {
+        userNotFound();
+      } else {
         error();
-      });
+      }
+    }
   };
 
   return (
