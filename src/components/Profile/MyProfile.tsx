@@ -182,9 +182,8 @@ const MyProfile = () => {
         const user = await axios.get<IUser>(
           `http://localhost:3000/api/users/${id}?display=all`,
         );
-        // @ts-ignore: Unreachable code error
-        // setUsers();
-        setUsers(user.data);
+
+        setUser(user.data);
         if (user.status !== 200) {
           throw new Error();
         }
@@ -376,6 +375,9 @@ const MyProfile = () => {
                       className="createProfil1__container__region"
                       onChange={(e: React.FormEvent<HTMLSelectElement>) => {
                         setNewDepartment(parseInt(e.currentTarget.value, 10));
+                      }}
+                      onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
+                        setNewDepartment(parseInt(e.currentTarget.value, 10));
                       }}>
                       <option id="option" value="0">
                         régions où tu surfes
@@ -397,6 +399,9 @@ const MyProfile = () => {
                     <select
                       id="select"
                       onChange={(e: React.FormEvent<HTMLSelectElement>) => {
+                        setNewSurfStyles(parseInt(e.currentTarget.value, 10));
+                      }}
+                      onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
                         setNewSurfStyles(parseInt(e.currentTarget.value, 10));
                       }}>
                       <option id="option" value="0">

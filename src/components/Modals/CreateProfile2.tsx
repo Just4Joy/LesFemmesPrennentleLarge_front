@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { NavLink } from 'react-router-dom';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 import { error, errorValidation, unauthorized, userNotFound } from '../../errors';
 import ISurfSkill from '../../interfaces/ISurfSkill';
@@ -9,7 +10,6 @@ import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
 import SurfSkill from '../SurfSkill';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
@@ -48,14 +48,14 @@ const CreateProfile2: FC<Props> = ({ setActiveModal }) => {
     }
   }, []);
 
-  //Avoids having two surfskills selected during the PUT => TODO CHANGER CETTE HORREUR POUAH CACA, nom de fonction, noms des variables, map sur el
-  const add = (id: ISurfSkill['id_surf_skill']) => {
-    const arr = activeSurfSkills;
-    if (arr.find((idSurfSkill) => idSurfSkill === id)) {
-      arr.splice(arr.indexOf(id), 1);
-    } else arr.push(id);
+  //Avoids having two surfskills selected during the PUT
+  const addSurfSkills = (id: ISurfSkill['id_surf_skill']) => {
+    const surfSkills = activeSurfSkills;
+    if (surfSkills.find((idSurfSkill) => idSurfSkill === id)) {
+      surfSkills.splice(surfSkills.indexOf(id), 1);
+    } else surfSkills.push(id);
 
-    setActiveSurfSkills(arr);
+    setActiveSurfSkills(surfSkills);
   };
 
   //PUT Profile
@@ -139,6 +139,9 @@ const CreateProfile2: FC<Props> = ({ setActiveModal }) => {
           <select
             onChange={(e: React.FormEvent<HTMLSelectElement>) => {
               setIdSurfStyle(parseInt(e.currentTarget.value, 10));
+            }}
+            onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
+              setIdSurfStyle(parseInt(e.currentTarget.value, 10));
             }}>
             <option value="">type de session</option>
             {surfStyles &&
@@ -161,7 +164,7 @@ const CreateProfile2: FC<Props> = ({ setActiveModal }) => {
                     {...surfSkill}
                     key={surfSkill.id_surf_skill}
                     id_surf_skill={surfSkill.id_surf_skill}
-                    add={add}
+                    add={addSurfSkills}
                   />
                 );
               })}
