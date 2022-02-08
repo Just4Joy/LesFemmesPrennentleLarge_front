@@ -10,7 +10,7 @@ type Props = {
 const RegisteredWahine: FC<Props> = ({ setActiveModal }) => {
   return (
     <div className="container">
-      <BsClock style={{ fontSize: '4vw' }} />
+      <BsClock className="container__logo" />
       <p className="container__text">
         Votre demande pour devenir Wahine à bien été prise en compte.
       </p>

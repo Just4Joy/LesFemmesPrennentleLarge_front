@@ -2,11 +2,31 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media only screen and (max-width: $Large) {
+    margin-top: 15vh;
+  }
+  &__logo {
+    font-size: 4vw;
+    @media only screen and (max-width: $Large) {
+      font-size: 10vw;
+    }
+    @media only screen and (max-width: $Small) {
+      font-size: 15vw;
+    }
+  }
   &__text {
     font-size: 20px;
     font-family: $Second-font;
     padding-top: 2rem;
     padding-bottom: 2rem;
+    text-align: center;
+    @media only screen and (max-width: $Large) {
+      line-height: 3vh;
+      font-size: 3vh;
+    }
+    @media only screen and (max-width: $Small) {
+      line-height: 3vh;
+    }
   }
   &__button {
     width: 10vw;
@@ -16,5 +36,11 @@
     background-color: #fdc969;
     cursor: pointer;
     text-align: center;
+    @media only screen and (max-width: $Large) {
+      width: 25vw;
+    }
+    @media only screen and (max-width: $Small) {
+      width: 35vw;
+    }
   }
 }
