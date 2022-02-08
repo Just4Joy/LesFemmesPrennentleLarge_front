@@ -14,23 +14,27 @@ const MySessions = () => {
   const [secondNext, setSecondNext] = useState(10);
   const [participants, setParticipants] = useState<ISession[]>([]);
 
+  const getMyCreatedSessions = async (idUser: number) => {
+    const myCreatedSessions = await axios.get<ISession[]>(
+      `http://localhost:3000/api/sessions?wahine=${idUser}`,
+    );
+    setSessions(myCreatedSessions.data);
+  };
+
+  const getMySessions = async (idUser: number) => {
+    const mySessions = await axios.get<ISession[]>(
+      `http://localhost:3000/api/users/${idUser}/sessions`,
+    );
+    setParticipants(mySessions.data);
+  };
+
   useEffect(() => {
-    //GET session I created
-    axios
-      .get<ISession[]>(`http://localhost:3000/api/sessions?wahine=${id}`)
-      .then((result) => result.data)
-      .then((data) => setSessions(data))
-      .catch(() => {
-        error();
-      });
-    //GET sessions of the user
-    axios
-      .get<ISession[]>(`http://localhost:3000/api/users/${id}/sessions`)
-      .then((results) => results.data)
-      .then((data) => setParticipants(data))
-      .catch(() => {
-        error();
-      });
+    try {
+      getMyCreatedSessions(id);
+      getMySessions(id);
+    } catch (err) {
+      error();
+    }
   }, [id]);
 
   return (

@@ -25,23 +25,27 @@ const MySession: FC<Props> = ({
   const [department, setDepartment] = useState<IDepartment>();
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
 
+  const getAllDepartments = async (idDepartment: number) => {
+    const departments = await axios.get<IDepartment>(
+      `http://localhost:3000/api/departments/${idDepartment}`,
+    );
+    setDepartment(departments.data);
+  };
+
+  const getAllSurfStyles = async (idSurfStyle: number) => {
+    const surfStyles = await axios.get<ISurfStyle>(
+      `http://localhost:3000/api/surfstyles/${idSurfStyle}`,
+    );
+    setSurfStyles(surfStyles.data);
+  };
+
   useEffect(() => {
-    //GET departments
-    axios
-      .get<IDepartment>(`http://localhost:3000/api/departments/${id_department}`)
-      .then((result) => result.data)
-      .then((data) => setDepartment(data))
-      .catch(() => {
-        error();
-      });
-    //GET surfstyles
-    axios
-      .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${id_surf_style}`)
-      .then((result) => result.data)
-      .then((data) => setSurfStyles(data))
-      .catch(() => {
-        error();
-      });
+    try {
+      getAllDepartments(id_department);
+      getAllSurfStyles(id_surf_style);
+    } catch (err) {
+      error();
+    }
   }, []);
 
   return (

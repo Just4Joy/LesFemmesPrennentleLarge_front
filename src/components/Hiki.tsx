@@ -20,16 +20,23 @@ const Hiki: FC<Props> = ({
   profile_pic,
 }) => {
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
+
+  const getSurfStyle = async (idSurfStyle: number) => {
+    const surfStyles = await axios.get<ISurfStyle>(
+      `http://localhost:3000/api/surfstyles/${idSurfStyle}`,
+    );
+    setSurfStyles(surfStyles.data);
+  };
+
   useEffect(() => {
     //GET Surfstyles
-    axios
-      .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${id_surf_style}`)
-      .then((result) => result.data)
-      .then((data) => setSurfStyles(data))
-      .catch(() => {
-        error();
-      });
+    try {
+      getSurfStyle(id_surf_style);
+    } catch (err) {
+      error();
+    }
   }, []);
+
   return (
     <Link to={`/session/${id_user}`}>
       <div

@@ -19,41 +19,43 @@ const ModalProfile = () => {
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
   const [surfSkills, setSurfSkills] = useState<ISurfSkill[]>([]);
 
+  const getDepartment = async (user: IUser) => {
+    const department = await axios.get<IDepartment>(
+      `http://localhost:3000/api/departments/${user.id_department}`,
+    );
+    setDepartments(department.data);
+  };
+
+  const getSurfStyle = async (user: IUser) => {
+    const surfStyle = await axios.get<ISurfStyle>(
+      `http://localhost:3000/api/surfstyles/${user.id_surf_style}`,
+    );
+    setSurfStyles(surfStyle.data);
+  };
+
+  const getSurfSkills = async (user: IUser) => {
+    const surfSkills = await axios.get<ISurfSkill[]>(
+      `http://localhost:3000/api/users/${user.id_user}/surfskills`,
+    );
+    setSurfSkills(surfSkills.data);
+  };
+
+  const getUser = async (idUser: string | undefined) => {
+    const user = await axios.get<IUser>(
+      `http://localhost:3000/api/users/${idUser}?display=all`,
+    );
+    setUser(user.data);
+    getDepartment(user.data);
+    getSurfStyle(user.data);
+    getSurfSkills(user.data);
+  };
+
   useEffect(() => {
-    //Get Users
-    axios
-      .get<IUser>(`http://localhost:3000/api/users/${id}?display=all`)
-      .then((result) => result.data)
-      .then((data) => {
-        setUser(data);
-        // Get Departement
-        axios
-          .get<IDepartment>(`http://localhost:3000/api/departments/${data.id_department}`)
-          .then((result) => result.data)
-          .then((data) => setDepartments(data))
-          .catch(() => {
-            error();
-          });
-        // Get Surf Style
-        axios
-          .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
-          .then((result) => result.data)
-          .then((data) => setSurfStyles(data))
-          .catch(() => {
-            error();
-          });
-        //Get Surf Skill
-        axios
-          .get<ISurfSkill[]>(`http://localhost:3000/api/users/${data.id_user}/surfskills`)
-          .then((result) => result.data)
-          .then((data) => setSurfSkills(data))
-          .catch(() => {
-            error();
-          });
-      })
-      .catch(() => {
-        error();
-      });
+    try {
+      getUser(id);
+    } catch (err) {
+      error();
+    }
   }, []);
 
   return (

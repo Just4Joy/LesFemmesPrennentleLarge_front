@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { useLayoutEffect } from 'react';
@@ -44,111 +44,121 @@ const Session: FC<Props> = ({ setActiveModal }) => {
     subscribe ? setHasSubscribe(true) : setHasSubscribe(false);
   };
 
+  // First useEffect function
+  const getSessionWahine = async (session: ISession) => {
+    const wahine = await axios.get<IUser>(
+      `http://localhost:3000/api/users/${session.id_user}?display=all`,
+    );
+    setWahine(wahine.data);
+  };
+
+  const getSessionDepartment = async (session: ISession) => {
+    const department = await axios.get<IDepartment>(
+      `http://localhost:3000/api/departments/${session.id_department}`,
+    );
+    setDepartment(department.data);
+  };
+
+  const getSessionSurfStyle = async (session: ISession) => {
+    const SurfStyle = await axios.get<ISurfStyle>(
+      `http://localhost:3000/api/surfstyles/${session.id_surf_style}`,
+    );
+    setSurfStyles(SurfStyle.data);
+  };
+
+  const getOneSession = async (idSession: string | undefined) => {
+    const session = await axios.get<ISession>(
+      `http://localhost:3000/api/sessions/${idSession}?display=all`,
+    );
+    setSession(session.data);
+    getSessionWahine(session.data);
+    getSessionDepartment(session.data);
+    getSessionSurfStyle(session.data);
+  };
+
+  const getSuscribers = async (idSession: string | undefined) => {
+    const subscribers = await axios.get<IUser[]>(
+      `http://localhost:3000/api/sessions/${idSession}/users?display=all`,
+    );
+    setSubscribers(subscribers.data);
+    CheckHasSubcribe(subscribers.data);
+  };
+
+  const getWeather = async (idSession: string | undefined) => {
+    const weather = await axios.get<IWeather[]>(
+      `http://localhost:3000/api/sessions/${idSession}/weather/`,
+    );
+    setWeathers(weather.data);
+  };
+
+  // Second useEffect function
+  const createSubscribers = async (idSession: string | undefined, idUser: number) => {
+    const createdSubscribers = await axios.post<IUser[]>(
+      `http://localhost:3000/api/sessions/${idSession}/users/${idUser}`,
+      { id_session, id },
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      },
+    );
+    setSubscribers(createdSubscribers.data);
+    CheckHasSubcribe(createdSubscribers.data);
+  };
+
+  const deleteSubscribers = async (idSession: string | undefined, idUser: number) => {
+    const deletedSubscribers = await axios.delete<IUser[]>(
+      `http://localhost:3000/api/sessions/${idSession}/users/${idUser}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      },
+    );
+    setSubscribers(deletedSubscribers.data);
+    CheckHasSubcribe(deletedSubscribers.data);
+  };
+
   // First UseEffect
   useEffect(() => {
-    //GET Session
-    axios
-      .get<ISession>(`http://localhost:3000/api/sessions/${id_session}?display=all`)
-      .then((result) => result.data)
-      .then((data) => {
-        setSession(data);
-        //GET the Wahine who organized the session
-        axios
-          .get<IUser>(`http://localhost:3000/api/users/${data.id_user}?display=all`)
-          .then((result) => result.data)
-          .then((data) => setWahine(data))
-          .catch(() => {
-            error();
-          });
-        //GET department of the session
-        axios
-          .get<IDepartment>(`http://localhost:3000/api/departments/${data.id_department}`)
-          .then((result) => result.data)
-          .then((data) => setDepartment(data))
-          .catch(() => {
-            error();
-          });
-        //GET surfstyle of the session
-        axios
-          .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
-          .then((result) => result.data)
-          .then((data) => setSurfStyles(data))
-          .catch(() => {
-            error();
-          });
-      })
-      .catch(() => {
-        error();
-      });
-    //GET Users participating to the session
-    axios
-      .get<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users?display=all`)
-      .then((result) => result.data)
-      .then((data) => {
-        setSubscribers(data);
-        CheckHasSubcribe(data);
-      })
-      .catch(() => {
-        error();
-      });
-    //GET Weather of the session
-    axios
-      .get<IWeather[]>(`http://localhost:3000/api/sessions/${id_session}/weather/`)
-      .then((result) => result.data)
-      .then((data) => setWeathers(data))
-      .catch(() => {
-        error();
-      });
+    try {
+      getOneSession(id_session);
+      getSuscribers(id_session);
+      getWeather(id_session);
+    } catch (err) {
+      error();
+    }
   }, []);
 
   // Second useEffect: join/unsubscribe to the session & loading of the users subscribed
   useEffect(() => {
     if (wantSubscribe) {
-      axios
-        .post<IUser[]>(
-          `http://localhost:3000/api/sessions/${id_session}/users/${id}`,
-          { id_session, id },
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            withCredentials: true,
-          },
-        )
-        .then((result) => {
-          setSubscribers(result.data);
-          CheckHasSubcribe(result.data);
-        })
-        .catch((err) => {
-          if (err.response.status === 422) {
-            alreadySubscribe();
-          } else {
-            error();
-          }
-        });
+      try {
+        createSubscribers(id_session, id);
+      } catch (err) {
+        const er = err as AxiosError;
+        if (er.response?.status === 422) {
+          alreadySubscribe();
+        } else {
+          error();
+        }
+      }
     }
     if (wantUnsubscribe) {
-      axios
-        .delete<IUser[]>(`http://localhost:3000/api/sessions/${id_session}/users/${id}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true,
-        })
-        .then((result) => {
-          console.log(result);
-          setSubscribers(result.data);
-          CheckHasSubcribe(result.data);
-        })
-        .catch((err) => {
-          if (err.response.status === 404) {
-            notSubscribe();
-          } else {
-            error();
-          }
-        });
+      try {
+        deleteSubscribers(id_session, id);
+      } catch (err) {
+        const er = err as AxiosError;
+        if (er.response?.status === 404) {
+          notSubscribe();
+        } else {
+          error();
+        }
+      }
     }
   }, [wantSubscribe, wantUnsubscribe]);
 

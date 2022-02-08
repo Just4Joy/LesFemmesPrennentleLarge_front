@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 // @ts-ignore: Unreachable code error
 import { IKContext, IKUpload } from 'imagekitio-react';
 import React, { useContext, useState } from 'react';
@@ -42,65 +42,81 @@ const MyProfile = () => {
     [],
   );
 
+  const getUserSurfSkills = async (user: IUser) => {
+    const surfSkills = await axios.get<ISurfSkill[]>(
+      `http://localhost:3000/api/users/${user.id_user}/surfskills`,
+    );
+    setSurfSkills(surfSkills.data);
+  };
+
+  const getSurfStyle = async (user: IUser) => {
+    const surfStyle = await axios.get<ISurfStyle>(
+      `http://localhost:3000/api/surfstyles/${user.id_surf_style}`,
+    );
+    setSurfStyles(surfStyle.data);
+  };
+
+  const getDepartment = async (user: IUser) => {
+    const department = await axios.get<IDepartment>(
+      `http://localhost:3000/api/departments/${user.id_department}`,
+    );
+    setDepartments(department.data);
+  };
+
+  const getOneUser = async (idUser: number) => {
+    const user = await axios.get<IUser>(
+      `http://localhost:3000/api/users/${idUser}?display=all`,
+    );
+    setUsers(user.data);
+    getDepartment(user.data);
+    getSurfStyle(user.data);
+    getUserSurfSkills(user.data);
+  };
+
+  const getAllSurfSkills = async () => {
+    const surfSkills = await axios.get<ISurfSkill[]>(
+      'http://localhost:3000/api/surfskills',
+    );
+    setSurfSkillsToAdd(surfSkills.data);
+  };
+
+  const getAllDepartments = async () => {
+    const departments = await axios.get<IDepartment[]>(
+      'http://localhost:3000/api/departments',
+    );
+    setAllDepartments(departments.data);
+  };
+
+  const getAllSurfStyles = async () => {
+    const surfStyles = await axios.get<ISurfStyle[]>(
+      'http://localhost:3000/api/surfstyles',
+    );
+    setAllSurfStyles(surfStyles.data);
+  };
+
+  const updateUser = async (idUser: number, data: any) => {
+    return await axios.put(
+      `http://localhost:3000/api/users/${idUser}`,
+      { ...data },
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      },
+    ); //retrieving the information of the user after the put is finished
+  };
+
   useEffect(() => {
-    //GET User
-    axios
-      .get<IUser>(`http://localhost:3000/api/users/${id}?display=all`)
-      .then((result) => result.data)
-      .then((data) => {
-        setUsers(data);
-        //GET department of the user
-        axios
-          .get<IDepartment>(`http://localhost:3000/api/departments/${data.id_department}`)
-          .then((result) => result.data)
-          .then((data) => setDepartments(data))
-          .catch(() => {
-            error();
-          });
-        //GET the surfstyle of the user
-        axios
-          .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
-          .then((result) => result.data)
-          .then((data) => setSurfStyles(data))
-          .catch(() => {
-            error();
-          });
-        //GET the surfskills of the user
-        axios
-          .get<ISurfSkill[]>(`http://localhost:3000/api/users/${data.id_user}/surfskills`)
-          .then((result) => result.data)
-          .then((data) => setSurfSkills(data))
-          .catch(() => {
-            error();
-          });
-      })
-      .catch(() => {
-        error();
-      });
-    //GET surfskills
-    axios
-      .get<ISurfSkill[]>('http://localhost:3000/api/surfskills')
-      .then((result) => result.data)
-      .then((data) => setSurfSkillsToAdd(data))
-      .catch(() => {
-        error();
-      });
-    //GET departments
-    axios
-      .get<IDepartment[]>('http://localhost:3000/api/departments')
-      .then((result) => result.data)
-      .then((data) => setAllDepartments(data))
-      .catch(() => {
-        error();
-      });
-    //GET surfstyles
-    axios
-      .get<ISurfStyle[]>('http://localhost:3000/api/surfstyles')
-      .then((result) => result.data)
-      .then((data) => setAllSurfStyles(data))
-      .catch(() => {
-        error();
-      });
+    try {
+      getOneUser(id);
+      getAllSurfSkills();
+      getAllDepartments();
+      getAllSurfStyles();
+    } catch (err) {
+      error();
+    }
   }, []);
   //Avoids having a surfskills selected two times
   const add = (id: ISurfSkill['id_surf_skill']) => {
@@ -113,10 +129,10 @@ const MyProfile = () => {
   };
 
   //PUT User Profile Pic
-  const onSuccess = (res: any) => {
-    users &&
-      axios
-        .put(
+  const onSuccess = async (res: any) => {
+    if (users) {
+      try {
+        const updatedUser = await axios.put(
           `http://localhost:3000/api/users/${id}`,
           {
             profile_pic: res.url,
@@ -128,22 +144,28 @@ const MyProfile = () => {
             },
             withCredentials: true,
           },
-        )
-        .catch((err) => {
-          if (err.response.status === 401) {
-            unauthorized();
-          } else if (err.response.status === 422) {
-            errorValidation();
-          } else if (err.response.status === 404) {
-            userNotFound();
-          } else {
-            error();
-          }
-        });
+        );
+
+        if (updatedUser.status !== 200) {
+          throw new Error();
+        }
+      } catch (err) {
+        const er = err as AxiosError;
+        if (er.response?.status === 401) {
+          unauthorized();
+        } else if (er.response?.status === 422) {
+          errorValidation();
+        } else if (er.response?.status === 404) {
+          userNotFound();
+        } else {
+          error();
+        }
+      }
+    }
   };
 
   //PUT User details
-  const updateDataUser = () => {
+  const updateDataUser = async () => {
     const data: any = {
       firstname: firstname,
       lastname: lastname,
@@ -159,60 +181,63 @@ const MyProfile = () => {
       }
     }
     if (Object.keys(data).length !== 0) {
+      try {
+        const updatedUser = await updateUser(id, data);
+        console.log(updatedUser);
+      } catch (err) {}
+
+      // const updatedUser = await axios
+      //   .put(
+      //     `http://localhost:3000/api/users/${id}`,
+      //     { ...data },
+      //     {
+      //       method: 'PUT',
+      //       headers: {
+      //         'Content-Type': 'application/json',
+      //       },
+      //       withCredentials: true,
+      //     },
+      //   ) //retrieving the information of the user after the put is finished
+      //   .then(() => {
       axios
-        .put(
-          `http://localhost:3000/api/users/${id}`,
-          { ...data },
-          {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            withCredentials: true,
-          },
-        ) //retrieving the information of the user after the put is finished
+        .get<IUser>(`http://localhost:3000/api/users/${id}?display=all`)
+        .then((result) => result.data)
+        .then((data) => {
+          setUsers(data);
+        })
         .then(() => {
           axios
-            .get<IUser>(`http://localhost:3000/api/users/${id}?display=all`)
+            .get<IDepartment>(
+              `http://localhost:3000/api/departments/${data.id_department}`,
+            )
             .then((result) => result.data)
-            .then((data) => {
-              setUsers(data);
-            })
-            .then(() => {
-              axios
-                .get<IDepartment>(
-                  `http://localhost:3000/api/departments/${data.id_department}`,
-                )
-                .then((result) => result.data)
-                .then((data) => setDepartments(data))
-                .catch(() => {
-                  error();
-                });
-              axios
-                .get<ISurfStyle>(
-                  `http://localhost:3000/api/surfstyles/${data.id_surf_style}`,
-                )
-                .then((result) => result.data)
-                .then((data) => setSurfStyles(data))
-                .catch(() => {
-                  error();
-                });
-            })
+            .then((data) => setDepartments(data))
+            .catch(() => {
+              error();
+            });
+          axios
+            .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
+            .then((result) => result.data)
+            .then((data) => setSurfStyles(data))
             .catch(() => {
               error();
             });
         })
-        .catch((err) => {
-          if (err.response.status === 401) {
-            unauthorized();
-          } else if (err.response.status === 422) {
-            errorValidation();
-          } else if (err.response.status === 404) {
-            userNotFound();
-          } else {
-            error();
-          }
+        .catch(() => {
+          error();
         });
+      // })
+      // .catch((err) => {
+      //   if (err.response.status === 401) {
+      //     unauthorized();
+      //   } else if (err.response.status === 422) {
+      //     errorValidation();
+      //   } else if (err.response.status === 404) {
+      //     userNotFound();
+      //   } else {
+      //     error();
+      //   }
+      // });
     }
     //DELETE Surfskills of the user
     axios

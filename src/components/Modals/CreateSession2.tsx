@@ -19,25 +19,26 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
   const [power, setPower] = useState<string>('');
   const [temperature, setTemperature] = useState<string>('');
 
+  const getAllWeathers = async () => {
+    const allWeathers = await axios.get<IWeather[]>('http://localhost:3000/api/weather');
+    setWeather(allWeathers.data);
+  };
+
   //GET Weather
   useEffect(() => {
-    axios
-      .get<IWeather[]>('http://localhost:3000/api/weather')
-      .then((result) => result.data)
-      .then((data) => setWeather(data))
-      .catch(() => {
-        error();
-      });
+    try {
+      getAllWeathers();
+    } catch (err) {
+      error();
+    }
   }, []);
 
-  function addWeather() {
+  async function addWeather() {
     const dataToSend = [wave, flow, power, temperature];
-
-    //POST Weather to a Session
-    Promise.all(
-      dataToSend.map(async (el) => {
-        return axios
-          .post(
+    try {
+      const createdWeathers = await Promise.all(
+        dataToSend.map((el) => {
+          return axios.post(
             `http://localhost:3000/api/sessions/${id_sessionCreated}/weather`,
             {
               idWeather: el,
@@ -49,15 +50,13 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
               },
               withCredentials: true,
             },
-          )
-          .then(() => {
-            setActiveModal('recap');
-          })
-          .catch(() => {
-            error();
-          });
-      }),
-    );
+          );
+        }),
+      );
+      setActiveModal('recap');
+    } catch (err) {
+      error();
+    }
   }
 
   return (

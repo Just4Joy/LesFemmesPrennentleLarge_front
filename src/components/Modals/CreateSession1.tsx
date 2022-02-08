@@ -29,29 +29,33 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
   const [idSurfStyle, setIdSurfStyle] = useState<ISession['id_surf_style']>();
   const [carpool, setCarpool] = useState<ISession['carpool']>();
 
+  const getAllDepartments = async () => {
+    const allDepartments = await axios.get<IDepartment[]>(
+      'http://localhost:3000/api/departments',
+    );
+    setDepartements(allDepartments.data);
+  };
+
+  const getAllSurfStyles = async () => {
+    const allSurfStyles = await axios.get<ISurfStyle[]>(
+      'http://localhost:3000/api/surfstyles',
+    );
+    setSurfStyles(allSurfStyles.data);
+  };
+
   useEffect(() => {
-    //GET Departments
-    axios
-      .get<IDepartment[]>('http://localhost:3000/api/departments')
-      .then((result) => result.data)
-      .then((data) => setDepartements(data))
-      .catch(() => {
-        error();
-      });
-    //GET surfstyles
-    axios
-      .get<ISurfStyle[]>('http://localhost:3000/api/surfstyles')
-      .then((result) => result.data)
-      .then((data) => setSurfStyles(data))
-      .catch(() => {
-        error();
-      });
+    try {
+      getAllDepartments();
+      getAllSurfStyles();
+    } catch (err) {
+      error();
+    }
   }, []);
 
   //POST Session
-  const createSession = (id: number) => {
-    axios
-      .post<ISession>(
+  const createSession = async (id: number) => {
+    try {
+      const createdSession = await axios.post<ISession>(
         'http://localhost:3000/api/sessions/',
         {
           name,
@@ -71,15 +75,15 @@ const CreateSession1: FC<Props> = ({ setActiveModal }) => {
           },
           withCredentials: true,
         },
-      )
-      .then((res) => res.data)
-      .then((data) => {
-        setId_session(data.id_session);
-        setActiveModal('create_session2');
-      })
-      .catch(() => {
-        error();
-      });
+      );
+      setId_session(createdSession.data.id_session);
+      setActiveModal('create_session2');
+      if (createdSession.status !== 200) {
+        throw new Error();
+      }
+    } catch (err) {
+      error();
+    }
   };
 
   return (

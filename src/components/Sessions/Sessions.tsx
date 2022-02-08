@@ -25,19 +25,7 @@ const Sessions = () => {
   const [pagination, setPagination] = useState<number>(0);
   const [paginationActive, setPaginationActive] = useState<boolean>(false);
   const [sessions, setSessions] = useState<ISession[]>([]);
-  console.log(allDepartments);
-  console.log(allSurfstyles);
-  console.log(paginationActive);
-
-  useEffect(() => {
-    axios
-      .get<ISession[]>(`http://localhost:3000/api/sessions`)
-      .then((results) => results.data)
-      .then((data) => setSessions(data))
-      .catch(() => {
-        error();
-      });
-  }, []);
+  const [showCalendar, setShowCalendar] = useState<boolean>(false);
 
   // Axios functions
   const getAllSessions = async () => {
@@ -56,24 +44,16 @@ const Sessions = () => {
       basicUrl += basicUrlChanged ? `&pages=${pagination}` : `?pages=${pagination}`;
     }
 
-    const sessions = await axios.get<ISession[]>(basicUrl);
-    return sessions.data;
+    return await axios.get<ISession[]>(basicUrl);
   };
   const getAllRegions = async () => {
-    const regions = await axios.get<IRegion[]>('http://localhost:3000/api/regions');
-    return regions.data;
+    return await axios.get<IRegion[]>('http://localhost:3000/api/regions');
   };
   const getAllDepartments = async () => {
-    const departments = await axios.get<IDepartment[]>(
-      'http://localhost:3000/api/departments',
-    );
-    return departments.data;
+    return await axios.get<IDepartment[]>('http://localhost:3000/api/departments');
   };
   const getAllSurfstyles = async () => {
-    const surfStyles = await axios.get<ISurfStyle[]>(
-      'http://localhost:3000/api/surfstyles',
-    );
-    return surfStyles.data;
+    return await axios.get<ISurfStyle[]>('http://localhost:3000/api/surfstyles');
   };
 
   // Constructing hte array of object mySession
@@ -125,45 +105,49 @@ const Sessions = () => {
     if (id_region !== undefined) {
       setSelectedRegion(id_region);
     }
-    Promise.all([
-      getAllSessions(),
-      getAllRegions(),
-      getAllDepartments(),
-      getAllSurfstyles(),
-    ])
-      .then(([sessions, regions, departments, surfStyles]) => {
-        setAllRegions(regions);
-        setAllDepartments(departments);
-        setAllSurfstyles(surfStyles);
-
-        mySessionsObjectConstructor(sessions, departments, surfStyles, regions);
-      })
-      .catch(() => {
+    (async () => {
+      try {
+        const sessions = await getAllSessions();
+        const regions = await getAllRegions();
+        const departments = await getAllDepartments();
+        const surfStyles = await getAllSurfstyles();
+        mySessionsObjectConstructor(
+          sessions.data,
+          departments.data,
+          surfStyles.data,
+          regions.data,
+        );
+        setAllRegions(regions.data);
+        setAllDepartments(departments.data);
+        setAllSurfstyles(surfStyles.data);
+      } catch (err) {
         error();
-      });
+      }
+    })();
   }, []);
 
-  // First useEffect
+  // Second useEffect
   useEffect(() => {
-    Promise.all([
-      getAllSessions(),
-      getAllRegions(),
-      getAllDepartments(),
-      getAllSurfstyles(),
-    ])
-      .then(([sessions, regions, departments, surfStyles]) => {
-        setAllRegions(regions);
-        setAllDepartments(departments);
-        setAllSurfstyles(surfStyles);
-
-        mySessionsObjectConstructor(sessions, departments, surfStyles, regions);
-      })
-      .catch(() => {
+    (async () => {
+      try {
+        const sessions = await getAllSessions();
+        const regions = await getAllRegions();
+        const departments = await getAllDepartments();
+        const surfStyles = await getAllSurfstyles();
+        mySessionsObjectConstructor(
+          sessions.data,
+          departments.data,
+          surfStyles.data,
+          regions.data,
+        );
+        setAllRegions(regions.data);
+        setAllDepartments(departments.data);
+        setAllSurfstyles(surfStyles.data);
+      } catch (err) {
         error();
-      });
+      }
+    })();
   }, [selectedRegion, pagination, selectedDate]);
-
-  const [showCalendar, setShowCalendar] = useState<boolean>(false);
 
   return (
     <div className="sessions">
