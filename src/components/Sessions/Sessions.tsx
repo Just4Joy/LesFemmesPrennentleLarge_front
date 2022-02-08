@@ -22,15 +22,19 @@ const Sessions = () => {
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [pagination, setPagination] = useState<number>(0);
   const [sessions, setSessions] = useState<ISession[]>([]);
+  const [showCalendar, setShowCalendar] = useState<boolean>(false);
+
+  const getAllSessionsStart = async () => {
+    const allSessions = await axios.get<ISession[]>(`http://localhost:3000/api/sessions`);
+    setSessions(allSessions.data);
+  };
 
   useEffect(() => {
-    axios
-      .get<ISession[]>(`http://localhost:3000/api/sessions`)
-      .then((results) => results.data)
-      .then((data) => setSessions(data))
-      .catch(() => {
-        error();
-      });
+    try {
+      getAllSessionsStart();
+    } catch (err) {
+      error();
+    }
   }, []);
 
   // Axios functions
@@ -50,24 +54,16 @@ const Sessions = () => {
       basicUrl += basicUrlChanged ? `&pages=${pagination}` : `?pages=${pagination}`;
     }
 
-    const sessions = await axios.get<ISession[]>(basicUrl);
-    return sessions.data;
+    return await axios.get<ISession[]>(basicUrl);
   };
   const getAllRegions = async () => {
-    const regions = await axios.get<IRegion[]>('http://localhost:3000/api/regions');
-    return regions.data;
+    return await axios.get<IRegion[]>('http://localhost:3000/api/regions');
   };
   const getAllDepartments = async () => {
-    const departments = await axios.get<IDepartment[]>(
-      'http://localhost:3000/api/departments',
-    );
-    return departments.data;
+    return await axios.get<IDepartment[]>('http://localhost:3000/api/departments');
   };
   const getAllSurfstyles = async () => {
-    const surfStyles = await axios.get<ISurfStyle[]>(
-      'http://localhost:3000/api/surfstyles',
-    );
-    return surfStyles.data;
+    return await axios.get<ISurfStyle[]>('http://localhost:3000/api/surfstyles');
   };
 
   // Constructing hte array of object mySession
@@ -119,41 +115,45 @@ const Sessions = () => {
     if (idRegion !== undefined) {
       setSelectedRegion(idRegion);
     }
-    Promise.all([
-      getAllSessions(),
-      getAllRegions(),
-      getAllDepartments(),
-      getAllSurfstyles(),
-    ])
-      .then(([sessions, regions, departments, surfStyles]) => {
-        setAllRegions(regions);
-
-        mySessionsObjectConstructor(sessions, departments, surfStyles, regions);
-      })
-      .catch(() => {
+    (async () => {
+      try {
+        const sessions = await getAllSessions();
+        const regions = await getAllRegions();
+        const departments = await getAllDepartments();
+        const surfStyles = await getAllSurfstyles();
+        mySessionsObjectConstructor(
+          sessions.data,
+          departments.data,
+          surfStyles.data,
+          regions.data,
+        );
+        setAllRegions(regions.data);
+      } catch (err) {
         error();
-      });
+      }
+    })();
   }, []);
 
-  // First useEffect
+  // Second useEffect
   useEffect(() => {
-    Promise.all([
-      getAllSessions(),
-      getAllRegions(),
-      getAllDepartments(),
-      getAllSurfstyles(),
-    ])
-      .then(([sessions, regions, departments, surfStyles]) => {
-        setAllRegions(regions);
-
-        mySessionsObjectConstructor(sessions, departments, surfStyles, regions);
-      })
-      .catch(() => {
+    (async () => {
+      try {
+        const sessions = await getAllSessions();
+        const regions = await getAllRegions();
+        const departments = await getAllDepartments();
+        const surfStyles = await getAllSurfstyles();
+        mySessionsObjectConstructor(
+          sessions.data,
+          departments.data,
+          surfStyles.data,
+          regions.data,
+        );
+        setAllRegions(regions.data);
+      } catch (err) {
         error();
-      });
+      }
+    })();
   }, [selectedRegion, pagination, selectedDate]);
-
-  const [showCalendar, setShowCalendar] = useState<boolean>(false);
 
   return (
     <div className="sessions">
@@ -166,6 +166,7 @@ const Sessions = () => {
           id="region"
           onClick={(e) => {
             setSelectedRegion(Number(e.currentTarget.value));
+            // setSelectedDate(new Date().toLocaleDateString());
             setPagination(0);
           }}>
           <option value={0}>Régions</option>

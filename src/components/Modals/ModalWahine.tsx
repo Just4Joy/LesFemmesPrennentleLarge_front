@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 
@@ -14,21 +14,25 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
   const { id, setWahine } = useContext(CurrentUserContext);
   const [user, setUser] = useState<IUser>();
 
+  const getUser = async (idUser: number) => {
+    const user = await axios.get<IUser>(
+      `http://localhost:3000/api/users/${idUser}?display=all`,
+    );
+    setUser(user.data);
+  };
   //GET User
   useEffect(() => {
-    axios
-      .get<IUser>(`http://localhost:3000/api/users/${id}?display=all`)
-      .then((result) => result.data)
-      .then((data) => setUser(data))
-      .catch(() => {
-        error();
-      });
+    try {
+      getUser(id);
+    } catch (err) {
+      error();
+    }
   }, [id]);
 
   //PUT Wahine
-  const updateWahineStatus = () => {
-    axios
-      .put(
+  const updateWahineStatus = async () => {
+    try {
+      const updatedWahine = await axios.put(
         `http://localhost:3000/api/users/${id}`,
         { wahine: 1 },
         {
@@ -38,23 +42,25 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
           },
           withCredentials: true,
         },
-      )
-
-      .then(() => {
+      );
+      if (updatedWahine.status !== 200) {
+        throw new Error();
+      } else {
         setActiveModal('wahineRegistrated');
         setWahine(1);
-      })
-      .catch((err) => {
-        if (err.response.status === 401) {
-          unauthorized();
-        } else if (err.response.status === 422) {
-          errorValidation();
-        } else if (err.response.status === 404) {
-          userNotFound();
-        } else {
-          error();
-        }
-      });
+      }
+    } catch (err) {
+      const er = err as AxiosError;
+      if (er.response?.status === 401) {
+        unauthorized();
+      } else if (er.response?.status === 422) {
+        errorValidation();
+      } else if (er.response?.status === 404) {
+        userNotFound();
+      } else {
+        error();
+      }
+    }
   };
 
   return (
