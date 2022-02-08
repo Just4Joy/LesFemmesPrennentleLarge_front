@@ -19,7 +19,7 @@ const Sessions = () => {
   const [allRegions, setAllRegions] = useState<IRegion[]>([]);
   const [allDepartments, setAllDepartments] = useState<IDepartment[]>([]);
   const [allDepartmentsSelected, setAllDepartmentsSelected] = useState<number[]>([]);
-  const [selectedRegion, setSelectedRegion] = useState<number>(Number(idRegion) ||0);
+  const [selectedRegion, setSelectedRegion] = useState<number>(Number(idRegion) || 0);
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [pagination, setPagination] = useState<number>(0);
@@ -157,7 +157,6 @@ const Sessions = () => {
     })();
   }, [selectedRegion, pagination, selectedDate]);
 
-
   useEffect(() => {
     const tempArray: number[] = [];
     allDepartments
@@ -176,7 +175,7 @@ const Sessions = () => {
           name="region"
           id="region"
           value={selectedRegion}
-          onChange={(e) => {
+          onBlur={(e) => {
             setSelectedRegion(Number(e.currentTarget.value));
             // setSelectedDate(new Date().toLocaleDateString());
             setPagination(0);

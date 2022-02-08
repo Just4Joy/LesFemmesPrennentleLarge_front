@@ -231,7 +231,6 @@ const MyProfile = () => {
 
       //Replenish with new Surfskills of the user
       await Promise.all(
-
         activeSurfSkills.map(async (el) => {
           axios.post(
             `http://localhost:3000/api/users/${id}/surfskills`,
