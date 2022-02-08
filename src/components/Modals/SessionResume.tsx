@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
@@ -21,63 +21,71 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
   const [weathers, setWeathers] = useState<IWeather[]>([]);
   const [department, setDepartment] = useState<IDepartment>();
 
+  const getSessionSurfStyle = async (session: ISession) => {
+    const surfStyle = await axios.get<ISurfStyle>(
+      `http://localhost:3000/api/surfstyles/${session.id_surf_style}`,
+    );
+    setSurfStyles(surfStyle.data);
+  };
+
+  const getSessionDepartment = async (session: ISession) => {
+    const department = await axios.get<IDepartment>(
+      `http://localhost:3000/api/departments/${session.id_department}`,
+    );
+    setDepartment(department.data);
+  };
+
+  const getSessionWeather = async (idCreatedSession: number) => {
+    const weather = await axios.get<IWeather[]>(
+      `http://localhost:3000/api/sessions/${idCreatedSession}/weather/`,
+    );
+    setWeathers(weather.data);
+  };
+
+  const getOneSession = async (idCreatedSession: number) => {
+    const session = await axios.get<ISession>(
+      `http://localhost:3000/api/sessions/${idCreatedSession}`,
+    );
+    setSession(session.data);
+    getSessionSurfStyle(session.data);
+    getSessionDepartment(session.data);
+  };
+
   useEffect(() => {
-    //GET Session
-    axios
-      .get<ISession>(`http://localhost:3000/api/sessions/${idSessionCreated}`)
-      .then((result) => result.data)
-      .then((data) => {
-        setSession(data);
-        //GET surfstyle of the session
-        axios
-          .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
-          .then((result) => result.data)
-          .then((data) => setSurfStyles(data))
-          .catch(() => {
-            error();
-          });
-        //GET department of the session
-        axios
-          .get<IDepartment>(`http://localhost:3000/api/departments/${data.id_department}`)
-          .then((result) => result.data)
-          .then((data) => setDepartment(data))
-          .catch(() => {
-            error();
-          });
-      })
-      .catch(() => {
-        error();
-      });
-    //GET the weather of the session
-    axios
-      .get<IWeather[]>(`http://localhost:3000/api/sessions/${idSessionCreated}/weather/`)
-      .then((result) => result.data)
-      .then((data) => setWeathers(data))
-      .catch(() => {
-        error();
-      });
+    try {
+      getOneSession(idSessionCreated);
+      getSessionWeather(idSessionCreated);
+    } catch (err) {
+      error();
+    }
   }, []);
 
   //DELETE the session
-  const deleteSession = () => {
-    axios
-      .delete<ISession>(`http://localhost:3000/api/sessions/${idSessionCreated}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
+  const deleteSession = async () => {
+    try {
+      const deletedSession = await axios.delete<ISession>(
+        `http://localhost:3000/api/sessions/${idSessionCreated}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
         },
-        withCredentials: true,
-      })
-      .then(() => {
+      );
+      if (deletedSession.status !== 200) {
+        throw new Error();
+      } else {
         setActiveModal('');
-      })
-      .catch((err) => {
-        if (err.response.status === 404) {
-          sessionNotFound();
-        } else {
-          error();
-        }
-      });
+      }
+    } catch (err) {
+      const er = err as AxiosError;
+      if (er.response?.status === 404) {
+        sessionNotFound();
+      } else {
+        error();
+      }
+    }
   };
 
   return (

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 // @ts-ignore: Unreachable code error
 import { IKContext, IKUpload } from 'imagekitio-react';
 import React, { useContext, useState } from 'react';
@@ -20,7 +20,7 @@ const MyProfile = () => {
   const [users, setUsers] = useState<IUser>();
   const [update, setUpdate] = useState<boolean>(false);
 
-  const [editProfile, setEditProfile] = useState<boolean>(false);
+  const [editProfil, setEditProfil] = useState<boolean>(false);
   const [editSkills, setEditSkills] = useState<boolean>(false);
 
   const [departments, setDepartments] = useState<IDepartment>();
@@ -35,72 +35,56 @@ const MyProfile = () => {
   const [desc, setDesc] = useState<IUser['description']>('');
   const [city, setCity] = useState<IUser['city']>('');
   const [favorite_spot, setSpot] = useState<IUser['favorite_spot']>('');
-  const [newDepartment, setNewDepartment] = useState<Number>(0);
-  const [newSurfStyles, setNewSurfStyles] = useState<Number>(0);
-
+  const [newDepartment, setNewDepartment] = useState<number>(0);
+  const [newSurfStyles, setNewSurfStyles] = useState<number>(0);
   const [activeSurfSkills, setActiveSurfSkills] = useState<ISurfSkill['id_surf_skill'][]>(
     [],
   );
 
   useEffect(() => {
-    //GET User
-    axios
-      .get<IUser>(`http://localhost:3000/api/users/${id}?display=all`)
-      .then((result) => result.data)
-      .then((data) => {
-        setUsers(data);
+    (async () => {
+      try {
+        //GET User
+        const user = await axios.get<IUser>(
+          `http://localhost:3000/api/users/${id}?display=all`,
+        );
+        setUsers(user.data);
         //GET department of the user
-        axios
-          .get<IDepartment>(`http://localhost:3000/api/departments/${data.id_department}`)
-          .then((result) => result.data)
-          .then((data) => setDepartments(data))
-          .catch(() => {
-            error();
-          });
+        const departement = await axios.get<IDepartment>(
+          `http://localhost:3000/api/departments/${user.data.id_department}`,
+        );
+        setDepartments(departement.data);
         //GET the surfstyle of the user
-        axios
-          .get<ISurfStyle>(`http://localhost:3000/api/surfstyles/${data.id_surf_style}`)
-          .then((result) => result.data)
-          .then((data) => setSurfStyles(data))
-          .catch(() => {
-            error();
-          });
+        const surfStyle = await axios.get<ISurfStyle>(
+          `http://localhost:3000/api/surfstyles/${user.data.id_surf_style}`,
+        );
+        setSurfStyles(surfStyle.data);
         //GET the surfskills of the user
-        axios
-          .get<ISurfSkill[]>(`http://localhost:3000/api/users/${data.id_user}/surfskills`)
-          .then((result) => result.data)
-          .then((data) => setSurfSkills(data))
-          .catch(() => {
-            error();
-          });
-      })
-      .catch(() => {
+        const SurfSkills = await axios.get<ISurfSkill[]>(
+          `http://localhost:3000/api/users/${user.data.id_user}/surfskills`,
+        );
+        setSurfSkills(SurfSkills.data);
+
+        //GET surfskills
+        const SurfSkillsToAdd = await axios.get<ISurfSkill[]>(
+          'http://localhost:3000/api/surfskills',
+        );
+        setSurfSkillsToAdd(SurfSkillsToAdd.data);
+
+        //GET departments
+        const departments = await axios.get<IDepartment[]>(
+          'http://localhost:3000/api/departments',
+        );
+        setAllDepartments(departments.data);
+
+        const SurfStyles = await axios.get<ISurfStyle[]>(
+          'http://localhost:3000/api/surfstyles',
+        );
+        setAllSurfStyles(SurfStyles.data);
+      } catch (err: unknown) {
         error();
-      });
-    //GET surfskills
-    axios
-      .get<ISurfSkill[]>('http://localhost:3000/api/surfskills')
-      .then((result) => result.data)
-      .then((data) => setSurfSkillsToAdd(data))
-      .catch(() => {
-        error();
-      });
-    //GET departments
-    axios
-      .get<IDepartment[]>('http://localhost:3000/api/departments')
-      .then((result) => result.data)
-      .then((data) => setAllDepartments(data))
-      .catch(() => {
-        error();
-      });
-    //GET surfstyles
-    axios
-      .get<ISurfStyle[]>('http://localhost:3000/api/surfstyles')
-      .then((result) => result.data)
-      .then((data) => setAllSurfStyles(data))
-      .catch(() => {
-        error();
-      });
+      }
+    })();
   }, []);
   //Avoids having a surfskills selected two times
   const add = (id: ISurfSkill['id_surf_skill']) => {
@@ -113,10 +97,10 @@ const MyProfile = () => {
   };
 
   //PUT User Profile Pic
-  const onSuccess = (res: any) => {
-    users &&
-      axios
-        .put(
+  const onSuccess = async (res: any) => {
+    try {
+      if (users) {
+        const response = await axios.put<IUser>(
           `http://localhost:3000/api/users/${id}`,
           {
             profile_pic: res.url,
@@ -128,22 +112,29 @@ const MyProfile = () => {
             },
             withCredentials: true,
           },
-        )
-        .catch((err) => {
-          if (err.response.status === 401) {
-            unauthorized();
-          } else if (err.response.status === 422) {
-            errorValidation();
-          } else if (err.response.status === 404) {
-            userNotFound();
-          } else {
-            error();
-          }
-        });
+        );
+        if (response.status !== 204) {
+          throw new Error();
+        }
+      }
+    } catch (err) {
+      const er = err as AxiosError;
+
+      if (er.response?.status === 401) {
+        unauthorized();
+      } else if (er.response?.status === 422) {
+        errorValidation();
+      } else if (er.response?.status === 404) {
+        userNotFound();
+      } else {
+        error();
+      }
+    }
   };
 
   //PUT User details
-  const updateDataUser = () => {
+  const updateDataUser = async () => {
+    // console.log(newDepartment, newSurfStyles, 'NEW DEPARTEMENT NEW SURFSTYLE ON CLICK');
     const data: any = {
       firstname: firstname,
       lastname: lastname,
@@ -159,8 +150,8 @@ const MyProfile = () => {
       }
     }
     if (Object.keys(data).length !== 0) {
-      axios
-        .put(
+      try {
+        const response = await axios.put(
           `http://localhost:3000/api/users/${id}`,
           { ...data },
           {
@@ -170,112 +161,125 @@ const MyProfile = () => {
             },
             withCredentials: true,
           },
-        ) //retrieving the information of the user after the put is finished
-        .then(() => {
-          axios
-            .get<IUser>(`http://localhost:3000/api/users/${id}?display=all`)
-            .then((result) => result.data)
-            .then((data) => {
-              setUsers(data);
-            })
-            .then(() => {
-              axios
-                .get<IDepartment>(
-                  `http://localhost:3000/api/departments/${data.id_department}`,
-                )
-                .then((result) => result.data)
-                .then((data) => setDepartments(data))
-                .catch(() => {
-                  error();
-                });
-              axios
-                .get<ISurfStyle>(
-                  `http://localhost:3000/api/surfstyles/${data.id_surf_style}`,
-                )
-                .then((result) => result.data)
-                .then((data) => setSurfStyles(data))
-                .catch(() => {
-                  error();
-                });
-            })
-            .catch(() => {
-              error();
-            });
-        })
-        .catch((err) => {
-          if (err.response.status === 401) {
-            unauthorized();
-          } else if (err.response.status === 422) {
-            errorValidation();
-          } else if (err.response.status === 404) {
-            userNotFound();
-          } else {
-            error();
-          }
-        });
+        );
+
+        if (response.status !== 200) {
+          throw new Error();
+        }
+      } catch (err) {
+        const er = err as AxiosError;
+        if (er.response?.status === 401) {
+          unauthorized();
+        } else if (er.response?.status === 422) {
+          errorValidation();
+        } else if (er.response?.status === 404) {
+          userNotFound();
+        } else {
+          error();
+        }
+      }
+      //retrieving the information of the user after the put is finished
+      try {
+        const user = await axios.get<IUser>(
+          `http://localhost:3000/api/users/${id}?display=all`,
+        );
+        // @ts-ignore: Unreachable code error
+        // setUsers();
+        setUsers(user.data);
+        if (user.status !== 200) {
+          throw new Error();
+        }
+        const departement = await axios.get<IDepartment>(
+          `http://localhost:3000/api/departments/${data.id_department}`,
+        );
+        setDepartments(departement.data);
+        if (departement.status !== 200) {
+          throw new Error();
+        }
+        const SurfStyle = await axios.get<ISurfStyle>(
+          `http://localhost:3000/api/surfstyles/${data.id_surf_style}`,
+        );
+        setSurfStyles(SurfStyle.data);
+      } catch (err) {
+        const er = err as AxiosError;
+        if (er.response?.status === 401) {
+          unauthorized();
+        } else if (er.response?.status === 422) {
+          errorValidation();
+        } else if (er.response?.status === 404) {
+          userNotFound();
+        } else {
+          error();
+        }
+      }
     }
     //DELETE Surfskills of the user
-    axios
-      .delete(`http://localhost:3000/api/users/${id}/surfskills/`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
+    try {
+      const response = await axios.delete(
+        `http://localhost:3000/api/users/${id}/surfskills/`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
         },
-        withCredentials: true,
-      })
-      .then(() => {
-        Promise.all(
-          activeSurfSkills.map(async (index) => {
-            axios.post(
-              `http://localhost:3000/api/users/${id}/surfskills`,
-              { idSurfSkill: index },
-              {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                withCredentials: true,
+      );
+      if (response.status !== 204) {
+        throw new Error();
+      }
+
+      //Replenish with new Surfskills of the user
+      await Promise.all(
+
+        activeSurfSkills.map(async (el) => {
+          axios.post(
+            `http://localhost:3000/api/users/${id}/surfskills`,
+            { idSurfSkill: el },
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
               },
-            );
-          }),
-        );
-      }) //retrieves the surfskills
-      .then(() => {
-        axios
-          .get<ISurfSkill[]>(
-            `http://localhost:3000/api/users/${id}/surfskills?display=all`,
-          )
-          .then((result) => result.data)
-          .then((data) => {
-            setActiveSurfSkills([]);
-            setSurfSkills(data);
-          })
-          .catch(() => {
-            error();
-          });
-      })
-      .catch(() => {
+              withCredentials: true,
+            },
+          );
+        }),
+      );
+
+      //retrieves the surfskills
+      const surfskill = await axios.get<ISurfSkill[]>(
+        `http://localhost:3000/api/users/${id}/surfskills?display=all`,
+      );
+      setActiveSurfSkills([]);
+      setSurfSkills(surfskill.data);
+    } catch (err) {
+      const er = err as AxiosError;
+      if (er.response?.status === 401) {
+        unauthorized();
+      } else if (er.response?.status === 422) {
+        errorValidation();
+      } else if (er.response?.status === 404) {
+        userNotFound();
+      } else {
         error();
-      });
+      }
+    }
   };
 
   return (
     <div className="myProfile">
       <div className="myProfile__row">
         <p>{users && users.wahine ? 'Wahine' : 'Hiki'}</p>
-        {!editProfile ? (
-          <BsPencilSquare
-            size="2rem"
-            color="black"
-            onClick={() => setEditProfile(true)}
-          />
+        {!editProfil ? (
+          <BsPencilSquare size="2rem" color="black" onClick={() => setEditProfil(true)} />
         ) : (
           <BsPencilSquare size="2rem" color="#fedb9b" />
         )}
       </div>
 
       <div className="myProfile__column">
-        {!editProfile ? (
+        {!editProfil ? (
           <div className="myProfile__column__column1">
             <img src={users && users.profile_pic} alt="hiki" />
             <div className="myProfile__column__column1__info">
@@ -305,7 +309,7 @@ const MyProfile = () => {
             <form className="myProfile__column__column1__info">
               <input
                 className="myProfile__column__column1__info__input"
-                placeholder="Prénom"
+                placeholder={users && users.firstname}
                 type="text"
                 id="firstname"
                 name="firstname"
@@ -316,7 +320,7 @@ const MyProfile = () => {
               />
               <input
                 className="myProfile__column__column1__info__input"
-                placeholder="Nom"
+                placeholder={users && users.lastname}
                 type="text"
                 id="lastname"
                 name="lastname"
@@ -327,7 +331,7 @@ const MyProfile = () => {
               />
               <input
                 className="myProfile__column__column1__info__input"
-                placeholder="Ville"
+                placeholder={users && users.city}
                 type="text"
                 id="city"
                 name="city"
@@ -338,7 +342,7 @@ const MyProfile = () => {
               />
               <input
                 className="myProfile__column__column1__info__input"
-                placeholder="Spot préféré"
+                placeholder={users && users.favorite_spot}
                 type="text"
                 id="spot"
                 name="spot"
@@ -352,7 +356,7 @@ const MyProfile = () => {
         )}
 
         <div className="myProfile__column__column2">
-          {!editProfile ? (
+          {!editProfil ? (
             <div className="myProfile__column__column2__row1">
               <div>
                 <p>{departments && departments.department_name}</p>
@@ -413,12 +417,12 @@ const MyProfile = () => {
 
           <div className="myProfile__column__column2__row2">
             <h2>Skills</h2>
-            {!editProfile ? (
+            {!editProfil ? (
               <div className="myProfile__column__column2__row2__wrap">
                 {surfSkills &&
                   surfSkills.map((surfSkill) => {
                     return (
-                      <SurfSkillProfile key={surfSkill.id_surf_skill} {...surfSkill} />
+                      <SurfSkillProfile {...surfSkill} key={surfSkill.id_surf_skill} />
                     );
                   })}
               </div>
@@ -439,7 +443,7 @@ const MyProfile = () => {
             )}
           </div>
           <div className="myProfile__column__column2__row3">
-            {!editProfile ? (
+            {!editProfil ? (
               <div className="myProfile__column__column2__row3__describe">
                 <h2>3 mots pour me décrire</h2>
                 <h6>{users && users.description}</h6>
@@ -449,7 +453,7 @@ const MyProfile = () => {
                 <h2>3 mots pour me décrire</h2>
                 <input
                   className="myProfile__column__column2__row3__describe__input"
-                  placeholder="Ma description"
+                  placeholder={users && users.description}
                   type="text"
                   id="description"
                   name="description"
@@ -463,12 +467,12 @@ const MyProfile = () => {
           </div>
         </div>
       </div>
-      {editProfile || editSkills ? (
+      {editProfil || editSkills ? (
         <button
           className="myProfile__button"
           onClick={() => {
             updateDataUser();
-            editProfile ? setEditProfile(false) : setEditSkills(false);
+            editProfil ? setEditProfil(false) : setEditSkills(false);
             setUpdate(!update);
           }}>
           Enregistrer

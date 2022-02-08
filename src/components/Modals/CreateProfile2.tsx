@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -23,23 +23,27 @@ const CreateProfile2: FC<Props> = ({ setActiveModal }) => {
   const [surfStyles, setSurfStyles] = useState<ISurfStyle[]>([]);
   const [idSurfStyle, setIdSurfStyle] = useState<IUser['id_surf_style']>();
 
+  const getAllSurfSkills = async () => {
+    const allSurfSkills = await axios.get<ISurfSkill[]>(
+      'http://localhost:3000/api/surfskills',
+    );
+    setSurfSkills(allSurfSkills.data);
+  };
+
+  const getAllSurfStyles = async () => {
+    const allSurfStyles = await axios.get<ISurfStyle[]>(
+      'http://localhost:3000/api/surfstyles',
+    );
+    setSurfStyles(allSurfStyles.data);
+  };
+
   useEffect(() => {
-    //GET surfskills
-    axios
-      .get<ISurfSkill[]>('http://localhost:3000/api/surfskills')
-      .then((result) => result.data)
-      .then((data) => setSurfSkills(data))
-      .catch(() => {
-        error();
-      });
-    //GET surfstyles
-    axios
-      .get<ISurfStyle[]>('http://localhost:3000/api/surfstyles')
-      .then((result) => result.data)
-      .then((data) => setSurfStyles(data))
-      .catch(() => {
-        error();
-      });
+    try {
+      getAllSurfSkills();
+      getAllSurfStyles();
+    } catch (err) {
+      error();
+    }
   }, []);
 
   //Avoids having two surfskills selected during the PUT
@@ -53,9 +57,9 @@ const CreateProfile2: FC<Props> = ({ setActiveModal }) => {
   };
 
   //PUT Profile
-  const updateSurfStyleProfile = () => {
-    axios
-      .put(
+  const updateSurfStyleProfile = async () => {
+    try {
+      const updatedUser = await axios.put(
         `http://localhost:3000/api/users/${id}`,
         {
           id_surf_style: idSurfStyle,
@@ -67,43 +71,51 @@ const CreateProfile2: FC<Props> = ({ setActiveModal }) => {
           },
           withCredentials: true,
         },
-      )
-      .then(() => {
+      );
+      if (updatedUser.status !== 200) {
+        throw new Error();
+      } else {
         setActiveModal('');
         UpdateProfile();
-      })
-      .catch((err) => {
-        if (err.response.status === 401) {
-          unauthorized();
-        } else if (err.response.status === 422) {
-          errorValidation();
-        } else if (err.response.status === 404) {
-          userNotFound();
-        } else {
-          error();
-        }
-      });
+      }
+    } catch (err) {
+      const er = err as AxiosError;
+      if (er.response?.status === 401) {
+        unauthorized();
+      } else if (er.response?.status === 422) {
+        errorValidation();
+      } else if (er.response?.status === 404) {
+        userNotFound();
+      } else {
+        error();
+      }
+    }
   };
 
   //POST Surfskills
-  const UpdateProfile = () => {
-    Promise.all(
-      activeSurfSkill.map(async (index) => {
-        axios.post(
-          `http://localhost:3000/api/users/${id}/surfskills`,
-          { idSurfSkill: index },
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
+  const UpdateProfile = async () => {
+    try {
+
+      await Promise.all(
+
+        activeSurfSkill.map(async (index) => {
+          axios.post(
+            `http://localhost:3000/api/users/${id}/surfskills`,
+            { idSurfSkill: index },
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              withCredentials: true,
             },
-            withCredentials: true,
-          },
-        );
-      }),
-    ).catch(() => {
+          );
+        }),
+      );
+
+    } catch (err) {
       error();
-    });
+    }
   };
 
   return (

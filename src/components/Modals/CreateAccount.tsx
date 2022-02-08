@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import React, { FC } from 'react';
 import { Dispatch, SetStateAction, useContext, useState } from 'react';
 
@@ -12,38 +12,26 @@ type Props = {
 
 const CreateAccount: FC<Props> = ({ setActiveModal }) => {
   const { setId, setWahine, setFirstname } = useContext(CurrentUserContext);
-
   const [firstname, setfirstname] = useState<string>('');
   const [lastname, setlastname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [secondPassword, setSecondPassword] = useState<string>('');
 
-  const createUserAndConnect = () => {
-    axios
-      .post<IUser>(
-        'http://localhost:3000/api/users/',
-        {
-          firstname: firstname,
-          lastname: lastname,
-          email: email,
-          phone: phone,
-          password: password,
-          wahine: false,
-        },
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+  const createUserAndConnect = async () => {
+    if (password === secondPassword && secondPassword.length !== 0) {
+      try {
+        const createdUser = await axios.post<IUser>(
+          'http://localhost:3000/api/users/',
+          {
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            phone: phone,
+            password: password,
+            wahine: false,
           },
-          withCredentials: true,
-        },
-      )
-      .then((response) => response.data)
-      .then((data) => {
-        return axios.post<IUser>(
-          'http://localhost:3000/api/login',
-          { email: data.email, password: password },
           {
             method: 'POST',
             headers: {
@@ -52,23 +40,36 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
             withCredentials: true,
           },
         );
-      })
-      .then((response) => response.data)
-      .then((data) => {
-        setId(data.id_user);
-        setFirstname(data.firstname);
-        setWahine(data.wahine === 1 ? 1 : 0);
+
+        const login = await axios.post<IUser>(
+          'http://localhost:3000/api/login',
+          { email: createdUser.data.email, password: password },
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+          },
+        );
+
+        setId(login.data.id_user);
+        setFirstname(login.data.firstname);
+        setWahine(login.data.wahine === 1 ? 1 : 0);
         setActiveModal('complete_profil1');
-      })
-      .catch((err) => {
-        if (err.response.status === 422) {
+      } catch (err) {
+        const er = err as AxiosError;
+        if (er.response?.status === 422) {
           errorValidation();
-        } else if (err.response.status === 400) {
+        } else if (er.response?.status === 400) {
           emailExist();
         } else {
           error();
         }
-      });
+      }
+    } else {
+      errorValidation();
+    }
   };
 
   return (
@@ -112,7 +113,11 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
         <input
           className="CreateAccount__form__input"
           type="password"
-          placeholder="confirmer le mot de passe*"></input>
+          placeholder="confirmer le mot de passe*"
+          required
+          onChange={(e: React.FormEvent<HTMLInputElement>) =>
+            setSecondPassword(e.currentTarget.value)
+          }></input>
       </div>
       <div className="CreateAccount__button">
         <button
