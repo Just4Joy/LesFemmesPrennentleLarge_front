@@ -113,7 +113,7 @@ const MyProfile = () => {
             withCredentials: true,
           },
         );
-        if (response.status !== 204) {
+        if (response.status !== 200) {
           throw new Error();
         }
       }
