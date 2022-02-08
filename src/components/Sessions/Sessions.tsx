@@ -17,17 +17,11 @@ type MySession = ISession & IDepartment & IRegion;
 const Sessions = () => {
   const { idRegion } = useParams<{ idRegion: string | undefined }>();
   const [allRegions, setAllRegions] = useState<IRegion[]>([]);
-  const [allDepartments, setAllDepartments] = useState<IDepartment[]>([]);
-  const [allSurfstyles, setAllSurfstyles] = useState<ISurfStyle[]>([]);
   const [selectedRegion, setSelectedRegion] = useState<number | undefined | string>();
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [pagination, setPagination] = useState<number>(0);
-  const [paginationActive, setPaginationActive] = useState<boolean>(false);
   const [sessions, setSessions] = useState<ISession[]>([]);
-  console.log(allDepartments);
-  console.log(allSurfstyles);
-  console.log(paginationActive);
 
   useEffect(() => {
     axios
@@ -133,8 +127,6 @@ const Sessions = () => {
     ])
       .then(([sessions, regions, departments, surfStyles]) => {
         setAllRegions(regions);
-        setAllDepartments(departments);
-        setAllSurfstyles(surfStyles);
 
         mySessionsObjectConstructor(sessions, departments, surfStyles, regions);
       })
@@ -153,8 +145,6 @@ const Sessions = () => {
     ])
       .then(([sessions, regions, departments, surfStyles]) => {
         setAllRegions(regions);
-        setAllDepartments(departments);
-        setAllSurfstyles(surfStyles);
 
         mySessionsObjectConstructor(sessions, departments, surfStyles, regions);
       })
@@ -176,7 +166,6 @@ const Sessions = () => {
           id="region"
           onClick={(e) => {
             setSelectedRegion(Number(e.currentTarget.value));
-            // setSelectedDate(new Date().toLocaleDateString());
             setPagination(0);
           }}>
           <option value={0}>Régions</option>
@@ -245,7 +234,6 @@ const Sessions = () => {
             <BsArrowRightSquareFill
               onClick={() => {
                 setPagination(pagination + 10);
-                setPaginationActive(true);
               }}
               className="sessions__button__more"
             />
