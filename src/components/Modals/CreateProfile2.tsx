@@ -111,7 +111,7 @@ const CreateProfile2: FC<Props> = ({ setActiveModal }) => {
         }),
       );
     } catch (err) {
-      // error();
+      error();
     }
   };
 

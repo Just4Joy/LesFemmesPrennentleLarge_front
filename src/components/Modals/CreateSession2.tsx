@@ -56,7 +56,6 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
       setActiveModal('recap');
     } catch (err) {
       error();
-      //TODO Toast
     }
   }
 
