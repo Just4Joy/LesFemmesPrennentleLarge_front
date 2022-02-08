@@ -59,8 +59,8 @@ const CreateProfile1: FC<Props> = ({ setActiveModal }) => {
         {
           description,
           city,
-          idDepartment,
-          favoriteSpot,
+          id_department: idDepartment,
+          favorite_spot: favoriteSpot,
         },
         {
           method: 'PUT',
