@@ -152,12 +152,14 @@ const Sessions = () => {
           regions.data,
         );
         setAllRegions(regions.data);
+
         setAllDepartments(departments.data);
       } catch (err) {
         error();
       }
     })();
   }, [selectedRegion, pagination, selectedDate]);
+
 
   useEffect(() => {
     const tempArray: number[] = [];
@@ -178,6 +180,7 @@ const Sessions = () => {
           id="region"
           onClick={(e) => {
             setSelectedRegion(Number(e.currentTarget.value));
+            // setSelectedDate(new Date().toLocaleDateString());
             setPagination(0);
           }}>
           <option value={0}>Régions</option>

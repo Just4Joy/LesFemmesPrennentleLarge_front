@@ -111,9 +111,11 @@ const CreateProfile1: FC<Props> = ({ setActiveModal }) => {
           withCredentials: true,
         },
       );
+
     } catch (err) {
-      //TODO faire un toast
+     error()
     }
+    
   };
 
   return (
