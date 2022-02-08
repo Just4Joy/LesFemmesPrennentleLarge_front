@@ -111,7 +111,11 @@ const CreateProfile1: FC<Props> = ({ setActiveModal }) => {
           withCredentials: true,
         },
       );
-    } catch (err) {}
+
+    } catch (err) {
+     error()
+    }
+    
   };
 
   return (

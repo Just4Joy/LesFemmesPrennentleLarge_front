@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError } from 'axios';
 // @ts-ignore: Unreachable code error
 import { IKContext, IKUpload } from 'imagekitio-react';
 import React, { useContext, useState } from 'react';
@@ -229,7 +229,8 @@ const MyProfile = () => {
       }
 
       //Replenish with new Surfskills of the user
-      const responses = await Promise.all(
+      await Promise.all(
+
         activeSurfSkills.map(async (el) => {
           axios.post(
             `http://localhost:3000/api/users/${id}/surfskills`,

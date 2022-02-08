@@ -17,7 +17,9 @@ type MySession = ISession & IDepartment & IRegion;
 const Sessions = () => {
   const { idRegion } = useParams<{ idRegion: string | undefined }>();
   const [allRegions, setAllRegions] = useState<IRegion[]>([]);
-  const [selectedRegion, setSelectedRegion] = useState<number | undefined | string>();
+  const [allDepartments, setAllDepartments] = useState<IDepartment[]>([]);
+  const [allDepartmentsSelected, setAllDepartmentsSelected] = useState<number[]>([]);
+  const [selectedRegion, setSelectedRegion] = useState<number | string>(0);
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [pagination, setPagination] = useState<number>(0);
@@ -42,7 +44,7 @@ const Sessions = () => {
     let basicUrl = `http://localhost:3000/api/sessions`;
     let basicUrlChanged = false;
 
-    if (selectedRegion !== undefined && selectedRegion !== 0) {
+    if (selectedRegion > 0) {
       basicUrl += `?region=${selectedRegion}`;
       basicUrlChanged = true;
     }
@@ -128,6 +130,7 @@ const Sessions = () => {
           regions.data,
         );
         setAllRegions(regions.data);
+        setAllDepartments(departments.data);
       } catch (err) {
         error();
       }
@@ -149,11 +152,22 @@ const Sessions = () => {
           regions.data,
         );
         setAllRegions(regions.data);
+
+        setAllDepartments(departments.data);
       } catch (err) {
         error();
       }
     })();
   }, [selectedRegion, pagination, selectedDate]);
+
+
+  useEffect(() => {
+    const tempArray: number[] = [];
+    allDepartments
+      .filter((department) => department.id_region === selectedRegion)
+      .map((department) => tempArray.push(department.id_department));
+    setAllDepartmentsSelected(tempArray);
+  }, [selectedRegion]);
 
   return (
     <div className="sessions">
@@ -196,9 +210,15 @@ const Sessions = () => {
             tileClassName={({ date }) => {
               let className = '';
               if (
-                sessions.find(
-                  (session) => session.nice_date === moment(date).format('DD/MM/YYYY'),
-                )
+                sessions
+                  .filter(
+                    (session) =>
+                      selectedRegion === 0 ||
+                      allDepartmentsSelected.includes(session.id_department),
+                  )
+                  .find(
+                    (session) => session.nice_date === moment(date).format('DD/MM/YYYY'),
+                  )
               ) {
                 className = 'highlight';
               }

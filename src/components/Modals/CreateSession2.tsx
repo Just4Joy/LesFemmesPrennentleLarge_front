@@ -36,7 +36,8 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
   async function addWeather() {
     const dataToSend = [wave, flow, power, temperature];
     try {
-      const createdWeathers = await Promise.all(
+
+      await Promise.all(
         dataToSend.map((el) => {
           return axios.post(
             `http://localhost:3000/api/sessions/${idSessionCreated}/weather`,

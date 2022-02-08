@@ -95,7 +95,9 @@ const CreateProfile2: FC<Props> = ({ setActiveModal }) => {
   //POST Surfskills
   const UpdateProfile = async () => {
     try {
-      const createdSurfSkills = await Promise.all(
+
+      await Promise.all(
+
         activeSurfSkill.map(async (index) => {
           axios.post(
             `http://localhost:3000/api/users/${id}/surfskills`,
@@ -110,11 +112,9 @@ const CreateProfile2: FC<Props> = ({ setActiveModal }) => {
           );
         }),
       );
-      // if (createdSurfSkills.status !== 201) {
-      //   throw new Error();
-      // }
+
     } catch (err) {
-      // error();
+      error();
     }
   };
 
