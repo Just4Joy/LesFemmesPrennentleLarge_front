@@ -9,6 +9,7 @@ import ISurfStyle from '../../interfaces/ISurfStyle';
 import IUser from '../../interfaces/IUser';
 import CurrentUserContext from '../contexts/CurrentUser';
 import SurfSkill from '../SurfSkill';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 type Props = {
   setActiveModal: Dispatch<SetStateAction<string>>;
@@ -17,11 +18,12 @@ type Props = {
 const CreateProfile2: FC<Props> = ({ setActiveModal }) => {
   const { id } = useContext(CurrentUserContext);
   const [surfSkills, setSurfSkills] = useState<ISurfSkill[]>([]);
-  const [activeSurfSkill, setActiveSurfSkill] = useState<ISurfSkill['id_surf_skill'][]>(
+  const [activeSurfSkills, setActiveSurfSkills] = useState<ISurfSkill['id_surf_skill'][]>(
     [],
   );
   const [surfStyles, setSurfStyles] = useState<ISurfStyle[]>([]);
   const [idSurfStyle, setIdSurfStyle] = useState<IUser['id_surf_style']>();
+  const navigate: NavigateFunction = useNavigate();
 
   const getAllSurfSkills = async () => {
     const allSurfSkills = await axios.get<ISurfSkill[]>(
@@ -46,14 +48,14 @@ const CreateProfile2: FC<Props> = ({ setActiveModal }) => {
     }
   }, []);
 
-  //Avoids having two surfskills selected during the PUT
+  //Avoids having two surfskills selected during the PUT => TODO CHANGER CETTE HORREUR POUAH CACA, nom de fonction, noms des variables, map sur el
   const add = (id: ISurfSkill['id_surf_skill']) => {
-    const arr = activeSurfSkill;
-    if (arr.find((el) => el === id)) {
+    const arr = activeSurfSkills;
+    if (arr.find((idSurfSkill) => idSurfSkill === id)) {
       arr.splice(arr.indexOf(id), 1);
     } else arr.push(id);
 
-    setActiveSurfSkill(arr);
+    setActiveSurfSkills(arr);
   };
 
   //PUT Profile
@@ -75,8 +77,9 @@ const CreateProfile2: FC<Props> = ({ setActiveModal }) => {
       if (updatedUser.status !== 200) {
         throw new Error();
       } else {
+        updateProfile();
         setActiveModal('');
-        UpdateProfile();
+        navigate('/profile');
       }
     } catch (err) {
       const er = err as AxiosError;
@@ -93,12 +96,10 @@ const CreateProfile2: FC<Props> = ({ setActiveModal }) => {
   };
 
   //POST Surfskills
-  const UpdateProfile = async () => {
+  const updateProfile = async () => {
     try {
-
       await Promise.all(
-
-        activeSurfSkill.map(async (index) => {
+        activeSurfSkills.map(async (index) => {
           axios.post(
             `http://localhost:3000/api/users/${id}/surfskills`,
             { idSurfSkill: index },
@@ -112,7 +113,6 @@ const CreateProfile2: FC<Props> = ({ setActiveModal }) => {
           );
         }),
       );
-
     } catch (err) {
       error();
     }
@@ -137,7 +137,7 @@ const CreateProfile2: FC<Props> = ({ setActiveModal }) => {
         </div>
         <div className="createProfil2__styles__tag">
           <select
-            onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
+            onChange={(e: React.FormEvent<HTMLSelectElement>) => {
               setIdSurfStyle(parseInt(e.currentTarget.value, 10));
             }}>
             <option value="">type de session</option>
@@ -167,14 +167,14 @@ const CreateProfile2: FC<Props> = ({ setActiveModal }) => {
               })}
           </div>
           <div className="createProfil2__button">
-            <NavLink
+            <button
               className="createProfil2__button__validate"
-              to="/profile"
+              // to="/profile"
               onClick={() => {
                 updateSurfStyleProfile();
               }}>
               Valider mon profil
-            </NavLink>
+            </button>
           </div>
         </div>
       </div>

@@ -23,7 +23,7 @@ const MySession: FC<Props> = ({
   id_department,
 }) => {
   const [department, setDepartment] = useState<IDepartment>();
-  const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
+  const [surfStyle, setSurfStyle] = useState<ISurfStyle>();
 
   const getAllDepartments = async (idDepartment: number) => {
     const departments = await axios.get<IDepartment>(
@@ -36,7 +36,7 @@ const MySession: FC<Props> = ({
     const surfStyles = await axios.get<ISurfStyle>(
       `http://localhost:3000/api/surfstyles/${idSurfStyle}`,
     );
-    setSurfStyles(surfStyles.data);
+    setSurfStyle(surfStyles.data);
   };
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const MySession: FC<Props> = ({
           {department && department.department_name}
         </h6>
         <h6 className="mysession__button__surfstyle">
-          {surfStyles && surfStyles.name_session}
+          {surfStyle && surfStyle.name_session}
         </h6>
       </div>
       <div className="mysession__infos">

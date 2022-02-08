@@ -15,22 +15,22 @@ const ModalProfile = () => {
   const { id } = useParams();
 
   const [user, setUser] = useState<IUser>();
-  const [departments, setDepartments] = useState<IDepartment>();
-  const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
+  const [department, setDepartment] = useState<IDepartment>();
+  const [surfStyle, setSurfStyle] = useState<ISurfStyle>();
   const [surfSkills, setSurfSkills] = useState<ISurfSkill[]>([]);
 
   const getDepartment = async (user: IUser) => {
     const department = await axios.get<IDepartment>(
       `http://localhost:3000/api/departments/${user.id_department}`,
     );
-    setDepartments(department.data);
+    setDepartment(department.data);
   };
 
   const getSurfStyle = async (user: IUser) => {
     const surfStyle = await axios.get<ISurfStyle>(
       `http://localhost:3000/api/surfstyles/${user.id_surf_style}`,
     );
-    setSurfStyles(surfStyle.data);
+    setSurfStyle(surfStyle.data);
   };
 
   const getSurfSkills = async (user: IUser) => {
@@ -83,8 +83,8 @@ const ModalProfile = () => {
             <div className="modalProfile__column__column2">
               <div className="modalProfile__column__column2__row1">
                 <div>
-                  <p>{departments?.department_name}</p>
-                  <p>{surfStyles?.name_user}</p>
+                  <p>{department?.department_name}</p>
+                  <p>{surfStyle?.name_user}</p>
                 </div>
               </div>
               <div className="modalProfile__column__column2__row2">
