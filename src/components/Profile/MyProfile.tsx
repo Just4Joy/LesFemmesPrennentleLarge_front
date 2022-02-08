@@ -35,9 +35,8 @@ const MyProfile = () => {
   const [desc, setDesc] = useState<IUser['description']>('');
   const [city, setCity] = useState<IUser['city']>('');
   const [favorite_spot, setSpot] = useState<IUser['favorite_spot']>('');
-  const [newDepartment, setNewDepartment] = useState<Number>(0);
-  const [newSurfStyles, setNewSurfStyles] = useState<Number>(0);
-
+  const [newDepartment, setNewDepartment] = useState<number>(0);
+  const [newSurfStyles, setNewSurfStyles] = useState<number>(0);
   const [activeSurfSkills, setActiveSurfSkills] = useState<ISurfSkill['id_surf_skill'][]>(
     [],
   );
@@ -184,6 +183,8 @@ const MyProfile = () => {
         const user = await axios.get<IUser>(
           `http://localhost:3000/api/users/${id}?display=all`,
         );
+        // @ts-ignore: Unreachable code error
+        // setUsers();
         setUsers(user.data);
         if (user.status !== 200) {
           throw new Error();
@@ -307,7 +308,7 @@ const MyProfile = () => {
             <form className="myProfile__column__column1__info">
               <input
                 className="myProfile__column__column1__info__input"
-                placeholder="Prénom"
+                placeholder={users && users.firstname}
                 type="text"
                 id="firstname"
                 name="firstname"
@@ -318,7 +319,7 @@ const MyProfile = () => {
               />
               <input
                 className="myProfile__column__column1__info__input"
-                placeholder="Nom"
+                placeholder={users && users.lastname}
                 type="text"
                 id="lastname"
                 name="lastname"
@@ -329,7 +330,7 @@ const MyProfile = () => {
               />
               <input
                 className="myProfile__column__column1__info__input"
-                placeholder="Ville"
+                placeholder={users && users.city}
                 type="text"
                 id="city"
                 name="city"
@@ -340,7 +341,7 @@ const MyProfile = () => {
               />
               <input
                 className="myProfile__column__column1__info__input"
-                placeholder="Spot préféré"
+                placeholder={users && users.favorite_spot}
                 type="text"
                 id="spot"
                 name="spot"
@@ -420,7 +421,7 @@ const MyProfile = () => {
                 {surfSkills &&
                   surfSkills.map((surfSkill) => {
                     return (
-                      <SurfSkillProfile key={surfSkill.id_surf_skill} {...surfSkill} />
+                      <SurfSkillProfile {...surfSkill} key={surfSkill.id_surf_skill} />
                     );
                   })}
               </div>
@@ -451,7 +452,7 @@ const MyProfile = () => {
                 <h2>3 mots pour me décrire</h2>
                 <input
                   className="myProfile__column__column2__row3__describe__input"
-                  placeholder="Ma description"
+                  placeholder={users && users.description}
                   type="text"
                   id="description"
                   name="description"
