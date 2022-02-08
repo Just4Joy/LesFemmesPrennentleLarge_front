@@ -17,53 +17,58 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
   const [email, setEmail] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [secondPassword, setSecondPassword] = useState<string>('');
 
   const createUserAndConnect = async () => {
-    try {
-      const createdUser = await axios.post<IUser>(
-        'http://localhost:3000/api/users/',
-        {
-          firstname: firstname,
-          lastname: lastname,
-          email: email,
-          phone: phone,
-          password: password,
-          wahine: false,
-        },
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+    if (password === secondPassword && secondPassword.length !== 0) {
+      try {
+        const createdUser = await axios.post<IUser>(
+          'http://localhost:3000/api/users/',
+          {
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            phone: phone,
+            password: password,
+            wahine: false,
           },
-          withCredentials: true,
-        },
-      );
-
-      const login = await axios.post<IUser>(
-        'http://localhost:3000/api/login',
-        { email: createdUser.data.email, password: password },
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            withCredentials: true,
           },
-          withCredentials: true,
-        },
-      );
+        );
 
-      setId(login.data.id_user);
-      setFirstname(login.data.firstname);
-      setWahine(login.data.wahine === 1 ? 1 : 0);
-      setActiveModal('complete_profil1');
-    } catch (err) {
-      const er = err as AxiosError;
-      if (er.response?.status === 422) {
-        errorValidation();
-      } else if (er.response?.status === 400) {
-        emailExist();
-      } else {
-        error();
+        const login = await axios.post<IUser>(
+          'http://localhost:3000/api/login',
+          { email: createdUser.data.email, password: password },
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+          },
+        );
+
+        setId(login.data.id_user);
+        setFirstname(login.data.firstname);
+        setWahine(login.data.wahine === 1 ? 1 : 0);
+        setActiveModal('complete_profil1');
+      } catch (err) {
+        const er = err as AxiosError;
+        if (er.response?.status === 422) {
+          errorValidation();
+        } else if (er.response?.status === 400) {
+          emailExist();
+        } else {
+          error();
+        }
       }
+    } else {
+      errorValidation();
     }
   };
 
@@ -108,7 +113,11 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
         <input
           className="CreateAccount__form__input"
           type="password"
-          placeholder="confirmer le mot de passe*"></input>
+          placeholder="confirmer le mot de passe*"
+          required
+          onChange={(e: React.FormEvent<HTMLInputElement>) =>
+            setSecondPassword(e.currentTarget.value)
+          }></input>
       </div>
       <div className="CreateAccount__button">
         <button
@@ -119,7 +128,6 @@ const CreateAccount: FC<Props> = ({ setActiveModal }) => {
         <button
           className="CreateAccount__button__connect"
           onClick={() => {
-            console.log('kuku');
             createUserAndConnect();
           }}>
           s&apos;inscrire
