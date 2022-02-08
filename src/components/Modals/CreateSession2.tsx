@@ -11,7 +11,7 @@ type Props = {
 };
 
 const CreateSession2: FC<Props> = ({ setActiveModal }) => {
-  const { id_sessionCreated } = useContext(CurrentSessionContext);
+  const { idSessionCreated } = useContext(CurrentSessionContext);
 
   const [weather, setWeather] = useState<IWeather[]>([]);
   const [wave, setWave] = useState<string>('');
@@ -39,7 +39,7 @@ const CreateSession2: FC<Props> = ({ setActiveModal }) => {
       const createdWeathers = await Promise.all(
         dataToSend.map((el) => {
           return axios.post(
-            `http://localhost:3000/api/sessions/${id_sessionCreated}/weather`,
+            `http://localhost:3000/api/sessions/${idSessionCreated}/weather`,
             {
               idWeather: el,
             },

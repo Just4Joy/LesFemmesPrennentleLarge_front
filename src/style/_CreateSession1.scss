@@ -5,6 +5,22 @@
     flex-direction: row;
     justify-content: space-between;
     width: 45vw;
+    @media only screen and (max-width: $Large) {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+    }
+    h1 {
+      @media only screen and (max-width: $XLarge) {
+        font-size: 4vh;
+      }
+      @media only screen and (max-width: $Large) {
+        font-size: 4vh;
+      }
+      @media only screen and (max-width: $Small) {
+        font-size: 3vh;
+      }
+    }
   }
   &__form {
     margin-top: 1rem;
@@ -12,6 +28,16 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: space-around;
+      @media only screen and (max-width: $XXLarge) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+      @media only screen and (max-width: $Large) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
       &__input {
         width: 17vw;
         margin: 0.5rem 2rem;
@@ -19,22 +45,55 @@
         border-radius: 10px;
         border: 1px solid #263238;
         background-color: white;
+        @media only screen and (max-width: $XXLarge) {
+          width: 15vw;
+          margin: 0.5rem 2rem;
+          padding: 0.5rem 1rem;
+        }
+        @media only screen and (max-width: $XLarge) {
+          width: 13vw;
+        }
+        @media only screen and (max-width: $Large) {
+          width: 25vw;
+          margin: 0.5rem 2rem;
+          padding: 0.5rem 1rem;
+        }
+        @media only screen and (max-width: $Small) {
+          width: 50vw;
+        }
       }
     }
     &__type {
       margin-top: 3rem;
       display: flex;
       flex-direction: row;
-      > h4 {
+      @media only screen and (max-width: $Small) {
+        display: flex;
+        justify-content: center;
+        margin-top: 1vh;
+      }
+      &__h4 {
         color: #808080;
         margin-right: 2rem;
+        @media only screen and (max-width: $Small) {
+          display: none;
+        }
       }
-      > input,
+      input {
+        border: 1px solid #263238;
+        border-radius: 10px;
+        padding: 0.5rem 1rem;
+        background-color: white;
+      }
+
       select {
         border: 1px solid #263238;
         border-radius: 10px;
         padding: 0.5rem 1rem;
         background-color: white;
+        @media only screen and (max-width: $Small) {
+          width: 50vw;
+        }
       }
     }
     &__weather {
@@ -44,21 +103,35 @@
         margin-right: 2rem;
       }
     }
-    > hr {
+    &__hr {
       color: #c4c4c4;
+      @media only screen and (max-width: $Small) {
+        display: none;
+      }
     }
     &__carpool {
       margin-top: 2rem;
       display: flex;
       flex-direction: row;
-      > h4 {
-        margin-right: 2rem;
+      @media only screen and (max-width: $Small) {
+        display: flex;
+        justify-content: center;
+        margin-top: 1vh;
       }
-      > select {
+      &__h4 {
+        margin-right: 2rem;
+        @media only screen and (max-width: $Small) {
+          display: none;
+        }
+      }
+      select {
         border: 1px solid #263238;
         border-radius: 10px;
         padding: 0.5rem 1rem;
         background-color: white;
+        @media only screen and (max-width: $Small) {
+          width: 50vw;
+        }
       }
     }
   }
@@ -66,6 +139,11 @@
     margin-top: 1rem;
     display: flex;
     flex-direction: row-reverse;
+    @media only screen and (max-width: $Small) {
+      margin-top: 2.5vh;
+      display: flex;
+      justify-content: center;
+    }
     &__next {
       width: 10vw;
       border-radius: 10px;
@@ -73,119 +151,11 @@
       padding: 0.5rem 0;
       background-color: #fdc969;
       cursor: pointer;
-    }
-  }
-}
-
-@media only screen and (max-width: 1422px) {
-  .create_session {
-    &__form {
-      &__inputs {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        &__input {
-          width: 15vw;
-          margin: 0.5rem 2rem;
-          padding: 0.5rem 1rem;
-        }
-      }
-    }
-  }
-}
-@media only screen and (max-width: 1164px) {
-  .create_session {
-    &__title {
-      h1 {
-        font-size: 4vh;
-      }
-    }
-    &__form {
-      &__inputs {
-        &__input {
-          width: 13vw;
-        }
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 992px) {
-  .create_session {
-    &__title {
-      display: flex;
-      flex-direction: row;
-
-      width: 100%;
-      h1 {
-        font-size: 4vh;
-      }
-    }
-    &__form {
-      &__inputs {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        &__input {
-          width: 25vw;
-          margin: 0.5rem 2rem;
-          padding: 0.5rem 1rem;
-        }
-      }
-    }
-    &__button {
-      &__next {
+      @media only screen and (max-width: $Large) {
         width: 25vw;
         padding: 0.5rem 0;
       }
-    }
-  }
-}
-
-@media only screen and (max-width: 610px) {
-  .create_session {
-    &__title {
-      h1 {
-        font-size: 3vh;
-      }
-    }
-    &__form {
-      &__inputs {
-        &__input {
-          width: 50vw;
-        }
-      }
-      &__type {
-        display: flex;
-        justify-content: center;
-        margin-top: 1vh;
-        &__h4 {
-          display: none;
-        }
-        select {
-          width: 50vw;
-        }
-      }
-      &__hr {
-        display: none;
-      }
-      &__carpool {
-        display: flex;
-        justify-content: center;
-        margin-top: 1vh;
-        &__h4 {
-          display: none;
-        }
-        select {
-          width: 50vw;
-        }
-      }
-    }
-    &__button {
-      margin-top: 2.5vh;
-      display: flex;
-      justify-content: center;
-      &__next {
+      @media only screen and (max-width: $Small) {
         width: 25vw;
         padding: 0.5rem 0;
       }

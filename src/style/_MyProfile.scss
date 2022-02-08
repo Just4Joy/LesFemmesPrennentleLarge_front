@@ -3,10 +3,22 @@
   padding: 2rem;
   margin: auto;
   width: 80vw;
+  @media only screen and (max-width: $Medium) {
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   &__row {
     display: flex;
     justify-content: space-between;
     margin-bottom: 1.4rem;
+    @media only screen and (max-width: $Medium) {
+      width: 80vw;
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 1.4rem;
+    }
     > p {
       @include hiki;
     }
@@ -14,15 +26,37 @@
   &__column {
     display: flex;
     gap: 2rem;
+    @media only screen and (max-width: $Medium) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 80vw;
+    }
     &__column1 {
       display: flex;
       flex-direction: column;
       width: 20%;
       gap: 1rem;
+      @media only screen and (max-width: $Medium) {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+      }
       > img {
         border: 1px rgb(167, 167, 167) solid;
         border-radius: 15px;
         padding: 2rem;
+        @media only screen and (max-width: $Large) {
+          padding: 2vh 2vw;
+        }
+        @media only screen and (max-width: $Medium) {
+          width: 30vw;
+          margin-right: 4vw;
+        }
+        @media only screen and (max-width: $MediumSmall) {
+          padding: 2vh 2vw;
+        }
       }
       &__form {
         display: flex;
@@ -57,6 +91,9 @@
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+        @media only screen and (max-width: $Medium) {
+          border: none;
+        }
         > h2 {
           font-weight: 600;
           margin-bottom: 0.5rem;
@@ -77,15 +114,32 @@
       justify-content: space-between;
       width: 60%;
       gap: 1rem;
+      @media only screen and (max-width: $Medium) {
+        justify-content: center;
+        width: 100%;
+      }
       &__row1 {
         display: flex;
         justify-content: space-between;
         border-bottom: 1px rgb(209, 209, 209) solid;
         padding-bottom: 0.5rem;
+        @media only screen and (max-width: $Medium) {
+          display: flex;
+          justify-content: space-between;
+          border-bottom: none;
+          padding-bottom: 0.5rem;
+        }
         > div {
           display: flex;
           width: 100%;
-
+          @media only screen and (max-width: $Medium) {
+            width: 80vw;
+            justify-content: center;
+            align-items: center;
+          }
+          @media only screen and (max-width: $MediumSmall) {
+            width: 100vw;
+          }
           > p {
             background-color: cadetblue;
             padding: 0.5rem 1.5rem;
@@ -93,6 +147,13 @@
             font-size: 11px;
             margin-right: 1rem;
             font-family: $Second-font;
+            @media only screen and (max-width: $Medium) {
+              width: 25vw;
+              text-align: center;
+            }
+            @media only screen and (max-width: $MediumSmall) {
+              width: 30vw;
+            }
           }
         }
       }
@@ -102,6 +163,9 @@
         > h2 {
           font-weight: 600;
           margin-bottom: 0.5rem;
+          @media only screen and (max-width: $Medium) {
+            display: none;
+          }
         }
         &__wrap {
           display: flex;
@@ -110,6 +174,9 @@
         }
       }
       &__row3 {
+        @media only screen and (max-width: $Medium) {
+          margin: 4vh 0;
+        }
         &__describe {
           border: 1px rgb(167, 167, 167) solid;
           border-radius: 15px;
@@ -146,134 +213,10 @@
 #select {
   background-color: cadetblue;
   border: none;
-}
-#option {
-  background-color: white;
-}
-
-@media only screen and (max-width: 992px) {
-  .myProfile__column__column1 {
-    img {
-      padding: 2vh 2vw;
-    }
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .myProfile {
-    width: 80vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    &__row {
-      width: 80vw;
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 1.4rem;
-      > p {
-        @include hiki;
-      }
-    }
-    &__column {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 80vw;
-      &__column1 {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        width: 100%;
-        > img {
-          width: 30vw;
-          margin-right: 4vw;
-        }
-
-        &__info {
-          border: none;
-        }
-      }
-      &__column2 {
-        justify-content: center;
-        width: 100%;
-        &__row1 {
-          display: flex;
-          justify-content: space-between;
-          border-bottom: none;
-          padding-bottom: 0.5rem;
-          > div {
-            width: 80vw;
-            justify-content: center;
-            align-items: center;
-            > p {
-              width: 25vw;
-              text-align: center;
-            }
-          }
-        }
-        &__row2 {
-          display: flex;
-          flex-direction: column;
-          > h2 {
-            display: none;
-          }
-          &__wrap {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-          }
-        }
-        &__row3 {
-          margin: 4vh 0;
-          &__describe {
-            border: 1px rgb(167, 167, 167) solid;
-            border-radius: 15px;
-            padding: 1rem;
-            min-height: 6.5rem;
-            > h2 {
-              font-weight: 600;
-              margin-bottom: 0.5rem;
-            }
-            &__input {
-              width: 100%;
-              margin-bottom: 0.5rem;
-              border: none;
-              font-family: $Second-font;
-              font-weight: 400;
-              font-size: 14px;
-              line-height: 20px;
-            }
-          }
-        }
-      }
-    }
-    &__button {
-      margin-top: 1rem;
-      border-radius: 10px;
-      border: 1px solid #c3c7c8;
-      padding: 0.5rem 0.5rem;
-      background-color: $Accent-3;
-      cursor: pointer;
-      font-weight: bolder;
-    }
-  }
-  #select {
+  @media only screen and (max-width: $Medium) {
     width: 20vw;
   }
 }
-
-@media only screen and (max-width: 642px) {
-  .myProfile__column__column2__row1 {
-    div {
-      width: 100vw;
-      p {
-        width: 30vw;
-      }
-    }
-  }
-  .myProfile__column__column1 {
-    img {
-      padding: 2vh 2vw;
-    }
-  }
+#option {
+  background-color: white;
 }

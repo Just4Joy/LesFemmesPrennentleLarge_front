@@ -15,17 +15,27 @@ import NextSession from '../NextSession';
 type MySession = ISession & IDepartment & IRegion;
 
 const Sessions = () => {
-  const { id_region } = useParams<{ id_region: string | undefined }>();
+  const { idRegion } = useParams<{ idRegion: string | undefined }>();
   const [allRegions, setAllRegions] = useState<IRegion[]>([]);
-  const [allDepartments, setAllDepartments] = useState<IDepartment[]>([]);
-  const [allSurfstyles, setAllSurfstyles] = useState<ISurfStyle[]>([]);
   const [selectedRegion, setSelectedRegion] = useState<number | undefined | string>();
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [mySessions, setMySessions] = useState<MySession[]>([]);
   const [pagination, setPagination] = useState<number>(0);
-  const [paginationActive, setPaginationActive] = useState<boolean>(false);
   const [sessions, setSessions] = useState<ISession[]>([]);
   const [showCalendar, setShowCalendar] = useState<boolean>(false);
+
+  const getAllSessionsStart = async () => {
+    const allSessions = await axios.get<ISession[]>(`http://localhost:3000/api/sessions`);
+    setSessions(allSessions.data);
+  };
+
+  useEffect(() => {
+    try {
+      getAllSessionsStart();
+    } catch (err) {
+      error();
+    }
+  }, []);
 
   // Axios functions
   const getAllSessions = async () => {
@@ -102,8 +112,8 @@ const Sessions = () => {
 
   // First useEffect
   useEffect(() => {
-    if (id_region !== undefined) {
-      setSelectedRegion(id_region);
+    if (idRegion !== undefined) {
+      setSelectedRegion(idRegion);
     }
     (async () => {
       try {
@@ -118,8 +128,6 @@ const Sessions = () => {
           regions.data,
         );
         setAllRegions(regions.data);
-        setAllDepartments(departments.data);
-        setAllSurfstyles(surfStyles.data);
       } catch (err) {
         error();
       }
@@ -141,8 +149,6 @@ const Sessions = () => {
           regions.data,
         );
         setAllRegions(regions.data);
-        setAllDepartments(departments.data);
-        setAllSurfstyles(surfStyles.data);
       } catch (err) {
         error();
       }
@@ -229,7 +235,6 @@ const Sessions = () => {
             <BsArrowRightSquareFill
               onClick={() => {
                 setPagination(pagination + 10);
-                setPaginationActive(true);
               }}
               className="sessions__button__more"
             />

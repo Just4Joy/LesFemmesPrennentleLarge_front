@@ -3,11 +3,26 @@
   margin-right: 8vw;
   display: flex;
   flex-direction: column;
+  @media only screen and (max-width: $Large) {
+    align-items: center;
+    justify-content: space-around;
+    margin-right: 0;
+    min-width: 20vw;
+  }
+  @media only screen and (max-width: $Medium) {
+    min-width: 30vw;
+  }
+  @media only screen and (max-width: $Small) {
+    min-width: 35vw;
+  }
   &__img {
     display: flex;
     justify-content: start;
     margin: 1rem 0 2rem 0;
     width: 13vw;
+    @media only screen and (max-width: $Small) {
+      width: 20vw;
+    }
     > img {
       max-height: 100%;
 
@@ -16,6 +31,9 @@
   }
   &__h5 {
     margin-bottom: 1rem;
+    @media only screen and (max-width: $Small) {
+      font-size: 1.7vh;
+    }
   }
   &__h6 {
     color: black;
@@ -30,42 +48,14 @@
     border: none;
     height: 1.5rem;
     margin: 1rem 0;
-  }
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (max-width: 992px) {
-  .hiki {
-    align-items: center;
-    justify-content: space-around;
-    margin-right: 0;
-    min-width: 20vw;
-    &__tag {
+    @media only screen and (max-width: $Large) {
       width: 15vw;
     }
-  }
-}
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 768px) {
-  .hiki {
-    min-width: 30vw;
-    &__tag {
+    @media only screen and (max-width: $Medium) {
       font-size: 1.2vh;
       width: 20vw;
     }
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .hiki {
-    min-width: 35vw;
-    &__h5 {
-      font-size: 1.7vh;
-    }
-    &__img {
-      width: 20vw;
-    }
-    &__tag {
+    @media only screen and (max-width: $Small) {
       font-size: 1.2vh;
       width: 28vw;
     }

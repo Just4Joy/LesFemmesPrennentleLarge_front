@@ -3,13 +3,27 @@
     width: 45vw;
     padding: 3vh 0;
     font-family: $Main-font;
+    @media only screen and (max-width: $Medium) {
+      width: 100%;
+    }
+    h1 {
+      @media only screen and (max-width: $Large) {
+        font-size: 4vh;
+      }
+      @media only screen and (max-width: $Medium) {
+        font-size: 2.5vh;
+      }
+    }
   }
   &__tags {
     width: 100%;
     display: flex;
     justify-content: space-around;
     margin-bottom: 4vh;
-
+    @media only screen and (max-width: $Medium) {
+      flex-wrap: wrap;
+      margin-bottom: 1vh;
+    }
     &__tag {
       display: flex;
       align-items: center;
@@ -22,6 +36,13 @@
       color: black;
       font-weight: 400;
       font-size: 1.3vh;
+      @media only screen and (max-width: $Large) {
+        width: 20vw;
+      }
+      @media only screen and (max-width: $Medium) {
+        width: 30vw;
+        margin-bottom: 1vh;
+      }
     }
   }
   &__session {
@@ -30,8 +51,15 @@
     justify-content: space-between;
     &__title {
       margin-bottom: 2vh;
+      @media only screen and (max-width: $Medium) {
+        font-size: 2vh;
+      }
     }
     &__details {
+      @media only screen and (max-width: $Medium) {
+        display: flex;
+        justify-content: space-around;
+      }
       &__adress {
         font-family: $Main-font;
         font-size: 2vh;
@@ -46,11 +74,22 @@
   }
   &__title2 {
     padding-bottom: 2rem;
+    @media only screen and (max-width: $Medium) {
+      padding-bottom: 1vh;
+    }
+    h3 {
+      @media only screen and (max-width: $Medium) {
+        font-size: 2vh;
+      }
+    }
   }
   &__weather {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    @media only screen and (max-width: $Medium) {
+      justify-content: space-around;
+    }
     &__buttons {
       display: flex;
       align-items: center;
@@ -65,6 +104,13 @@
       font-size: 1.3vh;
       padding: 0.7vh 0;
       margin-bottom: 3vh;
+      @media only screen and (max-width: $Large) {
+        width: 15vw;
+      }
+      @media only screen and (max-width: $Medium) {
+        width: 25vw;
+        margin-bottom: 1.5vh;
+      }
     }
   }
   &__button {
@@ -72,6 +118,12 @@
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
+    @media only screen and (max-width: $Large) {
+      margin: 1.5vh 0 0 0;
+    }
+    @media only screen and (max-width: $Medium) {
+      justify-content: center;
+    }
     &__validate {
       width: 10vw;
       border-radius: 10px;
@@ -79,6 +131,13 @@
       padding: 0.5rem 0;
       background-color: #fdc969;
       cursor: pointer;
+      @media only screen and (max-width: $Large) {
+        width: 15vw;
+        margin-left: 1vw;
+      }
+      @media only screen and (max-width: $Medium) {
+        width: 20vw;
+      }
     }
     &__cancel {
       width: 10vw;
@@ -86,134 +145,10 @@
       background-color: white;
       text-decoration: underline;
       cursor: pointer;
-    }
-  }
-}
-
-@media only screen and (max-width: 992px) {
-  .sessionResume {
-    &__title {
-      h1 {
-        font-size: 4vh;
-      }
-    }
-    &__tags {
-      &__tag {
-        width: 20vw;
-      }
-    }
-    &__weather {
-      &__buttons {
+      @media only screen and (max-width: $Large) {
         width: 15vw;
       }
-    }
-    &__button {
-      margin: 1.5vh 0 0 0;
-      &__validate {
-        width: 15vw;
-        margin-left: 1vw;
-      }
-      &__cancel {
-        width: 15vw;
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .sessionResume {
-    &__title {
-      h1 {
-        font-size: 3.3vh;
-      }
-    }
-    &__tags {
-      &__tag {
-        width: 20vw;
-      }
-    }
-    &__session {
-      &__title {
-        font-size: 2.5vh;
-      }
-      &__details {
-        display: flex;
-        justify-content: space-around;
-
-        &__adress {
-          font-family: $Main-font;
-          font-size: 2vh;
-          margin-bottom: 1.5vh;
-        }
-        &__number {
-          font-family: $Main-font;
-          font-size: 2vh;
-          margin-bottom: 5vh;
-        }
-      }
-    }
-    &__title2 {
-      h3 {
-        font-size: 2.5vh;
-      }
-    }
-    &__weather {
-      justify-content: space-around;
-      &__buttons {
-        width: 20vw;
-      }
-    }
-    &__button {
-      justify-content: center;
-      &__validate {
-        width: 15vw;
-        margin-left: 1vw;
-      }
-      &__cancel {
-        width: 15vw;
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .sessionResume {
-    &__title {
-      width: 100%;
-      h1 {
-        font-size: 2.5vh;
-      }
-    }
-    &__tags {
-      flex-wrap: wrap;
-      margin-bottom: 1vh;
-      &__tag {
-        width: 30vw;
-        margin-bottom: 1vh;
-      }
-    }
-    &__session {
-      &__title {
-        font-size: 2vh;
-      }
-    }
-    &__title2 {
-      padding-bottom: 1vh;
-      h3 {
-        font-size: 2vh;
-      }
-    }
-    &__weather {
-      &__buttons {
-        margin-bottom: 1.5vh;
-        width: 25vw;
-      }
-    }
-    &__button {
-      &__validate {
-        width: 20vw;
-      }
-      &__cancel {
+      @media only screen and (max-width: $Medium) {
         width: 20vw;
       }
     }

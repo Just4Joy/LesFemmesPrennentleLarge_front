@@ -20,7 +20,7 @@ const MyProfile = () => {
   const [users, setUsers] = useState<IUser>();
   const [update, setUpdate] = useState<boolean>(false);
 
-  const [editProfil, setEditProfil] = useState<boolean>(false);
+  const [editProfile, setEditProfile] = useState<boolean>(false);
   const [editSkills, setEditSkills] = useState<boolean>(false);
 
   const [departments, setDepartments] = useState<IDepartment>();
@@ -288,15 +288,19 @@ const MyProfile = () => {
     <div className="myProfile">
       <div className="myProfile__row">
         <p>{users && users.wahine ? 'Wahine' : 'Hiki'}</p>
-        {!editProfil ? (
-          <BsPencilSquare size="2rem" color="black" onClick={() => setEditProfil(true)} />
+        {!editProfile ? (
+          <BsPencilSquare
+            size="2rem"
+            color="black"
+            onClick={() => setEditProfile(true)}
+          />
         ) : (
           <BsPencilSquare size="2rem" color="#fedb9b" />
         )}
       </div>
 
       <div className="myProfile__column">
-        {!editProfil ? (
+        {!editProfile ? (
           <div className="myProfile__column__column1">
             <img src={users && users.profile_pic} alt="hiki" />
             <div className="myProfile__column__column1__info">
@@ -373,7 +377,7 @@ const MyProfile = () => {
         )}
 
         <div className="myProfile__column__column2">
-          {!editProfil ? (
+          {!editProfile ? (
             <div className="myProfile__column__column2__row1">
               <div>
                 <p>{departments && departments.department_name}</p>
@@ -434,7 +438,7 @@ const MyProfile = () => {
 
           <div className="myProfile__column__column2__row2">
             <h2>Skills</h2>
-            {!editProfil ? (
+            {!editProfile ? (
               <div className="myProfile__column__column2__row2__wrap">
                 {surfSkills &&
                   surfSkills.map((surfSkill) => {
@@ -460,7 +464,7 @@ const MyProfile = () => {
             )}
           </div>
           <div className="myProfile__column__column2__row3">
-            {!editProfil ? (
+            {!editProfile ? (
               <div className="myProfile__column__column2__row3__describe">
                 <h2>3 mots pour me décrire</h2>
                 <h6>{users && users.description}</h6>
@@ -484,12 +488,12 @@ const MyProfile = () => {
           </div>
         </div>
       </div>
-      {editProfil || editSkills ? (
+      {editProfile || editSkills ? (
         <button
           className="myProfile__button"
           onClick={() => {
             updateDataUser();
-            editProfil ? setEditProfil(false) : setEditSkills(false);
+            editProfile ? setEditProfile(false) : setEditSkills(false);
             setUpdate(!update);
           }}>
           Enregistrer

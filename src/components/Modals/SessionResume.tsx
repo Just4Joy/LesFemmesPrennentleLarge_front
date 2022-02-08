@@ -15,7 +15,7 @@ type Props = {
 };
 
 const SessionResume: FC<Props> = ({ setActiveModal }) => {
-  const { id_sessionCreated } = useContext(CurrentSessionContext);
+  const { idSessionCreated } = useContext(CurrentSessionContext);
   const [session, setSession] = useState<ISession>();
   const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
   const [weathers, setWeathers] = useState<IWeather[]>([]);
@@ -53,8 +53,8 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
 
   useEffect(() => {
     try {
-      getOneSession(id_sessionCreated);
-      getSessionWeather(id_sessionCreated);
+      getOneSession(idSessionCreated);
+      getSessionWeather(idSessionCreated);
     } catch (err) {
       error();
     }
@@ -64,7 +64,7 @@ const SessionResume: FC<Props> = ({ setActiveModal }) => {
   const deleteSession = async () => {
     try {
       const deletedSession = await axios.delete<ISession>(
-        `http://localhost:3000/api/sessions/${id_sessionCreated}`,
+        `http://localhost:3000/api/sessions/${idSessionCreated}`,
         {
           method: 'DELETE',
           headers: {

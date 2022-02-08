@@ -25,7 +25,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
   });
 
   const { id } = useContext(CurrentUserContext);
-  const { id_session } = useParams();
+  const { idSession } = useParams();
 
   const [session, setSession] = useState<ISession>();
   const [subscribers, setSubscribers] = useState<IUser[]>([]);
@@ -95,7 +95,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
   const createSubscribers = async (idSession: string | undefined, idUser: number) => {
     const createdSubscribers = await axios.post<IUser[]>(
       `http://localhost:3000/api/sessions/${idSession}/users/${idUser}`,
-      { id_session, id },
+      { idSession, id },
       {
         method: 'POST',
         headers: {
@@ -126,9 +126,9 @@ const Session: FC<Props> = ({ setActiveModal }) => {
   // First UseEffect
   useEffect(() => {
     try {
-      getOneSession(id_session);
-      getSuscribers(id_session);
-      getWeather(id_session);
+      getOneSession(idSession);
+      getSuscribers(idSession);
+      getWeather(idSession);
     } catch (err) {
       error();
     }
@@ -138,7 +138,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
   useEffect(() => {
     if (wantSubscribe) {
       try {
-        createSubscribers(id_session, id);
+        createSubscribers(idSession, id);
       } catch (err) {
         const er = err as AxiosError;
         if (er.response?.status === 422) {
@@ -150,7 +150,7 @@ const Session: FC<Props> = ({ setActiveModal }) => {
     }
     if (wantUnsubscribe) {
       try {
-        deleteSubscribers(id_session, id);
+        deleteSubscribers(idSession, id);
       } catch (err) {
         const er = err as AxiosError;
         if (er.response?.status === 404) {
