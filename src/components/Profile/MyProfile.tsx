@@ -17,15 +17,15 @@ import SurfSkill from '../SurfSkill';
 
 const MyProfile = () => {
   const { id } = useContext(CurrentUserContext);
-  const [users, setUsers] = useState<IUser>();
-  const [update, setUpdate] = useState<boolean>(false);
+  const [user, setUser] = useState<IUser>();
+  const [updated, setUpdated] = useState<boolean>(false);
 
-  const [editProfil, setEditProfil] = useState<boolean>(false);
+  const [editProfile, setEditProfile] = useState<boolean>(false);
   const [editSkills, setEditSkills] = useState<boolean>(false);
 
-  const [departments, setDepartments] = useState<IDepartment>();
+  const [department, setDepartment] = useState<IDepartment>();
   const [allDepartments, setAllDepartments] = useState<IDepartment[]>();
-  const [surfStyles, setSurfStyles] = useState<ISurfStyle>();
+  const [surfStyle, setSurfStyle] = useState<ISurfStyle>();
   const [allSurfStyles, setAllSurfStyles] = useState<ISurfStyle[]>();
   const [surfSkillsToAdd, setSurfSkillsToAdd] = useState<ISurfSkill[]>([]);
   const [surfSkills, setSurfSkills] = useState<ISurfSkill[]>([]);
@@ -44,27 +44,6 @@ const MyProfile = () => {
   useEffect(() => {
     (async () => {
       try {
-        //GET User
-        const user = await axios.get<IUser>(
-          `http://localhost:3000/api/users/${id}?display=all`,
-        );
-        setUsers(user.data);
-        //GET department of the user
-        const departement = await axios.get<IDepartment>(
-          `http://localhost:3000/api/departments/${user.data.id_department}`,
-        );
-        setDepartments(departement.data);
-        //GET the surfstyle of the user
-        const surfStyle = await axios.get<ISurfStyle>(
-          `http://localhost:3000/api/surfstyles/${user.data.id_surf_style}`,
-        );
-        setSurfStyles(surfStyle.data);
-        //GET the surfskills of the user
-        const SurfSkills = await axios.get<ISurfSkill[]>(
-          `http://localhost:3000/api/users/${user.data.id_user}/surfskills`,
-        );
-        setSurfSkills(SurfSkills.data);
-
         //GET surfskills
         const SurfSkillsToAdd = await axios.get<ISurfSkill[]>(
           'http://localhost:3000/api/surfskills',
@@ -81,6 +60,27 @@ const MyProfile = () => {
           'http://localhost:3000/api/surfstyles',
         );
         setAllSurfStyles(SurfStyles.data);
+
+        //GET User
+        const user = await axios.get<IUser>(
+          `http://localhost:3000/api/users/${id}?display=all`,
+        );
+        setUser(user.data);
+        //GET department of the user
+        const departement = await axios.get<IDepartment>(
+          `http://localhost:3000/api/departments/${user.data.id_department}`,
+        );
+        setDepartment(departement.data);
+        //GET the surfstyle of the user
+        const surfStyle = await axios.get<ISurfStyle>(
+          `http://localhost:3000/api/surfstyles/${user.data.id_surf_style}`,
+        );
+        setSurfStyle(surfStyle.data);
+        //GET the surfskills of the user
+        const SurfSkills = await axios.get<ISurfSkill[]>(
+          `http://localhost:3000/api/users/${user.data.id_user}/surfskills`,
+        );
+        setSurfSkills(SurfSkills.data);
       } catch (err: unknown) {
         error();
       }
@@ -99,7 +99,7 @@ const MyProfile = () => {
   //PUT User Profile Pic
   const onSuccess = async (res: any) => {
     try {
-      if (users) {
+      if (user) {
         const response = await axios.put<IUser>(
           `http://localhost:3000/api/users/${id}`,
           {
@@ -134,15 +134,14 @@ const MyProfile = () => {
 
   //PUT User details
   const updateDataUser = async () => {
-    // console.log(newDepartment, newSurfStyles, 'NEW DEPARTEMENT NEW SURFSTYLE ON CLICK');
     const data: any = {
       firstname: firstname,
       lastname: lastname,
       city: city,
       description: desc,
       favorite_spot: favorite_spot,
-      id_department: newDepartment,
-      id_surf_style: newSurfStyles,
+      id_department: newDepartment === 0 ? department?.id_department : newDepartment,
+      id_surf_style: newSurfStyles === 0 ? surfStyle?.id_surf_style : newSurfStyles,
     };
     for (const key in data) {
       if (data[key] === '' || data[key] === 0) {
@@ -183,23 +182,23 @@ const MyProfile = () => {
         const user = await axios.get<IUser>(
           `http://localhost:3000/api/users/${id}?display=all`,
         );
-        // @ts-ignore: Unreachable code error
-        // setUsers();
-        setUsers(user.data);
+
+        setUser(user.data);
         if (user.status !== 200) {
           throw new Error();
         }
         const departement = await axios.get<IDepartment>(
           `http://localhost:3000/api/departments/${data.id_department}`,
         );
-        setDepartments(departement.data);
+        setDepartment(departement.data);
         if (departement.status !== 200) {
           throw new Error();
         }
+
         const SurfStyle = await axios.get<ISurfStyle>(
           `http://localhost:3000/api/surfstyles/${data.id_surf_style}`,
         );
-        setSurfStyles(SurfStyle.data);
+        setSurfStyle(SurfStyle.data);
       } catch (err) {
         const er = err as AxiosError;
         if (er.response?.status === 401) {
@@ -231,7 +230,6 @@ const MyProfile = () => {
 
       //Replenish with new Surfskills of the user
       await Promise.all(
-
         activeSurfSkills.map(async (el) => {
           axios.post(
             `http://localhost:3000/api/users/${id}/surfskills`,
@@ -248,11 +246,11 @@ const MyProfile = () => {
       );
 
       //retrieves the surfskills
-      const surfskill = await axios.get<ISurfSkill[]>(
+      const surfskills = await axios.get<ISurfSkill[]>(
         `http://localhost:3000/api/users/${id}/surfskills?display=all`,
       );
       setActiveSurfSkills([]);
-      setSurfSkills(surfskill.data);
+      setSurfSkills(surfskills.data);
     } catch (err) {
       const er = err as AxiosError;
       if (er.response?.status === 401) {
@@ -270,24 +268,28 @@ const MyProfile = () => {
   return (
     <div className="myProfile">
       <div className="myProfile__row">
-        <p>{users && users.wahine ? 'Wahine' : 'Hiki'}</p>
-        {!editProfil ? (
-          <BsPencilSquare size="2rem" color="black" onClick={() => setEditProfil(true)} />
+        <p>{user && user.wahine ? 'Wahine' : 'Hiki'}</p>
+        {!editProfile ? (
+          <BsPencilSquare
+            size="2rem"
+            color="black"
+            onClick={() => setEditProfile(true)}
+          />
         ) : (
           <BsPencilSquare size="2rem" color="#fedb9b" />
         )}
       </div>
 
       <div className="myProfile__column">
-        {!editProfil ? (
+        {!editProfile ? (
           <div className="myProfile__column__column1">
-            <img src={users && users.profile_pic} alt="hiki" />
+            <img src={user && user.profile_pic} alt="hiki" />
             <div className="myProfile__column__column1__info">
               <h2>
-                {users && users.lastname} {users && users.firstname}
+                {user && user.lastname} {user && user.firstname}
               </h2>
-              <h6>{users && users.city}</h6>
-              <h6>{users && users.favorite_spot}</h6>
+              <h6>{user && user.city}</h6>
+              <h6>{user && user.favorite_spot}</h6>
             </div>
           </div>
         ) : (
@@ -309,7 +311,7 @@ const MyProfile = () => {
             <form className="myProfile__column__column1__info">
               <input
                 className="myProfile__column__column1__info__input"
-                placeholder={users && users.firstname}
+                placeholder={user && user.firstname}
                 type="text"
                 id="firstname"
                 name="firstname"
@@ -320,7 +322,7 @@ const MyProfile = () => {
               />
               <input
                 className="myProfile__column__column1__info__input"
-                placeholder={users && users.lastname}
+                placeholder={user && user.lastname}
                 type="text"
                 id="lastname"
                 name="lastname"
@@ -331,7 +333,7 @@ const MyProfile = () => {
               />
               <input
                 className="myProfile__column__column1__info__input"
-                placeholder={users && users.city}
+                placeholder={user && user.city}
                 type="text"
                 id="city"
                 name="city"
@@ -342,7 +344,7 @@ const MyProfile = () => {
               />
               <input
                 className="myProfile__column__column1__info__input"
-                placeholder={users && users.favorite_spot}
+                placeholder={user && user.favorite_spot}
                 type="text"
                 id="spot"
                 name="spot"
@@ -356,11 +358,11 @@ const MyProfile = () => {
         )}
 
         <div className="myProfile__column__column2">
-          {!editProfil ? (
+          {!editProfile ? (
             <div className="myProfile__column__column2__row1">
               <div>
-                <p>{departments && departments.department_name}</p>
-                <p>{surfStyles && surfStyles.name_user}</p>
+                <p>{department && department.department_name}</p>
+                <p>{surfStyle && surfStyle.name_user}</p>
               </div>
             </div>
           ) : (
@@ -371,6 +373,9 @@ const MyProfile = () => {
                     <select
                       id="select"
                       className="createProfil1__container__region"
+                      onChange={(e: React.FormEvent<HTMLSelectElement>) => {
+                        setNewDepartment(parseInt(e.currentTarget.value, 10));
+                      }}
                       onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
                         setNewDepartment(parseInt(e.currentTarget.value, 10));
                       }}>
@@ -393,6 +398,9 @@ const MyProfile = () => {
                   {
                     <select
                       id="select"
+                      onChange={(e: React.FormEvent<HTMLSelectElement>) => {
+                        setNewSurfStyles(parseInt(e.currentTarget.value, 10));
+                      }}
                       onBlur={(e: React.FormEvent<HTMLSelectElement>) => {
                         setNewSurfStyles(parseInt(e.currentTarget.value, 10));
                       }}>
@@ -417,7 +425,7 @@ const MyProfile = () => {
 
           <div className="myProfile__column__column2__row2">
             <h2>Skills</h2>
-            {!editProfil ? (
+            {!editProfile ? (
               <div className="myProfile__column__column2__row2__wrap">
                 {surfSkills &&
                   surfSkills.map((surfSkill) => {
@@ -443,17 +451,17 @@ const MyProfile = () => {
             )}
           </div>
           <div className="myProfile__column__column2__row3">
-            {!editProfil ? (
+            {!editProfile ? (
               <div className="myProfile__column__column2__row3__describe">
                 <h2>3 mots pour me décrire</h2>
-                <h6>{users && users.description}</h6>
+                <h6>{user && user.description}</h6>
               </div>
             ) : (
               <div className="myProfile__column__column2__row3__describe">
                 <h2>3 mots pour me décrire</h2>
                 <input
                   className="myProfile__column__column2__row3__describe__input"
-                  placeholder={users && users.description}
+                  placeholder={user && user.description}
                   type="text"
                   id="description"
                   name="description"
@@ -467,13 +475,13 @@ const MyProfile = () => {
           </div>
         </div>
       </div>
-      {editProfil || editSkills ? (
+      {editProfile || editSkills ? (
         <button
           className="myProfile__button"
           onClick={() => {
             updateDataUser();
-            editProfil ? setEditProfil(false) : setEditSkills(false);
-            setUpdate(!update);
+            editProfile ? setEditProfile(false) : setEditSkills(false);
+            setUpdated(!updated);
           }}>
           Enregistrer
         </button>
