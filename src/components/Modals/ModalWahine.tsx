@@ -34,7 +34,7 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
     try {
       const updatedWahine = await axios.put(
         `http://localhost:3000/api/users/${id}`,
-        { wahine: 1 },
+        { wahine_request: 1 },
         {
           method: 'PUT',
           headers: {
