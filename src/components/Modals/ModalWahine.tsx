@@ -11,7 +11,7 @@ type Props = {
 };
 
 const ModalWahine: FC<Props> = ({ setActiveModal }) => {
-  const { id, setWahine } = useContext(CurrentUserContext);
+  const { id } = useContext(CurrentUserContext);
   const [user, setUser] = useState<IUser>();
 
   const getUser = async (idUser: number) => {
@@ -32,6 +32,7 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
   //PUT Wahine
   const updateWahineStatus = async () => {
     try {
+      console.log(id)
       const updatedWahine = await axios.put(
         `http://localhost:3000/api/users/${id}`,
         { wahine_request: 1 },
@@ -46,8 +47,10 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
       if (updatedWahine.status !== 200) {
         throw new Error();
       } else {
+        const mailer = await axios.get<IUser>(
+          `http://localhost:3000/api/users/mail/${id}`,
+        );
         setActiveModal('wahineRegistrated');
-        setWahine(1);
       }
     } catch (err) {
       const er = err as AxiosError;
