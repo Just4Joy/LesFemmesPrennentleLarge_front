@@ -47,10 +47,17 @@ const ModalWahine: FC<Props> = ({ setActiveModal }) => {
       if (updatedWahine.status !== 200) {
         throw new Error();
       } else {
+        setActiveModal('wahineRegistrated')
         const mailer = await axios.get<IUser>(
-          `http://localhost:3000/api/users/mail/${id}`,
+          `http://localhost:3000/api/users/mail/${id}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+          },
         );
-        setActiveModal('wahineRegistrated');
+        ;
       }
     } catch (err) {
       const er = err as AxiosError;
